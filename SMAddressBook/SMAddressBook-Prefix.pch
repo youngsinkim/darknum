@@ -21,7 +21,7 @@
 #import "SMNetworkClient.h"     //< 네트워크 모듈
 #import "UserContext.h"         //< 사용자 정보
 
-//#import "BaseViewController.h"  //< 공통 뷰 컨트롤러
+#import "BaseViewController.h"  //< 공통 뷰 컨트롤러
 //#import "PortraitNavigationController.h"    //< 세로모드 네비게이션 컨트롤러
 
 #import "TSLanguageManager.h"   //< 다국어 모듈

@@ -100,6 +100,8 @@
 		BF3B466917C660C10069AA9A /* MMHorizontalListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466417C660C10069AA9A /* MMHorizontalListViewCell.m */; };
 		BF3B466A17C660C10069AA9A /* TSLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466717C660C10069AA9A /* TSLanguageManager.m */; };
 		BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF3B466C17C6691E0069AA9A /* Localizable.strings */; };
+		BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
+		BF3B467517C67C4A0069AA9A /* FavoriteToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +217,10 @@
 		BF3B466B17C6664F0069AA9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF3B466D17C6691E0069AA9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BF3B466F17C6692B0069AA9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BF3B467017C67C180069AA9A /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
+		BF3B467117C67C180069AA9A /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
+		BF3B467317C67C4A0069AA9A /* FavoriteToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteToolViewController.h; sourceTree = "<group>"; };
+		BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteToolViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,7 +280,7 @@
 				5062B63F17C4CB8B00A2495D /* SideMenu (왼쪽 메뉴) */,
 				5062B62917C4C10400A2495D /* AppDelegate.h */,
 				5062B62A17C4C10400A2495D /* AppDelegate.m */,
-				5062B64017C4CBA100A2495D /* Dashboard (메인 화면) */,
+				5062B64017C4CBA100A2495D /* 즐겨찾기 (메인 화면) */,
 				5062B65217C4D25200A2495D /* Login (로그인) */,
 				5062B62117C4C10400A2495D /* Supporting Files */,
 			);
@@ -307,11 +313,15 @@
 			name = "SideMenu (왼쪽 메뉴)";
 			sourceTree = "<group>";
 		};
-		5062B64017C4CBA100A2495D /* Dashboard (메인 화면) */ = {
+		5062B64017C4CBA100A2495D /* 즐겨찾기 (메인 화면) */ = {
 			isa = PBXGroup;
 			children = (
+				BF3B467017C67C180069AA9A /* FavoriteViewController.h */,
+				BF3B467117C67C180069AA9A /* FavoriteViewController.m */,
+				BF3B467317C67C4A0069AA9A /* FavoriteToolViewController.h */,
+				BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */,
 			);
-			name = "Dashboard (메인 화면)";
+			name = "즐겨찾기 (메인 화면)";
 			sourceTree = "<group>";
 		};
 		5062B64717C4CCAF00A2495D /* BaseClass (기본 구성) */ = {
@@ -647,6 +657,8 @@
 				BF3B466817C660C10069AA9A /* MMHorizontalListView.m in Sources */,
 				BF3B466917C660C10069AA9A /* MMHorizontalListViewCell.m in Sources */,
 				BF3B466A17C660C10069AA9A /* TSLanguageManager.m in Sources */,
+				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
+				BF3B467517C67C4A0069AA9A /* FavoriteToolViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

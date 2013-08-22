@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "BaseViewController.h"          //< 공통 뷰 컨트롤러
+#import "FavoriteViewController.h"      //< 즐겨찾기(메인) 뷰 컨트롤러
 #import "PortraitNavigationController.h"//< 세로모드 네비게이션 컨트롤러
 #import "MenuTableViewController.h"     //< 왼쪽 메뉴 테이블 뷰 컨트롤러
 #import "LoginViewController.h"         //< 로그인 뷰 컨트롤러
@@ -200,8 +200,7 @@
 - (MFSideMenuContainerViewController *)sideMenuConrainer
 {
     // 대시보드(즐겨찾기) 화면
-//    _favoriteViewController = [[FavoriteViewController alloc] init];
-    BaseViewController *viewController = [[BaseViewController alloc] init];
+    FavoriteViewController *viewController = [[FavoriteViewController alloc] init];
     
     // 왼쪽 메뉴
     MenuTableViewController *leftMenuViewController = [[MenuTableViewController alloc] init];
