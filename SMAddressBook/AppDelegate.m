@@ -14,6 +14,7 @@
 
 #import <AFNetworkActivityIndicatorManager.h>
 #import <MFSideMenuContainerViewController.h>
+#import <QuartzCore/QuartzCore.h>
 
 
 @implementation AppDelegate
@@ -44,12 +45,13 @@
     
     
     // UserInfo의 auto login 정보에 따라 로그인 창 띄우기
-//    NSLog(@"AUTO LOGIN : %d", [UserContext shared].isAutoLogin);
+    NSLog(@"AUTO LOGIN : %d", [UserContext shared].isAutoLogin);
     
-    if ([UserContext shared].isAutoLogin == NO)
+    if ([UserContext shared].isAutoLogin == YES)
     {
         //---------- 자동 로그인 (0) : 대쉬보드 화면 표시 ----------
-        self.window.rootViewController = [self sideMenuConrainer];
+        [self showMainViewController:nil animated:NO];
+//        self.window.rootViewController = [self sideMenuConrainer];
     }
     else
     {
@@ -220,4 +222,47 @@
     return [self navigationController:loginViewController];
 }
 
+/// 메인(즐겨찾기) 화면 뷰 컨트롤러
+- (void)showMainViewController:(UIViewController *)viewControllder animated:(BOOL)isAnimated
+{
+    if (isAnimated == NO)
+    {
+        self.window.rootViewController = [self sideMenuConrainer];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.3f
+                         animations:^{
+                             
+                             viewControllder.view.alpha = 0.0;
+                         }
+                         completion:^(BOOL finished) {
+                             
+                             if (viewControllder) {
+                                 [viewControllder.view removeFromSuperview];
+                             }
+                             
+                             self.window.rootViewController = [self sideMenuConrainer];
+
+                         }];
+
+//        [UIView transitionWithView:viewControllder.view
+//                          duration:2.0f
+//                           options:UIViewAnimationOptionTransitionFlipFromTop
+//                        animations:^{
+//                            
+////                        self.window.rootViewController.view.alpha = 0.0f;
+////                            viewControllder.view.alpha = 0.5f;
+//                        }
+//                        completion:^(BOOL finished) {
+//                            
+//                            if (viewControllder) {
+//                                [viewControllder.view removeFromSuperview];
+//                            }
+//                            
+//                            self.window.rootViewController = [self sideMenuConrainer];
+//                            
+//                        }];
+    }
+}
 @end

@@ -29,21 +29,21 @@ static UserContext *_sharedUserContext = nil;
 {
 	@synchronized([UserContext class])
 	{
-    NSAssert(_sharedUserContext == nil, @"Attempted to allocate a second instance of a singleton.");
-    _sharedUserContext = [super alloc];
-//    _sharedUserContext.setting = [[NSMutableDictionary alloc] initWithCapacity:3];
-    return _sharedUserContext;
+        NSAssert(_sharedUserContext == nil, @"Attempted to allocate a second instance of a singleton.");
+        _sharedUserContext = [super alloc];
+        _sharedUserContext.loginInfo = [[NSMutableDictionary alloc] initWithCapacity:3];
+        return _sharedUserContext;
 	}
+    
 	// to avoid compiler warning
 	return nil;
 }
-
 
 - (id)initWithDefault
 {
 	self = [super init];
 	if (self != nil)
-        {
+    {
         _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
         NSLog(@"auto login : %d", _isAutoLogin);
         //		vcCallStack = [[NSMutableArray alloc] initWithCapacity:20];
@@ -54,7 +54,8 @@ static UserContext *_sharedUserContext = nil;
         //        self.userProfileImage = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_IMAGE"];
         //        self.nickName = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NICKNAME"];
         //		self.deviceToken = @"DEVICE_TOKEN";
-        }
+    }
+    
 	return self;
 }
 

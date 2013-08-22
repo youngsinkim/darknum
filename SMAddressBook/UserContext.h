@@ -10,7 +10,8 @@
 
 @interface UserContext : NSObject
 
-@property (assign, nonatomic) BOOL isAutoLogin;
+@property (strong, nonatomic) NSMutableDictionary *loginInfo;   // 로그인 데이터
+@property (assign, nonatomic) BOOL isAutoLogin;                 //< 자동 로그인 설정 여부
 
 + (UserContext *)shared;
 

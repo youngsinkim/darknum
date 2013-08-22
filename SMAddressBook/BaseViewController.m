@@ -37,7 +37,8 @@
 	// Do any additional setup after loading the view.
     
     // 공통 뷰 배경
- //   [self setBackgroundImage];
+    self.view.backgroundColor = [UIColor whiteColor];
+//   [self setBackgroundImage];
     
     // 네비게이션 버튼
     [self setupMenuBarButtonItems];

@@ -1,0 +1,61 @@
+/* Localized versions of Info.plist keys */
+
+/// Favorite Title
+"favorite_title" = "즐겨찾기";
+
+/// Address Title
+"address_title" = "주소록";
+
+/// Login Title
+"login_title" = "로그인";
+
+/// faculty Text
+"faculty_text" = "교수진";
+
+/// faculty Member Text
+"faculty_member_text" = "교직원";
+
+/// Total View Text
+"total_view_text" = "전체보기";
+
+/// Setting
+"setting_title" = "설정";
+
+/// My Info Setting
+"my_info_setting" = "내 정보설정";
+
+/// My Card Setting
+"my_card_setting" = "내 명함 설정";
+
+/// Favorite Setting
+"favorite_setting" = "즐겨찾기 설정";
+
+/// Term & Policy
+"terms_and_policy" = "약관 및 정책";
+
+/// Help
+"help" = "도움말";
+
+/// User ID Placeholder
+"user_id_placeholder" = "아이디";
+
+/// User PWD Placeholder
+"user_pwd_placeholder" = "비밀번호";
+
+// Korean Button Text
+"korean_text" = "한국어";
+
+// English Button Text
+"english_text" = "English";
+
+/* ID Save Check Button Text */
+"id_save_text" = "아이디 저장";
+
+/* Login Save Check Button Text */
+"login_save_text" = "로그인 유지";
+
+/* ID Find Text */
+"id_find_text" = "아이디 찾기 >";
+
+/* PWD Find Text */
+"password_find_text" = "비밀번호 찾기 >";
