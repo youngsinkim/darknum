@@ -94,7 +94,6 @@
 		5062B6DD17C4D72F00A2495D /* web_pre_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69717C4D72F00A2495D /* web_pre_off@2x.png */; };
 		5062B6DE17C4D72F00A2495D /* white_btn_bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69817C4D72F00A2495D /* white_btn_bg2.png */; };
 		5062B6DF17C4D72F00A2495D /* white_btn_bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69917C4D72F00A2495D /* white_btn_bg2@2x.png */; };
-		5062B6E917C4DB0C00A2495D /* UIImage+StackBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B6E617C4DB0C00A2495D /* UIImage+StackBlur.m */; };
 		5062B6EA17C4DB0C00A2495D /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -196,8 +195,6 @@
 		5062B69717C4D72F00A2495D /* web_pre_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "web_pre_off@2x.png"; sourceTree = "<group>"; };
 		5062B69817C4D72F00A2495D /* white_btn_bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_btn_bg2.png; sourceTree = "<group>"; };
 		5062B69917C4D72F00A2495D /* white_btn_bg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_btn_bg2@2x.png"; sourceTree = "<group>"; };
-		5062B6E517C4DB0C00A2495D /* UIImage+StackBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StackBlur.h"; sourceTree = "<group>"; };
-		5062B6E617C4DB0C00A2495D /* UIImage+StackBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+StackBlur.m"; sourceTree = "<group>"; };
 		5062B6E717C4DB0C00A2495D /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
 		5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
 		9B3EE368BB1647438F672678 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,8 +405,6 @@
 		5062B6E417C4DB0B00A2495D /* Extern */ = {
 			isa = PBXGroup;
 			children = (
-				5062B6E517C4DB0C00A2495D /* UIImage+StackBlur.h */,
-				5062B6E617C4DB0C00A2495D /* UIImage+StackBlur.m */,
 				5062B6E717C4DB0C00A2495D /* UIView+Shadow.h */,
 				5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */,
 			);
@@ -595,7 +590,6 @@
 				5062B64A17C4CCEE00A2495D /* PortraitNavigationController.m in Sources */,
 				5062B64E17C4CDDC00A2495D /* UserContext.m in Sources */,
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
-				5062B6E917C4DB0C00A2495D /* UIImage+StackBlur.m in Sources */,
 				5062B6EA17C4DB0C00A2495D /* UIView+Shadow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

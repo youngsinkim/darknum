@@ -7,7 +7,6 @@
 //
 
 #import "BaseViewController.h"
-#import "UIImage+StackBlur.h"
 #import <MFSideMenuContainerViewController.h>
 
 @interface BaseViewController ()
@@ -55,7 +54,6 @@
 {
     UIImage *image = [UIImage imageNamed:@"007-StockPhoto-320x568"];
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    backgroundView.image = [image stackBlur:60];
     
     [self.view addSubview:backgroundView];
 }
