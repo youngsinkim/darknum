@@ -1,0 +1,45 @@
+//
+// Prefix header for all source files of the 'SMAddressBook' target in the 'SMAddressBook' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
+
+///////////////////////////////////////////////////////////////
+// 
+//#import <MFSideMenu.h>          //< 사이드 메뉴 오픈 소스
+
+//#import "JYNetworkManager.h"    //< 네트워크 모듈
+#import "UserContext.h"         //< 사용자 정보
+
+//#import "BaseViewController.h"  //< 공통 뷰 컨트롤러
+//#import "PortraitNavigationController.h"    //< 세로모드 네비게이션 컨트롤러
+
+//#import "TSLanguageManager.h"
+
+
+///////////////////////////////////////////////////////////////
+#ifdef DEBUG
+#define NSLog( s, ... ) NSLog((@"%s(%d) " s), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define NSLog( s, ... )
+#endif
+
+///////////////////////////////////////////////////////////////
+// for AFNetworking
+#define _AFNETWORKING_PREFER_NSJSONSERIALIZATION_
+
+
+///////////////////////////////////////////////////////////////
+/// plist 정보
+#define USERINFO    @"UserInfo"
+#define kAutoLogin  @"AutoLogin"
