@@ -19,6 +19,9 @@
 /// 로그인 요청
 - (void)postLogin:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
 
+/// 과정기수 목록
+- (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
+
 /// otn test API
 - (void)getVodTotalList:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
 

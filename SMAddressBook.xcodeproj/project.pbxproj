@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
+		5052623A17C757F9004C4724 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052623917C757F9004C4724 /* Faculty.m */; };
+		5052623D17C757F9004C4724 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052623C17C757F9004C4724 /* Major.m */; };
+		5052624017C757F9004C4724 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052623F17C757F9004C4724 /* Staff.m */; };
+		5052624317C757F9004C4724 /* Classes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052624217C757F9004C4724 /* Classes.m */; };
+		5052624617C757F9004C4724 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052624517C757F9004C4724 /* Student.m */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
 		5062B61B17C4C10400A2495D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
 		5062B61D17C4C10400A2495D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61C17C4C10400A2495D /* CoreGraphics.framework */; };
@@ -106,6 +112,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
+		5052623817C757F9004C4724 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
+		5052623917C757F9004C4724 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
+		5052623B17C757F9004C4724 /* Major.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Major.h; sourceTree = "<group>"; };
+		5052623C17C757F9004C4724 /* Major.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Major.m; sourceTree = "<group>"; };
+		5052623E17C757F9004C4724 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
+		5052623F17C757F9004C4724 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
+		5052624117C757F9004C4724 /* Classes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Classes.h; sourceTree = "<group>"; };
+		5052624217C757F9004C4724 /* Classes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Classes.m; sourceTree = "<group>"; };
+		5052624417C757F9004C4724 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		5052624517C757F9004C4724 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		5062B61517C4C10400A2495D /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5062B61817C4C10400A2495D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5062B61A17C4C10400A2495D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -239,6 +256,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5052624717C7580F004C4724 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
+				5052624417C757F9004C4724 /* Student.h */,
+				5052624517C757F9004C4724 /* Student.m */,
+				5052624117C757F9004C4724 /* Classes.h */,
+				5052624217C757F9004C4724 /* Classes.m */,
+				5052623E17C757F9004C4724 /* Staff.h */,
+				5052623F17C757F9004C4724 /* Staff.m */,
+				5052623B17C757F9004C4724 /* Major.h */,
+				5052623C17C757F9004C4724 /* Major.m */,
+				5052623817C757F9004C4724 /* Faculty.h */,
+				5052623917C757F9004C4724 /* Faculty.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		5062B60C17C4C10400A2495D = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				5062B6E417C4DB0B00A2495D /* Extern (외부 모듈) */,
+				5052624717C7580F004C4724 /* Models */,
 				BF3B465817C64BF20069AA9A /* Network (네트워크 모듈) */,
 				5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */,
 				5062B64717C4CCAF00A2495D /* BaseClass (기본 구성) */,
@@ -292,7 +328,6 @@
 			children = (
 				BF3B466C17C6691E0069AA9A /* Localizable.strings */,
 				5062B65317C4D72F00A2495D /* Assets */,
-				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
 				5062B62217C4C10400A2495D /* SMAddressBook-Info.plist */,
 				5062B62317C4C10400A2495D /* InfoPlist.strings */,
 				5062B62617C4C10400A2495D /* main.m */,
@@ -445,6 +480,7 @@
 		BF3B465817C64BF20069AA9A /* Network (네트워크 모듈) */ = {
 			isa = PBXGroup;
 			children = (
+				5052623317C72ACC004C4724 /* http_sample_data */,
 				BF3B465417C64BDA0069AA9A /* SMNetworkClient.h */,
 				BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */,
 			);
@@ -601,6 +637,7 @@
 				5062B6DE17C4D72F00A2495D /* white_btn_bg2.png in Resources */,
 				5062B6DF17C4D72F00A2495D /* white_btn_bg2@2x.png in Resources */,
 				BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */,
+				5052623417C72ACC004C4724 /* http_sample_data in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,6 +696,11 @@
 				BF3B466A17C660C10069AA9A /* TSLanguageManager.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
 				BF3B467517C67C4A0069AA9A /* FavoriteToolViewController.m in Sources */,
+				5052623A17C757F9004C4724 /* Faculty.m in Sources */,
+				5052623D17C757F9004C4724 /* Major.m in Sources */,
+				5052624017C757F9004C4724 /* Staff.m in Sources */,
+				5052624317C757F9004C4724 /* Classes.m in Sources */,
+				5052624617C757F9004C4724 /* Student.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
