@@ -20,6 +20,9 @@
 
 #import "SMNetworkClient.h"     //< 네트워크 모듈
 #import "UserContext.h"         //< 사용자 정보
+#import "LoadingView.h"
+#import <MBProgressHUD.h>
+
 
 #import "BaseViewController.h"  //< 공통 뷰 컨트롤러
 //#import "PortraitNavigationController.h"    //< 세로모드 네비게이션 컨트롤러
@@ -47,5 +50,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 ///////////////////////////////////////////////////////////////
 /// plist 정보
-#define USERINFO    @"UserInfo"
-#define kAutoLogin  @"AutoLogin"
+#define USERINFO        @"UserInfo"
+#define kAutoLogin      @"AutoLogin"    //< 자동 로그인 여부
+#define kAcceptTerms    @"AcceptTerms"  //< 약관 동의 여부

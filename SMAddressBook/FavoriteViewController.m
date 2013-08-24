@@ -33,7 +33,7 @@
     [self setupFavoriteUI];
     
     // 과정 기수 목록 가져오기
-    [self requestAPIClasses];
+//    [self requestAPIClasses];
     
     // 기수 목록 중 즐겨찾기 목록 구성
     

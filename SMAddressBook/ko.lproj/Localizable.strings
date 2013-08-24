@@ -55,7 +55,26 @@
 "login_save_text" = "로그인 유지";
 
 /* ID Find Text */
-"id_find_text" = "아이디 찾기 >";
+"id_find_text" = "아이디 찾기";
 
 /* PWD Find Text */
-"password_find_text" = "비밀번호 찾기 >";
+"password_find_text" = "비밀번호 찾기";
+
+/* Login Info Text */
+"login_info_text" = "서울대학교 경영전문대학원 회원센터에\n 등록된 아이디와 비밀번로 로그인 하세요.";
+
+/* Login Error Text */
+"login_error_text" = "서울대학교 경영전문대학원 소속이 아니거나,\n 잘못된 아이디 또는 비밀번호로 입력하셨습니다. ";
+
+/* Button OK */
+"btn_ok" = "확인";
+
+/* Button Cancel */
+"btn_cancel" = "취소";
+
+/* Alert Id Empty Text */
+"alert_id_empty_text" = "아이디를 입력하세요.";
+
+/* Alert Password Empty Text */
+"alert_pwd_empty_text" = "비밀번호를 입력하세요.";
+

@@ -44,8 +44,9 @@ static UserContext *_sharedUserContext = nil;
 	self = [super init];
 	if (self != nil)
     {
-        _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
-        NSLog(@"auto login : %d", _isAutoLogin);
+        //
+        [self loadAppSetting];
+        
         //		vcCallStack = [[NSMutableArray alloc] initWithCapacity:20];
         //		self.feedCounter = [[[FeedCounter alloc] init] autorelease];
         
@@ -61,13 +62,32 @@ static UserContext *_sharedUserContext = nil;
 
 #pragma mark -
 
-- (void)setIsAutoLogin:(BOOL)isAutoLogin
+/// App 세팅 읽어오기
+- (void)loadAppSetting
 {
-    [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
+    _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
+    _isAcceptTerms = [[NSUserDefaults standardUserDefaults] boolForKey:kAcceptTerms];
+    
+    NSLog(@"App Info : auto_login(%d), accept_terms(%d)", _isAutoLogin, _isAcceptTerms);
+}
+
+/// 자동 로그인 설정
+- (void)setAutoLogin:(BOOL)bAutoLogin
+{
+    [[NSUserDefaults standardUserDefaults] setBool:bAutoLogin forKey:kAutoLogin];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    _isAutoLogin = isAutoLogin;
-    //    _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
+    _isAutoLogin = bAutoLogin;
+    
+}
+
+/// 약관 동의 설정
+- (void)setAcceptTerms:(BOOL)bAcceptTerms
+{
+    [[NSUserDefaults standardUserDefaults] setBool:bAcceptTerms forKey:kAcceptTerms];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    _isAcceptTerms = bAcceptTerms;
     
 }
 

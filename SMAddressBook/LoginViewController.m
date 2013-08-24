@@ -10,11 +10,15 @@
 #import "LoginViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "SMNetworkClient.h"
+#import "NSString+MD5.h"
 
 @interface LoginViewController ()
 
-@property (strong, nonatomic) UITextField *userIdTextField;
-@property (strong, nonatomic) UITextField *userPwdTextField;
+@property (strong, nonatomic) MBProgressHUD *HUD;
+//@property (strong, nonatomic) LoadingView *loading;
+@property (strong, nonatomic) UILabel *infoLabel;
+@property (strong, nonatomic) UITextField *idTextField;
+@property (strong, nonatomic) UITextField *pwdTextField;
 @property (strong, nonatomic) UIButton *loginBtn;
 @property (strong, nonatomic) UIButton *koLanguageBtn;
 @property (strong, nonatomic) UIButton *enLanguageBtn;
@@ -47,6 +51,8 @@
 
     self.view.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
     
+
+    // 로그인 화면 구성
     [self setupLoginUI];
 }
 
@@ -60,59 +66,90 @@
 - (void)setupLoginUI
 {
     // 배경 라인 박스
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 320.0f - 20.0f, 260.0f)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 320.0f - 20.0f, 416.0f)];
     [bgView.layer setCornerRadius:2.0f];
     [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5f].CGColor];
     [bgView.layer setBorderWidth:1.0f];
+    [bgView setUserInteractionEnabled:YES];
     
     [self.view addSubview:bgView];
     
     {
-        CGFloat xOffset = 20.0f;
+        CGFloat xOffset = 10.0f;
+        CGFloat yOffset = 5.0f;
         CGFloat startY = 10.0f;
         
+        // 로그인 안내 문구
+        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, startY, 280.0f, 60.0f)];
+        [_infoLabel setTextAlignment:NSTextAlignmentCenter];
+        [_infoLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [_infoLabel setNumberOfLines:0];
+        [_infoLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        _infoLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
+        _infoLabel.backgroundColor = [UIColor clearColor];
+        _infoLabel.text = LocalizedString(@"login_info_text", @"로그인 안내 문구");
+        
+        [bgView addSubview:_infoLabel];
+        startY += (_infoLabel.frame.size.height + yOffset);
+        
+        
         // 아이디 입력창
-        _userIdTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, 100.0f, 320.0f - xOffset - 100.0f, 24.0f)];
-        _userIdTextField.delegate = self;
-        _userIdTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
-        _userIdTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _userIdTextField.returnKeyType = UIReturnKeyNext;
-        _userIdTextField.delegate = self;
-        _userIdTextField.font = [UIFont systemFontOfSize:16.0f];
-        _userIdTextField.borderStyle = UITextBorderStyleLine;
+        UIImage *inputBoxBg = [UIImage imageNamed:@"input_text_border"];
+        _idTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 200.0f, 28.0f)];
+        _idTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+        _idTextField.delegate = self;
+        _idTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
+        _idTextField.text = @"ztest01";
+//        [_idTextField setBorderStyle:UITextBorderStyleLine];
+//        [_idTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
+        [_idTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
+        [_idTextField setTextAlignment:NSTextAlignmentCenter];
+        [_idTextField setReturnKeyType:UIReturnKeyNext];
+        [_idTextField setKeyboardType:UIKeyboardTypeDefault];
+        [_idTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        _idTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _idTextField.font = [UIFont systemFontOfSize:16.0f];
         
-        [bgView addSubview:_userIdTextField];
-        
-        
-        // 비밀번호 입력창
-        _userPwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, _userIdTextField.frame.origin.y + 34.0f, 320.0f - xOffset - 100.0f, 24.0f)];
-        _userPwdTextField.delegate = self;
-        _userPwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
-        _userPwdTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _userPwdTextField.returnKeyType = UIReturnKeyDone;
-        _userPwdTextField.delegate = self;
-        _userPwdTextField.font = [UIFont systemFontOfSize:16.0f];
-        _userPwdTextField.borderStyle = UITextBorderStyleLine;
-        
-        [bgView addSubview:_userPwdTextField];
+        [bgView addSubview:_idTextField];
         
         
         // 로그인 버튼
         _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loginBtn.frame = CGRectMake(320.0f - xOffset - 70.0f, _userIdTextField.frame.origin.y, 70.0f, 58.0f);
-        [_loginBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:10] forState:UIControlStateNormal];
+        _loginBtn.frame = CGRectMake(xOffset + _idTextField.frame.size.width + 10.0f, startY, 70.0f, 56.0f);
+        [_loginBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
         [_loginBtn setTitle:LocalizedString(@"login_title", @"로그인") forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _loginBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        _loginBtn.titleLabel.textAlignment = UITextAlignmentCenter;
+        _loginBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [_loginBtn addTarget:self action:@selector(onLoginClicked) forControlEvents:UIControlEventTouchUpInside];
         
         [bgView addSubview:_loginBtn];
+        startY += (_idTextField.frame.size.height + yOffset);
+
         
+        // 비밀번호 입력창
+        _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 200.0f, 28.0f)];
+        _pwdTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+        _pwdTextField.delegate = self;
+        _pwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
+        _pwdTextField.text = @"1111#";
+//        [_pwdTextField setBorderStyle:UITextBorderStyleLine];
+//        [_pwdTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
+        [_pwdTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
+        [_pwdTextField setTextAlignment:NSTextAlignmentCenter];
+        [_pwdTextField setReturnKeyType:UIReturnKeyDone];
+        [_pwdTextField setKeyboardType:UIKeyboardTypeDefault];
+        [_pwdTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        _pwdTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _pwdTextField.font = [UIFont systemFontOfSize:16.0f];
+        
+        [bgView addSubview:_pwdTextField];
+        startY += (_pwdTextField.frame.size.height + yOffset);
+                
         
         // 한국어 버튼
         _koLanguageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _koLanguageBtn.frame = CGRectMake(xOffset, _userPwdTextField.frame.origin.y + 34.0f, 100.0f, 24.0f);
+        _koLanguageBtn.frame = CGRectMake(xOffset, _pwdTextField.frame.origin.y + 34.0f, 100.0f, 24.0f);
         [_koLanguageBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:4] forState:UIControlStateNormal];
         _koLanguageBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         _koLanguageBtn.titleLabel.textAlignment = UITextAlignmentCenter;
@@ -189,6 +226,13 @@
     }
 }
 
+#pragma mark - ViewController methods
+- (void)reset
+{
+    [self.HUD hide:YES];
+    [self.loginBtn setEnabled:YES];
+}
+
 // 컨트롤 문자열 업데이트 (언어 설정에 따른)
 - (void)updateControls
 {
@@ -201,8 +245,8 @@
     
     
     self.navigationItem.title = LocalizedString(@"login_title", @"로그인");
-    self.userIdTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
-    self.userPwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
+    self.idTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
+    self.pwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
     self.loginBtn.titleLabel.text = LocalizedString(@"login_title", @"로그인");
     //    [_loginBtn setTitle:LocalizedString(@"login_title", @"로그인") forState:UIControlStateNormal];
     //    self.koLanguageBtn.titleLabel.text = LocalizedString(@"korean_text", @"한국어");
@@ -218,8 +262,31 @@
     
 }
 
-#pragma mark - UITextField delegate
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touched!");
+    [self.view endEditing:YES];// this will do the trick
+    
+    // 로딩 중이면 멈춤
+    [self reset];
+}
 
+#pragma mark - UITextField delegate
+/// 리턴 키를 누를 때 실행
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    // keyboard 감추기
+	[textField resignFirstResponder];
+    
+    if (textField == _idTextField) {
+        // 다음(비밀번호) 컨트롤 focus
+        [_pwdTextField becomeFirstResponder];   
+    }
+    
+	return YES;
+}
+
+/// textField의 내용이 변경될 때 실행
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     //    NSInteger length = [textField.text length] + string.length;
@@ -232,14 +299,61 @@
     //
     //        return NO;
     //    }
-    return YES;
+    return YES;     // NO를 리턴할 경우 변경내용이 반영되지 않는다
 }
+
+/// textField의 내용이 삭제될 때 실행
+// clearButtonMode 속성값이 UITextFieldViewModeNever가 아닌 경우에만 실행
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    return YES;    // NO를 리턴할 경우 변경내용이 반영되지 않는다.
+}
+
 
 #pragma mark - UIControl Callbacks
 /// 로그인
 - (void)onLoginClicked
 {
-    [self requestAPILogin];
+    _loginBtn.enabled = NO;
+
+    if ([_idTextField isFirstResponder]) {
+        [_idTextField resignFirstResponder];
+    }
+
+    // 아이디 문자열 체크
+    if ([_idTextField.text length] == 0)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:LocalizedString(@"alert_id_empty_text", nil) delegate:self cancelButtonTitle:LocalizedString(@"btn_ok", nil) otherButtonTitles:nil];
+        
+        [alertView show];
+        _loginBtn.enabled = YES;
+        
+        return;
+    }
+    
+    // 비밀번호 문자열 체크
+    if ([_pwdTextField.text length] == 0)
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:LocalizedString(@"alert_pwd_empty_text", nil) delegate:self cancelButtonTitle:LocalizedString(@"btn_ok", nil) otherButtonTitles:nil];
+        
+        [alertView show];
+        _loginBtn.enabled = YES;
+        
+        return;
+    }
+    
+    
+    // 로그인 요청
+    NSString *crytoMobileNo = [NSString stringWithFormat:@"01023873856"];
+    NSLog(@"사용자 Id : %@", crytoMobileNo);
+    
+    NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
+                            @"phone":crytoMobileNo,
+                            @"updatedate":@"0000-00-00 00:00:00",
+                            @"userid":_idTextField.text,
+                            @"passwd":_pwdTextField.text};
+    
+    [self requestAPILogin:param];
 }
 
 /// Korean
@@ -282,19 +396,29 @@
 
 #pragma mark - Network methods
 /// 로그인 요청 
-- (void)requestAPILogin
+- (void)requestAPILogin:(NSDictionary *)param
 {
-    NSDictionary *pathDict = @{@"scode":@"5684825a51beb9d2fa05e4675d91253c", @"phone":@"01023873856", @"updatedate":@"0000-00-00 00:00:00", @"userid":@"ztest01", @"passwd":@"1111#"};
+//    self.loading = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 40.0f, 40.0f)];
+//    self.loading.center = self.view.center;
+//
+//    [self.view addSubview:self.loading];
+    
+    self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+	self.HUD.delegate = self;
+    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];// colorWithRed:0.23 green:0.50 blue:0.82 alpha:0.90];
+    self.HUD.margin = 10.0f;
+
+
+//    NSDictionary *pathDict = @{@"scode":@"5684825a51beb9d2fa05e4675d91253c", @"phone":@"01023873856", @"updatedate":@"0000-00-00 00:00:00", @"userid":@"ztest01", @"passwd":@"1111#"};
     // Request Data : scode=5684825a51beb9d2fa05e4675d91253c&phone=01023873856&updatedate=0000-00-00 00:00:00&userid=ztest01&passwd=1111#
     // Response Data : {"errcode":"0","certno":"m9kebjkakte1tvrqfg90i9fh84","memtype":"1","updatecount":"218"}
     // 로그인 요청
-    [[SMNetworkClient sharedClient] postLogin:pathDict
+    [[SMNetworkClient sharedClient] postLogin:param
                                         block:^(NSMutableDictionary *result, NSError *error) {
                                             
                                             NSLog(@"API Result : \n%@", result);
 
-                                            if (error)
-                                            {
+                                            if (error) {
                                                 [[SMNetworkClient sharedClient] showNetworkError:error];
                                             }
                                             else
@@ -308,7 +432,10 @@
 //                                                }
 
                                             }
-     
+                                            
+//                                            [self.loading setHidden:YES];
+//                                            [self.loginBtn setEnabled:YES];
+                                            [self reset];
                                         }];
 }
 @end

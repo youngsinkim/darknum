@@ -12,6 +12,8 @@
 
 #define SERVER_URL          @"http://biz.snu.ac.kr"
 
+//@interface SMNetworkClient : AFHTTPClient
+//@end
 
 @implementation SMNetworkClient
 
@@ -63,7 +65,7 @@
 - (void)showNetworkError:(NSError *)error
 {
     [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
-                                message:[error localizedDescription]
+                                message:@"error"//[error localizedDescription]
                                delegate:nil
                       cancelButtonTitle:nil
                       otherButtonTitles:NSLocalizedString(@"OK", nil), nil]
@@ -87,23 +89,35 @@
            }
      ];
 }
-//
-//- (void)postPath:(NSString *)path
-//      parameters:(NSDictionary *)parameters
-//         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-//         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
-//{
-//    [super postPath:(NSString *)path
-//         parameters:(NSDictionary *)parameters
-//            success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                NSLog(@"successsssssssss");
-//                success(operation, responseObject);
-//            }
-//            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                failure(operation, error);
-//            }
-//     ];
-//}
+
+- (void)postPath:(NSString *)path
+      parameters:(NSDictionary *)parameters
+         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    [super postPath:(NSString *)path
+         parameters:(NSDictionary *)parameters
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                NSLog(@"response : %@", responseObject);
+                NSDictionary *respResult = [NSMutableDictionary dictionaryWithDictionary:responseObject];
+                if (![responseObject isEqual:[NSNull null]]) {
+                    NSLog(@"error code : %@", respResult[@"errcode"]);
+                    if ([respResult[@"errcode"] isEqualToString:@"0"])
+                    {
+                        success(operation, responseObject);
+                    }
+                    else
+                    {
+                        failure(operation, [NSError errorWithDomain:@"Login" code:[respResult[@"errcode"] intValue] userInfo:nil]);
+                    }
+                }
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                failure(operation, error);
+            }
+     ];
+}
 
 #pragma mark - API methods
 
@@ -122,6 +136,19 @@
                
                if (block) {
                    NSLog(@"RESPONSE JSON: %@", JSON);
+                   
+//                   // (errcode = 0)인 경우만 성공으로 처리.
+//                   //                   NSDictionary * = (NSDictionary *)JSON;
+//                   if (![JSON isEqual:[NSNull null]])
+//                   {
+//                       NSLog(@"error code : %@", JSON[@"errcode"]);
+//                       if (![JSON[@"errcode"] isEqualToString:@"0"]) {
+//                           // alert
+//                           
+//                           return;
+//                       }
+//                   }
+
                    block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
 //                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
                }

@@ -108,6 +108,10 @@
 		BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF3B466C17C6691E0069AA9A /* Localizable.strings */; };
 		BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
 		BF3B467517C67C4A0069AA9A /* FavoriteToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */; };
+		BF3B467817C83A480069AA9A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467717C83A480069AA9A /* NSString+MD5.m */; };
+		BF3B467B17C84FF50069AA9A /* input_text_border.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3B467917C84FF50069AA9A /* input_text_border.png */; };
+		BF3B467C17C84FF50069AA9A /* input_text_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3B467A17C84FF50069AA9A /* input_text_border@2x.png */; };
+		BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467E17C86E680069AA9A /* LoadingView.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -238,6 +242,12 @@
 		BF3B467117C67C180069AA9A /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
 		BF3B467317C67C4A0069AA9A /* FavoriteToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteToolViewController.h; sourceTree = "<group>"; };
 		BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteToolViewController.m; sourceTree = "<group>"; };
+		BF3B467617C83A480069AA9A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		BF3B467717C83A480069AA9A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		BF3B467917C84FF50069AA9A /* input_text_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input_text_border.png; sourceTree = "<group>"; };
+		BF3B467A17C84FF50069AA9A /* input_text_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "input_text_border@2x.png"; sourceTree = "<group>"; };
+		BF3B467D17C86E680069AA9A /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
+		BF3B467E17C86E680069AA9A /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				5062B6E417C4DB0B00A2495D /* Extern (외부 모듈) */,
+				BF3B468017C86E6E0069AA9A /* Common (공통 모듈) */,
 				5052624717C7580F004C4724 /* Models */,
 				BF3B465817C64BF20069AA9A /* Network (네트워크 모듈) */,
 				5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */,
@@ -391,6 +402,8 @@
 		5062B65317C4D72F00A2495D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				BF3B467917C84FF50069AA9A /* input_text_border.png */,
+				BF3B467A17C84FF50069AA9A /* input_text_border@2x.png */,
 				5062B65417C4D72F00A2495D /* 007-StockPhoto-320x568@2x.png */,
 				5062B65517C4D72F00A2495D /* back-arrow.png */,
 				5062B65617C4D72F00A2495D /* back-arrow@2x.png */,
@@ -472,6 +485,8 @@
 				BF3B466517C660C10069AA9A /* TSLanguageManager */,
 				5062B6E717C4DB0C00A2495D /* UIView+Shadow.h */,
 				5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */,
+				BF3B467617C83A480069AA9A /* NSString+MD5.h */,
+				BF3B467717C83A480069AA9A /* NSString+MD5.m */,
 			);
 			name = "Extern (외부 모듈)";
 			path = Extern;
@@ -505,6 +520,15 @@
 				BF3B466717C660C10069AA9A /* TSLanguageManager.m */,
 			);
 			path = TSLanguageManager;
+			sourceTree = "<group>";
+		};
+		BF3B468017C86E6E0069AA9A /* Common (공통 모듈) */ = {
+			isa = PBXGroup;
+			children = (
+				BF3B467D17C86E680069AA9A /* LoadingView.h */,
+				BF3B467E17C86E680069AA9A /* LoadingView.m */,
+			);
+			name = "Common (공통 모듈)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -638,6 +662,8 @@
 				5062B6DF17C4D72F00A2495D /* white_btn_bg2@2x.png in Resources */,
 				BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */,
 				5052623417C72ACC004C4724 /* http_sample_data in Resources */,
+				BF3B467B17C84FF50069AA9A /* input_text_border.png in Resources */,
+				BF3B467C17C84FF50069AA9A /* input_text_border@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,6 +727,8 @@
 				5052624017C757F9004C4724 /* Staff.m in Sources */,
 				5052624317C757F9004C4724 /* Classes.m in Sources */,
 				5052624617C757F9004C4724 /* Student.m in Sources */,
+				BF3B467817C83A480069AA9A /* NSString+MD5.m in Sources */,
+				BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
