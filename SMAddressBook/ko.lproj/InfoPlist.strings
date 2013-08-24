@@ -59,3 +59,9 @@
 
 /* PWD Find Text */
 "password_find_text" = "비밀번호 찾기 >";
+
+/* Terms of Service */
+"terms_text" = "이용동의약관";
+
+/* Accept Button Text */
+"accept_btn_text" = "동의함";

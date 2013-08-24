@@ -77,3 +77,9 @@
 
 /* Alert Password Empty Text */
 "alert_pwd_empty_text" = "input user Password.";
+
+/* Terms of Service */
+"terms_text" = "Terms of Service";
+
+/* Accept Button Text */
+"accept_btn_text" = "Accept";

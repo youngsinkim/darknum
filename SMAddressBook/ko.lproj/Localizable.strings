@@ -78,3 +78,8 @@
 /* Alert Password Empty Text */
 "alert_pwd_empty_text" = "비밀번호를 입력하세요.";
 
+/* Terms of Service */
+"terms_text" = "이용동의약관";
+
+/* Accept Button Text */
+"accept_btn_text" = "동의함";

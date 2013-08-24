@@ -8,9 +8,10 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-#import <QuartzCore/QuartzCore.h>
+#import "TermsViewController.h"
 #import "SMNetworkClient.h"
 #import "NSString+MD5.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface LoginViewController ()
 
@@ -423,10 +424,17 @@
                                             }
                                             else
                                             {
-                                                // 로그인 성공하면 즐겨찾기 화면으로 이동
-                                                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                                                [appDelegate showMainViewController:self animated:YES];
+                                                if ([[UserContext shared] isAcceptTerms] == YES) {
+                                                    // 로그인 성공하면 즐겨찾기 화면으로 이동
+                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                                                    [appDelegate showMainViewController:self animated:YES];
+                                                }
+                                                else {
+                                                    // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
+                                                    TermsViewController *termsViewController = [[TermsViewController alloc] init];
 
+                                                    [self.navigationController pushViewController:termsViewController animated:YES];
+                                                }
 //                                                if ([result[@"list"] isKindOfClass:[NSArray class]]) {
 //                                                    [self.vodList setArray:result[@"list"]];
 //                                                }
