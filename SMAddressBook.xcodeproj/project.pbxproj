@@ -109,6 +109,8 @@
 		BF177E9317CA20AB00614485 /* profile_btn_my_set.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177E9117CA20AB00614485 /* profile_btn_my_set.png */; };
 		BF177E9417CA20AB00614485 /* profile_btn_my_set@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177E9217CA20AB00614485 /* profile_btn_my_set@2x.png */; };
 		BF177E9717CA277C00614485 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9617CA277C00614485 /* MenuCell.m */; };
+		BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9D17CA6D1300614485 /* ContactCell.m */; };
+		BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
 		BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
 		BF3B466817C660C10069AA9A /* MMHorizontalListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466217C660C10069AA9A /* MMHorizontalListView.m */; };
 		BF3B466917C660C10069AA9A /* MMHorizontalListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466417C660C10069AA9A /* MMHorizontalListViewCell.m */; };
@@ -250,6 +252,10 @@
 		BF177E9217CA20AB00614485 /* profile_btn_my_set@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_btn_my_set@2x.png"; sourceTree = "<group>"; };
 		BF177E9517CA277C00614485 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
 		BF177E9617CA277C00614485 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
+		BF177E9C17CA6D1300614485 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
+		BF177E9D17CA6D1300614485 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
+		BF177E9F17CA70AF00614485 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		BF177EA017CA70AF00614485 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		BF3B465417C64BDA0069AA9A /* SMNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNetworkClient.h; sourceTree = "<group>"; };
 		BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNetworkClient.m; sourceTree = "<group>"; };
 		BF3B466117C660C00069AA9A /* MMHorizontalListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHorizontalListView.h; sourceTree = "<group>"; };
@@ -355,6 +361,7 @@
 				5062B64017C4CBA100A2495D /* 즐겨찾기 (메인 화면) */,
 				5062B65217C4D25200A2495D /* Login (로그인) */,
 				BF177E8917C9BC0600614485 /* Course (주소록) */,
+				BF177E9817CA6A7B00614485 /* 전체보기 */,
 				BF177E8517C9BADD00614485 /* 내 정보 설정 */,
 				BF177E8417C9BAC600614485 /* 즐겨찾기 설정 */,
 				BF3B468B17C8DE7A0069AA9A /* Terms (약관 동의) */,
@@ -558,10 +565,21 @@
 			children = (
 				BF177E8617C9BBFF00614485 /* CourseClassViewController.h */,
 				BF177E8717C9BBFF00614485 /* CourseClassViewController.m */,
+				BF177E9C17CA6D1300614485 /* ContactCell.h */,
+				BF177E9D17CA6D1300614485 /* ContactCell.m */,
+				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
+				BF177EA017CA70AF00614485 /* DetailViewController.m */,
+			);
+			name = "Course (주소록)";
+			sourceTree = "<group>";
+		};
+		BF177E9817CA6A7B00614485 /* 전체보기 */ = {
+			isa = PBXGroup;
+			children = (
 				BF177E8A17C9BC3D00614485 /* CourseTotalViewController.h */,
 				BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */,
 			);
-			name = "Course (주소록)";
+			name = "전체보기";
 			sourceTree = "<group>";
 		};
 		BF3B465817C64BF20069AA9A /* Network (네트워크 모듈) */ = {
@@ -819,6 +837,8 @@
 				BF177E8817C9BBFF00614485 /* CourseClassViewController.m in Sources */,
 				BF177E8C17C9BC3D00614485 /* CourseTotalViewController.m in Sources */,
 				BF177E9717CA277C00614485 /* MenuCell.m in Sources */,
+				BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */,
+				BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
