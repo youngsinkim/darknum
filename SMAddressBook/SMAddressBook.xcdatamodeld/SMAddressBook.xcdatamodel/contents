@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Classes" representedClassName="Classes" syncable="YES">
-        <attribute name="count" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    <entity name="Course" representedClassName="Classes" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseclass" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favyn" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -59,10 +59,10 @@
         <attribute name="studcode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_en" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="class_info" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Classes" inverseName="students" inverseEntity="Classes" syncable="YES"/>
+        <relationship name="class_info" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="students" inverseEntity="Course" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Classes" positionX="-5771" positionY="-9" width="128" height="148"/>
+        <element name="Course" positionX="-5771" positionY="-9" width="128" height="150"/>
         <element name="Faculty" positionX="-5438" positionY="-73" width="128" height="208"/>
         <element name="Major" positionX="-5258" positionY="32" width="128" height="103"/>
         <element name="Staff" positionX="-5258" positionY="-184" width="128" height="193"/>

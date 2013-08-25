@@ -2,14 +2,14 @@
 //  Student.h
 //  SMAddressBook
 //
-//  Created by sochae on 13. 8. 23..
+//  Created by 선옥 채 on 13. 8. 25..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Classes;
+@class Course;
 
 @interface Student : NSManagedObject
 
@@ -31,6 +31,6 @@
 @property (nonatomic, retain) NSString * studcode;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * title_en;
-@property (nonatomic, retain) Classes *class_info;
+@property (nonatomic, retain) Course *class_info;
 
 @end

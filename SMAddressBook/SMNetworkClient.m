@@ -124,7 +124,7 @@
 /// Request Data : scode=5684825a51beb9d2fa05e4675d91253c&phone=01023873856&updatedate=0000-00-00 00:00:00&userid=ztest01&passwd=1111#
 /// Response Data : {"errcode":"0","certno":"m9kebjkakte1tvrqfg90i9fh84","memtype":"1","updatecount":"218"}
 /// 로그인 요청
-- (void)postLogin:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block
+- (void)postLogin:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
 {
     static NSString * const kAPILogin = (SERVER_URL@"/fb/login");
     NSLog(@"API Path(%@) param :\n%@", kAPILogin, param);
@@ -191,7 +191,7 @@
          }
 */
 
-- (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block
+- (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
 {
     static NSString * const kAPIClasses = (SERVER_URL@"/fb/classes");
     NSLog(@"API Path(%@) param :\n%@", kAPIClasses, param);
@@ -203,8 +203,8 @@
                
                if (block) {
                    NSLog(@"RESPONSE JSON: %@", JSON);
-//                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
-                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
+                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+//                   block([NSMutableDictionary dictionaryWithDictionary:JSON:[JSON valueForKeyPath:@"data"]], nil);
                }
                
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

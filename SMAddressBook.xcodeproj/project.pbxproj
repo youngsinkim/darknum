@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
-		5052623A17C757F9004C4724 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052623917C757F9004C4724 /* Faculty.m */; };
-		5052623D17C757F9004C4724 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052623C17C757F9004C4724 /* Major.m */; };
-		5052624017C757F9004C4724 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052623F17C757F9004C4724 /* Staff.m */; };
-		5052624317C757F9004C4724 /* Classes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052624217C757F9004C4724 /* Classes.m */; };
-		5052624617C757F9004C4724 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052624517C757F9004C4724 /* Student.m */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
 		5062B61B17C4C10400A2495D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
 		5062B61D17C4C10400A2495D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61C17C4C10400A2495D /* CoreGraphics.framework */; };
@@ -101,6 +96,11 @@
 		5062B6DE17C4D72F00A2495D /* white_btn_bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69817C4D72F00A2495D /* white_btn_bg2.png */; };
 		5062B6DF17C4D72F00A2495D /* white_btn_bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69917C4D72F00A2495D /* white_btn_bg2@2x.png */; };
 		5062B6EA17C4DB0C00A2495D /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */; };
+		BF177E6017C9257A00614485 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E5F17C9257A00614485 /* Major.m */; };
+		BF177E6617C9257B00614485 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E6517C9257B00614485 /* Staff.m */; };
+		BF177E6917C9257B00614485 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E6817C9257B00614485 /* Faculty.m */; };
+		BF177E6C17C9257B00614485 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E6B17C9257B00614485 /* Student.m */; };
+		BF177E7217C925D900614485 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7117C925D900614485 /* Course.m */; };
 		BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
 		BF3B466817C660C10069AA9A /* MMHorizontalListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466217C660C10069AA9A /* MMHorizontalListView.m */; };
 		BF3B466917C660C10069AA9A /* MMHorizontalListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466417C660C10069AA9A /* MMHorizontalListViewCell.m */; };
@@ -118,16 +118,6 @@
 
 /* Begin PBXFileReference section */
 		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
-		5052623817C757F9004C4724 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
-		5052623917C757F9004C4724 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
-		5052623B17C757F9004C4724 /* Major.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Major.h; sourceTree = "<group>"; };
-		5052623C17C757F9004C4724 /* Major.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Major.m; sourceTree = "<group>"; };
-		5052623E17C757F9004C4724 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
-		5052623F17C757F9004C4724 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
-		5052624117C757F9004C4724 /* Classes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Classes.h; sourceTree = "<group>"; };
-		5052624217C757F9004C4724 /* Classes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Classes.m; sourceTree = "<group>"; };
-		5052624417C757F9004C4724 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
-		5052624517C757F9004C4724 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		5062B61517C4C10400A2495D /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5062B61817C4C10400A2495D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5062B61A17C4C10400A2495D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -228,6 +218,16 @@
 		5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
 		9B3EE368BB1647438F672678 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		BF177E5E17C9257A00614485 /* Major.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Major.h; sourceTree = "<group>"; };
+		BF177E5F17C9257A00614485 /* Major.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Major.m; sourceTree = "<group>"; };
+		BF177E6417C9257B00614485 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
+		BF177E6517C9257B00614485 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
+		BF177E6717C9257B00614485 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
+		BF177E6817C9257B00614485 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
+		BF177E6A17C9257B00614485 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		BF177E6B17C9257B00614485 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
+		BF177E7017C925D900614485 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		BF177E7117C925D900614485 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		BF3B465417C64BDA0069AA9A /* SMNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNetworkClient.h; sourceTree = "<group>"; };
 		BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNetworkClient.m; sourceTree = "<group>"; };
 		BF3B466117C660C00069AA9A /* MMHorizontalListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHorizontalListView.h; sourceTree = "<group>"; };
@@ -273,16 +273,16 @@
 			isa = PBXGroup;
 			children = (
 				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
-				5052624417C757F9004C4724 /* Student.h */,
-				5052624517C757F9004C4724 /* Student.m */,
-				5052624117C757F9004C4724 /* Classes.h */,
-				5052624217C757F9004C4724 /* Classes.m */,
-				5052623E17C757F9004C4724 /* Staff.h */,
-				5052623F17C757F9004C4724 /* Staff.m */,
-				5052623B17C757F9004C4724 /* Major.h */,
-				5052623C17C757F9004C4724 /* Major.m */,
-				5052623817C757F9004C4724 /* Faculty.h */,
-				5052623917C757F9004C4724 /* Faculty.m */,
+				BF177E7017C925D900614485 /* Course.h */,
+				BF177E7117C925D900614485 /* Course.m */,
+				BF177E6A17C9257B00614485 /* Student.h */,
+				BF177E6B17C9257B00614485 /* Student.m */,
+				BF177E6717C9257B00614485 /* Faculty.h */,
+				BF177E6817C9257B00614485 /* Faculty.m */,
+				BF177E6417C9257B00614485 /* Staff.h */,
+				BF177E6517C9257B00614485 /* Staff.m */,
+				BF177E5E17C9257A00614485 /* Major.h */,
+				BF177E5F17C9257A00614485 /* Major.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -735,14 +735,14 @@
 				BF3B466A17C660C10069AA9A /* TSLanguageManager.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
 				BF3B467517C67C4A0069AA9A /* FavoriteToolViewController.m in Sources */,
-				5052623A17C757F9004C4724 /* Faculty.m in Sources */,
-				5052623D17C757F9004C4724 /* Major.m in Sources */,
-				5052624017C757F9004C4724 /* Staff.m in Sources */,
-				5052624317C757F9004C4724 /* Classes.m in Sources */,
-				5052624617C757F9004C4724 /* Student.m in Sources */,
 				BF3B467817C83A480069AA9A /* NSString+MD5.m in Sources */,
 				BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */,
 				BF3B468A17C8DE660069AA9A /* TermsViewController.m in Sources */,
+				BF177E6017C9257A00614485 /* Major.m in Sources */,
+				BF177E6617C9257B00614485 /* Staff.m in Sources */,
+				BF177E6917C9257B00614485 /* Faculty.m in Sources */,
+				BF177E6C17C9257B00614485 /* Student.m in Sources */,
+				BF177E7217C925D900614485 /* Course.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

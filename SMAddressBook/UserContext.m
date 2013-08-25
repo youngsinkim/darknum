@@ -67,28 +67,37 @@ static UserContext *_sharedUserContext = nil;
 {
     _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
     _isAcceptTerms = [[NSUserDefaults standardUserDefaults] boolForKey:kAcceptTerms];
+    _isExistProfile = [[NSUserDefaults standardUserDefaults] boolForKey:kSetProfile];
     
-    NSLog(@"App Info : auto_login(%d), accept_terms(%d)", _isAutoLogin, _isAcceptTerms);
+    NSLog(@"App Setting Info : auto_login(%d), accept_terms(%d)", _isAutoLogin, _isAcceptTerms);
 }
 
 /// 자동 로그인 설정
-- (void)setAutoLogin:(BOOL)bAutoLogin
+- (void)setIsAutoLogin:(BOOL)isAutoLogin
 {
-    [[NSUserDefaults standardUserDefaults] setBool:bAutoLogin forKey:kAutoLogin];
+    [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    _isAutoLogin = bAutoLogin;
+    _isAutoLogin = isAutoLogin;
     
 }
 
 /// 약관 동의 설정
-- (void)setAcceptTerms:(BOOL)bAcceptTerms
+- (void)setIsAcceptTerms:(BOOL)isAcceptTerms
 {
-    [[NSUserDefaults standardUserDefaults] setBool:bAcceptTerms forKey:kAcceptTerms];
+    [[NSUserDefaults standardUserDefaults] setBool:isAcceptTerms forKey:kAcceptTerms];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    _isAcceptTerms = bAcceptTerms;
+    _isAcceptTerms = isAcceptTerms;
+}
+
+/// 내 정보(profile) 설정
+- (void)setIsExistProfile:(BOOL)isExistProfile
+{
+    [[NSUserDefaults standardUserDefaults] setBool:isExistProfile forKey:kSetProfile];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
+    _isExistProfile = isExistProfile;
 }
 
 @end

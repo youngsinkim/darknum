@@ -1,22 +1,23 @@
 //
-//  Classes.m
+//  Course.m
 //  SMAddressBook
 //
-//  Created by sochae on 13. 8. 23..
+//  Created by 선옥 채 on 13. 8. 25..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
-#import "Classes.h"
+#import "Course.h"
+#import "Student.h"
 
 
-@implementation Classes
+@implementation Course
 
+@dynamic count;
 @dynamic course;
 @dynamic courseclass;
+@dynamic favyn;
 @dynamic title;
 @dynamic title_en;
-@dynamic count;
-@dynamic favyn;
 @dynamic students;
 
 @end

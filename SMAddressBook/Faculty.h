@@ -2,13 +2,14 @@
 //  Faculty.h
 //  SMAddressBook
 //
-//  Created by sochae on 13. 8. 23..
+//  Created by 선옥 채 on 13. 8. 25..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Major;
 
 @interface Faculty : NSManagedObject
 
@@ -22,6 +23,6 @@
 @property (nonatomic, retain) NSString * photourl;
 @property (nonatomic, retain) NSNumber * remove;
 @property (nonatomic, retain) NSString * tel;
-@property (nonatomic, retain) NSManagedObject *major;
+@property (nonatomic, retain) Major *major;
 
 @end

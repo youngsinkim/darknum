@@ -23,7 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = NSLocalizedString(@"terms_text", @"이용약관동의");
+        self.navigationItem.title = NSLocalizedString(@"terms_text", @"이용약관동의");
     }
     return self;
 }
@@ -74,9 +74,16 @@
 // 약과 동의 버튼
 - (void)onAcceptBtnClicked
 {
-    // 로그인 성공하면 즐겨찾기 화면으로 이동
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate showMainViewController:self animated:YES];
-
+    if ([[UserContext shared] isExistProfile])
+    {
+        // 로그인 성공하면 즐겨찾기 화면으로 이동
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate showMainViewController:self animated:YES];
+    }
+    else
+    {
+        // 약관 동의 후, 최초 실행 시(프로필 설정한 적이 없으면) 프로필 설정 화면으로 이동
+        
+    }
 }
 @end
