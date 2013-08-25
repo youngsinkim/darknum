@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MFSideMenuContainerViewController.h>
 
 @interface MenuTableViewController : UITableViewController
+
+//@property (strong, nonatomic) NSMutableArray *menuList;             //< 메뉴 리스트
+@property (strong, nonatomic) NSMutableArray *addrMenuList;         //< 주소록 메뉴 리스트
+@property (strong, nonatomic) NSArray *settMenuList;                //< 설정 메뉴 리스트
+
+@property (strong, nonatomic) NSDictionary *facultyAddrDict;        //< 교수진
+@property (strong, nonatomic) NSDictionary *facultyMemberAddrDict;  //< 교직원
+@property (strong, nonatomic) NSDictionary *totalAddrDict;          //< 전체보기
+
+
+- (MFSideMenuContainerViewController *)menuContainerViewController;
 
 @end

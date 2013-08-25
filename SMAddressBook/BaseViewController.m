@@ -7,7 +7,6 @@
 //
 
 #import "BaseViewController.h"
-#import <MFSideMenuContainerViewController.h>
 
 @interface BaseViewController ()
 
@@ -81,14 +80,14 @@
     UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     menuButton.frame = CGRectMake(0.0f, 0.0f, 28.0f, 29.0f);
     
-    [menuButton setImage:[UIImage imageNamed:@"btn_menu"] forState:UIControlStateNormal];
-    //    [menuButton setImage:[UIImage imageNamed:@"btn_menu"] forState:UIControlStateHighlighted];
+    [menuButton setImage:[UIImage imageNamed:@"menu_img"] forState:UIControlStateNormal];
+    //    [menuButton setImage:[UIImage imageNamed:@"menu_img"] forState:UIControlStateHighlighted];
     [menuButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     return [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
     //    return [[UIBarButtonItem alloc]
-    //            initWithImage:[UIImage imageNamed:@"btn_menu"] style:UIBarButtonItemStyleDone
+    //            initWithImage:[UIImage imageNamed:@"menu_img"] style:UIBarButtonItemStyleDone
     //            target:self
     //            action:@selector(menuButtonClicked:)];
 }

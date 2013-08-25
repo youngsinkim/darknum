@@ -59,9 +59,3 @@
 
 /* PWD Find Text */
 "password_find_text" = "Find Password >";
-
-/* Terms of Service */
-"terms_text" = "Terms of Service";
-
-/* Accept Button Text */
-"accept_btn_text" = "Accept";

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define kFvToolH    65.0f
 @interface FavoriteToolViewController : UIViewController
 
 @end

@@ -23,7 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = NSLocalizedString(@"terms_text", @"이용약관동의");
+        self.navigationItem.title = LocalizedString(@"terms_text", @"이용약관동의");
     }
     return self;
 }
@@ -32,6 +32,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+
+    NSLog(@"%@", self.navigationController.viewControllers);
+    if (self.navigationController.viewControllers[0] != self) {
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = nil; 
+    }
 
     [self setupTermsViewUI];
 }
@@ -44,8 +52,11 @@
 
 - (void)setupTermsViewUI
 {
+    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+//    if ([[UIScreen mainScreen] bounds].size.height == 568)
+    
     // 배경 스크롤 뷰
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 300.0f, 396.0f)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 300.0f, rect.size.height - 44.0f - 20.0f)];
     _scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
     _scrollView.contentSize = CGSizeMake(300.0f, 396.0f+200.0f);
     
@@ -74,7 +85,7 @@
 // 약과 동의 버튼
 - (void)onAcceptBtnClicked
 {
-    if ([[UserContext shared] isExistProfile])
+    if (![[UserContext shared] isExistProfile])
     {
         // 로그인 성공하면 즐겨찾기 화면으로 이동
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MFSideMenuContainerViewController.h>
 
 @interface BaseViewController : UIViewController
+
+/// 컨테이너 뷰 컨트롤러
+- (MFSideMenuContainerViewController *)menuContainerViewController;
+
+/// 네비게이션 왼쪽 메뉴 버튼
+- (void)leftMenuButtonClicked:(id)sender;
 
 @end

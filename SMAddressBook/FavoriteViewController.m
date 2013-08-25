@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "FavoriteViewController.h"
 #import "FavoriteToolViewController.h"
+#import "MenuTableViewController.h"
 #import "NSString+MD5.h"
 #import "Course.h"
 #import "Staff.h"
@@ -29,6 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+//        self.navigationItem.title = LocalizedString(@"login_title", @"로그인");
     }
     return self;
 }
@@ -38,6 +40,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    // 왼쪽 메뉴 설정
+    MenuTableViewController *menuVC = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+//    menuVC.addrMenuList = nil;
+
     // 즐겨찾기 화면 구성
     [self setupFavoriteUI];
     
@@ -58,9 +64,11 @@
 #pragma mark - View mothods
 - (void)setupFavoriteUI
 {
+    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+    
     // 하단 버튼 툴바
     FavoriteToolViewController *footerToolbar = [[FavoriteToolViewController alloc] init];
-    footerToolbar.view.frame = CGRectMake(0.0f, 416.0f - 80.0f, 320.0f, 80.0f);
+    footerToolbar.view.frame = CGRectMake(0.0f, rect.size.height - 44.0f - kFvToolH, 320.0f, kFvToolH);
     
     [self addChildViewController:footerToolbar];
     [self.view addSubview:footerToolbar.view];
@@ -111,58 +119,133 @@
 
 - (void)onDBUpdate:(NSArray *)classList
 {
+
+    // 컨텍스트 지정
     if (self.managedObjectContext == nil)
     {
         self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
         NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
     }
     
-    for (NSDictionary *dict in classList)
-    {
-        Course *class = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
-        NSLog(@"class info : %@", dict);
-
-        class.course = dict[@"course"];
-        class.courseclass = dict[@"courseclass"];
-        class.title = dict[@"title"];
-        class.title_en = dict[@"title_en"];
-    }
-    
     NSError *error;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"error : %@", [error localizedDescription]);
-    }
-    else    {
-        NSLog(@"insert success..");
-    }
+    BOOL isSaved = NO; 
 
-    
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Classes" inManagedObjectContext:[appDelegate managedObjectContext]];
-
-//    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] init];
-//    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//    NSManagedObjectModel *managedObjectModel = [[context persistentStoreCoordinator] managedObjectModel];
-//    NSEntityDescription *classesEntity = [[managedObjectModel entitiesByName] objectForKey:@"Classes"];
-//    NSEntityDescription *classesEntity = [NSEntityDescription entityForName:@"Classes" inManagedObjectContext:context];
-
+    // DB에 없는 항목은 추가하기
     for (NSDictionary *dict in classList)
     {
+        BOOL isExistDB = YES;
         NSLog(@"class info : %@", dict);
-//        Course *cs = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:context];
         
+        // 기존 DB에 저장된 데이터 읽어오기
+        if ([dict[@"course"] isEqualToString:@"FACULTY"] || [dict[@"course"] isEqualToString:@"STAFF"]) {
+            isExistDB = [self isFetchCourse:dict[@"course"]];
+        } else {
+            isExistDB = [self isFetchCourse:dict[@"courseclass"]];
+        }
         
-//        AUTHOR *author = (AUTHOR *)[NSEntityDescription insertNewObjectForEntityForName:@"AUTHOR" inManagedObjectContext:[appDelegate managedObjectContext]];
-//        author.userid = [sessionInfo objectForKey:@"AUTHOR_USERNAME"];
-//        author.name = [sessionInfo objectForKey:@"AUTHOR"];
-//        author.email = [sessionInfo objectForKey:@"AUTHOR_EMAIL"];
-//        author.department = [sessionInfo objectForKey:@"AUTHOR_DEPARTMENT"];
-//        author.photo = [sessionInfo objectForKey:@"AUTHOR_PICTURE"];
-//        author.twitter = [sessionInfo objectForKey:@"AUTHOR_TWITTER"];
-//        author.facebook = [sessionInfo objectForKey:@"AUTHOR_FACEBOOK"];
-//        author.bio = [sessionInfo objectForKey:@"AUTHOR_BIO"];
+        // 기존 DB에 없으면 추가
+        if (isExistDB == NO)
+        {
+            Course *class = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+            NSLog(@"class info : %@", dict);
 
+            class.course = dict[@"course"];
+            class.courseclass = dict[@"courseclass"];
+            class.title = dict[@"title"];
+            class.title_en = dict[@"title_en"];
+            
+            isSaved = YES;
+        }
     }
     
+    if (isSaved == YES)
+    {
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"error : %@", [error localizedDescription]);
+        }
+        else    {
+            NSLog(@"insert success..");
+            
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+            [fetchRequest setEntity:entity];
+            
+            // order by
+            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+            [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+
+            NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            NSLog(@"DB data count : %d", [fetchedObjects count]);
+            for (NSManagedObject *info in fetchedObjects)
+            {
+                NSLog(@"DB Dict : %@", [info valueForKey:@"title"]);
+    //            NSLog(@"Name: %@", [info valueForKey:@"name"]);
+    //            NSManagedObject *details = [info valueForKey:@"details"];
+    //            NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
+            }
+        
+            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+            menu.addrMenuList = [fetchedObjects mutableCopy];            
+        }
+    }
+}
+
+- (BOOL)isFetchCourse:(NSString *)course
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    // select Table
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // where
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course==%@", course];
+    [fetchRequest setPredicate:predicate];
+    
+    // order by
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+    {
+        return YES;
+    }
+    
+    return NO;
+//    return fetchedObjects; //fetchedObjects will always exist although it may be empty
+}
+
+- (BOOL)isFetchClass:(NSString *)class
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    // select Table
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // where
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass==%@", class];
+    [fetchRequest setPredicate:predicate];
+    
+    // order by
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+    {
+        return YES;
+    }
+    
+    return NO;
+    //    return fetchedObjects; //fetchedObjects will always exist although it may be empty
 }
 @end

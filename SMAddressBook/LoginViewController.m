@@ -66,8 +66,10 @@
 /// 로그인 화면 
 - (void)setupLoginUI
 {
+    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+    
     // 배경 라인 박스
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 320.0f - 20.0f, 416.0f)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 320.0f - 20.0f, rect.size.height - 44.0f - 20.0f)];
     [bgView.layer setCornerRadius:2.0f];
     [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5f].CGColor];
     [bgView.layer setBorderWidth:1.0f];
