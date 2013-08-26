@@ -1,8 +1,9 @@
 #include "Pods-AFNetworking.xcconfig"
+#include "Pods-HMSegmentedControl.xcconfig"
 #include "Pods-JSONKit.xcconfig"
 #include "Pods-MBProgressHUD.xcconfig"
 #include "Pods-MFSideMenu.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/JSONKit" "${PODS_ROOT}/Headers/MBProgressHUD" "${PODS_ROOT}/Headers/MFSideMenu"
-OTHER_LDFLAGS = -ObjC ${PODS_AFNETWORKING_OTHER_LDFLAGS} ${PODS_MBPROGRESSHUD_OTHER_LDFLAGS} ${PODS_MFSIDEMENU_OTHER_LDFLAGS}
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/HMSegmentedControl" "${PODS_ROOT}/Headers/JSONKit" "${PODS_ROOT}/Headers/MBProgressHUD" "${PODS_ROOT}/Headers/MFSideMenu"
+OTHER_LDFLAGS = -ObjC ${PODS_AFNETWORKING_OTHER_LDFLAGS} ${PODS_HMSEGMENTEDCONTROL_OTHER_LDFLAGS} ${PODS_MBPROGRESSHUD_OTHER_LDFLAGS} ${PODS_MFSIDEMENU_OTHER_LDFLAGS}
 PODS_ROOT = ${SRCROOT}/Pods
