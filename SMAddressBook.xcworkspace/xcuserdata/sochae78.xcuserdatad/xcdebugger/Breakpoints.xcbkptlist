@@ -11,34 +11,21 @@
          timestampString = "399058512.954284"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
-         landmarkName = "-application:didFinishLaunchingWithOptions:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SMAddressBook/AppDelegate.m"
-         timestampString = "399058512.954284"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
          startingLineNumber = "103"
          endingLineNumber = "103"
          landmarkName = "-saveContext"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SMAddressBook/MenuTableViewController.m"
-         timestampString = "399139646.549936"
+         timestampString = "399225097.962511"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "145"
-         endingLineNumber = "145"
+         startingLineNumber = "146"
+         endingLineNumber = "146"
          landmarkName = "-setAddrMenuList:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SMAddressBook/FavoriteViewController.m"
-         timestampString = "399137507.316139"
+         timestampString = "399224831.438848"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "141"
-         endingLineNumber = "141"
+         startingLineNumber = "194"
+         endingLineNumber = "194"
          landmarkName = "-onDBUpdate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SMAddressBook/FavoriteViewController.m"
-         timestampString = "399137871.313248"
+         timestampString = "399224831.438848"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "143"
-         endingLineNumber = "143"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
          landmarkName = "-onDBUpdate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -73,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SMAddressBook/FavoriteViewController.m"
-         timestampString = "399137881.673231"
+         timestampString = "399224831.438848"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "149"
-         endingLineNumber = "149"
+         startingLineNumber = "202"
+         endingLineNumber = "202"
          landmarkName = "-onDBUpdate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -86,11 +73,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "SMAddressBook/MenuTableViewController.m"
-         timestampString = "399139958.720719"
+         timestampString = "399225097.962511"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "373"
-         endingLineNumber = "373"
+         startingLineNumber = "374"
+         endingLineNumber = "374"
          landmarkName = "-showMenuViewController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -144,6 +131,110 @@
          startingLineNumber = "135"
          endingLineNumber = "135"
          landmarkName = "-MMHorizontalListView:didDeselectCellAtIndex:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/FavoriteViewController.m"
+         timestampString = "399224831.438848"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "165"
+         endingLineNumber = "165"
+         landmarkName = "-loadDBFavoriteCourse"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/FavoriteViewController.m"
+         timestampString = "399224831.438848"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "59"
+         endingLineNumber = "59"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/FavoriteViewController.m"
+         timestampString = "399224831.438848"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/FavoriteViewController.m"
+         timestampString = "399224831.438848"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
+         landmarkName = "-loadDBFavoriteCourse"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/FavoriteViewController.m"
+         timestampString = "399224831.438848"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "147"
+         endingLineNumber = "147"
+         landmarkName = "-loadDBFavoriteCourse"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/MenuTableViewController.m"
+         timestampString = "399225162.138777"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "379"
+         endingLineNumber = "379"
+         landmarkName = "-showMenuViewController:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/MenuTableViewController.m"
+         timestampString = "399225097.962511"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "125"
+         endingLineNumber = "125"
+         landmarkName = "-setupMenuTableView"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/MenuTableViewController.m"
+         timestampString = "399225097.962511"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "163"
+         endingLineNumber = "163"
+         landmarkName = "-classTotalViewController"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

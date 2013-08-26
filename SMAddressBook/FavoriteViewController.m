@@ -40,6 +40,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+
+    // 컨텍스트 지정
+    if (self.managedObjectContext == nil)
+    {
+        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
+    }
+
     // 왼쪽 메뉴 설정
     MenuTableViewController *menuVC = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
 //    menuVC.addrMenuList = nil;
@@ -51,6 +59,7 @@
     [self requestAPIClasses];
     
     // 기수 목록 중 즐겨찾기 목록 구성
+    [self loadDBFavoriteCourse];
     
     // 업데이트 목록 구성
 }
@@ -117,15 +126,59 @@
                                           }];
 }
 
+#pragma mark - CoreData methods
+/// course classes DB 읽어오기
+- (NSArray *)loadDBFavoriteCourse
+{
+    if (self.managedObjectContext == nil) {
+        return nil;
+    }
+//    NSMutableArray *favoriteCourses = nil;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+
+    NSError *error = nil;
+//    NSUInteger count = [self.managedObjectContext countForFetchRequest:fetchRequest error:&error];
+//    if (error) {
+//        return nil;
+//    }
+
+    // select Table
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // where
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course==%@", course];
+//    [fetchRequest setPredicate:predicate];
+    
+    // order by
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    for (Course *class in fetchedObjects) {
+        NSLog(@"title : %@", class.title);
+    }
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+    {
+        return fetchedObjects;
+    }
+    return nil;
+}
+
+/// course classes DB 추가 및 업데이트
 - (void)onDBUpdate:(NSArray *)classList
 {
 
-    // 컨텍스트 지정
-    if (self.managedObjectContext == nil)
-    {
-        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
-    }
+//    // 컨텍스트 지정
+//    if (self.managedObjectContext == nil)
+//    {
+//        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+//        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
+//    }
     
     NSError *error;
     BOOL isSaved = NO; 

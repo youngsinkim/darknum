@@ -63,6 +63,7 @@
     
     // 메뉴 테이블 구성
     [self setupMenuTableView];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -373,6 +374,8 @@
     if (indexPath.section == 0)
     {
         NSLog(@"selected row = %d", indexPath.row);
+        menuDict = _addrMenuList[indexPath.row];
+
         if (indexPath.row == (_addrMenuList.count - 1))
         {
             UIViewController *viewController = [menuDict objectForKey:@"viewController"];
