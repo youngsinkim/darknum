@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CourseTotalViewController : BaseViewController
+@interface CourseTotalViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
 

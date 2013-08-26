@@ -112,6 +112,7 @@
 		BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9D17CA6D1300614485 /* ContactCell.m */; };
 		BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
 		BF177EA317CBB1B900614485 /* nav_title_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177EA217CBB1B900614485 /* nav_title_bg@2x.png */; };
+		BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EAA17CBBAE700614485 /* CourseClassCell.m */; };
 		BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
 		BF3B466817C660C10069AA9A /* MMHorizontalListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466217C660C10069AA9A /* MMHorizontalListView.m */; };
 		BF3B466917C660C10069AA9A /* MMHorizontalListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B466417C660C10069AA9A /* MMHorizontalListViewCell.m */; };
@@ -258,6 +259,8 @@
 		BF177E9F17CA70AF00614485 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		BF177EA017CA70AF00614485 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		BF177EA217CBB1B900614485 /* nav_title_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_title_bg@2x.png"; sourceTree = "<group>"; };
+		BF177EA917CBBAE700614485 /* CourseClassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseClassCell.h; sourceTree = "<group>"; };
+		BF177EAA17CBBAE700614485 /* CourseClassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseClassCell.m; sourceTree = "<group>"; };
 		BF3B465417C64BDA0069AA9A /* SMNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNetworkClient.h; sourceTree = "<group>"; };
 		BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNetworkClient.m; sourceTree = "<group>"; };
 		BF3B466117C660C00069AA9A /* MMHorizontalListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHorizontalListView.h; sourceTree = "<group>"; };
@@ -581,6 +584,8 @@
 			children = (
 				BF177E8A17C9BC3D00614485 /* CourseTotalViewController.h */,
 				BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */,
+				BF177EA917CBBAE700614485 /* CourseClassCell.h */,
+				BF177EAA17CBBAE700614485 /* CourseClassCell.m */,
 			);
 			name = "전체보기";
 			sourceTree = "<group>";
@@ -843,6 +848,7 @@
 				BF177E9717CA277C00614485 /* MenuCell.m in Sources */,
 				BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */,
 				BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */,
+				BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

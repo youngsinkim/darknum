@@ -66,7 +66,7 @@
     self.selectedSegmentIndex = 0;
     self.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.height = 32.0f;
-    self.selectionIndicatorHeight = 5.0f;
+    self.selectionIndicatorHeight = 0.0f;   // 박스 내의 selection height
     self.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStrip;
     self.selectionLocation = HMSegmentedControlSelectionLocationUp;
     self.type = HMSegmentedControlTypeText;
