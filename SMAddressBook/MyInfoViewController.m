@@ -7,6 +7,7 @@
 //
 
 #import "MyInfoViewController.h"
+#import "NSString+MD5.h"
 
 @interface MyInfoViewController ()
 
@@ -47,8 +48,10 @@
 
     [self setupMyInfoUI];
     
-    // 내 정보 읽어오기
-    [self loadMyInfo];
+    // 내 (프로필)정보 가져오기
+//    [self loadMyInfo];
+    [self requestAPIMyInfo];
+
     
     // MARK: 프로필 유무 설정하여 최초 실행 이후에 프로필 화면으로 이동하지 않도록 처리.
     [UserContext shared].isExistProfile = YES;
@@ -240,4 +243,112 @@
     
     return myInfoDict;
 }
+
+#pragma mark - Network API
+
+- (void)requestAPIMyInfo
+{
+//    path    /fb/myinfo
+//    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
+    
+    NSDictionary *loginInfo = [[UserContext shared] loginInfo];
+    NSString *mobileNo = @"01023873856";
+    NSString *userId = @"ztest01";
+    NSString *certNo = loginInfo[@"certno"];
+    
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    
+    // 내 (프로필)정보
+    [[SMNetworkClient sharedClient] postMyInfo:param
+                                         block:^(NSMutableDictionary *result, NSError *error) {
+                                             if (error) {
+                                                 [[SMNetworkClient sharedClient] showNetworkError:error];
+                                             } else {
+                                                 // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
+                                                 //NSArray *classes = [result valueForKeyPath:@"data"];
+                                                 NSLog(@"내 정보 : %@", result);
+                                                 
+//                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                                                  dispatch_async(dispatch_get_main_queue(), ^{
+//                                                      [self onDBUpdate:(NSDictionary *)result];
+//                                                  });
+                                              }
+                                          }];
+}
+
+///// myInfo DB 추가 및 업데이트
+//- (void)onDBUpdate:(NSDictionary *)myInfo
+//{
+//    
+//    //    // 컨텍스트 지정
+//    //    if (self.managedObjectContext == nil)
+//    //    {
+//    //        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+//    //        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
+//    //    }
+//    
+//    NSError *error;
+//    BOOL isSaved = NO;
+//    
+//    // DB에 없는 항목은 추가하기
+//    for (NSDictionary *dict in classList)
+//    {
+//        BOOL isExistDB = YES;
+//        NSLog(@"class info : %@", dict);
+//        
+//        // 기존 DB에 저장된 데이터 읽어오기
+//        if ([dict[@"course"] isEqualToString:@"FACULTY"] || [dict[@"course"] isEqualToString:@"STAFF"]) {
+//            isExistDB = [self isFetchCourse:dict[@"course"]];
+//        } else {
+//            isExistDB = [self isFetchCourse:dict[@"courseclass"]];
+//        }
+//        
+//        // 기존 DB에 없으면 추가
+//        if (isExistDB == NO)
+//        {
+//            Course *class = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+//            NSLog(@"class info : %@", dict);
+//            
+//            class.course = dict[@"course"];
+//            class.courseclass = dict[@"courseclass"];
+//            class.title = dict[@"title"];
+//            class.title_en = dict[@"title_en"];
+//            
+//            isSaved = YES;
+//        }
+//    }
+//    
+//    if (isSaved == YES)
+//    {
+//        if (![self.managedObjectContext save:&error]) {
+//            NSLog(@"error : %@", [error localizedDescription]);
+//        }
+//        else    {
+//            NSLog(@"insert success..");
+//            
+//            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//            
+//            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+//            [fetchRequest setEntity:entity];
+//            
+//            // order by
+//            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+//            [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+//            
+//            NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//            NSLog(@"DB data count : %d", [fetchedObjects count]);
+//            for (NSManagedObject *info in fetchedObjects)
+//            {
+//                NSLog(@"DB Dict : %@", [info valueForKey:@"title"]);
+//                //            NSLog(@"Name: %@", [info valueForKey:@"name"]);
+//                //            NSManagedObject *details = [info valueForKey:@"details"];
+//                //            NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
+//            }
+//            
+//            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+//            menu.addrMenuList = [fetchedObjects mutableCopy];            
+//        }
+//    }
+//}
+
 @end

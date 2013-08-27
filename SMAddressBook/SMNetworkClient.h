@@ -22,6 +22,9 @@
 /// 과정기수 목록
 - (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
 
+/// 내 (프로필)정보
+- (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
+
 /// otn test API
 - (void)getVodTotalList:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
 

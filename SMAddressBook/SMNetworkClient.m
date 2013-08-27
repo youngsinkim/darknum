@@ -191,6 +191,7 @@
          }
 */
 
+// 과정별 기수 목록
 - (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
 {
     static NSString * const kAPIClasses = (SERVER_URL@"/fb/classes");
@@ -204,7 +205,33 @@
                if (block) {
                    NSLog(@"RESPONSE JSON: %@", JSON);
                    block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
-//                   block([NSMutableDictionary dictionaryWithDictionary:JSON:[JSON valueForKeyPath:@"data"]], nil);
+//                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
+               }
+               
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               if (block) {
+                   block([NSMutableDictionary dictionary], error);
+               }
+               NSLog(@"error : %@", [error description]);
+           }];
+    
+}
+
+// 내 프로필 정보
+- (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+{
+    static NSString * const kAPIMyInfo = (SERVER_URL@"/fb/myinfo");
+    NSLog(@"API Path(%@) param :\n%@", kAPIMyInfo, param);
+    
+    [self postPath:kAPIMyInfo
+        parameters:param
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               NSLog(@"HTTP POST API: %@", operation.request.URL);
+               
+               if (block) {
+                   NSLog(@"RESPONSE JSON: %@", JSON);
+//                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
                }
                
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
