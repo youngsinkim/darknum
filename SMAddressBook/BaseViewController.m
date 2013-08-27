@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "FavoriteViewController.h"
 
 @interface BaseViewController ()
 
@@ -203,7 +204,7 @@
 - (void)onHomeButtonClicked:(id)sender
 {
     //    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    BaseViewController *favoriteViewController = [[BaseViewController alloc] init];
+    FavoriteViewController *favoriteViewController = [[FavoriteViewController alloc] init];
     
     UINavigationController *nav = self.menuContainerViewController.centerViewController;
     NSLog(@"centerViewController : %@", nav.viewControllers[0]);

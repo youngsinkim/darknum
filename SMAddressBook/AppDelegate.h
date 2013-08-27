@@ -11,6 +11,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) MFSideMenuContainerViewController *container;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -18,6 +19,9 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+
+// 로그인 뷰 컨트롤러
+- (UINavigationController *)loginViewController;
 
 /// 메인(즐겨찾기) 화면 뷰 컨트롤러
 - (void)showMainViewController:(UIViewController *)viewControllder animated:(BOOL)isAnimated;

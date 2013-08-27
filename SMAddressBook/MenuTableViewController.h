@@ -22,4 +22,6 @@
 
 - (MFSideMenuContainerViewController *)menuContainerViewController;
 
+- (void)showMyInfoViewController;
+
 @end

@@ -46,19 +46,23 @@
     
     // UserInfo의 auto login 정보에 따라 로그인 창 띄우기
     NSLog(@"AUTO LOGIN : %d", [UserContext shared].isAutoLogin);
+
+//    if ([UserContext shared].isAutoLogin == YES)
+//    {
+//        //---------- 자동 로그인 (0) : 대쉬보드 화면 표시 ----------
+//        [self showMainViewController:nil animated:NO];
+////        self.window.rootViewController = [self sideMenuConrainer];
+//    }
+//    else
+//    {
+//        //---------- 자동 로그인 (X) : 로그인 화면 표시 ----------
+//        self.window.rootViewController = [self loginViewController];
+////        self.window.rootViewController = [self sideMenuConrainer];
+//    }
+
     
-    if ([UserContext shared].isAutoLogin == YES)
-    {
-        //---------- 자동 로그인 (0) : 대쉬보드 화면 표시 ----------
-        [self showMainViewController:nil animated:NO];
-//        self.window.rootViewController = [self sideMenuConrainer];
-    }
-    else
-    {
-        //---------- 자동 로그인 (X) : 로그인 화면 표시 ----------
-        self.window.rootViewController = [self loginViewController];
-//        self.window.rootViewController = [self sideMenuConrainer];
-    }
+    // sochae - 메뉴 구성 먼저 하고 로그인 창 모달로 띄우도록 시나리오 변경
+    [self showMainViewController:nil animated:NO];
 
     
     //
@@ -206,12 +210,13 @@
     // 왼쪽 메뉴
     MenuTableViewController *leftMenuViewController = [[MenuTableViewController alloc] init];
     
-    MFSideMenuContainerViewController *container =
+//    MFSideMenuContainerViewController *
+    self.container =
     [MFSideMenuContainerViewController containerWithCenterViewController:[self navigationController:viewController]
                                                   leftMenuViewController:leftMenuViewController
                                                  rightMenuViewController:nil];
     
-    return container;
+    return self.container;
 }
 
 /// 로그인 뷰 컨트롤러

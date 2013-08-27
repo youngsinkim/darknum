@@ -414,4 +414,41 @@
         [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
     }
 }
+
+/// 내 정보설정 뷰 컨트롤러
+- (void)showMyInfoViewController
+{
+    MyInfoViewController *vc = [[MyInfoViewController alloc] init];
+    NSArray *controllers = [NSArray arrayWithObject:vc];
+
+    UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
+    navigationController.viewControllers = controllers;
+
+//    for (NSDictionary *dict in self.settMenuList) {
+//        if ([dict[@"viewController"] isEqual:[MyInfoViewController class]]) {
+//            NSLog(@"vc = %@", dict[@"viewController"]);
+//            UIViewController *viewController = dict[@"viewController"];
+//            viewController.title = dict[@"title"];
+//            
+//            NSArray *controllers = [NSArray arrayWithObject:viewController];
+//            
+//            UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
+//            navigationController.viewControllers = controllers;
+//            
+//            [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+//
+//            break;
+//        }
+//    }
+}
+
+//- (UIViewController *)showMyInfoViewController
+//{
+//    MyInfoViewController *myInfoViewController = [[MyInfoViewController alloc] init];
+//
+//    NSDictionary *myInfoSettDic = @{@"title":LocalizedString(@"my_info_setting", @"내 정보설정"), @"icon":@"help_icon", @"viewController":myInfoViewController};
+//
+//    return (UIViewController *)myInfoViewController;
+//}
+
 @end

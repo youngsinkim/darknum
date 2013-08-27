@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "TermsViewController.h"
+#import "MenuTableViewController.h"
+#import "MyInfoViewController.h"
 
 @interface TermsViewController ()
 
@@ -38,7 +40,8 @@
     NSLog(@"%@", self.navigationController.viewControllers);
     if (self.navigationController.viewControllers[0] != self) {
         self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.rightBarButtonItem = nil; 
+        self.navigationItem.hidesBackButton = YES;      // 기본 네비게이션 back 버튼 노출되지 않도록 처리 
+        self.navigationItem.rightBarButtonItem = nil;
     }
 
     [self setupTermsViewUI];
@@ -85,16 +88,39 @@
 // 약과 동의 버튼
 - (void)onAcceptBtnClicked
 {
-    if (![[UserContext shared] isExistProfile])
-    {
-        // 로그인 성공하면 즐겨찾기 화면으로 이동
-        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [appDelegate showMainViewController:self animated:YES];
-    }
-    else
-    {
-        // 약관 동의 후, 최초 실행 시(프로필 설정한 적이 없으면) 프로필 설정 화면으로 이동
-        
-    }
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+
+    [UIView animateWithDuration:0.5f
+                     animations:^{
+
+                         self.view.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         
+//                         if (viewControllder) {
+//                             [self.view removeFromSuperview];
+//                         }
+//                         self.window.rootViewController = [self sideMenuConrainer];
+                         
+                         [self dismissViewControllerAnimated:NO completion:nil];
+
+                         MenuTableViewController *menuVC = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
+                         [menuVC showMyInfoViewController];
+                     }];
+
+    
+    // sochae - 메뉴 구성 먼저 하고 로그인 화면 모달로 띄움, 약관 동의 후에 뷰 fade out 처리
+    
+//    if ([[UserContext shared] isExistProfile])
+//    {
+//        // 로그인 성공하면 즐겨찾기 화면으로 이동
+//        [appDelegate showMainViewController:self animated:YES];
+//    }
+//    else
+//    {
+//        // 약관 동의 후, 최초 실행 시(프로필 설정한 적이 없으면) 프로필 설정 화면으로 이동
+//        [appDelegate showMainViewController:self animated:NO];
+//        
+//    }
 }
 @end

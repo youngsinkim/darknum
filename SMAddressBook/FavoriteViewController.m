@@ -16,6 +16,7 @@
 #import "Faculty.h"
 #import "Student.h"
 #import "Major.h"
+#import "LoginViewController.h"
 
 @interface FavoriteViewController ()
 
@@ -49,9 +50,23 @@
     }
 
     // 왼쪽 메뉴 설정
-    MenuTableViewController *menuVC = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+//    MenuTableViewController *menuVC = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
 //    menuVC.addrMenuList = nil;
-
+    
+    if (![[UserContext shared] isExistProfile])
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        UIViewController *vc = [appDelegate loginViewController];
+        
+        [self.navigationController presentViewController:vc animated:NO completion:nil];
+        
+//        LoginViewController *vc = [[LoginViewController alloc] init];
+//        NSArray *controllers = [NSArray arrayWithObject:vc];
+//        UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
+//        navigationController.viewControllers = controllers;
+        return;
+    }
+    
     // 즐겨찾기 화면 구성
     [self setupFavoriteUI];
     
