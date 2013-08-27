@@ -237,5 +237,18 @@
          landmarkName = "-classTotalViewController"
          landmarkType = "5">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "SMAddressBook/SMNetworkClient.m"
+         timestampString = "399300427.842857"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "152"
+         endingLineNumber = "152"
+         landmarkName = "-postLogin:block:"
+         landmarkType = "5">
+      </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
