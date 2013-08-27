@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    MemberTypeStudent,
+    MemberTypeFaculty,
+    MemberTypeStaff,
+    MemberTypeUnknown
+} MemberType;
+
 @interface MyInfoViewController : BaseViewController
+
+@property (nonatomic, assign) MemberType mType; // 멤버 타입 ( 타입별로 화면 구성 변경 )
 
 @end
