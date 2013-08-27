@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50102CD717CC889E00E36B2C /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CD617CC889E00E36B2C /* Major.m */; };
+		50102CDA17CC889F00E36B2C /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CD917CC889F00E36B2C /* Course.m */; };
+		50102CDD17CC889F00E36B2C /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CDC17CC889F00E36B2C /* Faculty.m */; };
+		50102CE017CC889F00E36B2C /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CDF17CC889F00E36B2C /* Staff.m */; };
+		50102CE317CC889F00E36B2C /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CE217CC889F00E36B2C /* Student.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
 		5062B61B17C4C10400A2495D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
@@ -94,11 +99,6 @@
 		5062B6DE17C4D72F00A2495D /* white_btn_bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69817C4D72F00A2495D /* white_btn_bg2.png */; };
 		5062B6DF17C4D72F00A2495D /* white_btn_bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69917C4D72F00A2495D /* white_btn_bg2@2x.png */; };
 		5062B6EA17C4DB0C00A2495D /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */; };
-		BF177E6017C9257A00614485 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E5F17C9257A00614485 /* Major.m */; };
-		BF177E6617C9257B00614485 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E6517C9257B00614485 /* Staff.m */; };
-		BF177E6917C9257B00614485 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E6817C9257B00614485 /* Faculty.m */; };
-		BF177E6C17C9257B00614485 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E6B17C9257B00614485 /* Student.m */; };
-		BF177E7217C925D900614485 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7117C925D900614485 /* Course.m */; };
 		BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
 		BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */; };
 		BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8117C9BAB000614485 /* HelpViewController.m */; };
@@ -129,6 +129,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50102CD517CC889E00E36B2C /* Major.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Major.h; sourceTree = "<group>"; };
+		50102CD617CC889E00E36B2C /* Major.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Major.m; sourceTree = "<group>"; };
+		50102CD817CC889F00E36B2C /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		50102CD917CC889F00E36B2C /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		50102CDB17CC889F00E36B2C /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
+		50102CDC17CC889F00E36B2C /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
+		50102CDE17CC889F00E36B2C /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
+		50102CDF17CC889F00E36B2C /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
+		50102CE117CC889F00E36B2C /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		50102CE217CC889F00E36B2C /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
 		5062B61517C4C10400A2495D /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5062B61817C4C10400A2495D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -228,16 +238,6 @@
 		5062B6E817C4DB0C00A2495D /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
 		9B3EE368BB1647438F672678 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		BF177E5E17C9257A00614485 /* Major.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Major.h; sourceTree = "<group>"; };
-		BF177E5F17C9257A00614485 /* Major.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Major.m; sourceTree = "<group>"; };
-		BF177E6417C9257B00614485 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
-		BF177E6517C9257B00614485 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
-		BF177E6717C9257B00614485 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
-		BF177E6817C9257B00614485 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
-		BF177E6A17C9257B00614485 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
-		BF177E6B17C9257B00614485 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
-		BF177E7017C925D900614485 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
-		BF177E7117C925D900614485 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		BF177E7A17C9BA8300614485 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
 		BF177E7B17C9BA8300614485 /* MyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoViewController.m; sourceTree = "<group>"; };
 		BF177E7D17C9BA9F00614485 /* FavoriteSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteSettingViewController.h; sourceTree = "<group>"; };
@@ -306,16 +306,16 @@
 			isa = PBXGroup;
 			children = (
 				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
-				BF177E7017C925D900614485 /* Course.h */,
-				BF177E7117C925D900614485 /* Course.m */,
-				BF177E6A17C9257B00614485 /* Student.h */,
-				BF177E6B17C9257B00614485 /* Student.m */,
-				BF177E6717C9257B00614485 /* Faculty.h */,
-				BF177E6817C9257B00614485 /* Faculty.m */,
-				BF177E6417C9257B00614485 /* Staff.h */,
-				BF177E6517C9257B00614485 /* Staff.m */,
-				BF177E5E17C9257A00614485 /* Major.h */,
-				BF177E5F17C9257A00614485 /* Major.m */,
+				50102CE117CC889F00E36B2C /* Student.h */,
+				50102CE217CC889F00E36B2C /* Student.m */,
+				50102CDE17CC889F00E36B2C /* Staff.h */,
+				50102CDF17CC889F00E36B2C /* Staff.m */,
+				50102CDB17CC889F00E36B2C /* Faculty.h */,
+				50102CDC17CC889F00E36B2C /* Faculty.m */,
+				50102CD817CC889F00E36B2C /* Course.h */,
+				50102CD917CC889F00E36B2C /* Course.m */,
+				50102CD517CC889E00E36B2C /* Major.h */,
+				50102CD617CC889E00E36B2C /* Major.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -835,11 +835,6 @@
 				BF3B467817C83A480069AA9A /* NSString+MD5.m in Sources */,
 				BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */,
 				BF3B468A17C8DE660069AA9A /* TermsViewController.m in Sources */,
-				BF177E6017C9257A00614485 /* Major.m in Sources */,
-				BF177E6617C9257B00614485 /* Staff.m in Sources */,
-				BF177E6917C9257B00614485 /* Faculty.m in Sources */,
-				BF177E6C17C9257B00614485 /* Student.m in Sources */,
-				BF177E7217C925D900614485 /* Course.m in Sources */,
 				BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */,
 				BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */,
 				BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */,
@@ -849,6 +844,11 @@
 				BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */,
 				BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */,
 				BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */,
+				50102CD717CC889E00E36B2C /* Major.m in Sources */,
+				50102CDA17CC889F00E36B2C /* Course.m in Sources */,
+				50102CDD17CC889F00E36B2C /* Faculty.m in Sources */,
+				50102CE017CC889F00E36B2C /* Staff.m in Sources */,
+				50102CE317CC889F00E36B2C /* Student.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Pods-HMSegmentedControl.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Pods-JSONKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+		<key>Pods-MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Pods-MFSideMenu.xcscheme</key>
 		<dict>
@@ -27,7 +37,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0FEA148024E54A2995E90228</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>13FC26264EE0440C86EEFF05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>16C8578872004CA389FE0420</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2830D321056F413085966173</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2E8BACD1890040ADAEEBEE6B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +72,42 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5CFFBE8338214BAAB7A05C78</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>61616CE22FA54AA693225614</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>645CD754E06744DEAE1AF087</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AE8E71565A5C487D94A96F8C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFB77FE85CEC4CFE848E60EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B1BD7443C83A412A993F0734</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CA22CC680B224D0EB08D50DB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F85463A3A65F4F77AB1386EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
