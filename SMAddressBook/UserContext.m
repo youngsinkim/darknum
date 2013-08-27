@@ -65,11 +65,21 @@ static UserContext *_sharedUserContext = nil;
 /// App 세팅 읽어오기
 - (void)loadAppSetting
 {
+    // TODO: 로그인 데이터 읽어오기
+
     _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
     _isAcceptTerms = [[NSUserDefaults standardUserDefaults] boolForKey:kAcceptTerms];
     _isExistProfile = [[NSUserDefaults standardUserDefaults] boolForKey:kSetProfile];
     
     NSLog(@"App Setting Info : auto_login(%d), accept_terms(%d)", _isAutoLogin, _isAcceptTerms);
+}
+
+/// 로그인 화면 저장하기
+- (void)setLoginInfo:(NSMutableDictionary *)loginInfo
+{
+    _loginInfo = loginInfo;
+
+    /// TODO: 로그인 데이터 파일로 저장하는 루틴 추가
 }
 
 /// 자동 로그인 설정

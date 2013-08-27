@@ -47,7 +47,7 @@
     // UserInfo의 auto login 정보에 따라 로그인 창 띄우기
     NSLog(@"AUTO LOGIN : %d", [UserContext shared].isAutoLogin);
     
-    if ([UserContext shared].isAutoLogin != YES)
+    if ([UserContext shared].isAutoLogin == YES)
     {
         //---------- 자동 로그인 (0) : 대쉬보드 화면 표시 ----------
         [self showMainViewController:nil animated:NO];
@@ -57,7 +57,7 @@
     {
         //---------- 자동 로그인 (X) : 로그인 화면 표시 ----------
         self.window.rootViewController = [self loginViewController];
-//        self.window.rootViewController = [self sideMenuConrainer];        
+//        self.window.rootViewController = [self sideMenuConrainer];
     }
 
     

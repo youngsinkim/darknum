@@ -314,7 +314,7 @@
 
 
 #pragma mark - UIControl Callbacks
-/// 로그인
+/// 로그인 버튼 
 - (void)onLoginClicked
 {
     _loginBtn.enabled = NO;
@@ -346,7 +346,7 @@
     }
     
     
-    // 로그인 요청
+    // MARK: 로그인 요청
     NSString *crytoMobileNo = [NSString stringWithFormat:@"01023873856"];
     NSLog(@"사용자 Id : %@", crytoMobileNo);
     
@@ -426,20 +426,24 @@
                                             }
                                             else
                                             {
-                                                if ([[UserContext shared] isAcceptTerms] == YES) {
+                                                // 로그인 결과 로컬(파일) 저장.
+                                                [[UserContext shared].loginInfo setDictionary:result];
+                                                
+                                                
+                                                // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
+                                                if ([[UserContext shared] isAcceptTerms] == YES)
+                                                {
                                                     // 로그인 성공하면 즐겨찾기 화면으로 이동
                                                     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                                                     [appDelegate showMainViewController:self animated:YES];
                                                 }
-                                                else {
+                                                else
+                                                {
                                                     // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
                                                     TermsViewController *termsViewController = [[TermsViewController alloc] init];
 
                                                     [self.navigationController pushViewController:termsViewController animated:YES];
                                                 }
-//                                                if ([result[@"list"] isKindOfClass:[NSArray class]]) {
-//                                                    [self.vodList setArray:result[@"list"]];
-//                                                }
 
                                             }
                                             

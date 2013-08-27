@@ -149,8 +149,8 @@
 //                       }
 //                   }
 
-                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
-//                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
+//                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
                }
 
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
