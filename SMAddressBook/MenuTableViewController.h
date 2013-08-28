@@ -9,6 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <MFSideMenuContainerViewController.h>
 
+typedef enum {
+    MenuViewTypeAddrFaculty,
+    MenuViewTypeAddrStaff,
+    MenuViewTypeAddrStudent,
+    MenuViewTypeAddrTotalStudent,
+    MenuViewTypeSettMyInfo,
+    MenuViewAddrSettFavorite,
+    MenuViewAddrSettTerms,
+    MenuViewTypeSettHelp,
+    MenuViewTypeUnknown
+} MenuViewType;
+
 @interface MenuTableViewController : UITableViewController
 
 //@property (strong, nonatomic) NSMutableArray *menuList;             //< 메뉴 리스트

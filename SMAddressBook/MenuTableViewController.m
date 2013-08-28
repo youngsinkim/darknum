@@ -21,6 +21,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Course.h"
 
+#import "PortraitNavigationController.h"
+
 #pragma mark - UITableView UI Size Values
 
 #define kHeaderH        62.0f
@@ -450,5 +452,37 @@
 //
 //    return (UIViewController *)myInfoViewController;
 //}
+
+
+#pragma mark - 
+
+/// 세로 모드 네비게이션바 세팅
+- (UINavigationController *)navigationController:(UIViewController *)viewController {
+    return [[PortraitNavigationController alloc] initWithRootViewController:viewController];
+}
+
+/// 네비게이션 뷰 컨트롤러
+- (UINavigationController *)menuNavigationController:(MenuViewType)menuType
+{
+    UINavigationController *nav = nil;
+    
+    switch (menuType) {
+        case MenuViewTypeAddrFaculty:
+        {
+            CourseClassViewController *viewController = [[CourseClassViewController alloc] init];
+            nav = [[PortraitNavigationController alloc] initWithRootViewController:viewController];
+        }
+            break;
+            
+        default:    // 즐겨찾기 화면
+//        {
+//            FavoriteViewController *vc = [[FavoriteViewController alloc] init];
+//            nav = [[PortraitNavigationController alloc] initWithRootViewController:vc];
+//        }
+            break;
+    }
+    
+    return nil;
+}
 
 @end

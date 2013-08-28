@@ -10,7 +10,9 @@
 #import "FavoriteViewController.h"      //< 즐겨찾기(메인) 뷰 컨트롤러
 #import "PortraitNavigationController.h"//< 세로모드 네비게이션 컨트롤러
 #import "MenuTableViewController.h"     //< 왼쪽 메뉴 테이블 뷰 컨트롤러
+
 #import "LoginViewController.h"         //< 로그인 뷰 컨트롤러
+#import "TermsViewController.h"
 
 #import <AFNetworkActivityIndicatorManager.h>
 #import <MFSideMenuContainerViewController.h>
@@ -43,10 +45,10 @@
     //------------------- 상태바 Indicator 설정 ------------------
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
-    
+        
     // UserInfo의 auto login 정보에 따라 로그인 창 띄우기
-    NSLog(@"AUTO LOGIN : %d", [UserContext shared].isAutoLogin);
-
+//    NSLog(@"AUTO LOGIN : %d", [UserContext shared].isAutoLogin);
+//
 //    if ([UserContext shared].isAutoLogin == YES)
 //    {
 //        //---------- 자동 로그인 (0) : 대쉬보드 화면 표시 ----------
@@ -62,12 +64,53 @@
 
     
     // sochae - 메뉴 구성 먼저 하고 로그인 창 모달로 띄우도록 시나리오 변경
+    
+    // MARK: App 실행 (왼쪽 메뉴, 즐겨찾기 메인 뷰 구성)
     [self showMainViewController:nil animated:NO];
+    [self.window makeKeyAndVisible];
 
     
-    //
-    [self.window makeKeyAndVisible];
+    // 로그인 여부 확인
+    NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
+    BOOL isAutoLogin = [[UserContext shared] isAutoLogin];
+    
+    NSLog(@"autoLogin(%d), LOGIN INFO : %@", isAutoLogin, loginInfo);
+    
+    // 자동 로그인 설정 유무
+    if (isAutoLogin && loginInfo[@"certno"])
+    {
+        // 로그인 값이 존재하고, 자동 로그인이 설정되어 있으면 자동 로그인 수행.
+    }
+    else
+    {
+        if (!loginInfo[@"certno"])
+        {
+            // MARK: 로그인 전이면, 로그인 화면 표시
+            UIViewController *loginViewController = [self loginViewController];
         
+            [self.container.centerViewController presentViewController:loginViewController animated:NO completion:nil];
+
+        }
+        else
+        {
+        
+//            if (self.loginSaveCheckBtn.selected == YES)
+//                {
+//                [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
+//                [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
+//                }
+
+        }
+    }
+//    else if (![[UserContext shared] isAcceptTerms])
+//        {
+//        // MARK: 약관 동의를 하지 않았으면 약관동의 화면 노출.
+//        UIViewController *termsViewController = [appDelegate termsViewController];
+//
+//        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
+//        }
+
+
     return YES;
 }
 
@@ -219,12 +262,31 @@
     return self.container;
 }
 
+- (void)performViewController:(UIViewController *)viewController
+{
+    CATransition* transition = [CATransition animation];
+    
+    transition.duration = 0.3;
+    transition.type = kCATransitionFade;
+    
+//    [[self.sourceViewController navigationController].view.layer addAnimation:transition forKey:kCATransition];
+//    [[self.sourceViewController navigationController] pushViewController:[self destinationViewController] animated:NO];
+}
+
 /// 로그인 뷰 컨트롤러
 - (UINavigationController *)loginViewController
 {
-    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
     
-    return [self navigationController:loginViewController];
+    return [self navigationController:loginVC];
+}
+
+/// 약관동의 뷰 컨트롤러
+- (UINavigationController *)termsViewController
+{
+    TermsViewController *termsVC = [[TermsViewController alloc] init];
+    
+    return [self navigationController:termsVC];
 }
 
 /// 메인(즐겨찾기) 화면 뷰 컨트롤러

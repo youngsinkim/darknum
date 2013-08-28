@@ -10,4 +10,10 @@
 
 @interface TermsViewController : BaseViewController
 
+@property (assign, nonatomic) BOOL isByMenu;   // 왼쪽 메뉴 선택으로 뷰를 띄우는지 확인
+//@property (assign) BOOL isHideAcceptBtn;
+
+// 메뉴에서 약관 동의 화면을 띄울 경우, [동의함] 버튼 삭제
+- (void)hideAcceptBtn;
+
 @end

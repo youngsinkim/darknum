@@ -26,6 +26,8 @@
     if (self) {
         // Custom initialization
         self.navigationItem.title = LocalizedString(@"terms_text", @"이용약관동의");
+//        self.isHideAcceptBtn = NO;
+        self.isByMenu = NO; 
     }
     return self;
 }
@@ -38,6 +40,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
 
     NSLog(@"%@", self.navigationController.viewControllers);
+    NSLog(@"modal : %d",     self.navigationController.modalInPopover);
+    
     if (self.navigationController.viewControllers[0] != self) {
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.hidesBackButton = YES;      // 기본 네비게이션 back 버튼 노출되지 않도록 처리 
@@ -70,7 +74,7 @@
     
     // 약관동의 버튼
     _acceptBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn.frame = CGRectMake(0.0f, _scrollView.frame.size.height - 30.0f, 70.0f, 30.0f);
+    _acceptBtn.frame = CGRectMake(0.0f, _scrollView.frame.size.height - 50.0f, 70.0f, 30.0f);
     _acceptBtn.center = CGPointMake(300.0f / 2, 566.0f);
     [_acceptBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
     [_acceptBtn setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
@@ -89,7 +93,11 @@
 - (void)onAcceptBtnClicked
 {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-
+    
+    // 약관 동의 설정값 저장
+    [UserContext shared].isAcceptTerms = YES;
+    
+    // 약관 동의 화면 (fade out)감추기
     [UIView animateWithDuration:0.5f
                      animations:^{
 
@@ -104,8 +112,8 @@
                          
                          [self dismissViewControllerAnimated:NO completion:nil];
 
-                         MenuTableViewController *menuVC = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
-                         [menuVC showMyInfoViewController];
+//                         MenuTableViewController *menuVC = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
+//                         [menuVC showMyInfoViewController];
                      }];
 
     
@@ -123,4 +131,23 @@
 //        
 //    }
 }
+
+#pragma mark - ViewControllers
+/// 메뉴를 통해 진입하는지에 따라 화면 네비게이션 또는 동의함 버튼 컨트롤 화면 표시 조절
+- (void)setIsByMenu:(BOOL)isByMenu
+{
+    
+}
+
+- (void)hideAcceptBtn
+{
+    // 동의함 버튼 숨김은 메뉴에서 진입 시에 해당함.
+    _acceptBtn.hidden = YES;
+    
+    //
+    // TODO: WebView 사이즈 조정
+    
+    [self.view setNeedsLayout];
+}
+
 @end

@@ -47,10 +47,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x133E89)];
-
-    self.view.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
+    // 로그인 화면은 상속받은 네비게이션 버튼 표시 안함.
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil; 
+    
+//    self.extendedLayoutIncludesOpaqueBars = YES;
+//    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x133E89)];
+//
+//    self.view.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
     
 
     // 로그인 화면 구성
@@ -233,7 +238,10 @@
 - (void)reset
 {
     [self.HUD hide:YES];
+    
     [self.loginBtn setEnabled:YES];
+    [self.idSaveCheckBtn setEnabled:YES];
+    [self.loginSaveCheckBtn setEnabled:YES];
 }
 
 // 컨트롤 문자열 업데이트 (언어 설정에 따른)
@@ -318,6 +326,8 @@
 - (void)onLoginClicked
 {
     _loginBtn.enabled = NO;
+    _loginSaveCheckBtn.enabled = NO;
+    _idSaveCheckBtn.enabled = NO;
 
     if ([_idTextField isFirstResponder]) {
         [_idTextField resignFirstResponder];
@@ -330,7 +340,10 @@
         
         [alertView show];
         _loginBtn.enabled = YES;
-        
+        _loginSaveCheckBtn.enabled = YES;
+        _idSaveCheckBtn.enabled = YES;
+
+    
         return;
     }
     
@@ -338,24 +351,27 @@
     if ([_pwdTextField.text length] == 0)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:LocalizedString(@"alert_pwd_empty_text", nil) delegate:self cancelButtonTitle:LocalizedString(@"btn_ok", nil) otherButtonTitles:nil];
-        
+    
         [alertView show];
         _loginBtn.enabled = YES;
-        
+        _loginSaveCheckBtn.enabled = YES;
+        _idSaveCheckBtn.enabled = YES;
+    
         return;
     }
     
     
-    // MARK: 로그인 요청
+    // TODO: 단말 전화번호 가져오기 기능 추가 필요
     NSString *crytoMobileNo = [NSString stringWithFormat:@"01023873856"];
-    NSLog(@"사용자 Id : %@", crytoMobileNo);
     
+    // TODO: 업데이트 시간 최초 이회에 마지막 시간 값으로 세팅되도록 수정 필요
     NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
                             @"phone":crytoMobileNo,
                             @"updatedate":@"0000-00-00 00:00:00",
                             @"userid":_idTextField.text,
                             @"passwd":_pwdTextField.text};
     
+    // MARK: 서버로 로그인 요청
     [self requestAPILogin:param];
 }
 
@@ -363,14 +379,14 @@
 - (void)onKoreanLanguageClicked
 {
     [TSLanguageManager setSelectedLanguage:kLMKorean];
-    [self updateControls];
+//    [self updateControls];
 }
 
 /// English
 - (void)onEnglishLanguageClicked
 {
     [TSLanguageManager setSelectedLanguage:kLMEnglish];
-    [self updateControls];
+//    [self updateControls];
 }
 
 /// 아이디 저장
@@ -403,23 +419,19 @@
 {
 //    self.loading = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 40.0f, 40.0f)];
 //    self.loading.center = self.view.center;
-//
 //    [self.view addSubview:self.loading];
     
     self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 	self.HUD.delegate = self;
-    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];// colorWithRed:0.23 green:0.50 blue:0.82 alpha:0.90];
+    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
     self.HUD.margin = 10.0f;
 
-
-//    NSDictionary *pathDict = @{@"scode":@"5684825a51beb9d2fa05e4675d91253c", @"phone":@"01023873856", @"updatedate":@"0000-00-00 00:00:00", @"userid":@"ztest01", @"passwd":@"1111#"};
-    // Request Data : scode=5684825a51beb9d2fa05e4675d91253c&phone=01023873856&updatedate=0000-00-00 00:00:00&userid=ztest01&passwd=1111#
-    // Response Data : {"errcode":"0","certno":"m9kebjkakte1tvrqfg90i9fh84","memtype":"1","updatecount":"218"}
+    NSLog(@"LOGIN Request Parameter : %@", param);
+    
     // 로그인 요청
     [[SMNetworkClient sharedClient] postLogin:param
                                         block:^(NSMutableDictionary *result, NSError *error) {
-                                            
-                                            NSLog(@"API Result : \n%@", result);
+                                            NSLog(@"API(LOGIN) Result : \n%@", result);
 
                                             if (error) {
                                                 [[SMNetworkClient sharedClient] showNetworkError:error];
@@ -427,15 +439,31 @@
                                             else
                                             {
                                                 // 로그인 결과 로컬(파일) 저장.
-                                                [[UserContext shared].loginInfo setDictionary:result];
+                                                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
+                                            
+                                                [UserContext shared].loginInfo = dict;
+                                                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kLoginInfo];
+                                                [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:@"certno"];
+                                            
+                                                // 자동 로그인이 설정되어 있는 경우, 로그인 아이디/비밀번호 파일 저장.
+                                                if (self.loginSaveCheckBtn.selected == YES)
+                                                {
+                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
+                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
+                                                }
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+
                                                 
                                                 
                                                 // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
                                                 if ([[UserContext shared] isAcceptTerms] == YES)
                                                 {
                                                     // 로그인 성공하면 즐겨찾기 화면으로 이동
-                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                                                    [appDelegate showMainViewController:self animated:YES];
+//                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//                                                    [appDelegate showMainViewController:self animated:YES];
+                                                
+                                                    // 메뉴 구성 먼저하고, 로그인 창을 모달로 띄운 시나리오에서는 해당 로그인 창을 닫는 루틴 처리.
+                                                    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
                                                 }
                                                 else
                                                 {

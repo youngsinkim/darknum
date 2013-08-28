@@ -46,7 +46,7 @@ static UserContext *_sharedUserContext = nil;
     {
         //
         [self loadAppSetting];
-        
+    
         //		vcCallStack = [[NSMutableArray alloc] initWithCapacity:20];
         //		self.feedCounter = [[[FeedCounter alloc] init] autorelease];
         
@@ -66,21 +66,30 @@ static UserContext *_sharedUserContext = nil;
 - (void)loadAppSetting
 {
     // TODO: 로그인 데이터 읽어오기
-
     _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
     _isAcceptTerms = [[NSUserDefaults standardUserDefaults] boolForKey:kAcceptTerms];
     _isExistProfile = [[NSUserDefaults standardUserDefaults] boolForKey:kSetProfile];
     
-    NSLog(@"App Setting Info : auto_login(%d), accept_terms(%d)", _isAutoLogin, _isAcceptTerms);
+    [_loginInfo setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:kLoginInfo]];
+    _certNo = [[NSUserDefaults standardUserDefaults] objectForKey:@"certno"];
+    
+    NSLog(@"login = %@", _loginInfo);
+    NSLog(@"App Setting Info : auto_login(%d), accept_terms(%d), certno = %@", _isAutoLogin, _isAcceptTerms, _certNo);
+
 }
 
 /// 로그인 화면 저장하기
-- (void)setLoginInfo:(NSMutableDictionary *)loginInfo
-{
-    _loginInfo = loginInfo;
-
-    /// TODO: 로그인 데이터 파일로 저장하는 루틴 추가
-}
+//- (void)setLoginInfo:(NSMutableDictionary *)loginInfo
+//{
+//    /// TODO: 로그인 데이터 파일로 저장하는 루틴 추가
+//    [[NSUserDefaults standardUserDefaults] setObject:loginInfo forKey:kLoginInfo];
+////    [[NSUserDefaults standardUserDefaults] setObject:loginInfo[@"certno"] forKey:@"certno"];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+////    _certNo = loginInfo[@"certno"];
+////    NSLog(@"login = %@", _certNo);
+//    _loginInfo = loginInfo;
+//}
 
 /// 자동 로그인 설정
 - (void)setIsAutoLogin:(BOOL)isAutoLogin

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController <UITextFieldDelegate, MBProgressHUDDelegate>
+@interface LoginViewController : BaseViewController <UITextFieldDelegate, MBProgressHUDDelegate>
 
 @end

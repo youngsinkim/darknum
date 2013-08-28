@@ -39,44 +39,54 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
 
-    // 컨텍스트 지정
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+
+    // CoreData 컨텍스트 지정
     if (self.managedObjectContext == nil)
     {
-        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+        self.managedObjectContext = [appDelegate managedObjectContext];
         NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
     }
 
     // 왼쪽 메뉴 설정
 //    MenuTableViewController *menuVC = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
 //    menuVC.addrMenuList = nil;
-    
-    if (![[UserContext shared] isExistProfile])
+
+    NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
+    NSLog(@"LOGIN INFO : %@", loginInfo);
+
+    if (!loginInfo[@"certno"])
+//    {
+//        // MARK: 로그인 되지 않은 상태이면 로그인 화면 노출.
+//        UIViewController *loginViewController = [appDelegate loginViewController];
+//    
+//        [self.navigationController presentViewController:loginViewController animated:NO completion:nil];
+//    }
+//    else if (![[UserContext shared] isAcceptTerms])
+//    {
+//        // MARK: 약관 동의를 하지 않았으면 약관동의 화면 노출.
+//        UIViewController *termsViewController = [appDelegate termsViewController];
+//        
+//        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
+//    }
+//    else if (![[UserContext shared] isExistProfile])
     {
-        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        UIViewController *vc = [appDelegate loginViewController];
-        
-        [self.navigationController presentViewController:vc animated:NO completion:nil];
-        
-//        LoginViewController *vc = [[LoginViewController alloc] init];
-//        NSArray *controllers = [NSArray arrayWithObject:vc];
-//        UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
-//        navigationController.viewControllers = controllers;
-        return;
+        // MARK:
     }
+    else
+    {
+        // 즐겨찾기 화면 구성
+        [self setupFavoriteUI];
+        
+        // 과정 기수 목록 가져오기
+        [self requestAPIClasses];
+        
+        // 기수 목록 중 즐겨찾기 목록 구성
+//        [self loadDBFavoriteCourse];
     
-    // 즐겨찾기 화면 구성
-    [self setupFavoriteUI];
-    
-    // 과정 기수 목록 가져오기
-    [self requestAPIClasses];
-    
-    // 기수 목록 중 즐겨찾기 목록 구성
-    [self loadDBFavoriteCourse];
-    
-    // 업데이트 목록 구성
+        // 업데이트 목록 구성
+    }
 }
 
 - (void)didReceiveMemoryWarning
