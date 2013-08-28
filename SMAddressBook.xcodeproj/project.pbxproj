@@ -129,6 +129,7 @@
 		BF57B2D117CCE28400B39C03 /* btn_filter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CB17CCE28400B39C03 /* btn_filter@2x.png */; };
 		BF57B2D217CCE28400B39C03 /* btn_home.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CC17CCE28400B39C03 /* btn_home.png */; };
 		BF57B2D317CCE28400B39C03 /* btn_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CD17CCE28400B39C03 /* btn_home@2x.png */; };
+		BF57B2DA17CE64E000B39C03 /* nocontents_img6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2D917CE64E000B39C03 /* nocontents_img6@2x.png */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -292,6 +293,7 @@
 		BF57B2CB17CCE28400B39C03 /* btn_filter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_filter@2x.png"; sourceTree = "<group>"; };
 		BF57B2CC17CCE28400B39C03 /* btn_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_home.png; sourceTree = "<group>"; };
 		BF57B2CD17CCE28400B39C03 /* btn_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_home@2x.png"; sourceTree = "<group>"; };
+		BF57B2D917CE64E000B39C03 /* nocontents_img6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nocontents_img6@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -454,6 +456,7 @@
 		5062B65317C4D72F00A2495D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				BF57B2D917CE64E000B39C03 /* nocontents_img6@2x.png */,
 				BF57B2C817CCE28400B39C03 /* btn_back.png */,
 				BF57B2C917CCE28400B39C03 /* btn_back@2x.png */,
 				BF57B2CA17CCE28400B39C03 /* btn_filter.png */,
@@ -790,6 +793,7 @@
 				BF57B2D117CCE28400B39C03 /* btn_filter@2x.png in Resources */,
 				BF57B2D217CCE28400B39C03 /* btn_home.png in Resources */,
 				BF57B2D317CCE28400B39C03 /* btn_home@2x.png in Resources */,
+				BF57B2DA17CE64E000B39C03 /* nocontents_img6@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
