@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, MBProgressHUDDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MFSideMenuContainerViewController *container;

@@ -132,10 +132,10 @@
     TermsViewController *termsVC = [[TermsViewController alloc] init];
     HelpViewController *helpVC = [[HelpViewController alloc] init];
 
-    _settMenuList = @[@{@"title":LocalizedString(@"my_info_setting", @"내 정보설정"), @"icon":@"help_icon", @"viewController":myInfoVC},
-                      @{@"title":LocalizedString(@"favorite_setting", @"즐겨찾기 설정"), @"icon":@"help_icon", @"viewController":fvSettingVC},
-                      @{@"title":LocalizedString(@"terms_and_policy", @"약관 및 정책"), @"icon":@"help_icon", @"viewController":termsVC},
-                      @{@"title":LocalizedString(@"help", @"도움말"), @"icon":@"help_icon", @"viewController":helpVC}];
+    _settMenuList = @[@{@"type":[NSNumber numberWithInt:MenuViewTypeSettMyInfo], @"title":LocalizedString(@"my_info_setting", @"내 정보설정"), @"icon":@"help_icon", @"viewController":myInfoVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"favorite_setting", @"즐겨찾기 설정"), @"icon":@"help_icon", @"viewController":fvSettingVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettTerms], @"title":LocalizedString(@"terms_and_policy", @"약관 및 정책"), @"icon":@"help_icon", @"viewController":termsVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettHelp], @"title":LocalizedString(@"help", @"도움말"), @"icon":@"help_icon", @"viewController":helpVC}];
     
 
 }
@@ -400,6 +400,17 @@
         
         if (![menuDict isEqual:[NSNull null]])
         {
+            if ([menuDict[@"type"] intValue] == MenuViewTypeSettMyInfo)
+            {
+                [self menuNavigationController:MenuViewTypeSettMyInfo];
+                return;
+            }
+            else if ([menuDict[@"type"] intValue] == MenuViewTypeSettTerms)
+            {
+                [self menuNavigationController:MenuViewTypeSettTerms];
+                return;
+            }
+
             UIViewController *viewController = [menuDict objectForKey:@"viewController"];
             viewController.title = [menuDict objectForKey:@"title"];
             
@@ -465,15 +476,64 @@
 - (UINavigationController *)menuNavigationController:(MenuViewType)menuType
 {
     UINavigationController *nav = nil;
+    NSArray *controllers = nil;
     
-    switch (menuType) {
+    switch (menuType)
+    {
         case MenuViewTypeAddrFaculty:
         {
             CourseClassViewController *viewController = [[CourseClassViewController alloc] init];
-            nav = [[PortraitNavigationController alloc] initWithRootViewController:viewController];
+//            nav = [[PortraitNavigationController alloc] initWithRootViewController:viewController];
+            controllers = @[viewController];
+            self.menuContainerViewController.centerViewController = [self navigationController:viewController];
         }
             break;
+
+        case MenuViewTypeAddrTotalStudent:
+            {
+                CourseTotalViewController *totalVC = [[CourseTotalViewController alloc] init];
+                controllers = @[totalVC];
+                self.menuContainerViewController.centerViewController = [self navigationController:totalVC];
+            }
+            break;
+
+        case MenuViewTypeSettMyInfo:
+            {
+                MyInfoViewController *myInfoVC = [[MyInfoViewController alloc] init];
+//                controllers = @[myInfoVC];
+                
+                self.menuContainerViewController.centerViewController = [self navigationController:myInfoVC];
+
+            }
+            break;
             
+        case MenuViewTypeSettFavorite:
+            {
+                FavoriteSettingViewController *favoriteVC = [[FavoriteSettingViewController alloc] init];
+                controllers = @[favoriteVC];
+                
+                self.menuContainerViewController.centerViewController = [self navigationController:favoriteVC];
+            }
+            break;
+            
+        case MenuViewTypeSettTerms:
+            {
+                TermsViewController *termsVC = [[TermsViewController alloc] init];
+                termsVC.isByMenu = YES;
+                
+                controllers = @[termsVC];
+                self.menuContainerViewController.centerViewController = [self navigationController:termsVC];
+            }
+            break;
+
+        case MenuViewTypeSettHelp:
+            {
+                HelpViewController *helpVC = [[HelpViewController alloc] init];
+                controllers = @[helpVC];
+                self.menuContainerViewController.centerViewController = [self navigationController:helpVC];
+            }
+            break;
+
         default:    // 즐겨찾기 화면
 //        {
 //            FavoriteViewController *vc = [[FavoriteViewController alloc] init];
@@ -482,6 +542,11 @@
             break;
     }
     
+//    UINavigationController *navigationController = self.menuContainerViewController.centerViewController;
+//    navigationController.viewControllers = controllers;
+    
+    [self.menuContainerViewController setMenuState:MFSideMenuStateClosed];
+
     return nil;
 }
 

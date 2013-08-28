@@ -17,6 +17,15 @@
 #import <AFNetworkActivityIndicatorManager.h>
 #import <MFSideMenuContainerViewController.h>
 #import <QuartzCore/QuartzCore.h>
+#import "MBProgressHUD.h"
+#import "NSString+MD5.h"
+
+@interface AppDelegate ()
+
+@property (strong, nonatomic) UIViewController *splashViewController;
+@property (strong, nonatomic) MBProgressHUD *HUD;
+
+@end
 
 
 @implementation AppDelegate
@@ -80,18 +89,28 @@
     if (isAutoLogin && loginInfo[@"certno"])
     {
         // 로그인 값이 존재하고, 자동 로그인이 설정되어 있으면 자동 로그인 수행.
+        self.splashViewController = [[UIViewController alloc] init];
+        self.splashViewController.view.layer.contents = (id)[UIImage imageNamed:@"Default.png"].CGImage;
+
+        [self.container.centerViewController presentViewController:self.splashViewController animated:NO completion:nil];
+
+        [self requestAPILogin];
     }
     else
     {
-        if (!loginInfo[@"certno"])
+        if ([[UserContext shared] loginInfo] != nil)
         {
-            // MARK: 로그인 전이면, 로그인 화면 표시
-            UIViewController *loginViewController = [self loginViewController];
-        
-            [self.container.centerViewController presentViewController:loginViewController animated:NO completion:nil];
-
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLoginInfo];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
-        else
+        
+        NSLog(@"after LoginInfo : %@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:kLoginInfo]);
+
+        // MARK: 로그인 전이면, 로그인 화면 표시
+        UINavigationController *loginNav = [self loginViewController];
+        
+        [self.container.centerViewController presentViewController:loginNav animated:NO completion:nil];
+
         {
         
 //            if (self.loginSaveCheckBtn.selected == YES)
@@ -332,4 +351,89 @@
 //                        }];
     }
 }
+
+#pragma mark - Network methods
+/// 로그인 요청
+- (void)requestAPILogin
+{
+    self.HUD = [MBProgressHUD showHUDAddedTo:self.window.rootViewController.view animated:YES];
+	self.HUD.delegate = self;
+    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
+    self.HUD.margin = 10.0f;
+
+    // TODO: 단말 전화번호 가져오기 기능 추가 필요
+    NSString *crytoMobileNo = [NSString stringWithFormat:@"01023873856"];
+    
+    // TODO: 업데이트 시간 최초 이회에 마지막 시간 값으로 세팅되도록 수정 필요
+    NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
+                            @"phone":crytoMobileNo,
+                            @"updatedate":@"0000-00-00 00:00:00",
+                            @"userid":[[NSUserDefaults standardUserDefaults] valueForKey:@"userId"],
+                            @"passwd":[[NSUserDefaults standardUserDefaults] valueForKey:@"userPwd"]};
+
+    NSLog(@"LOGIN Request Parameter : %@", param);
+    
+    // 로그인 요청
+    [[SMNetworkClient sharedClient] postLogin:param
+                                        block:^(NSMutableDictionary *result, NSError *error) {
+                                            NSLog(@"API(LOGIN) Result : \n%@", result);
+                                            
+                                            [self.HUD hide:YES];
+
+                                            if (error) {
+                                                [[SMNetworkClient sharedClient] showNetworkError:error];
+                                            }
+                                            else
+                                            {
+                                                // 이 함수는 자동 로그인인 경우에 실행되므로 별도 저장 없음.
+                                                [UserContext shared].isLogined = YES;
+                                                
+                                                // 로그인 결과 로컬(파일) 저장.
+//                                                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
+//                                                
+//                                                [UserContext shared].loginInfo = dict;
+//                                                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kLoginInfo];
+//                                                [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:@"certno"];
+//                                                
+//                                                // 자동 로그인이 설정되어 있는 경우, 로그인 아이디/비밀번호 파일 저장.
+//                                                if (self.loginSaveCheckBtn.selected == YES)
+//                                                {
+//                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
+//                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
+//                                                }
+//                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                                
+                                                
+                                                [self.splashViewController dismissViewControllerAnimated:NO completion:nil];
+                                                
+                                                // 로그인 성공 후, 약관 동의를 하지 않았으면 약관동의 화면으로 이동
+                                                if ([[UserContext shared] isAcceptTerms] == NO)
+                                                {
+                                                    // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
+                                                    TermsViewController *termsViewController = [[TermsViewController alloc] init];
+                                                    
+                                                    [self.container.centerViewController presentViewController:[self navigationController:termsViewController] animated:NO completion:nil];
+                                                }
+                                                else if ([[UserContext shared] isExistProfile] == NO)
+                                                {
+                                                    // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
+                                                    MenuTableViewController *leftMenuViewController = (MenuTableViewController *)self.container.leftMenuViewController;
+                                                    
+                                                    [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo];
+                                                }
+                                                else
+                                                {
+                                                    // 로그인 성공하면 즐겨찾기 화면으로 이동
+                                                    //                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                                                    //                                                    [appDelegate showMainViewController:self animated:YES];
+                                                    
+                                                    // 메뉴 구성 먼저하고, 로그인 창을 모달로 띄운 시나리오에서는 해당 로그인 창을 닫는 루틴 처리.
+//                                                    [self.splashViewController.parentViewController dismissViewControllerAnimated:NO completion:nil];
+                                                }
+                                                
+                                            }
+                                            
+                                        }];
+}
+
 @end

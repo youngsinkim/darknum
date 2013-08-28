@@ -49,14 +49,18 @@
         NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
     }
 
-    // 왼쪽 메뉴 설정
-//    MenuTableViewController *menuVC = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-//    menuVC.addrMenuList = nil;
+    
+    // 즐겨찾기 화면 구성
+    [self setupFavoriteUI];
 
+    
     NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
     NSLog(@"LOGIN INFO : %@", loginInfo);
 
-    if (!loginInfo[@"certno"])
+    // 로그인 전이면 화면 구성 중단.
+    if ([UserContext shared].isLogined == NO)
+    {
+        if (!loginInfo[@"certno"])
 //    {
 //        // MARK: 로그인 되지 않은 상태이면 로그인 화면 노출.
 //        UIViewController *loginViewController = [appDelegate loginViewController];
@@ -71,14 +75,12 @@
 //        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
 //    }
 //    else if (![[UserContext shared] isExistProfile])
-    {
+        {
         // MARK:
+        }
     }
     else
-    {
-        // 즐겨찾기 화면 구성
-        [self setupFavoriteUI];
-        
+    {        
         // 과정 기수 목록 가져오기
         [self requestAPIClasses];
         

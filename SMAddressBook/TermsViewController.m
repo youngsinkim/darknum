@@ -42,7 +42,9 @@
     NSLog(@"%@", self.navigationController.viewControllers);
     NSLog(@"modal : %d",     self.navigationController.modalInPopover);
     
-    if (self.navigationController.viewControllers[0] != self) {
+//    if (self.navigationController.viewControllers[0] != self)
+    if (self.isByMenu == NO)
+    {
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.hidesBackButton = YES;      // 기본 네비게이션 back 버튼 노출되지 않도록 처리 
         self.navigationItem.rightBarButtonItem = nil;
@@ -89,7 +91,7 @@
 
 #pragma mark - UI Control Callbacks
 
-// 약과 동의 버튼
+// 약관 동의 버튼
 - (void)onAcceptBtnClicked
 {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -112,8 +114,14 @@
                          
                          [self dismissViewControllerAnimated:NO completion:nil];
 
-//                         MenuTableViewController *menuVC = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
-//                         [menuVC showMyInfoViewController];
+                         if ([[UserContext shared] isExistProfile] == NO)
+                         {
+                             // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
+                             MenuTableViewController *leftMenuViewController = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
+                             
+                             [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo];
+                         }
+                         
                      }];
 
     
@@ -133,10 +141,12 @@
 }
 
 #pragma mark - ViewControllers
+
 /// 메뉴를 통해 진입하는지에 따라 화면 네비게이션 또는 동의함 버튼 컨트롤 화면 표시 조절
 - (void)setIsByMenu:(BOOL)isByMenu
 {
-    
+    _isByMenu = isByMenu;
+    [_acceptBtn setHidden:YES];
 }
 
 - (void)hideAcceptBtn

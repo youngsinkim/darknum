@@ -32,6 +32,7 @@ static UserContext *_sharedUserContext = nil;
         NSAssert(_sharedUserContext == nil, @"Attempted to allocate a second instance of a singleton.");
         _sharedUserContext = [super alloc];
         _sharedUserContext.loginInfo = [[NSMutableDictionary alloc] initWithCapacity:3];
+        _sharedUserContext.isLogined = NO;
         return _sharedUserContext;
 	}
     
@@ -98,7 +99,8 @@ static UserContext *_sharedUserContext = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     _isAutoLogin = isAutoLogin;
-    
+    NSLog(@"auto_login= %d", _isAutoLogin);
+
 }
 
 /// 약관 동의 설정

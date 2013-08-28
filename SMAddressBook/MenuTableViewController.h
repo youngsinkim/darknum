@@ -15,8 +15,8 @@ typedef enum {
     MenuViewTypeAddrStudent,
     MenuViewTypeAddrTotalStudent,
     MenuViewTypeSettMyInfo,
-    MenuViewAddrSettFavorite,
-    MenuViewAddrSettTerms,
+    MenuViewTypeSettFavorite,
+    MenuViewTypeSettTerms,
     MenuViewTypeSettHelp,
     MenuViewTypeUnknown
 } MenuViewType;
@@ -35,5 +35,8 @@ typedef enum {
 - (MFSideMenuContainerViewController *)menuContainerViewController;
 
 - (void)showMyInfoViewController;
+
+/// 네비게이션 뷰 컨트롤러
+- (UINavigationController *)menuNavigationController:(MenuViewType)menuType;
 
 @end

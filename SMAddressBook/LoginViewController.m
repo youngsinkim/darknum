@@ -11,6 +11,7 @@
 #import "TermsViewController.h"
 #import "SMNetworkClient.h"
 #import "NSString+MD5.h"
+#import "MenuTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface LoginViewController ()
@@ -442,6 +443,8 @@
                                                 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
                                             
                                                 [UserContext shared].loginInfo = dict;
+                                                [UserContext shared].isLogined = YES;
+                                                
                                                 [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kLoginInfo];
                                                 [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:@"certno"];
                                             
@@ -450,20 +453,29 @@
                                                 {
                                                     [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
                                                     [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
+                                                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
                                                 }
                                                 [[NSUserDefaults standardUserDefaults] synchronize];
 
-                                                
                                                 
                                                 // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
                                                 if ([[UserContext shared] isAcceptTerms] == YES)
                                                 {
                                                     // 로그인 성공하면 즐겨찾기 화면으로 이동
-//                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //                                                    [appDelegate showMainViewController:self animated:YES];
                                                 
                                                     // 메뉴 구성 먼저하고, 로그인 창을 모달로 띄운 시나리오에서는 해당 로그인 창을 닫는 루틴 처리.
                                                     [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                                                    
+                                                    if ([[UserContext shared] isExistProfile] == NO)
+                                                    {
+                                                        // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
+                                                        MenuTableViewController *leftMenuViewController = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
+                                                        
+                                                        [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo];
+                                                    }
+
                                                 }
                                                 else
                                                 {
