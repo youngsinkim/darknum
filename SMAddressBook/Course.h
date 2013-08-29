@@ -2,7 +2,7 @@
 //  Course.h
 //  SMAddressBook
 //
-//  Created by sochae on 13. 8. 27..
+//  Created by 선옥 채 on 13. 8. 30..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
@@ -13,12 +13,12 @@
 
 @interface Course : NSManagedObject
 
+@property (nonatomic, retain) NSString * count;
 @property (nonatomic, retain) NSString * course;
 @property (nonatomic, retain) NSString * courseclass;
+@property (nonatomic, retain) NSString * favyn;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * title_en;
-@property (nonatomic, retain) NSNumber * count;
-@property (nonatomic, retain) NSNumber * favyn;
 @property (nonatomic, retain) NSSet *students;
 @end
 

@@ -17,12 +17,17 @@
 #import "Student.h"
 #import "Major.h"
 #import "LoginViewController.h"
+#import "FavoriteCell.h"
+
 
 @interface FavoriteViewController ()
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) UITableView *favoriteTableView;   // 즐겨찾기 테이블 뷰
+@property (strong, nonatomic) NSMutableArray *favorites;        // 즐겨찾기 목록
 
 @end
+
 
 @implementation FavoriteViewController
 
@@ -31,7 +36,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        self.navigationItem.title = LocalizedString(@"login_title", @"로그인");
+        self.navigationItem.title = LocalizedString(@"favorite_title", @"즐겨찾기");
+        self.favorites = [[NSMutableArray alloc] initWithCapacity:3];
     }
     return self;
 }
@@ -80,14 +86,28 @@
         }
     }
     else
-    {        
-        // 과정 기수 목록 가져오기
-        [self requestAPIClasses];
+    {
+        // 로그인 성공 후, DB(CoreData)에서 즐겨찾기(CourseClass) 목록 가져오기
+        BOOL isExistDB = NO;
         
         // 기수 목록 중 즐겨찾기 목록 구성
-//        [self loadDBFavoriteCourse];
-    
-        // 업데이트 목록 구성
+        [self.favorites setArray:[self loadDBFavoriteCourse]];
+        NSLog(@"After Favorites : %@", self.favorites);
+        
+        if ([self.favorites count] > 0)
+        {
+            // 업데이트 목록 구성
+            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+            [menu setAddrMenuList:self.favorites];
+        }
+        else
+        {
+            // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
+            // 과정 기수 목록 가져오기
+            [self requestAPIClasses];
+
+        }
+        
     }
 }
 
@@ -98,10 +118,21 @@
 }
 
 #pragma mark - View mothods
+// 즐겨찾기 화면 구성 
 - (void)setupFavoriteUI
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+//    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+    CGRect rect = self.view.frame;
     
+    // 즐겨찾기 테이블 뷰
+    self.favoriteTableView == [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f) style:UITableViewStylePlain];
+    self.favoriteTableView.dataSource = self;
+    self.favoriteTableView.delegate = self;
+    [self.favoriteTableView setBackgroundColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.1]];
+    
+    [self.view addSubview:self.favoriteTableView];
+    
+
     // 하단 버튼 툴바
     FavoriteToolViewController *footerToolbar = [[FavoriteToolViewController alloc] init];
     footerToolbar.view.frame = CGRectMake(0.0f, rect.size.height - 44.0f - kFvToolH, 320.0f, kFvToolH);
@@ -111,14 +142,45 @@
     [footerToolbar didMoveToParentViewController:self];
 }
 
+
+#pragma mark - UITableView DataSources
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"FavoriteCell";
+    FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (!cell) {
+        cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%d", arc4random()/ 100];
+    
+    return cell;
+
+}
+
 #pragma mark - Network API
+
 - (void)requestAPIClasses
 {
-    //    NSDictionary *param = @{@"scode"=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84};
+//    NSDictionary *param = @{@"scode"=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84};
+    NSDictionary *loginInfo = [[[UserContext shared] loginInfo] mutableCopy];
+    NSLog(@"LOGIN INFO : %@", loginInfo);
     NSString *mobileNo = @"01023873856";
-    NSString *userId = @"ztest01";
-    NSString *certNo = @"m9kebjkakte1tvrqfg90i9fh84";
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
     
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
     
     // 과정별 기수 목록
@@ -153,34 +215,35 @@
                                           }];
 }
 
+
 #pragma mark - CoreData methods
-/// course classes DB 읽어오기
+
+/// DB 즐겨찾기 목록 가져오기
 - (NSArray *)loadDBFavoriteCourse
 {
     if (self.managedObjectContext == nil) {
         return nil;
     }
-//    NSMutableArray *favoriteCourses = nil;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
     NSError *error = nil;
 //    NSUInteger count = [self.managedObjectContext countForFetchRequest:fetchRequest error:&error];
 //    if (error) {
 //        return nil;
 //    }
 
-    // select Table
+    // select
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    // where
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course==%@", course];
-//    [fetchRequest setPredicate:predicate];
+    // where ((ZCOURSE="FACULTY" OR ZCOURSE="STAFF") OR ZFAVYN="y")
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == 'FACULTY') OR (course == 'STAFF') OR (favyn == 'y')"];
+    [fetchRequest setPredicate:predicate];
     
-    // order by
+    // order by (ZCOURSECLASS, ZCOURSE)
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, sortDescriptor1, nil]];
     
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
@@ -199,29 +262,21 @@
 /// course classes DB 추가 및 업데이트
 - (void)onDBUpdate:(NSArray *)classList
 {
-
-//    // 컨텍스트 지정
-//    if (self.managedObjectContext == nil)
-//    {
-//        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-//        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
-//    }
-    
     NSError *error;
     BOOL isSaved = NO; 
 
     // DB에 없는 항목은 추가하기
     for (NSDictionary *dict in classList)
     {
-        BOOL isExistDB = YES;
+        BOOL isExistDB = NO;
         NSLog(@"class info : %@", dict);
         
         // 기존 DB에 저장된 데이터 읽어오기
-        if ([dict[@"course"] isEqualToString:@"FACULTY"] || [dict[@"course"] isEqualToString:@"STAFF"]) {
-            isExistDB = [self isFetchCourse:dict[@"course"]];
-        } else {
-            isExistDB = [self isFetchCourse:dict[@"courseclass"]];
-        }
+//        if ([dict[@"course"] isEqualToString:@"FACULTY"] || [dict[@"course"] isEqualToString:@"STAFF"]) {
+//            isExistDB = [self isFetchCourse:dict[@"course"]];
+//        } else {
+//            isExistDB = [self isFetchCourse:dict[@"courseclass"]];
+//        }
         
         // 기존 DB에 없으면 추가
         if (isExistDB == NO)
@@ -233,6 +288,12 @@
             class.courseclass = dict[@"courseclass"];
             class.title = dict[@"title"];
             class.title_en = dict[@"title_en"];
+//            if ([dict objectForKey:@"favyn"]) {
+                class.favyn = dict[@"favyn"];
+//            }
+//            if ([dict objectForKey:@"count"]) {
+                class.count = dict[@"count"];
+//            }
             
             isSaved = YES;
         }
@@ -266,7 +327,7 @@
             }
         
             MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-            menu.addrMenuList = [fetchedObjects mutableCopy];            
+            [menu setAddrMenuList:[fetchedObjects mutableCopy]];
         }
     }
 }

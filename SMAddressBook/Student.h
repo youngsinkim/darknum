@@ -2,7 +2,7 @@
 //  Student.h
 //  SMAddressBook
 //
-//  Created by sochae on 13. 8. 27..
+//  Created by 선옥 채 on 13. 8. 30..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
@@ -22,10 +22,10 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * name_en;
 @property (nonatomic, retain) NSString * photourl;
-@property (nonatomic, retain) NSNumber * remove;
-@property (nonatomic, retain) NSNumber * share_company;
-@property (nonatomic, retain) NSNumber * share_email;
-@property (nonatomic, retain) NSNumber * share_mobile;
+@property (nonatomic, retain) NSString * remove;
+@property (nonatomic, retain) NSString * share_company;
+@property (nonatomic, retain) NSString * share_email;
+@property (nonatomic, retain) NSString * share_mobile;
 @property (nonatomic, retain) NSString * status;
 @property (nonatomic, retain) NSString * status_en;
 @property (nonatomic, retain) NSString * studcode;

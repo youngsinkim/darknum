@@ -293,9 +293,12 @@
     
     NSDictionary *loginInfo = [[UserContext shared] loginInfo];
     NSString *mobileNo = @"01023873856";
-    NSString *userId = @"ztest01";
-    NSString *certNo = loginInfo[@"certno"];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
     
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
     
     // 내 (프로필)정보

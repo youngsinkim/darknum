@@ -2,7 +2,7 @@
 //  Student.m
 //  SMAddressBook
 //
-//  Created by sochae on 13. 8. 27..
+//  Created by 선옥 채 on 13. 8. 30..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 

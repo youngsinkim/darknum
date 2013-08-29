@@ -446,13 +446,15 @@
                                                 [UserContext shared].isLogined = YES;
                                                 
                                                 [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kLoginInfo];
-                                                [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:@"certno"];
+                                                [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:kUserCertNo];
                                             
                                                 // 자동 로그인이 설정되어 있는 경우, 로그인 아이디/비밀번호 파일 저장.
+                                                // FIXME: 현재 API에 userID가 필수여서 무조건 저장함. => 그럼 로그인 창의 아이디 저장 뭐하러 있지?
+                                                [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
+                                                
                                                 if (self.loginSaveCheckBtn.selected == YES)
                                                 {
-                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
-                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
+                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:kUserPwd];
                                                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
                                                 }
                                                 [[NSUserDefaults standardUserDefaults] synchronize];

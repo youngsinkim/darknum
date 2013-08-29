@@ -368,8 +368,8 @@
     NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
                             @"phone":crytoMobileNo,
                             @"updatedate":@"0000-00-00 00:00:00",
-                            @"userid":[[NSUserDefaults standardUserDefaults] valueForKey:@"userId"],
-                            @"passwd":[[NSUserDefaults standardUserDefaults] valueForKey:@"userPwd"]};
+                            @"userid":[[NSUserDefaults standardUserDefaults] valueForKey:kUserId],
+                            @"passwd":[[NSUserDefaults standardUserDefaults] valueForKey:kUserPwd]};
 
     NSLog(@"LOGIN Request Parameter : %@", param);
     

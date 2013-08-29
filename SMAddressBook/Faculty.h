@@ -2,7 +2,7 @@
 //  Faculty.h
 //  SMAddressBook
 //
-//  Created by sochae on 13. 8. 27..
+//  Created by 선옥 채 on 13. 8. 30..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSString * office;
 @property (nonatomic, retain) NSString * office_en;
 @property (nonatomic, retain) NSString * photourl;
-@property (nonatomic, retain) NSNumber * remove;
+@property (nonatomic, retain) NSString * remove;
 @property (nonatomic, retain) NSString * tel;
 @property (nonatomic, retain) Major *major;
 

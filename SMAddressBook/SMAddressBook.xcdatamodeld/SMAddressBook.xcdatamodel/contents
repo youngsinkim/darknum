@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Course" representedClassName="Course" syncable="YES">
-        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseclass" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="favyn" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="favyn" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_en" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="class_info" inverseEntity="Student" syncable="YES"/>
@@ -18,7 +18,7 @@
         <attribute name="office" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="office_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="remove" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="major" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Major" inverseName="facultys" inverseEntity="Major" syncable="YES"/>
     </entity>
@@ -37,7 +37,7 @@
         <attribute name="office" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="office_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="remove" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Student" representedClassName="Student" syncable="YES">
@@ -50,10 +50,10 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="remove" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="share_company" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="share_email" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="share_mobile" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_mobile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="studcode" optional="YES" attributeType="String" syncable="YES"/>
@@ -62,10 +62,10 @@
         <relationship name="class_info" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="students" inverseEntity="Course" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Course" positionX="-5769" positionY="-9" width="128" height="148"/>
         <element name="Faculty" positionX="-5438" positionY="-73" width="128" height="208"/>
         <element name="Major" positionX="-5258" positionY="32" width="128" height="103"/>
         <element name="Staff" positionX="-5258" positionY="-184" width="128" height="193"/>
         <element name="Student" positionX="-5598" positionY="-189" width="128" height="328"/>
-        <element name="Course" positionX="-5769" positionY="-9" width="128" height="148"/>
     </elements>
 </model>

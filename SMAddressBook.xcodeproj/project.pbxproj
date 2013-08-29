@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		50102CD717CC889E00E36B2C /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CD617CC889E00E36B2C /* Major.m */; };
-		50102CDA17CC889F00E36B2C /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CD917CC889F00E36B2C /* Course.m */; };
-		50102CDD17CC889F00E36B2C /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CDC17CC889F00E36B2C /* Faculty.m */; };
-		50102CE017CC889F00E36B2C /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CDF17CC889F00E36B2C /* Staff.m */; };
-		50102CE317CC889F00E36B2C /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 50102CE217CC889F00E36B2C /* Student.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
 		5062B61B17C4C10400A2495D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
@@ -130,20 +125,16 @@
 		BF57B2D217CCE28400B39C03 /* btn_home.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CC17CCE28400B39C03 /* btn_home.png */; };
 		BF57B2D317CCE28400B39C03 /* btn_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CD17CCE28400B39C03 /* btn_home@2x.png */; };
 		BF57B2DA17CE64E000B39C03 /* nocontents_img6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2D917CE64E000B39C03 /* nocontents_img6@2x.png */; };
+		BF57B2DD17CF824A00B39C03 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */; };
+		BF57B2E017CFA40E00B39C03 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2DF17CFA40E00B39C03 /* Staff.m */; };
+		BF57B2E317CFA40F00B39C03 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2E217CFA40F00B39C03 /* Student.m */; };
+		BF57B2E617CFA40F00B39C03 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2E517CFA40F00B39C03 /* Course.m */; };
+		BF57B2E917CFA40F00B39C03 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2E817CFA40F00B39C03 /* Faculty.m */; };
+		BF57B2EC17CFA40F00B39C03 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2EB17CFA40F00B39C03 /* Major.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		50102CD517CC889E00E36B2C /* Major.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Major.h; sourceTree = "<group>"; };
-		50102CD617CC889E00E36B2C /* Major.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Major.m; sourceTree = "<group>"; };
-		50102CD817CC889F00E36B2C /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
-		50102CD917CC889F00E36B2C /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
-		50102CDB17CC889F00E36B2C /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
-		50102CDC17CC889F00E36B2C /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
-		50102CDE17CC889F00E36B2C /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
-		50102CDF17CC889F00E36B2C /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
-		50102CE117CC889F00E36B2C /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
-		50102CE217CC889F00E36B2C /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
 		5062B61517C4C10400A2495D /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5062B61817C4C10400A2495D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -294,6 +285,18 @@
 		BF57B2CC17CCE28400B39C03 /* btn_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_home.png; sourceTree = "<group>"; };
 		BF57B2CD17CCE28400B39C03 /* btn_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_home@2x.png"; sourceTree = "<group>"; };
 		BF57B2D917CE64E000B39C03 /* nocontents_img6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nocontents_img6@2x.png"; sourceTree = "<group>"; };
+		BF57B2DB17CF824A00B39C03 /* FavoriteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteCell.h; sourceTree = "<group>"; };
+		BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteCell.m; sourceTree = "<group>"; };
+		BF57B2DE17CFA40E00B39C03 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
+		BF57B2DF17CFA40E00B39C03 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
+		BF57B2E117CFA40F00B39C03 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		BF57B2E217CFA40F00B39C03 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
+		BF57B2E417CFA40F00B39C03 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		BF57B2E517CFA40F00B39C03 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		BF57B2E717CFA40F00B39C03 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
+		BF57B2E817CFA40F00B39C03 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
+		BF57B2EA17CFA40F00B39C03 /* Major.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Major.h; sourceTree = "<group>"; };
+		BF57B2EB17CFA40F00B39C03 /* Major.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Major.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,16 +319,16 @@
 			isa = PBXGroup;
 			children = (
 				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
-				50102CE117CC889F00E36B2C /* Student.h */,
-				50102CE217CC889F00E36B2C /* Student.m */,
-				50102CDE17CC889F00E36B2C /* Staff.h */,
-				50102CDF17CC889F00E36B2C /* Staff.m */,
-				50102CDB17CC889F00E36B2C /* Faculty.h */,
-				50102CDC17CC889F00E36B2C /* Faculty.m */,
-				50102CD817CC889F00E36B2C /* Course.h */,
-				50102CD917CC889F00E36B2C /* Course.m */,
-				50102CD517CC889E00E36B2C /* Major.h */,
-				50102CD617CC889E00E36B2C /* Major.m */,
+				BF57B2EA17CFA40F00B39C03 /* Major.h */,
+				BF57B2EB17CFA40F00B39C03 /* Major.m */,
+				BF57B2E717CFA40F00B39C03 /* Faculty.h */,
+				BF57B2E817CFA40F00B39C03 /* Faculty.m */,
+				BF57B2E417CFA40F00B39C03 /* Course.h */,
+				BF57B2E517CFA40F00B39C03 /* Course.m */,
+				BF57B2E117CFA40F00B39C03 /* Student.h */,
+				BF57B2E217CFA40F00B39C03 /* Student.m */,
+				BF57B2DE17CFA40E00B39C03 /* Staff.h */,
+				BF57B2DF17CFA40E00B39C03 /* Staff.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -420,6 +423,8 @@
 				BF3B467117C67C180069AA9A /* FavoriteViewController.m */,
 				BF3B467317C67C4A0069AA9A /* FavoriteToolViewController.h */,
 				BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */,
+				BF57B2DB17CF824A00B39C03 /* FavoriteCell.h */,
+				BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */,
 			);
 			name = "즐겨찾기 (메인 화면)";
 			sourceTree = "<group>";
@@ -864,11 +869,12 @@
 				BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */,
 				BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */,
 				BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */,
-				50102CD717CC889E00E36B2C /* Major.m in Sources */,
-				50102CDA17CC889F00E36B2C /* Course.m in Sources */,
-				50102CDD17CC889F00E36B2C /* Faculty.m in Sources */,
-				50102CE017CC889F00E36B2C /* Staff.m in Sources */,
-				50102CE317CC889F00E36B2C /* Student.m in Sources */,
+				BF57B2DD17CF824A00B39C03 /* FavoriteCell.m in Sources */,
+				BF57B2E017CFA40E00B39C03 /* Staff.m in Sources */,
+				BF57B2E317CFA40F00B39C03 /* Student.m in Sources */,
+				BF57B2E617CFA40F00B39C03 /* Course.m in Sources */,
+				BF57B2E917CFA40F00B39C03 /* Faculty.m in Sources */,
+				BF57B2EC17CFA40F00B39C03 /* Major.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

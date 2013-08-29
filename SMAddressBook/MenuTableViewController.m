@@ -142,6 +142,8 @@
 
 - (void)setAddrMenuList:(NSMutableArray *)addrMenuList
 {
+    NSLog(@"이전 주소록 메뉴 목록 : %d", _addrMenuList.count);
+
     if (![addrMenuList isEqual:[NSNull null]])
     {
 //        _addrMenuList = addrMenuList;
