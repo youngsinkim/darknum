@@ -378,7 +378,7 @@
                                         block:^(NSMutableDictionary *result, NSError *error) {
                                             NSLog(@"API(LOGIN) Result : \n%@", result);
                                             
-                                            [self.HUD hide:YES];
+//                                            [self.HUD hide:YES];
 
                                             if (error) {
                                                 [[SMNetworkClient sharedClient] showNetworkError:error];

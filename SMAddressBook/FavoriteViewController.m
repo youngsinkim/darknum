@@ -66,7 +66,7 @@
     // 로그인 전이면 화면 구성 중단.
     if ([UserContext shared].isLogined == NO)
     {
-        if (!loginInfo[@"certno"])
+//        if (!loginInfo[@"certno"])
 //    {
 //        // MARK: 로그인 되지 않은 상태이면 로그인 화면 노출.
 //        UIViewController *loginViewController = [appDelegate loginViewController];
@@ -81,30 +81,42 @@
 //        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
 //    }
 //    else if (![[UserContext shared] isExistProfile])
-        {
+//        {
         // MARK:
-        }
+//        }
     }
     else
     {
-        // 로그인 성공 후, DB(CoreData)에서 즐겨찾기(CourseClass) 목록 가져오기
-        BOOL isExistDB = NO;
-        
-        // 기수 목록 중 즐겨찾기 목록 구성
+        // 1. 로그인 후, 로컬 DB에서 즐겨찾기(CourseClass) 목록 가져오기
+    
         [self.favorites setArray:[self loadDBFavoriteCourse]];
         NSLog(@"After Favorites : %@", self.favorites);
-        
+
         if ([self.favorites count] > 0)
         {
-            // 업데이트 목록 구성
+            // 즐겨찾기 목록 테이블 뷰 적용
+            [self.favoriteTableView reloadData];
+        
+            // 즐겨찾기 목록 메뉴 적용
             MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
             [menu setAddrMenuList:self.favorites];
         }
-        else
+
+        // 2. update count 값에 따라 서버 API 연동 및 업데이트 받기
+        NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
+        if (loginInfo[@"updatecount"] > 0 || [self.favorites count] == 0)
         {
             // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
             // 과정 기수 목록 가져오기
             [self requestAPIClasses];
+        }
+        // 3. 로컬 DB 저장
+        // 4. 메뉴 구성 업데이트
+    
+    
+    
+        {
+        
 
         }
         
@@ -147,20 +159,38 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return ([_favorites count] > 0)? [_favorites count] : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([_favorites count] == 0)
+    {
+        static NSString *identifier = @"NoFavoriteCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        
+        return cell;
+    }
+    
     static NSString *identifier = @"FavoriteCell";
     FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
         cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        
+        tableView.separatorColor = [UIColor lightGrayColor];
     }
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%d", arc4random()/ 100];
+
+    if ([_favorites count] > 0) {
+        Course *course = _favorites[indexPath.row];
+        cell.textLabel.text = course.title;
+    }
     
     return cell;
 
@@ -218,7 +248,7 @@
 
 #pragma mark - CoreData methods
 
-/// DB 즐겨찾기 목록 가져오기
+/// 즐겨찾기 DB 목록 가져오기
 - (NSArray *)loadDBFavoriteCourse
 {
     if (self.managedObjectContext == nil) {

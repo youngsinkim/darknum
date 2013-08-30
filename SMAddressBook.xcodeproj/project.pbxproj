@@ -376,7 +376,7 @@
 				5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */,
 				5062B64717C4CCAF00A2495D /* BaseClass (기본 구성) */,
 				5062B63F17C4CB8B00A2495D /* SideMenu (왼쪽 메뉴) */,
-				5062B64017C4CBA100A2495D /* 즐겨찾기 (메인 화면) */,
+				5062B64017C4CBA100A2495D /* 즐겨찾기(메인) 화면 */,
 				5062B65217C4D25200A2495D /* Login (로그인) */,
 				BF177E8917C9BC0600614485 /* Course (주소록) */,
 				BF177E9817CA6A7B00614485 /* 전체보기 */,
@@ -416,7 +416,7 @@
 			name = "SideMenu (왼쪽 메뉴)";
 			sourceTree = "<group>";
 		};
-		5062B64017C4CBA100A2495D /* 즐겨찾기 (메인 화면) */ = {
+		5062B64017C4CBA100A2495D /* 즐겨찾기(메인) 화면 */ = {
 			isa = PBXGroup;
 			children = (
 				BF3B467017C67C180069AA9A /* FavoriteViewController.h */,
@@ -426,7 +426,7 @@
 				BF57B2DB17CF824A00B39C03 /* FavoriteCell.h */,
 				BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */,
 			);
-			name = "즐겨찾기 (메인 화면)";
+			name = "즐겨찾기(메인) 화면";
 			sourceTree = "<group>";
 		};
 		5062B64717C4CCAF00A2495D /* BaseClass (기본 구성) */ = {

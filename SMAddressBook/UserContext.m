@@ -72,10 +72,12 @@ static UserContext *_sharedUserContext = nil;
     _isExistProfile = [[NSUserDefaults standardUserDefaults] boolForKey:kSetProfile];
     
     [_loginInfo setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:kLoginInfo]];
-    _certNo = [[NSUserDefaults standardUserDefaults] objectForKey:@"certno"];
+    _loginCertNo = [[NSUserDefaults standardUserDefaults] objectForKey:@"certno"];
+    _loginMemType = [[NSUserDefaults standardUserDefaults] objectForKey:@"memtype"];
+    _loginUpdateCnt = [[NSUserDefaults standardUserDefaults] objectForKey:@"updatecount"];
     
     NSLog(@"login = %@", _loginInfo);
-    NSLog(@"App Setting Info : auto_login(%d), accept_terms(%d), certno = %@", _isAutoLogin, _isAcceptTerms, _certNo);
+    NSLog(@"App Setting > auto_login(%d), accept_terms(%d), certno(%@), memtype(%@), updatecnt(%@)", _isAutoLogin, _isAcceptTerms, _loginCertNo, _loginMemType, _loginUpdateCnt);
 
 }
 
