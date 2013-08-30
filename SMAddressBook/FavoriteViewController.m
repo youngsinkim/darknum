@@ -66,6 +66,7 @@
     // 로그인 전이면 화면 구성 중단.
     if ([UserContext shared].isLogined == NO)
     {
+        NSLog(@"로그인 전이네요.... -.- -.- -.-");
 //        if (!loginInfo[@"certno"])
 //    {
 //        // MARK: 로그인 되지 않은 상태이면 로그인 화면 노출.
@@ -88,7 +89,6 @@
     else
     {
         // 1. 로그인 후, 로컬 DB에서 즐겨찾기(CourseClass) 목록 가져오기
-    
         [self.favorites setArray:[self loadDBFavoriteCourse]];
         NSLog(@"After Favorites : %@", self.favorites);
 
@@ -104,6 +104,7 @@
 
         // 2. update count 값에 따라 서버 API 연동 및 업데이트 받기
         NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
+        NSLog(@"LOGIN INFO : %@", loginInfo);
         if (loginInfo[@"updatecount"] > 0 || [self.favorites count] == 0)
         {
             // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
@@ -121,6 +122,9 @@
         }
         
     }
+    
+    [_favoriteTableView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,7 +132,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - View mothods
 // 즐겨찾기 화면 구성 
 - (void)setupFavoriteUI
@@ -137,21 +140,21 @@
     CGRect rect = self.view.frame;
     
     // 즐겨찾기 테이블 뷰
-    self.favoriteTableView == [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f) style:UITableViewStylePlain];
-    self.favoriteTableView.dataSource = self;
-    self.favoriteTableView.delegate = self;
-    [self.favoriteTableView setBackgroundColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.1]];
+    _favoriteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f-100) style:UITableViewStylePlain];
+    _favoriteTableView.dataSource = self;
+    _favoriteTableView.delegate = self;
+    [_favoriteTableView setBackgroundColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5]];
     
-    [self.view addSubview:self.favoriteTableView];
+    [self.view addSubview:_favoriteTableView];
     
-
+    
     // 하단 버튼 툴바
-    FavoriteToolViewController *footerToolbar = [[FavoriteToolViewController alloc] init];
-    footerToolbar.view.frame = CGRectMake(0.0f, rect.size.height - 44.0f - kFvToolH, 320.0f, kFvToolH);
+    FavoriteToolViewController *footerToolVC = [[FavoriteToolViewController alloc] init];
+//    footerToolVC.view.frame = CGRectMake(0.0f, rect.size.height - 44.0f - kFvToolH, 320.0f, kFvToolH);
     
-    [self addChildViewController:footerToolbar];
-    [self.view addSubview:footerToolbar.view];
-    [footerToolbar didMoveToParentViewController:self];
+    [self addChildViewController:footerToolVC];
+    [self.view addSubview:footerToolVC.view];
+    [footerToolVC didMoveToParentViewController:self];
 }
 
 
@@ -210,7 +213,7 @@
     if (!mobileNo || !userId | !certNo) {
         return;
     }
-
+    
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
     
     // 과정별 기수 목록
@@ -299,7 +302,9 @@
     for (NSDictionary *dict in classList)
     {
         BOOL isExistDB = NO;
+        
         NSLog(@"class info : %@", dict);
+        
         
         // 기존 DB에 저장된 데이터 읽어오기
 //        if ([dict[@"course"] isEqualToString:@"FACULTY"] || [dict[@"course"] isEqualToString:@"STAFF"]) {
@@ -307,10 +312,32 @@
 //        } else {
 //            isExistDB = [self isFetchCourse:dict[@"courseclass"]];
 //        }
+        NSLog(@"뭐 찾을까?\n COURSE : %@\n COURSECLASS : %@", dict[@"course"], dict[@"courseclass"]);
         
-        // 기존 DB에 없으면 추가
-        if (isExistDB == NO)
+//        NSArray *filtered = [self.favorites filteredArrayUsingPredicate:
+//                             [NSPredicate predicateWithFormat:@"(course == %@) AND (courseclass == %@)", dict[@"course"], dict[@"courseclass"]]];
+        NSArray *filtered = [self filteredObject:dict];
+        
+//        for (NSDictionary *info in filtered) {
+//            NSLog(@"찾았니? %@", info);
+//        }
+        
+//        if (isExistDB == NO)
+        if ([filtered count] > 0)
         {
+            // 기존 목록에 존재하면 업데이트 (UPDATE)
+            Course *favorite = [filtered objectAtIndex:0];
+            favorite.course = dict[@"course"];
+            favorite.courseclass = dict[@"courseclass"];
+            favorite.title = dict[@"title"];
+            favorite.title_en = dict[@"title_en"];
+            favorite.favyn = dict[@"favyn"];
+            favorite.count = dict[@"count"];
+        }
+        else
+        {
+            // 기존 목록에 없으면 추가 (INSERT)
+
             Course *class = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
             NSLog(@"class info : %@", dict);
 
@@ -327,6 +354,7 @@
             
             isSaved = YES;
         }
+
     }
     
     if (isSaved == YES)
@@ -337,61 +365,39 @@
         else    {
             NSLog(@"insert success..");
             
-            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
-            [fetchRequest setEntity:entity];
+            // 즐겨찾기 목록 로컬 DB에서 갱신.
+            [self loadDBFavoriteCourse];
             
-            // order by
-            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
-            [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-
-            NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-            NSLog(@"DB data count : %d", [fetchedObjects count]);
-            for (NSManagedObject *info in fetchedObjects)
-            {
-                NSLog(@"DB Dict : %@", [info valueForKey:@"title"]);
-    //            NSLog(@"Name: %@", [info valueForKey:@"name"]);
-    //            NSManagedObject *details = [info valueForKey:@"details"];
-    //            NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
-            }
+//            // 기수 목록을 모두 저장한 후, 즐겨찾기 목록 가져오기
+//            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//
+//            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+//            [fetchRequest setEntity:entity];
+//            
+//            // order by
+//            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+//            [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+//
+//            NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//            NSLog(@"DB data count : %d", [fetchedObjects count]);
+//            for (NSManagedObject *info in fetchedObjects)
+//            {
+//                NSLog(@"DB Dict : %@", [info valueForKey:@"title"]);
+//    //            NSLog(@"Name: %@", [info valueForKey:@"name"]);
+//    //            NSManagedObject *details = [info valueForKey:@"details"];
+//    //            NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
+//            }
         
+            // 갱신된 즐겨찾기 목록 메뉴 업데이트.
             MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-            [menu setAddrMenuList:[fetchedObjects mutableCopy]];
+            [menu setAddrMenuList:_favorites];
         }
     }
 }
 
-- (BOOL)isFetchCourse:(NSString *)course
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    // select Table
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // where
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course==%@", course];
-    [fetchRequest setPredicate:predicate];
-    
-    // order by
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    NSLog(@"DB data count : %d", [fetchedObjects count]);
-    
-    if (fetchedObjects && [fetchedObjects count] > 0)
-    {
-        return YES;
-    }
-    
-    return NO;
-//    return fetchedObjects; //fetchedObjects will always exist although it may be empty
-}
-
-- (BOOL)isFetchClass:(NSString *)class
+/// 기존 DB에 새로운 dict와 같은 값이 있는지 조사.
+- (NSArray *)filteredObject:(NSDictionary *)newDict
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
@@ -400,23 +406,77 @@
     [fetchRequest setEntity:entity];
     
     // where
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass==%@", class];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course==%@", course];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == %@) AND (courseclass == %@)", newDict[@"course"], newDict[@"courseclass"]];
     [fetchRequest setPredicate:predicate];
     
     // order by
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+//    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
     NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    NSLog(@"DB data count : %d", [fetchedObjects count]);
-    
-    if (fetchedObjects && [fetchedObjects count] > 0)
-    {
-        return YES;
-    }
-    
-    return NO;
-    //    return fetchedObjects; //fetchedObjects will always exist although it may be empty
+    NSArray *filtered = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"Filtered DB count : %d", [filtered count]);
+
+    return filtered;
 }
+
+
+//- (BOOL)isFetchCourse:(NSString *)course
+//{
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//
+//    // select Table
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+//    [fetchRequest setEntity:entity];
+//    
+//    // where
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course==%@", course];
+//    [fetchRequest setPredicate:predicate];
+//    
+//    // order by
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+//    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+//
+//    NSError *error = nil;
+//    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//    NSLog(@"DB data count : %d", [fetchedObjects count]);
+//    
+//    if (fetchedObjects && [fetchedObjects count] > 0)
+//    {
+//        return YES;
+//    }
+//    
+//    return NO;
+////    return fetchedObjects; //fetchedObjects will always exist although it may be empty
+//}
+//
+//- (BOOL)isFetchClass:(NSString *)class
+//{
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    
+//    // select Table
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+//    [fetchRequest setEntity:entity];
+//    
+//    // where
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass==%@", class];
+//    [fetchRequest setPredicate:predicate];
+//    
+//    // order by
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+//    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+//    
+//    NSError *error = nil;
+//    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//    NSLog(@"DB data count : %d", [fetchedObjects count]);
+//    
+//    if (fetchedObjects && [fetchedObjects count] > 0)
+//    {
+//        return YES;
+//    }
+//    
+//    return NO;
+//    //    return fetchedObjects; //fetchedObjects will always exist although it may be empty
+//}
 @end

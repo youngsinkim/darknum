@@ -8,8 +8,11 @@
 
 #import "MyInfoViewController.h"
 #import "NSString+MD5.h"
+#import "AppDelegate.h"
 
 @interface MyInfoViewController ()
+
+@property (strong, nonatomic) NSMutableDictionary *myInfo;
 
 @property (strong, nonatomic) UIImageView *profileImageView;
 
@@ -61,6 +64,7 @@
     if (self) {
         // Custom initialization
         self.mType = MemberTypeStudent;
+        self.myInfo = [NSMutableDictionary dictionaryWithCapacity:10];
     }
     return self;
 }
@@ -303,7 +307,7 @@
     
     // 내 (프로필)정보
     [[SMNetworkClient sharedClient] postMyInfo:param
-                                         block:^(NSMutableDictionary *result, NSError *error) {
+                                         block:^(NSDictionary *result, NSError *error) {
                                              if (error) {
                                                  [[SMNetworkClient sharedClient] showNetworkError:error];
                                              } else {
@@ -312,29 +316,43 @@
                                                  NSLog(@"내 정보 : %@", result);
                                                  
 //                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [self updateMyInfo];
 //                                                      [self onDBUpdate:(NSDictionary *)result];
-//                                                  });
+                                                  });
                                               }
                                           }];
 }
 
-///// myInfo DB 추가 및 업데이트
+/// myInfo 화면 업데이트
+- (void)updateMyInfo
+{
+    if ([_myInfo count] == 0) {
+        return;
+    }
+    
+    NSLog(@"MY INFO : %@", _myInfo);
+    
+    _idValueLabel.text = _myInfo[@"id"];
+    
+    [self.view setNeedsDisplay];
+}
+
+/// myInfo DB 추가 및 업데이트
 //- (void)onDBUpdate:(NSDictionary *)myInfo
 //{
-//    
-//    //    // 컨텍스트 지정
-//    //    if (self.managedObjectContext == nil)
-//    //    {
-//    //        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-//    //        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
-//    //    }
+//    // 컨텍스트 지정
+//    if (self.managedObjectContext == nil) {
+////        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+////        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
+//        return;
+//    }
 //    
 //    NSError *error;
 //    BOOL isSaved = NO;
 //    
 //    // DB에 없는 항목은 추가하기
-//    for (NSDictionary *dict in classList)
+////    for (NSDictionary *dict in classList)
 //    {
 //        BOOL isExistDB = YES;
 //        NSLog(@"class info : %@", dict);

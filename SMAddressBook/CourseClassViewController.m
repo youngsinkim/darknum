@@ -147,7 +147,7 @@
     /* 연락처 상세 보기 */
 //    [self showContact];
     
-    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
+//    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
     
     DetailViewController *detailViewController = [[DetailViewController alloc] init];
     detailViewController.contacts = _contacts;

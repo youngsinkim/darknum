@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 #define kFvToolH    65.0f
+
+#define kFToolFavoriteSetting    100
+#define kFToolTotalStudent       101
+#define kFToolHelp               102
 @interface FavoriteToolViewController : UIViewController
 
 @end

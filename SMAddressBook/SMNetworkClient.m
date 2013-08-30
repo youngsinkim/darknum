@@ -218,7 +218,7 @@
 }
 
 // 내 프로필 정보
-- (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+- (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {
     static NSString * const kAPIMyInfo = (SERVER_URL@"/fb/myinfo");
     NSLog(@"API Path(%@) param :\n%@", kAPIMyInfo, param);
@@ -231,7 +231,7 @@
                if (block) {
                    NSLog(@"RESPONSE JSON: %@", JSON);
 //                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
-                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
+                   block([NSDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
                }
                
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
