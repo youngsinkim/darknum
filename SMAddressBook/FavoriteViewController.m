@@ -18,7 +18,8 @@
 #import "Major.h"
 #import "LoginViewController.h"
 #import "FavoriteCell.h"
-
+#import "LoadingView.h"
+#import "UIViewController+LoadingProgress.h"
 
 @interface FavoriteViewController ()
 
@@ -110,15 +111,6 @@
             // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
             // 과정 기수 목록 가져오기
             [self requestAPIClasses];
-        }
-        // 3. 로컬 DB 저장
-        // 4. 메뉴 구성 업데이트
-    
-    
-    
-        {
-        
-
         }
         
     }
@@ -214,11 +206,23 @@
         return;
     }
     
+    // background Dimmed
+//    LoadingView *loadingView = [[LoadingView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+//    [self.navigationController.view addSubview:loadingView];
+//    [loadingView start];
+//    [HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+//    [self startLoading];
+    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+
+
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
     
     // 과정별 기수 목록
     [[SMNetworkClient sharedClient] postClasses:param
                                           block:^(NSMutableDictionary *result, NSError *error){
+                                              
+                                              [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
+
                                               if (error) {
                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
                                               } else {
@@ -242,12 +246,31 @@
                                                   
                                                   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      
+                                                      // 3. 로컬 DB 저장
+                                                      // 4. 메뉴 구성 업데이트
                                                       [self onDBUpdate:classes];
                                                   });
                                               }
                                           }];
 }
 
+
+#pragma mark - 
+- (void)myProgressTask:(id)sender
+{
+    MBProgressHUD *hud = (MBProgressHUD *)[self.navigationController.view viewWithTag:77777];
+    if (hud != nil)
+    {
+        float progress = 0.0f;
+        while (progress < 1.0f) {
+            progress += 0.01f;
+            hud.progress = progress;
+            NSLog(@"progress : %f", hud.progress);
+            usleep(5000);
+        }
+    }
+}
 
 #pragma mark - CoreData methods
 
@@ -296,13 +319,12 @@
 - (void)onDBUpdate:(NSArray *)classList
 {
     NSError *error;
-    BOOL isSaved = NO; 
+    BOOL isSaved = NO;
 
     // DB에 없는 항목은 추가하기
     for (NSDictionary *dict in classList)
     {
-        BOOL isExistDB = NO;
-        
+//        BOOL isExistDB = NO;
         NSLog(@"class info : %@", dict);
         
         

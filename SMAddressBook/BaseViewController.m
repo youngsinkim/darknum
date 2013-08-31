@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 #import "FavoriteViewController.h"
+#import "MenuTableViewController.h"
 
 @interface BaseViewController ()
 
@@ -140,13 +141,13 @@
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:3];
     CGFloat size = 30.0f;
     
-    /* 닫기 버튼 */
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    closeButton.frame = CGRectMake(0.0f, 0.0f, size, size);
-    [closeButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-    [closeButton addTarget:self action:@selector(onCloseButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    /* back 버튼 */
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0.0f, 0.0f, size, size);
+    [backButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:closeButton];
+    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     
     [buttons addObject:barButtonItem];
     
@@ -195,30 +196,40 @@
 }
 
 /// 네비게이션 [닫기] 버튼 선택
-- (void)onCloseButtonClicked:(id)sender {
+- (void)onBackButtonClicked:(id)sender {
     //    UINavigationController *nav = self.menuContainerViewController.centerViewController;
     //    UIViewController *vc = nav.viewControllers[0];
     //    NSLog(@"centerViewController : %@", vc);
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
+    {
+        // 최상위 화면이 아니면 [이전]버튼 표시
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 /// 네비게이션 [홈] 버튼 선택
 - (void)onHomeButtonClicked:(id)sender
 {
-    //    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     FavoriteViewController *favoriteViewController = [[FavoriteViewController alloc] init];
-    
-    UINavigationController *nav = self.menuContainerViewController.centerViewController;
-    NSLog(@"centerViewController : %@", nav.viewControllers[0]);
-    
-    if (![nav.viewControllers[0] isEqual:favoriteViewController])
-        {
-        NSArray *controllers = [NSArray arrayWithObject:favoriteViewController];
-        nav.viewControllers = controllers;
-        
-        //        nav.viewControllers = @[appDelegate.favoriteViewController];
-        }
+
+    MenuTableViewController *leftMenu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    self.menuContainerViewController.centerViewController = [leftMenu navigationController:favoriteViewController];
+
+
+//    UINavigationController *nav = self.menuContainerViewController.centerViewController;
+//    NSLog(@"centerViewController : %@", nav.viewControllers[0]);
+//    
+//    if (![nav.viewControllers[0] isEqual:favoriteViewController])
+//    {
+//        NSArray *controllers = [NSArray arrayWithObject:favoriteViewController];
+//        nav.viewControllers = controllers;
+//        
+////        nav.viewControllers = @[appDelegate.favoriteViewController];
+//    }
     
 }
 

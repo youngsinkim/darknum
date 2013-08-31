@@ -33,8 +33,10 @@ typedef enum {
 
 
 - (MFSideMenuContainerViewController *)menuContainerViewController;
-
 - (void)showMyInfoViewController;
+
+/// 세로 모드 네비게이션바 세팅
+- (UINavigationController *)navigationController:(UIViewController *)viewController;
 
 /// 네비게이션 뷰 컨트롤러
 - (UINavigationController *)menuNavigationController:(MenuViewType)menuType;
