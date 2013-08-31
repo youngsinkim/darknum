@@ -8,11 +8,15 @@
 
 #import "CourseTotalViewController.h"
 #import "CourseClassCell.h"
+#import "AppDelegate.h"
 #import <HMSegmentedControl.h>
+#import "Course.h"
 
 @interface CourseTotalViewController ()
 
-@property (strong, nonatomic) UITableView *courseTableView;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) UITableView *totalTableView;
+@property (strong, nonatomic) NSMutableArray *totalStudents;
 
 @end
 
@@ -23,6 +27,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _totalStudents = [[NSMutableArray alloc] initWithCapacity:1];
     }
     return self;
 }
@@ -31,9 +36,21 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    // CoreData 컨텍스트 지정
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (self.managedObjectContext == nil)
+    {
+        self.managedObjectContext = [appDelegate managedObjectContext];
+        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
+    }
 
     // 전체보기 화면 구성
     [self setupTotalCourseUI];
+    
+    // 과정별 기수 목록 DB에서 가져오기
+    _totalStudents = [self loadDBCourseClasses];
+    [_totalTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,50 +82,97 @@
     [self.view addSubview:lineV];
     
     // 테이블 뷰
-    _courseTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 45.0f, rect.size.width, rect.size.height - 44.0f - 44.0f) style:UITableViewStylePlain];
-    _courseTableView.dataSource = self;
-    _courseTableView.delegate = self;
-    _courseTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+    _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 45.0f, rect.size.width, rect.size.height - 44.0f - 44.0f) style:UITableViewStylePlain];
+    _totalTableView.dataSource = self;
+    _totalTableView.delegate = self;
+    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
     
-    [self.view addSubview:_courseTableView];
+    [self.view addSubview:_totalTableView];
     
 }
 
 #pragma mark - UI Control Callbacks
 - (void)onSegmentChangedValue:(id)sender
 {
-    [self.courseTableView reloadData];
+    [_totalTableView reloadData];
 }
 
 #pragma mark - UITableView DataSources
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return ([_totalStudents count] > 0)? [_totalStudents count] : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"CourseClassCell";
-    CourseClassCell *cell = [self.courseTableView dequeueReusableCellWithIdentifier:identifier];
+    if ([_totalStudents count] == 0)
+    {
+        static NSString *identifier = @"NoTotalStudentCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        
+        return cell;
+    }
+    
+    static NSString *identifier = @"TotalStudentCell";
+    UITableViewCell *cell = [self.totalTableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
-        cell = [[CourseClassCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-//    if ([_contacts count] > 0)
+    if ([_totalStudents count] > 0)
     {
         // 주소록 셀 정보
-//        NSDictionary *cellInfo = [_contacts objectAtIndex:indexPath.row];
-//        NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, [cellInfo description]);
+        Course *course = [_totalStudents objectAtIndex:indexPath.row];
+        NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, course.title);
         
-//        cell.textLabel.text = cellInfo[@"emba 1기"];
+        cell.textLabel.text = course.title;
 //        cell.cellInfo = cellInfo;
+    }
         
-        cell.textLabel.text = [NSString stringWithFormat:@"%d", arc4random()];
+    return cell;
+}
+
+#pragma mark - 
+/// 과정별 기수 목록
+- (NSArray *)loadDBCourseClasses
+{
+    if (self.managedObjectContext == nil) {
+        return nil;
     }
     
-    return cell;
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    // select
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // where
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == 'EMBA')"];
+    [fetchRequest setPredicate:predicate];
+    
+    // order by (ZCOURSECLASS)
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    for (Course *class in fetchedObjects) {
+        NSLog(@"title : %@", class.title);
+    }
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+    {
+        return fetchedObjects;
+    }
+    return nil;
 }
 
 @end

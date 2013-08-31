@@ -108,7 +108,6 @@
 		BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
 		BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF3B466C17C6691E0069AA9A /* Localizable.strings */; };
 		BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
-		BF3B467517C67C4A0069AA9A /* FavoriteToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */; };
 		BF3B467B17C84FF50069AA9A /* input_text_border.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3B467917C84FF50069AA9A /* input_text_border.png */; };
 		BF3B467C17C84FF50069AA9A /* input_text_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3B467A17C84FF50069AA9A /* input_text_border@2x.png */; };
 		BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467E17C86E680069AA9A /* LoadingView.m */; };
@@ -266,8 +265,6 @@
 		BF3B466F17C6692B0069AA9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BF3B467017C67C180069AA9A /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteViewController.h; sourceTree = "<group>"; };
 		BF3B467117C67C180069AA9A /* FavoriteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteViewController.m; sourceTree = "<group>"; };
-		BF3B467317C67C4A0069AA9A /* FavoriteToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteToolViewController.h; sourceTree = "<group>"; };
-		BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteToolViewController.m; sourceTree = "<group>"; };
 		BF3B467917C84FF50069AA9A /* input_text_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input_text_border.png; sourceTree = "<group>"; };
 		BF3B467A17C84FF50069AA9A /* input_text_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "input_text_border@2x.png"; sourceTree = "<group>"; };
 		BF3B467D17C86E680069AA9A /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
@@ -439,8 +436,6 @@
 				BF3B467117C67C180069AA9A /* FavoriteViewController.m */,
 				BF57B32317D24DD900B39C03 /* FavoriteToolView.h */,
 				BF57B32417D24DD900B39C03 /* FavoriteToolView.m */,
-				BF3B467317C67C4A0069AA9A /* FavoriteToolViewController.h */,
-				BF3B467417C67C4A0069AA9A /* FavoriteToolViewController.m */,
 				BF57B2DB17CF824A00B39C03 /* FavoriteCell.h */,
 				BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */,
 			);
@@ -886,7 +881,6 @@
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
-				BF3B467517C67C4A0069AA9A /* FavoriteToolViewController.m in Sources */,
 				BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */,
 				BF3B468A17C8DE660069AA9A /* TermsViewController.m in Sources */,
 				BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */,

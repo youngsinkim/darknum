@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "FavoriteViewController.h"
-#import "FavoriteToolViewController.h"
+//#import "FavoriteToolViewController.h"
 #import "FavoriteToolView.h"
 #import "MenuTableViewController.h"
 #import "NSString+MD5.h"

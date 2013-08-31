@@ -26,7 +26,7 @@
 @property (strong, nonatomic) UILabel *officeEnLabel;
 
 @property (strong, nonatomic) UILabel *idValueLabel;
-@property (strong, nonatomic) UILabel *nameValeLabel;
+@property (strong, nonatomic) UILabel *nameValueLabel;
 @property (strong, nonatomic) UILabel *mobileValueLabel;
 @property (strong, nonatomic) UITextField *emailTextField;
 @property (strong, nonatomic) UITextField *workKoTextField;
@@ -109,7 +109,7 @@
 
     
     // 프로필 사진
-    self.profileImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nocontents_img6"]];
+    self.profileImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"placeholder"]];
     self.profileImageView.frame = CGRectMake(90.0f, 0.0f, 128.0f, 128.0f);
     self.profileImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
     
@@ -147,6 +147,16 @@
         [self.idLabel setText:@"아이디"];
         
         [studentView addSubview:self.idLabel];
+        
+        
+        // 아이디 value
+        self.idValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        [self.idValueLabel setTextColor:[UIColor darkGrayColor]];
+//        [self.idValueLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
+        [self.idValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
+//        [self.idValueLabel setText:@"아이디"];
+        
+        [studentView addSubview:self.idValueLabel];
         yOffset += 21.0f;
         
     
@@ -159,6 +169,14 @@
         [self.nameLabel setText:@"이름"];
         
         [studentView addSubview:self.nameLabel];
+        
+        
+        // 이름 value
+        self.nameValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        [self.nameValueLabel setTextColor:[UIColor darkGrayColor]];
+        [self.nameValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        
+        [studentView addSubview:self.nameValueLabel];
         yOffset += 21.0f;
         
         
@@ -171,6 +189,13 @@
         [self.mobileLabel setText:@"Mobile"];
         
         [studentView addSubview:self.mobileLabel];
+        
+        // Mobile value
+        self.mobileValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        [self.mobileValueLabel setTextColor:[UIColor darkGrayColor]];
+        [self.mobileValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        
+        [studentView addSubview:self.mobileValueLabel];
         yOffset += 21.0f;
 
         
@@ -183,6 +208,19 @@
         [self.emailLabel setText:@"Email"];
         
         [studentView addSubview:self.emailLabel];
+        
+        
+        // Email value
+        self.emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        self.emailTextField.delegate = self;
+        [self.emailTextField setTextColor:[UIColor darkGrayColor]];
+        [self.emailTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.emailTextField setReturnKeyType:UIReturnKeyDone];
+        [self.emailTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.emailTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [studentView addSubview:self.mobileValueLabel];
         yOffset += 21.0f;
 
         
@@ -195,6 +233,21 @@
         [self.officeKoLabel setText:@"직장 (국문)"];
         
         [studentView addSubview:self.officeKoLabel];
+        
+        {
+            // Email value
+//            self.emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+//            self.emailTextField.delegate = self;
+//            [self.emailTextField setTextColor:[UIColor darkGrayColor]];
+//            [self.emailTextField setFont:[UIFont systemFontOfSize:14.0f]];
+//            [self.emailTextField setReturnKeyType:UIReturnKeyDone];
+//            [self.emailTextField setKeyboardType:UIKeyboardTypeDefault];
+//            [self.emailTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+//            self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//            
+//            [studentView addSubview:self.mobileValueLabel];
+
+        }
         yOffset += 121.0f;
 
         
