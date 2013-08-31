@@ -83,3 +83,13 @@
 
 /* Accept Button Text */
 "accept_btn_text" = "Accept";
+
+/* Favorite Cell Faculty Count */
+"%d faculty" = "%d Faculty.";
+
+/* Favorite Cell Staff Count */
+"%d staff" = "%d Staff.";
+
+/* Favorite Cell Student Count */
+"%d student" = "%d Students.";
+

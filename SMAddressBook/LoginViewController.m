@@ -365,6 +365,11 @@
     // TODO: 단말 전화번호 가져오기 기능 추가 필요
     NSString *crytoMobileNo = [NSString stringWithFormat:@"01023873856"];
     
+    NSDate *updateTime = [[UserContext shared] updateDate];
+    NSString *updateDateStr = @"0000-00-00 00:00:00";
+//    if (updateTime != nil) {
+//    }
+    
     // TODO: 업데이트 시간 최초 이회에 마지막 시간 값으로 세팅되도록 수정 필요
     NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
                             @"phone":crytoMobileNo,

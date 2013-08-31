@@ -83,3 +83,13 @@
 
 /* Accept Button Text */
 "accept_btn_text" = "동의함";
+
+/* Favorite Cell Faculty Count */
+"%d faculty" = "%d명의 교수님이 있습니다.";
+
+/* Favorite Cell Staff Count */
+"%d staff" = "%d명의 교직원이 있습니다.";
+
+/* Favorite Cell Student Count */
+"%d student" = "%d명의 학생이 있습니다.";
+

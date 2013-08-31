@@ -7,6 +7,7 @@
         <attribute name="favyn" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="class_info" inverseEntity="Student" syncable="YES"/>
     </entity>
     <entity name="Faculty" representedClassName="Faculty" syncable="YES">
@@ -62,7 +63,7 @@
         <relationship name="class_info" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="students" inverseEntity="Course" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Course" positionX="-5769" positionY="-9" width="128" height="148"/>
+        <element name="Course" positionX="-5769" positionY="-9" width="128" height="163"/>
         <element name="Faculty" positionX="-5438" positionY="-73" width="128" height="208"/>
         <element name="Major" positionX="-5258" positionY="32" width="128" height="103"/>
         <element name="Staff" positionX="-5258" positionY="-184" width="128" height="193"/>

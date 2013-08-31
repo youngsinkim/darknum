@@ -32,7 +32,10 @@ static UserContext *_sharedUserContext = nil;
         NSAssert(_sharedUserContext == nil, @"Attempted to allocate a second instance of a singleton.");
         _sharedUserContext = [super alloc];
         _sharedUserContext.loginInfo = [[NSMutableDictionary alloc] initWithCapacity:3];
+        _sharedUserContext.profileInfo = [[NSMutableDictionary alloc] initWithCapacity:14];
         _sharedUserContext.isLogined = NO;
+        
+        _sharedUserContext.updateDate = nil; 
         return _sharedUserContext;
 	}
     
@@ -67,16 +70,19 @@ static UserContext *_sharedUserContext = nil;
 - (void)loadAppSetting
 {
     // TODO: 로그인 데이터 읽어오기
+    [_profileInfo setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"profile"]];
+
     _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
     _isAcceptTerms = [[NSUserDefaults standardUserDefaults] boolForKey:kAcceptTerms];
     _isExistProfile = [[NSUserDefaults standardUserDefaults] boolForKey:kSetProfile];
-    
+
     [_loginInfo setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:kLoginInfo]];
     _loginCertNo = [[NSUserDefaults standardUserDefaults] objectForKey:@"certno"];
     _loginMemType = [[NSUserDefaults standardUserDefaults] objectForKey:@"memtype"];
     _loginUpdateCnt = [[NSUserDefaults standardUserDefaults] objectForKey:@"updatecount"];
     
-    NSLog(@"login = %@", _loginInfo);
+    NSLog(@"저장된 프로필 정보 ; %@", _profileInfo);
+    NSLog(@"저장된 로그인 정보 = %@", _loginInfo);
     NSLog(@"App Setting > auto_login(%d), accept_terms(%d), certno(%@), memtype(%@), updatecnt(%@)", _isAutoLogin, _isAcceptTerms, _loginCertNo, _loginMemType, _loginUpdateCnt);
 
 }

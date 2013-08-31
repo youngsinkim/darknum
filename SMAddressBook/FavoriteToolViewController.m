@@ -33,6 +33,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+//    self.view.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
     
     [self setupFavoriteToolbarUI];
 }
@@ -47,8 +48,8 @@
 -(void)didMoveToParentViewController:(UIViewController *)parent
 {
     NSLog(@"SecondViewController did move to parent view controller");
-    self.view.frame = CGRectMake(0, self.view.frame.size.height - 90, 320, 90);
-//    self.view.backgroundColor = [UIColor grayColor];
+    self.view.frame = CGRectMake(0, self.view.frame.size.height - 44 - kFvToolH, 320, kFvToolH);
+    self.view.backgroundColor = [UIColor grayColor];
 }
 
 

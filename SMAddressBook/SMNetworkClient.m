@@ -217,6 +217,32 @@
     
 }
 
+// (업데이트된) 즐겨찾기 목록
+- (void)postFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+{
+    static NSString * const kAPIFavorites = (SERVER_URL@"/fb/updated");
+    NSLog(@"API Path(%@) param :\n%@", kAPIFavorites, param);
+    
+    [self postPath:kAPIFavorites
+        parameters:param
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               NSLog(@"HTTP POST API: %@", operation.request.URL);
+               
+               if (block) {
+                   NSLog(@"RESPONSE JSON: %@", JSON);
+                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+//                   block([NSMutableArray arrayWithObjects:[JSON valueForKeyPath:@"data"], nil], nil);
+               }
+               
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               if (block) {
+                   block([NSMutableDictionary dictionary], error);
+               }
+               NSLog(@"error : %@", [error description]);
+           }];
+    
+}
+
 // 내 프로필 정보
 - (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {

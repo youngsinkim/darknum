@@ -77,8 +77,8 @@
     // 내 정보 화면 구성
     [self setupMyInfoUI];
     
-    // DB(myInfo) 데이터 가져오기
-//    [self loadMyInfo];
+    // 로컬에서(DB) 데이터 가져오기
+    [_myInfo setDictionary:[self loadMyInfo]];
     
     // 서버로 내 정보 요청 
     [self requestAPIMyInfo];
@@ -268,6 +268,8 @@
 #pragma mark - Assets
 - (NSDictionary *)loadMyInfo
 {
+    return [[UserContext shared] profileInfo];
+    
     // TODO: 내 정보 데이터 (imsi)
     NSDictionary *myInfoDict = @{@"name":@"테스터01",
                                 @"name_en":@"Tester 01",
@@ -313,7 +315,18 @@
                                              } else {
                                                  // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
                                                  //NSArray *classes = [result valueForKeyPath:@"data"];
-                                                 NSLog(@"내 정보 : %@", result);
+                                                 
+                                                 // 로그인 결과 로컬(파일) 저장.
+                                                 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
+                                                 
+                                                 NSLog(@"서버에서 가져온 내 정보 : %@", dict);
+                                                 [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"profile"];
+                                                 [[NSUserDefaults standardUserDefaults] synchronize];
+                                                 [[UserContext shared] setProfileInfo:dict];
+                                                 
+                                                 // 로컬 저장 후, 메모리로 업데이트.
+                                                 [_myInfo setDictionary:[dict mutableCopy]];
+                                                 
                                                  
 //                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                   dispatch_async(dispatch_get_main_queue(), ^{
@@ -334,6 +347,7 @@
     NSLog(@"MY INFO : %@", _myInfo);
     
     _idValueLabel.text = _myInfo[@"id"];
+    _nameValeLabel.text = _myInfo[@"name"];
     
     [self.view setNeedsDisplay];
 }

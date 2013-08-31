@@ -90,8 +90,8 @@
 
     {
         // 내 프로필 사진
-        UIImageView *profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, 28.0f, 28.0f)];
-        [profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"photo_thumb"]];
+        UIImageView *profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, 50.0f, 50.0f)];
+        [profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
         
         [headerView addSubview:profileImgView];
         
