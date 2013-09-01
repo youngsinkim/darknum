@@ -166,31 +166,7 @@
 @brief  과정기수 목록
 @brief  /fb/classes
 @param  scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
-@return {"errcode" : "0",
-         "data" : [{
-                     "title" : "교수진",
-                     "count" : "112",
-                     "course" : "FACULTY",
-                     "courseclass" : "",
-                     "title_en" : "Faculty"
-                    },
-                     {
-                     "title" : "교직원",
-                     "count" : "58",
-                     "course" : "STAFF",
-                     "courseclass" : ""
-                     },
-                     {
-                     "favyn" : "n",
-                     "title" : "EMBA 1기",
-                     "count" : "0",
-                     "course" : "EMBA",
-                     "courseclass" : "EMBA09001",
-                     "title_en" : "Class of EMBA 2009"
-                     }]
-         }
-*/
-
+ */
 // 과정별 기수 목록
 - (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
 {
@@ -211,6 +187,33 @@
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                if (block) {
                    block([NSMutableDictionary dictionary], error);
+               }
+               NSLog(@"error : %@", [error description]);
+           }];
+    
+}
+
+
+// 교수 전공 목록
+- (void)postMajors:(NSDictionary *)param block:(void (^)(NSArray *result, NSError *error))block
+{
+    static NSString * const kAPIMajors = (SERVER_URL@"/fb/majors");
+    NSLog(@"API Path(%@) param :\n%@", kAPIMajors, param);
+    
+    [self postPath:kAPIMajors
+        parameters:param
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               NSLog(@"HTTP POST API: %@", operation.request.URL);
+               
+               if (block) {
+                   NSLog(@"RESPONSE JSON: %@", JSON);
+//                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+                   block([NSArray arrayWithArray:[JSON valueForKeyPath:@"data"]], nil);
+               }
+               
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               if (block) {
+                   block([NSArray array], error);
                }
                NSLog(@"error : %@", [error description]);
            }];

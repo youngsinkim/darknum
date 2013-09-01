@@ -208,6 +208,12 @@
         // 최상위 화면이 아니면 [이전]버튼 표시
         [self.navigationController popViewControllerAnimated:YES];
     }
+    else
+    {
+        UINavigationController *nav = self.menuContainerViewController.centerViewController;
+        UIViewController *vc = nav.viewControllers[0];
+        NSLog(@"centerViewController : %@", vc);
+    }
 }
 
 /// 네비게이션 [홈] 버튼 선택

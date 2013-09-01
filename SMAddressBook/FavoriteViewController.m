@@ -21,6 +21,9 @@
 #import "FavoriteCell.h"
 #import "LoadingView.h"
 #import "UIViewController+LoadingProgress.h"
+#import "FacultyMajorViewController.h"
+#import "StaffAddressViewController.h"
+#import "StudentAddressViewController.h"
 
 @interface FavoriteViewController ()
 
@@ -213,7 +216,46 @@
     }
     
     return cell;
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
+    
+    Course *courseClass = _favorites[indexPath.row];
+    
+    if (courseClass)
+    {
+        NSLog(@"선택된 셀 정보 : %@", courseClass);
+        switch ([courseClass.type integerValue])
+        {
+            case MemberTypeFaculty: // 교수진
+                {
+                    FacultyMajorViewController *facultyMajorVC = [[FacultyMajorViewController alloc] init];
+                    [self.navigationController pushViewController:facultyMajorVC animated:YES];
+                }
+                break;
+                
+            case MemberTypeStaff:   // 교직원
+                {
+                    StaffAddressViewController *staffAddressVc = [[StaffAddressViewController alloc] init];
+                    [self.navigationController pushViewController:staffAddressVc animated:YES];
+                }
+                break;
+                
+            case MemberTypeStudent: // 학생
+                {
+                    StudentAddressViewController *studentAddressVC = [[StudentAddressViewController alloc] init];
+                    [self.navigationController pushViewController:studentAddressVC animated:YES];
+                }
+                break;
+                
+            default:
+                NSLog(@"CourseClass Type unknown.");
+                break;
+        }
+    }
 }
 
 #pragma mark - Network API
@@ -508,7 +550,7 @@
         for (NSDictionary *student in students)
         {
             NSLog(@"학생 정보 : %@", student);
-            NSArray *filtered = [self filteredObjects:student[@"studcode"] memberType:1];
+            NSArray *filtered = [self filteredObjects:student[@"studcode"] memberType:MemberTypeStudent];
             Student *mo = nil;
             
             if ([filtered count] > 0)
@@ -555,7 +597,7 @@
         for (NSDictionary *faculty in facultys)
         {
             NSLog(@"교수 정보 : %@", faculty);
-            NSArray *filtered = [self filteredObjects:faculty[@"memberidx"] memberType:2];
+            NSArray *filtered = [self filteredObjects:faculty[@"memberidx"] memberType:MemberTypeFaculty];
             Faculty *mo = nil;
             
             if ([filtered count] > 0)
@@ -591,7 +633,7 @@
         for (NSDictionary *staff in staffs)
         {
             NSLog(@"교직원 정보 : %@", staff);
-            NSArray *filtered = [self filteredObjects:staff[@"memberidx"] memberType:3];
+            NSArray *filtered = [self filteredObjects:staff[@"memberidx"] memberType:MemberTypeStaff];
             Staff *mo = nil;
             
             if ([filtered count] > 0)
@@ -678,7 +720,7 @@
 
 
 /// 기존 DB에 저장된 목록이 있는지 찾기
-- (NSArray *)filteredObjects:(NSString *)code memberType:(NSInteger)type
+- (NSArray *)filteredObjects:(NSString *)code memberType:(MemberType)memType
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
@@ -687,20 +729,20 @@
     NSPredicate *predicate = nil;
     NSLog(@"code = %@", code);
     
-    if (type == 1) {
+    if (memType == MemberTypeStudent) {
         // 학생 table
         entity = [NSEntityDescription entityForName:@"Student" inManagedObjectContext:self.managedObjectContext];
         
         predicate = [NSPredicate predicateWithFormat:@"(studcode == %@)", code];
     }
-    else if (type == 2)
+    else if (memType == MemberTypeFaculty)
     {
         // 교수 table
         entity = [NSEntityDescription entityForName:@"Faculty" inManagedObjectContext:self.managedObjectContext];
         
         predicate = [NSPredicate predicateWithFormat:@"(memberidx == %@)", code];
     }
-    else if (type == 3)
+    else if (memType == MemberTypeStaff)
     {
         // 교직원 table
         entity = [NSEntityDescription entityForName:@"Staff" inManagedObjectContext:self.managedObjectContext];

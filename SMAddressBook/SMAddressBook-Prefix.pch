@@ -29,6 +29,12 @@
 
 #import "TSLanguageManager.h"   //< 다국어 모듈
 
+typedef enum {
+    MemberTypeStudent = 1,
+    MemberTypeFaculty = 2,
+    MemberTypeStaff = 3,
+    MemberTypeUnknown
+} MemberType;
 
 ///////////////////////////////////////////////////////////////
 #ifdef DEBUG
@@ -51,6 +57,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 /////////////////////////
 #define NSLocalizedString(key, comment) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
+
 
 
 

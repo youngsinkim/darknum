@@ -18,6 +18,8 @@
 #define kUserId         @"userId"
 #define kUserPwd        @"userPwd"
 #define kUserCertNo     @"certno"
+#define kMemType        @"memtype"
+#define kUpdateCount    @"updatecount"
 
 @interface UserContext : NSObject
 

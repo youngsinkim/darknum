@@ -9,6 +9,8 @@
 #import "MyInfoViewController.h"
 #import "NSString+MD5.h"
 #import "AppDelegate.h"
+#import "StudentProfileViewController.h"
+#import "StaffProfileViewController.h"
 
 @interface MyInfoViewController ()
 
@@ -69,11 +71,43 @@
     return self;
 }
 
+//- (id)initWithMemberType:(MemberType)type
+//{
+//    self = [super init];
+//    if (self) {
+//        self.mType = type;
+//    }
+//    return self;
+//}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 
+    NSInteger memType = [[[UserContext shared] loginMemType] integerValue];
+    NSLog(@"내 멤버 타입 : %d", memType);
+    
+//    if (memType == MemberTypeStudent)
+//    {
+//        // 학생이면, 학생 프로필 화면 구성
+//        StudentProfileViewController *studentProfileVC = [[StudentProfileViewController alloc] init];
+//        
+//        [self addChildViewController:studentProfileVC];
+//        [self.view addSubview:studentProfileVC.view];
+//        [studentProfileVC didMoveToParentViewController:self];
+//    }
+//    else
+//    {
+//        // 교수/교직원이면, staff 프로필 화면 구성
+//        StaffProfileViewController *staffProfileVC = [[StaffProfileViewController alloc] init];
+//        
+//        [self addChildViewController:staffProfileVC];
+//        [self.view addSubview:staffProfileVC.view];
+//        [staffProfileVC didMoveToParentViewController:self];
+//    }
+//    return;
+    
     // 내 정보 화면 구성
     [self setupMyInfoUI];
     
@@ -400,7 +434,7 @@
     NSLog(@"MY INFO : %@", _myInfo);
     
     _idValueLabel.text = _myInfo[@"id"];
-    _nameValeLabel.text = _myInfo[@"name"];
+    _nameValueLabel.text = _myInfo[@"name"];
     
     [self.view setNeedsDisplay];
 }

@@ -136,6 +136,12 @@
 		BF57B31E17D20ABC00B39C03 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31D17D20ABC00B39C03 /* Course.m */; };
 		BF57B32217D210E300B39C03 /* Note in Resources */ = {isa = PBXBuildFile; fileRef = BF57B32117D210E200B39C03 /* Note */; };
 		BF57B32517D24DDA00B39C03 /* FavoriteToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32417D24DD900B39C03 /* FavoriteToolView.m */; };
+		BF57B32817D2E6E800B39C03 /* StudentProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */; };
+		BF57B32B17D2E77400B39C03 /* StaffProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32A17D2E77400B39C03 /* StaffProfileViewController.m */; };
+		BF57B32E17D2ED5900B39C03 /* FacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */; };
+		BF57B33217D2EDD700B39C03 /* FacultyMajorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */; };
+		BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */; };
+		BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -308,6 +314,18 @@
 		BF57B32117D210E200B39C03 /* Note */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Note; sourceTree = "<group>"; };
 		BF57B32317D24DD900B39C03 /* FavoriteToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteToolView.h; sourceTree = "<group>"; };
 		BF57B32417D24DD900B39C03 /* FavoriteToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteToolView.m; sourceTree = "<group>"; };
+		BF57B32617D2E6E800B39C03 /* StudentProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentProfileViewController.h; sourceTree = "<group>"; };
+		BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentProfileViewController.m; sourceTree = "<group>"; };
+		BF57B32917D2E77400B39C03 /* StaffProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffProfileViewController.h; sourceTree = "<group>"; };
+		BF57B32A17D2E77400B39C03 /* StaffProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffProfileViewController.m; sourceTree = "<group>"; };
+		BF57B32C17D2ED5800B39C03 /* FacultyAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacultyAddressViewController.h; sourceTree = "<group>"; };
+		BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacultyAddressViewController.m; sourceTree = "<group>"; };
+		BF57B33017D2EDD700B39C03 /* FacultyMajorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacultyMajorViewController.h; sourceTree = "<group>"; };
+		BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacultyMajorViewController.m; sourceTree = "<group>"; };
+		BF57B33317D2EDED00B39C03 /* StaffAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffAddressViewController.h; sourceTree = "<group>"; };
+		BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffAddressViewController.m; sourceTree = "<group>"; };
+		BF57B33717D2EE1000B39C03 /* StudentAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentAddressViewController.h; sourceTree = "<group>"; };
+		BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentAddressViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,9 +407,9 @@
 				5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */,
 				5062B64717C4CCAF00A2495D /* BaseClass (기본 구성) */,
 				5062B63F17C4CB8B00A2495D /* SideMenu (왼쪽 메뉴) */,
-				5062B64017C4CBA100A2495D /* 즐겨찾기(메인) 화면 */,
 				5062B65217C4D25200A2495D /* Login (로그인) */,
-				BF177E8917C9BC0600614485 /* Course (주소록) */,
+				5062B64017C4CBA100A2495D /* 즐겨찾기(메인) 화면 */,
+				BF177E8917C9BC0600614485 /* CourseClass (주소록) */,
 				BF177E9817CA6A7B00614485 /* 전체보기 */,
 				BF177E8517C9BADD00614485 /* 내 정보 설정 */,
 				BF177E8417C9BAC600614485 /* 즐겨찾기 설정 */,
@@ -584,11 +602,15 @@
 			children = (
 				BF177E7A17C9BA8300614485 /* MyInfoViewController.h */,
 				BF177E7B17C9BA8300614485 /* MyInfoViewController.m */,
+				BF57B32617D2E6E800B39C03 /* StudentProfileViewController.h */,
+				BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */,
+				BF57B32917D2E77400B39C03 /* StaffProfileViewController.h */,
+				BF57B32A17D2E77400B39C03 /* StaffProfileViewController.m */,
 			);
 			name = "내 정보 설정";
 			sourceTree = "<group>";
 		};
-		BF177E8917C9BC0600614485 /* Course (주소록) */ = {
+		BF177E8917C9BC0600614485 /* CourseClass (주소록) */ = {
 			isa = PBXGroup;
 			children = (
 				BF177E8617C9BBFF00614485 /* CourseClassViewController.h */,
@@ -597,8 +619,11 @@
 				BF177E9D17CA6D1300614485 /* ContactCell.m */,
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
+				BF57B32F17D2ED6100B39C03 /* 교수 주소록 */,
+				BF57B33617D2EDF200B39C03 /* 교직원 주소록 */,
+				BF57B33A17D2EE1400B39C03 /* 학생 주소록 */,
 			);
-			name = "Course (주소록)";
+			name = "CourseClass (주소록)";
 			sourceTree = "<group>";
 		};
 		BF177E9817CA6A7B00614485 /* 전체보기 */ = {
@@ -681,6 +706,35 @@
 				BF57B30F17D1CC3D00B39C03 /* TSLanguageManager.m */,
 			);
 			path = TSLanguageManager;
+			sourceTree = "<group>";
+		};
+		BF57B32F17D2ED6100B39C03 /* 교수 주소록 */ = {
+			isa = PBXGroup;
+			children = (
+				BF57B33017D2EDD700B39C03 /* FacultyMajorViewController.h */,
+				BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */,
+				BF57B32C17D2ED5800B39C03 /* FacultyAddressViewController.h */,
+				BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */,
+			);
+			name = "교수 주소록";
+			sourceTree = "<group>";
+		};
+		BF57B33617D2EDF200B39C03 /* 교직원 주소록 */ = {
+			isa = PBXGroup;
+			children = (
+				BF57B33317D2EDED00B39C03 /* StaffAddressViewController.h */,
+				BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */,
+			);
+			name = "교직원 주소록";
+			sourceTree = "<group>";
+		};
+		BF57B33A17D2EE1400B39C03 /* 학생 주소록 */ = {
+			isa = PBXGroup;
+			children = (
+				BF57B33717D2EE1000B39C03 /* StudentAddressViewController.h */,
+				BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */,
+			);
+			name = "학생 주소록";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -905,6 +959,12 @@
 				BF57B31517D1CE3B00B39C03 /* UIViewController+LoadingProgress.m in Sources */,
 				BF57B31E17D20ABC00B39C03 /* Course.m in Sources */,
 				BF57B32517D24DDA00B39C03 /* FavoriteToolView.m in Sources */,
+				BF57B32817D2E6E800B39C03 /* StudentProfileViewController.m in Sources */,
+				BF57B32B17D2E77400B39C03 /* StaffProfileViewController.m in Sources */,
+				BF57B32E17D2ED5900B39C03 /* FacultyAddressViewController.m in Sources */,
+				BF57B33217D2EDD700B39C03 /* FacultyMajorViewController.m in Sources */,
+				BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */,
+				BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

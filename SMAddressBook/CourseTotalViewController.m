@@ -9,7 +9,8 @@
 #import "CourseTotalViewController.h"
 #import "CourseClassCell.h"
 #import "AppDelegate.h"
-#import <HMSegmentedControl.h>
+//#import <HMSegmentedControl.h>
+#import <PPiFlatSegmentedControl.h>
 #import "Course.h"
 
 @interface CourseTotalViewController ()
@@ -49,8 +50,7 @@
     [self setupTotalCourseUI];
     
     // 과정별 기수 목록 DB에서 가져오기
-    _totalStudents = [self loadDBCourseClasses];
-    [_totalTableView reloadData];
+    [self onSegmentChangedValue:0]; // 0(EMBA), 1(GMBA), 2(SMBA)
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,26 +63,47 @@
 {
     CGRect rect = [[UIScreen mainScreen] applicationFrame];
     
-    // courese 탭
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"EMBA", @"GMBA", @"SMBA"]];
-    [segmentedControl setFrame:CGRectMake(0.0f, 4.0f, 320.0f, 40)];
-    [segmentedControl addTarget:self action:@selector(onSegmentChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [segmentedControl setBackgroundColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5f]];
-    [segmentedControl setSelectionStyle:HMSegmentedControlSelectionStyleBox];
-    [segmentedControl setSelectionLocation:HMSegmentedControlSelectionLocationUp];
-    [segmentedControl setSelectionIndicatorColor:[UIColor grayColor]];
-
-    [self.view addSubview:segmentedControl];
+    // 과정 탭 컨트롤
+//    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"EMBA", @"GMBA", @"SMBA"]];
+//    [segmentedControl setFrame:CGRectMake(0.0f, 4.0f, 320.0f, 40)];
+//    [segmentedControl addTarget:self action:@selector(onSegmentChangedValue:) forControlEvents:UIControlEventValueChanged];
+//    [segmentedControl setBackgroundColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5f]];
+//    [segmentedControl setSelectionStyle:HMSegmentedControlSelectionStyleBox];
+//    [segmentedControl setSelectionLocation:HMSegmentedControlSelectionLocationDown];
+//    [segmentedControl setSelectionIndicatorColor:[UIColor lightGrayColor]];
+//
+//    [self.view addSubview:segmentedControl];
+    PPiFlatSegmentedControl *courseSegment = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30)
+                                                                                      items:@[@{@"text":@"EMBA"},
+                                                                                              @{@"text":@"GMBA"},
+                                                                                              @{@"text":@"SNUMBA"}]
+                                                                               iconPosition:IconPositionRight
+                                                                          andSelectionBlock:^(NSUInteger segmentIndex) {
+                                                                              NSLog(@"선택된 셀 : %d", segmentIndex);
+                                                                              [self performSelector:@selector(onSegmentChangedValue:) withObject:[NSNumber numberWithInteger:segmentIndex]];
+//                                                                              [self onSegmentChangedValue:segmentIndex];
+                                                                          }];
+    
+//    courseSegment.color = [UIColor colorWithRed:88.0f/255.0 green:88.0f/255.0 blue:88.0f/255.0 alpha:1];
+    courseSegment.color = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2];
+    courseSegment.borderWidth = 0.5;
+    courseSegment.borderColor = [UIColor lightGrayColor];
+    courseSegment.selectedColor = [UIColor lightGrayColor];//[UIColor colorWithRed:0.0f/255.0 green:141.0f/255.0 blue:147.0f/255.0 alpha:1];
+    courseSegment.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:13],
+                               NSForegroundColorAttributeName:[UIColor grayColor]};
+    courseSegment.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
+                                       NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [self.view addSubview:courseSegment];
     
     
     // 라인 (imsi)
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, rect.size.width, 1.0f)];
-    lineV.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.4f];
-
-    [self.view addSubview:lineV];
+//    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, rect.size.width, 1.0f)];
+//    lineV.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.4f];
+//
+//    [self.view addSubview:lineV];
     
     // 테이블 뷰
-    _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 45.0f, rect.size.width, rect.size.height - 44.0f - 44.0f) style:UITableViewStylePlain];
+    _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 30.0f, rect.size.width, rect.size.height - 44.0f - 30.0f) style:UITableViewStylePlain];
     _totalTableView.dataSource = self;
     _totalTableView.delegate = self;
     _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
@@ -94,6 +115,13 @@
 #pragma mark - UI Control Callbacks
 - (void)onSegmentChangedValue:(id)sender
 {
+    NSNumber *segmentIdx = (NSNumber *)sender;
+    NSLog(@"선택된 셀 : %d", [segmentIdx integerValue]);
+    
+    // 세그먼트 탭에 따라 테이블 내용 업데이트.
+    // 0(EMBA), 1(GMBA), 2(SMBA)
+    [_totalStudents setArray:[self loadDBCourseClasses:[segmentIdx integerValue]]];
+    
     [_totalTableView reloadData];
 }
 
@@ -140,7 +168,7 @@
 
 #pragma mark - 
 /// 과정별 기수 목록
-- (NSArray *)loadDBCourseClasses
+- (NSArray *)loadDBCourseClasses:(NSInteger)tabIndex
 {
     if (self.managedObjectContext == nil) {
         return nil;
@@ -154,7 +182,25 @@
     [fetchRequest setEntity:entity];
     
     // where
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == 'EMBA')"];
+    NSPredicate *predicate = nil;
+    switch (tabIndex)
+    {
+        case 0: // EMBA
+            predicate = [NSPredicate predicateWithFormat:@"(course == 'EMBA')"];
+            break;
+            
+        case 1: // GMBA
+            predicate = [NSPredicate predicateWithFormat:@"(course == 'GMBA')"];
+            break;
+            
+        case 2: // SMBA
+            predicate = [NSPredicate predicateWithFormat:@"(course == 'SNUMBA')"];
+            break;
+            
+        default:
+            predicate = [NSPredicate predicateWithFormat:@"(course == 'EMBA')"];
+            break;
+    }
     [fetchRequest setPredicate:predicate];
     
     // order by (ZCOURSECLASS)

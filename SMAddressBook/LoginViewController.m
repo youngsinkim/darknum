@@ -182,15 +182,17 @@
         
         
         /* 아이디 저장 버튼 */
-        UIImage *checkIconImage = [UIImage imageNamed:@"check_off"];
         _idSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _idSaveCheckBtn.frame = CGRectMake(xOffset, _koLanguageBtn.frame.origin.y + 40.0f, 120.0f, 24.0f);
-        [_idSaveCheckBtn setImage:checkIconImage forState:UIControlStateNormal];
-        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
-        _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-        _idSaveCheckBtn.titleLabel.textAlignment = UITextAlignmentLeft;
         [_idSaveCheckBtn setTitle:LocalizedString(@"id_save_text", @"아이디 저장") forState:UIControlStateNormal];
         [_idSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
+        _idSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
+        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
+        [_idSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_idSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+        [_idSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_idSaveCheckBtn addTarget:self action:@selector(onIdSaveChecked:) forControlEvents:UIControlEventTouchUpInside];
         
         [bgView addSubview:_idSaveCheckBtn];
@@ -199,10 +201,10 @@
         /* 로그인 유지 버튼 */
         _loginSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _loginSaveCheckBtn.frame = CGRectMake(xOffset + _idSaveCheckBtn.frame.size.width + 30.0f, _koLanguageBtn.frame.origin.y + 40.0f, 120.0f, 24.0f);
-        [_loginSaveCheckBtn setImage:checkIconImage forState:UIControlStateNormal];
+        [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
         [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
         _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-        _loginSaveCheckBtn.titleLabel.textAlignment = UITextAlignmentLeft;
+        _loginSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
         [_loginSaveCheckBtn setTitle:LocalizedString(@"login_save_text", @"로그인 유지") forState:UIControlStateNormal];
         [_loginSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [_loginSaveCheckBtn addTarget:self action:@selector(onLoginSaveChecked:) forControlEvents:UIControlEventTouchUpInside];
@@ -385,14 +387,14 @@
 - (void)onKoreanLanguageClicked
 {
     [TSLanguageManager setSelectedLanguage:kLMKorean];
-//    [self updateControls];
+    [self updateControls];
 }
 
 /// English
 - (void)onEnglishLanguageClicked
 {
     [TSLanguageManager setSelectedLanguage:kLMEnglish];
-//    [self updateControls];
+    [self updateControls];
 }
 
 /// 아이디 저장
@@ -449,9 +451,14 @@
                                             
                                                 [UserContext shared].loginInfo = dict;
                                                 [UserContext shared].isLogined = YES;
+                                                [UserContext shared].loginCertNo = result[kUserCertNo];
+                                                [UserContext shared].loginMemType = result[kMemType];
+                                                [UserContext shared].loginUpdateCnt = result[kUpdateCount];
                                                 
                                                 [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kLoginInfo];
-                                                [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:kUserCertNo];
+                                                [[NSUserDefaults standardUserDefaults] setObject:result[kUserCertNo] forKey:kUserCertNo];
+                                                [[NSUserDefaults standardUserDefaults] setObject:result[kMemType] forKey:kMemType];
+                                                [[NSUserDefaults standardUserDefaults] setObject:result[kUpdateCount] forKey:kUpdateCount];
                                             
                                                 // 자동 로그인이 설정되어 있는 경우, 로그인 아이디/비밀번호 파일 저장.
                                                 // FIXME: 현재 API에 userID가 필수여서 무조건 저장함. => 그럼 로그인 창의 아이디 저장 뭐하러 있지?

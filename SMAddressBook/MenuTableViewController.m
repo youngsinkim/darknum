@@ -10,6 +10,9 @@
 #import "MenuCell.h"
 
 #import "BaseViewController.h"              // imsi
+#import "FacultyMajorViewController.h"      //< 교수 전공 뷰 컨트롤러
+#import "StaffAddressViewController.h"      //< 교직원 주소록 뷰 컨트롤러
+#import "StudentAddressViewController.h"    //< 과정 기수(학생) 주소록 뷰 컨트롤러
 #import "CourseClassViewController.h"       //< 과정 기수 뷰 컨트롤러
 #import "CourseTotalViewController.h"       //< 과전 전체보기 뷰 컨트롤러
 
@@ -382,6 +385,7 @@
 
         if (indexPath.row == (_addrMenuList.count - 1))
         {
+            // 전체보기
             UIViewController *viewController = [menuDict objectForKey:@"viewController"];
             viewController.title = [menuDict objectForKey:@"title"];
             
@@ -389,11 +393,46 @@
         }
         else
         {
-            Course *course = _addrMenuList[indexPath.row];
-            CourseClassViewController *courseClassVC = [[CourseClassViewController alloc] init];
-            courseClassVC.title = course.title;
+            // 교수, 교직원, 과정 기수
+//            Course *course = _addrMenuList[indexPath.row];
+//            CourseClassViewController *courseClassVC = [[CourseClassViewController alloc] init];
+//            courseClassVC.title = course.title;
+//            
+//            controllers = [NSArray arrayWithObject:courseClassVC];
             
-            controllers = [NSArray arrayWithObject:courseClassVC];
+            Course *courseClass = _addrMenuList[indexPath.row];
+            
+            if (courseClass)
+            {
+                NSLog(@"선택된 주소록 셀 : %@", courseClass);
+                switch ([courseClass.type integerValue])
+                {
+                    case MemberTypeFaculty: // 교수진
+                        {
+                            [self menuNavigationController:MenuViewTypeAddrFaculty];
+                            return;
+                        }
+                        break;
+                        
+                    case MemberTypeStaff:   // 교직원
+                        {
+                            [self menuNavigationController:MenuViewTypeAddrStaff];
+                            return;
+                        }
+                        break;
+                        
+                    case MemberTypeStudent: // 학생  
+                        {
+                            [self menuNavigationController:MenuViewTypeAddrStudent];
+                            return;
+                        }
+                        break;
+                        
+                    default:
+                        NSLog(@"CourseClass Type unknown.");
+                        break;
+                }
+            }
         }
     }
     else
@@ -483,19 +522,34 @@
     switch (menuType)
     {
         case MenuViewTypeAddrFaculty:
-        {
-            CourseClassViewController *viewController = [[CourseClassViewController alloc] init];
-//            nav = [[PortraitNavigationController alloc] initWithRootViewController:viewController];
-            controllers = @[viewController];
-            self.menuContainerViewController.centerViewController = [self navigationController:viewController];
-        }
-            break;
-
-        case MenuViewTypeAddrTotalStudent:
             {
-                CourseTotalViewController *totalVC = [[CourseTotalViewController alloc] init];
-                controllers = @[totalVC];
-                self.menuContainerViewController.centerViewController = [self navigationController:totalVC];
+    //            CourseClassViewController *viewController = [[CourseClassViewController alloc] init];
+    ////            nav = [[PortraitNavigationController alloc] initWithRootViewController:viewController];
+    //            controllers = @[viewController];
+                
+                FacultyMajorViewController *viewController = [[FacultyMajorViewController alloc] init];
+                
+                self.menuContainerViewController.centerViewController = [self navigationController:viewController];
+            }
+            break;
+            
+        case MenuViewTypeAddrStaff:
+            {
+                StaffAddressViewController *viewController = [[StaffAddressViewController alloc] init];
+                
+                self.menuContainerViewController.centerViewController = [self navigationController:viewController];
+            }
+            break;
+            
+        case MenuViewTypeAddrStudent:
+            {
+                StudentAddressViewController *viewController = [[StudentAddressViewController alloc] init];
+                
+                self.menuContainerViewController.centerViewController = [self navigationController:viewController];
+
+//                CourseTotalViewController *totalVC = [[CourseTotalViewController alloc] init];
+//                controllers = @[totalVC];
+//                self.menuContainerViewController.centerViewController = [self navigationController:totalVC];
             }
             break;
 

@@ -22,6 +22,9 @@
 /// 과정기수 목록
 - (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
 
+// 교수 전공 목록
+- (void)postMajors:(NSDictionary *)param block:(void (^)(NSArray *result, NSError *error))block;
+
 // (업데이트된) 즐겨찾기 목록
 - (void)postFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
 
