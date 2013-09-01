@@ -7,9 +7,10 @@
 //
 
 #import "FacultyMajorViewController.h"
+#import "AddressViewController.h"
 #import "MajorCell.h"
-#import "Major.h"
-#import "FacultyAddressViewController.h"
+//#import "Major.h"
+//#import "FacultyAddressViewController.h"
 #import "NSString+MD5.h"
 
 @interface FacultyMajorViewController ()
@@ -104,11 +105,11 @@
     
     if ([_majors count] > 0)
     {
-        NSDictionary *dict = _majors[indexPath.row];
+        NSDictionary *majorInfo = _majors[indexPath.row];
 
 //        cell.titleLabel.text = major.title;
 //        [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
-        cell.textLabel.text = dict[@"title"];
+        cell.textLabel.text = majorInfo[@"title"];
     }
     
     return cell;
@@ -119,16 +120,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
     
-    Major *major = _majors[indexPath.row];
-    
-    if (major)
+    NSDictionary *majorInfo = [_majors[indexPath.row] mutableCopy];
+    if ([majorInfo isKindOfClass:[NSDictionary class]])
     {
-        NSLog(@"선택된 셀 정보 : %@", major);
+        NSLog(@"선택된 셀 정보 : %@", majorInfo);
         
-        // 전공에 해당하는 교수 주소록 목록으로
-        FacultyAddressViewController *facultyAddressVC = [[FacultyAddressViewController alloc] init];
+        // 전공에 해당하는 교수 목록 화면으로, (type = faculty, dict = 전공 정보)
         
-        [self.navigationController pushViewController:facultyAddressVC animated:YES];
+//        FacultyAddressViewController *facultyAddressVC = [[FacultyAddressViewController alloc] init];
+        AddressViewController *addressVC = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
+        
+        [self.navigationController pushViewController:addressVC animated:YES];
     }
 }
 

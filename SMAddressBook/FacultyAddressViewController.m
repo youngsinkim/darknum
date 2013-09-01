@@ -10,6 +10,7 @@
 
 @interface FacultyAddressViewController ()
 
+//@property (strong, nonatomic) UITableView 
 @end
 
 @implementation FacultyAddressViewController

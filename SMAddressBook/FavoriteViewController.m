@@ -588,7 +588,8 @@
             mo.photourl = student[@"photourl"];
         }
     }
-    else if (favoriteInfo[@"faculty"] != [NSNull null])
+    
+    if (favoriteInfo[@"faculty"] != [NSNull null])
     {
         // 교수 목록이 있으면 학생 테이블 추가(업데이트)
         NSArray *facultys = favoriteInfo[@"faculty"];
@@ -610,9 +611,11 @@
                 // 로컬 DB에 없으면 추가 (INSERT)
                 mo = (Faculty *)[NSEntityDescription insertNewObjectForEntityForName:@"Faculty" inManagedObjectContext:self.managedObjectContext];
                 mo.memberidx = faculty[@"memberidx"];
+                
+                mo.major = (Major *)[NSEntityDescription insertNewObjectForEntityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
             }
             
-            mo.major.major = faculty[@"major"];                
+            mo.major.major = faculty[@"major"];
             mo.name = faculty[@"name"];
             mo.name_en = faculty[@"name_en"];
             mo.tel = faculty[@"tel"];
@@ -624,7 +627,8 @@
         }
 
     }
-    else if (favoriteInfo[@"staff"] != [NSNull null])
+
+    if (favoriteInfo[@"staff"] != [NSNull null])
     {
         // 교직원 목록이 있으면 학생 테이블 추가(업데이트)
         NSArray *staffs = favoriteInfo[@"staff"];

@@ -143,6 +143,9 @@
 		BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */; };
 		BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */; };
 		BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34A17D34A0200B39C03 /* MajorCell.m */; };
+		BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34D17D38BF500B39C03 /* AddressViewController.m */; };
+		BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35317D38E8200B39C03 /* AddressCell.m */; };
+		BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35617D38EC600B39C03 /* StudentAddressCell.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -329,6 +332,12 @@
 		BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentAddressViewController.m; sourceTree = "<group>"; };
 		BF57B34917D34A0200B39C03 /* MajorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MajorCell.h; sourceTree = "<group>"; };
 		BF57B34A17D34A0200B39C03 /* MajorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MajorCell.m; sourceTree = "<group>"; };
+		BF57B34C17D38BF500B39C03 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		BF57B34D17D38BF500B39C03 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		BF57B35217D38E8200B39C03 /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
+		BF57B35317D38E8200B39C03 /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
+		BF57B35517D38EC400B39C03 /* StudentAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentAddressCell.h; sourceTree = "<group>"; };
+		BF57B35617D38EC600B39C03 /* StudentAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentAddressCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -618,6 +627,12 @@
 			children = (
 				BF177E8617C9BBFF00614485 /* CourseClassViewController.h */,
 				BF177E8717C9BBFF00614485 /* CourseClassViewController.m */,
+				BF57B34C17D38BF500B39C03 /* AddressViewController.h */,
+				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
+				BF57B35217D38E8200B39C03 /* AddressCell.h */,
+				BF57B35317D38E8200B39C03 /* AddressCell.m */,
+				BF57B35517D38EC400B39C03 /* StudentAddressCell.h */,
+				BF57B35617D38EC600B39C03 /* StudentAddressCell.m */,
 				BF177E9C17CA6D1300614485 /* ContactCell.h */,
 				BF177E9D17CA6D1300614485 /* ContactCell.m */,
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
@@ -971,6 +986,9 @@
 				BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */,
 				BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */,
 				BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */,
+				BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */,
+				BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */,
+				BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

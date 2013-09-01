@@ -125,48 +125,7 @@
     [_totalTableView reloadData];
 }
 
-#pragma mark - UITableView DataSources
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return ([_totalStudents count] > 0)? [_totalStudents count] : 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([_totalStudents count] == 0)
-    {
-        static NSString *identifier = @"NoTotalStudentCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        }
-        
-        return cell;
-    }
-    
-    static NSString *identifier = @"TotalStudentCell";
-    UITableViewCell *cell = [self.totalTableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    if ([_totalStudents count] > 0)
-    {
-        // 주소록 셀 정보
-        Course *course = [_totalStudents objectAtIndex:indexPath.row];
-        NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, course.title);
-        
-        cell.textLabel.text = course.title;
-//        cell.cellInfo = cellInfo;
-    }
-        
-    return cell;
-}
-
-#pragma mark - 
+#pragma mark - DB methods
 /// 과정별 기수 목록
 - (NSArray *)loadDBCourseClasses:(NSInteger)tabIndex
 {
@@ -219,6 +178,48 @@
         return fetchedObjects;
     }
     return nil;
+}
+
+#pragma mark - UITableView DataSources
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return ([_totalStudents count] > 0)? [_totalStudents count] : 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([_totalStudents count] == 0)
+    {
+        static NSString *identifier = @"NoTotalStudentCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        
+        return cell;
+    }
+    
+    static NSString *identifier = @"TotalStudentCell";
+    UITableViewCell *cell = [self.totalTableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    if ([_totalStudents count] > 0)
+    {
+        // 주소록 셀 정보
+        Course *course = [_totalStudents objectAtIndex:indexPath.row];
+        NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, course.title);
+        
+        cell.textLabel.text = course.title;
+//        cell.cellInfo = cellInfo;
+    }
+        
+    return cell;
 }
 
 @end
