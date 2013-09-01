@@ -142,6 +142,7 @@
 		BF57B33217D2EDD700B39C03 /* FacultyMajorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */; };
 		BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */; };
 		BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */; };
+		BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34A17D34A0200B39C03 /* MajorCell.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -326,6 +327,8 @@
 		BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffAddressViewController.m; sourceTree = "<group>"; };
 		BF57B33717D2EE1000B39C03 /* StudentAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentAddressViewController.h; sourceTree = "<group>"; };
 		BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentAddressViewController.m; sourceTree = "<group>"; };
+		BF57B34917D34A0200B39C03 /* MajorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MajorCell.h; sourceTree = "<group>"; };
+		BF57B34A17D34A0200B39C03 /* MajorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MajorCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -713,6 +716,8 @@
 			children = (
 				BF57B33017D2EDD700B39C03 /* FacultyMajorViewController.h */,
 				BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */,
+				BF57B34917D34A0200B39C03 /* MajorCell.h */,
+				BF57B34A17D34A0200B39C03 /* MajorCell.m */,
 				BF57B32C17D2ED5800B39C03 /* FacultyAddressViewController.h */,
 				BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */,
 			);
@@ -965,6 +970,7 @@
 				BF57B33217D2EDD700B39C03 /* FacultyMajorViewController.m in Sources */,
 				BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */,
 				BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */,
+				BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

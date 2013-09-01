@@ -195,7 +195,7 @@
 
 
 // 교수 전공 목록
-- (void)postMajors:(NSDictionary *)param block:(void (^)(NSArray *result, NSError *error))block
+- (void)postMajors:(NSDictionary *)param block:(void (^)(NSMutableArray *result, NSError *error))block
 {
     static NSString * const kAPIMajors = (SERVER_URL@"/fb/majors");
     NSLog(@"API Path(%@) param :\n%@", kAPIMajors, param);
@@ -206,14 +206,14 @@
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
                if (block) {
-                   NSLog(@"RESPONSE JSON: %@", JSON);
+                   NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
 //                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
-                   block([NSArray arrayWithArray:[JSON valueForKeyPath:@"data"]], nil);
+                   block([NSMutableArray arrayWithArray:[JSON valueForKeyPath:@"data"]], nil);
                }
                
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                if (block) {
-                   block([NSArray array], error);
+                   block([NSMutableArray array], error);
                }
                NSLog(@"error : %@", [error description]);
            }];

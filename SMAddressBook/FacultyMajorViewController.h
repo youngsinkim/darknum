@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface FacultyMajorViewController : BaseViewController
+#define kMajorCellH  40.0f
+@interface FacultyMajorViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
