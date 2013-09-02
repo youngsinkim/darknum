@@ -9,12 +9,14 @@
 #import "FacultyMajorViewController.h"
 #import "AddressViewController.h"
 #import "MajorCell.h"
-//#import "Major.h"
+#import "Major.h"
 //#import "FacultyAddressViewController.h"
 #import "NSString+MD5.h"
+#import "AppDelegate.h"
 
 @interface FacultyMajorViewController ()
 
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) UITableView *majorTableView;  // 전공 테이블
 @property (strong, nonatomic) NSMutableArray *majors;       // 전공 목록
 
@@ -39,12 +41,24 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    // CoreData 컨텍스트 지정
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (self.managedObjectContext == nil)
+    {
+        self.managedObjectContext = [appDelegate managedObjectContext];
+        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
+    }
+
     // 교수진 전공 화면 구성
     [self setupMajorUI];
-    
+
+#if (1)
     // 교수진 전공 목록 서버에서 가져오기
     [self requestAPIMajor];
-    
+#else
+    // 교수진 목록은 초기에 즐겨찾기 업데이트를 통해 모두 가져오므로 전공 목록은 DB에서 가져오면 됨.
+    [_majors setArray:[self loadDBMajors]];
+#endif
     [_majorTableView reloadData];
 }
 
@@ -64,6 +78,38 @@
     
     [self.view addSubview:_majorTableView];
     
+}
+
+
+#pragma mark - DB methods
+
+/// 교수진 전공 목록 db에서 가져오기
+- (NSArray *)loadDBMajors
+{
+    NSError *error = nil;
+    
+    if (self.managedObjectContext == nil) {
+        return nil;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", majorValue];
+    //    [fetchRequest setPredicate:predicate];
+    
+    //    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    //    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+        {
+        return fetchedObjects;
+        }
+    return nil;
 }
 
 
@@ -105,11 +151,18 @@
     
     if ([_majors count] > 0)
     {
+#if (1)
         NSDictionary *majorInfo = _majors[indexPath.row];
 
 //        cell.titleLabel.text = major.title;
 //        [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
         cell.textLabel.text = majorInfo[@"title"];
+#else
+        // db에서 가져오면 managedObject로 받음
+        Major *major = _majors[indexPath.row];
+    NSLog(@"major (%d) : %@, %@", indexPath.row, major.title, major);
+        cell.textLabel.text = major.title;
+#endif
     }
     
     return cell;

@@ -611,8 +611,15 @@
                 // 로컬 DB에 없으면 추가 (INSERT)
                 mo = (Faculty *)[NSEntityDescription insertNewObjectForEntityForName:@"Faculty" inManagedObjectContext:self.managedObjectContext];
                 mo.memberidx = faculty[@"memberidx"];
-                
-                mo.major = (Major *)[NSEntityDescription insertNewObjectForEntityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
+            
+                // 교수의 전공이 이미 전공 목록에 존재하는지 검사 후, 없으면 추가
+                NSLog(@"찾은 교수 전목 과목은 : %@", faculty[@"major"]);
+                NSArray *filtered = [self filteredMajorObjects:faculty[@"major"]];
+                if ([filtered count] > 0) {
+                    mo.major = filtered[0];
+                } else {
+                    mo.major = (Major *)[NSEntityDescription insertNewObjectForEntityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
+                }
             }
             
             mo.major.major = faculty[@"major"];
@@ -723,7 +730,7 @@
 }
 
 
-/// 기존 DB에 저장된 목록이 있는지 찾기
+/// 기존 DB에 해당 멤버(studcode or memberidx)가 이미 존재하는지 확인
 - (NSArray *)filteredObjects:(NSString *)code memberType:(MemberType)memType
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -772,6 +779,32 @@
     return filtered;
 }
 
+
+/// 교수진 전공 목록 db에서 가져오기
+- (NSArray *)filteredMajorObjects:(NSString *)majorValue
+{
+    NSError *error = nil;
+    
+    if (self.managedObjectContext == nil) {
+        return nil;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major == %@)", majorValue];
+    [fetchRequest setPredicate:predicate];
+    
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+    {
+        return fetchedObjects;
+    }
+    return nil;
+}
 
 
 //- (BOOL)isFetchCourse:(NSString *)course

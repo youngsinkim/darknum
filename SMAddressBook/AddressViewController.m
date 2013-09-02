@@ -248,6 +248,7 @@
     
     //    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
     
+    // 세로형 뷰로 넘어갈 때 타입도 넘겨야 함. 
     DetailViewController *detailViewController = [[DetailViewController alloc] init];
     detailViewController.contacts = _addresses;
     //    [detailViewController.contacts setArray:_contacts];

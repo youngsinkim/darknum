@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "UIView+Shadow.h"
+#import "Faculty.h"
 
 @interface DetailViewController ()
 
@@ -112,12 +113,19 @@
     MMHorizontalListViewCell *cell = [horizontalListView dequeueCellWithReusableIdentifier:@"test"];
 
     if (!cell) {
-        cell = [[MMHorizontalListViewCell alloc] initWithFrame:CGRectMake(0, 0, 319.0f, 200.0f)];
+        cell = [[MMHorizontalListViewCell alloc] initWithFrame:CGRectMake(0, 0, 319.0f, 300.0f)];
         cell.reusableIdentifier = @"test";  // assign the cell identifier for reusability
     }
 
-    [cell setBackgroundColor:[UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:1.0]];
+    [cell setBackgroundColor:[UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:0.5]];
+    
+#if (1)
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 300)];
+    Faculty *faculty = _contacts[index];
 
+    nameLabel.text = faculty.name;
+    [cell addSubview:nameLabel];
+#endif
     return cell;
 }
 
