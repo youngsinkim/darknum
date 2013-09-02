@@ -146,9 +146,17 @@
     self.profileImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"placeholder"]];
     self.profileImageView.frame = CGRectMake(90.0f, 0.0f, 128.0f, 128.0f);
     self.profileImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
+    self.profileImageView.userInteractionEnabled = YES;
     
     [scrollView addSubview:self.profileImageView];
 
+    //
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
+    [scrollView addGestureRecognizer:singleTap];
+    [scrollView setMultipleTouchEnabled:YES];
+    [scrollView setUserInteractionEnabled:YES];
+    [self.view addSubview:scrollView];
+    self.view.userInteractionEnabled=YES;
     
     CGFloat xOffset = 1.0f;
     CGFloat yOffset = 5.0f;
@@ -351,8 +359,152 @@
 
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    NSLog(@"Touched!");
+    
+    if ([touch view] == _profileImageView){
+        NSLog(@"이미지 클릭");
+//        [self ShowAbout];
+    }
+    //your UIImageView has been touched :)
+    
+    //event -> "A UIEvent object representing the event to which the touches belong."
+    
+    //touches -> "A set of UITouch instances in the event represented by event that    represent the touches in the UITouchPhaseEnded phase."
+    
+}
+
+- (void)singleTapGestureCaptured:(UITapGestureRecognizer *)gesture
+{
+    UIView *tappedView = [gesture.view hitTest:[gesture locationInView:gesture.view] withEvent:nil];
+    NSLog(@"Touch event on view: %@", [tappedView class]);
+
+    if (tappedView == _profileImageView){
+        NSLog(@"이미지 클릭");
+        [self onProfileImageClicked];
+    }
+}
+
+- (void)onProfileImageClicked
+{
+    NSString *deletePictureTitle = @"사진삭제";
+    
+    UIActionSheet* selectionSheet = nil;
+	if ([UIImagePickerController isSourceTypeAvailable:
+		 UIImagePickerControllerSourceTypeCamera]) {
+        selectionSheet = [[UIActionSheet alloc]
+                          initWithTitle:nil
+                          delegate:self
+                          cancelButtonTitle:@"취소"
+                          destructiveButtonTitle:deletePictureTitle
+                          otherButtonTitles:@"카메라", @"앨범에서 가져오기", nil];
+		
+	} else {
+		selectionSheet = [[UIActionSheet alloc]
+                          initWithTitle:nil
+                          delegate:self
+                          cancelButtonTitle:@"취소"
+                          destructiveButtonTitle:deletePictureTitle
+                          otherButtonTitles:@"앨범에서 가져오기", nil];
+	}
+    selectionSheet.tag = 11;
+	[selectionSheet showInView:self.view];
+}
+
+#pragma mark -
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+    
+    if (buttonIndex == 0) { // 선택된 사진 삭제
+        return;
+    }
+    
+//    Camera *mera = [[Camera alloc] init];
+//    
+//    // 카메라
+//    if ([UIImagePickerController isSourceTypeAvailable:
+//         UIImagePickerControllerSourceTypeCamera]) {
+//        
+//        if (buttonIndex == 1) { // 사진찍기
+//            [self startCameraControllerFromViewController:self usingDelegate:mera];
+//        } else if (buttonIndex == 2) { // 사진 앨범에서 불러오기
+//            [self startMediaBrowserFromViewController:self usingDelegate:mera];
+//        }
+//    } else {
+//        if (buttonIndex == 1) { // 사진 앨범에서 불러오기
+//            [self startMediaBrowserFromViewController:self usingDelegate:mera];
+//        }
+//    }
+}
+
+- (BOOL) startCameraControllerFromViewController: (UIViewController*) controller
+                                   usingDelegate: (id <UIImagePickerControllerDelegate,
+                                                   UINavigationControllerDelegate>) delegate {
+    
+    if (([UIImagePickerController isSourceTypeAvailable:
+          UIImagePickerControllerSourceTypeCamera] == NO)
+        || (delegate == nil)
+        || (controller == nil))
+        return NO;
+    
+	
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    // Hides the controls for moving & scaling pictures, or for
+    // trimming movies. To instead show the controls, use YES.
+    cameraUI.allowsEditing = NO;
+    
+    cameraUI.delegate = delegate;
+    
+    [controller.navigationController presentViewController:cameraUI animated:YES completion:nil];
+    return YES;
+}
+
+
+- (BOOL) startMediaBrowserFromViewController: (UIViewController*) controller
+                               usingDelegate: (id <UIImagePickerControllerDelegate,
+                                               UINavigationControllerDelegate>) delegate {
+    
+    if (([UIImagePickerController isSourceTypeAvailable:
+          UIImagePickerControllerSourceTypePhotoLibrary] == NO)
+        || (delegate == nil)
+        || (controller == nil)) {
+        UIAlertView *alert = [[UIAlertView alloc ] initWithTitle:@"안내"
+                                                         message:@"본 장치는 사진 앨범를 지원하지 않습니다."
+                                                        delegate:self
+                                               cancelButtonTitle:@"확인"
+                                               otherButtonTitles:nil];
+        [alert show];
+        return NO;
+    }
+    
+    UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
+    mediaUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    // Displays saved pictures and movies, if both are available, from the
+    // Camera Roll album.
+    mediaUI.mediaTypes =
+    [UIImagePickerController availableMediaTypesForSourceType:
+     UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    // Hides the controls for moving & scaling pictures, or for
+    // trimming movies. To instead show the controls, use YES.
+    mediaUI.allowsEditing = NO;
+    mediaUI.delegate = delegate;
+    
+    [controller.navigationController presentViewController:mediaUI animated:YES completion:nil];
+    return YES;
+}
+
 
 #pragma mark - Assets
+
 - (NSDictionary *)loadMyInfo
 {
     return [[UserContext shared] profileInfo];

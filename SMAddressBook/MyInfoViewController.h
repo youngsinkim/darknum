@@ -15,7 +15,7 @@
 //    MemberTypeUnknown
 //} MemberType;
 
-@interface MyInfoViewController : BaseViewController
+@interface MyInfoViewController : BaseViewController <UIActionSheetDelegate>
 
 @property (nonatomic, assign) MemberType mType; // 멤버 타입 ( 타입별로 화면 구성 변경 )
 
