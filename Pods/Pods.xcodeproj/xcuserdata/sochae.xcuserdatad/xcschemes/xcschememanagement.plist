@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Pods-FontAwesome+iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Pods-HMSegmentedControl.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -29,6 +34,16 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>Pods-PPiAwesomeButton.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>Pods-PPiFlatSegmentedControl.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -38,6 +53,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>0FEA148024E54A2995E90228</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>115A42947B4F4691899A641C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,12 +72,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1ED166D49F3D40FAAD76C304</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2830D321056F413085966173</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>2E8BACD1890040ADAEEBEE6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>384B2970B76041349269D45B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,6 +117,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7EFB022133594F7BBA8C8949</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>964047C2809B46D4B1A2EDD6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>AE8E71565A5C487D94A96F8C</key>
 		<dict>
 			<key>primary</key>
@@ -102,7 +142,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>B2082BEB971A44718EF06F90</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BA9BFB1460B546758211715D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CA22CC680B224D0EB08D50DB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA971F34631E460F8E4DBC0C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

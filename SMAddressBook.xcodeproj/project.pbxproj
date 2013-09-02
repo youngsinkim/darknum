@@ -134,7 +134,7 @@
 		BF57B31517D1CE3B00B39C03 /* UIViewController+LoadingProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31417D1CE3B00B39C03 /* UIViewController+LoadingProgress.m */; };
 		BF57B31717D1F5FD00B39C03 /* profile_default_img.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B31617D1F5FD00B39C03 /* profile_default_img.png */; };
 		BF57B31E17D20ABC00B39C03 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31D17D20ABC00B39C03 /* Course.m */; };
-		BF57B32217D210E300B39C03 /* Note in Resources */ = {isa = PBXBuildFile; fileRef = BF57B32117D210E200B39C03 /* Note */; };
+		BF57B32217D210E300B39C03 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = BF57B32117D210E200B39C03 /* Readme.md */; };
 		BF57B32517D24DDA00B39C03 /* FavoriteToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32417D24DD900B39C03 /* FavoriteToolView.m */; };
 		BF57B32817D2E6E800B39C03 /* StudentProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */; };
 		BF57B32B17D2E77400B39C03 /* StaffProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32A17D2E77400B39C03 /* StaffProfileViewController.m */; };
@@ -315,7 +315,7 @@
 		BF57B31617D1F5FD00B39C03 /* profile_default_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_default_img.png; sourceTree = "<group>"; };
 		BF57B31C17D20ABC00B39C03 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
 		BF57B31D17D20ABC00B39C03 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
-		BF57B32117D210E200B39C03 /* Note */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Note; sourceTree = "<group>"; };
+		BF57B32117D210E200B39C03 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
 		BF57B32317D24DD900B39C03 /* FavoriteToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteToolView.h; sourceTree = "<group>"; };
 		BF57B32417D24DD900B39C03 /* FavoriteToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteToolView.m; sourceTree = "<group>"; };
 		BF57B32617D2E6E800B39C03 /* StudentProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentProfileViewController.h; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				5062B63A17C4C12800A2495D /* Podfile */,
-				BF57B32117D210E200B39C03 /* Note */,
+				BF57B32117D210E200B39C03 /* Readme.md */,
 				5062B62017C4C10400A2495D /* SMAddressBook */,
 				5062B61717C4C10400A2495D /* Frameworks */,
 				5062B61617C4C10400A2495D /* Products */,
@@ -901,7 +901,7 @@
 				BF57B2F617D0C6E700B39C03 /* list_photo_on.png in Resources */,
 				BF57B2F717D0C6E700B39C03 /* list_photo_on@2x.png in Resources */,
 				BF57B31717D1F5FD00B39C03 /* profile_default_img.png in Resources */,
-				BF57B32217D210E300B39C03 /* Note in Resources */,
+				BF57B32217D210E300B39C03 /* Readme.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
