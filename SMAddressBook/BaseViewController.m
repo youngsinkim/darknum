@@ -63,6 +63,25 @@
     [self.view addSubview:backgroundView];
 }
 
+
+#pragma mark - Autorotate (세로모드 only)
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return (toInterfaceOrientation == UIInterfaceOrientationPortrait)? YES : NO;
+}
+
+
 #pragma mark - UIBarButtonItems
 
 /// 네비게이션바 버튼 설정
