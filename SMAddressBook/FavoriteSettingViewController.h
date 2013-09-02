@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+/// 즐겨찾기 뷰 컨트롤러
 @interface FavoriteSettingViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
