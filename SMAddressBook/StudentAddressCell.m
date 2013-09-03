@@ -105,7 +105,7 @@
     _cellInfo = cellInfo;
     
     if (cellInfo[@"photourl"]) {
-        [_profileImageView setImageWithURL:[NSURL URLWithString:cellInfo[@"photourl"]]
+        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", cellInfo[@"photourl"]]]
                           placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
     

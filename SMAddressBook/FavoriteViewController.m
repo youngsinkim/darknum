@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "FavoriteViewController.h"
 //#import "FavoriteToolViewController.h"
-#import "FavoriteToolView.h"
 #import "MenuTableViewController.h"
 #import "NSString+MD5.h"
 #import "Course.h"
@@ -24,6 +23,11 @@
 #import "FacultyMajorViewController.h"
 #import "StaffAddressViewController.h"
 #import "StudentAddressViewController.h"
+
+#import "FavoriteSettingViewController.h"
+#import "CourseTotalViewController.h"
+#import "HelpViewController.h"
+
 
 @interface FavoriteViewController ()
 
@@ -158,6 +162,7 @@
     
     // 하단 버튼 툴바
     FavoriteToolView *favoriteToolVC = [[FavoriteToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 44 - kFvToolH, 320, kFvToolH)];
+    favoriteToolVC.delegate = self;
     
     [self.view addSubview:favoriteToolVC];
     [self.view bringSubviewToFront:favoriteToolVC];
@@ -171,92 +176,37 @@
 }
 
 
-#pragma mark - UITableView DataSources
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+#pragma mark - FavoriteToolView Delegate
+/// 즐겨찾기 설정 버튼
+- (void)onFavoriteSettBtnTouched:(id)sender
 {
-    return ([_favorites count] > 0)? [_favorites count] : 1;
+    FavoriteSettingViewController *viewController = [[FavoriteSettingViewController alloc] init];
+    
+    MenuTableViewController *leftMenu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    
+    self.menuContainerViewController.centerViewController = [leftMenu navigationController:viewController];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+/// 전체보기 버튼
+- (void)onTotalStudentBtnTouched:(id)sender
 {
-    return ([_favorites count] > 0)? kFavoriteCellH : self.view.frame.size.height;
+    CourseTotalViewController *viewController = [[CourseTotalViewController alloc] init];
+    
+    MenuTableViewController *leftMenu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    
+    self.menuContainerViewController.centerViewController = [leftMenu navigationController:viewController];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+/// 도움말
+- (void)onHelpBtnTouched:(id)sender
 {
-    if ([_favorites count] == 0)
-    {
-        static NSString *identifier = @"NoFavoriteCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        }
-        
-        return cell;
-    }
+    HelpViewController *viewController = [[HelpViewController alloc] init];
     
-    static NSString *identifier = @"FavoriteCell";
-    FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    MenuTableViewController *leftMenu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
     
-    if (!cell) {
-        cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-    }
-
-    if ([_favorites count] > 0) {
-        Course *course = _favorites[indexPath.row];
-        
-        cell.titleLabel.text = course.title;
-        [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
-//        cell.textLabel.text = course.title;
-    }
-    
-    return cell;
+    self.menuContainerViewController.centerViewController = [leftMenu navigationController:viewController];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
-    
-    Course *courseClass = _favorites[indexPath.row];
-    
-    if (courseClass)
-    {
-        NSLog(@"선택된 셀 정보 : %@", courseClass);
-        switch ([courseClass.type integerValue])
-        {
-            case MemberTypeFaculty: // 교수진
-                {
-                    FacultyMajorViewController *facultyMajorVC = [[FacultyMajorViewController alloc] init];
-                    [self.navigationController pushViewController:facultyMajorVC animated:YES];
-                }
-                break;
-                
-            case MemberTypeStaff:   // 교직원
-                {
-                    StaffAddressViewController *staffAddressVc = [[StaffAddressViewController alloc] init];
-                    [self.navigationController pushViewController:staffAddressVc animated:YES];
-                }
-                break;
-                
-            case MemberTypeStudent: // 학생
-                {
-                    StudentAddressViewController *studentAddressVC = [[StudentAddressViewController alloc] init];
-                    [self.navigationController pushViewController:studentAddressVC animated:YES];
-                }
-                break;
-                
-            default:
-                NSLog(@"CourseClass Type unknown.");
-                break;
-        }
-    }
-}
 
 #pragma mark - Network API
 /// 과정별 기수 목록 가져오기
@@ -864,4 +814,99 @@
 //    return NO;
 //    //    return fetchedObjects; //fetchedObjects will always exist although it may be empty
 //}
+
+
+#pragma mark - UITableView DataSources
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return ([_favorites count] > 0)? [_favorites count] : 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return ([_favorites count] > 0)? kFavoriteCellH : self.view.frame.size.height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([_favorites count] == 0)
+    {
+        static NSString *identifier = @"NoFavoriteCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        
+        return cell;
+    }
+    
+    static NSString *identifier = @"FavoriteCell";
+    FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (!cell) {
+        cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        //        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+    }
+    
+    if ([_favorites count] > 0) {
+        Course *course = _favorites[indexPath.row];
+        
+        cell.titleLabel.text = course.title;
+        [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
+        //        cell.textLabel.text = course.title;
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
+    
+    Course *courseClass = _favorites[indexPath.row];
+    
+    if (courseClass)
+    {
+        NSLog(@"선택된 셀 정보 : %@", courseClass);
+        switch ([courseClass.type integerValue])
+        {
+            case MemberTypeFaculty: // 교수진
+            {
+                FacultyMajorViewController *facultyMajorVC = [[FacultyMajorViewController alloc] init];
+                [self.navigationController pushViewController:facultyMajorVC animated:YES];
+            }
+                break;
+                
+            case MemberTypeStaff:   // 교직원
+            {
+                StaffAddressViewController *staffAddressVc = [[StaffAddressViewController alloc] init];
+                [self.navigationController pushViewController:staffAddressVc animated:YES];
+            }
+                break;
+                
+            case MemberTypeStudent: // 학생
+                {
+                    NSArray *keys = [[[courseClass entity] attributesByName] allKeys];
+                    NSDictionary *dict = [courseClass dictionaryWithValuesForKeys:keys];
+                    NSLog(@"학생 셀 정보 : %@", dict);
+                    
+                    StudentAddressViewController *studentAddressVC = [[StudentAddressViewController alloc] initWithInfo:dict];
+                    
+                    [self.navigationController pushViewController:studentAddressVC animated:YES];
+                }
+                break;
+                
+            default:
+                NSLog(@"CourseClass Type unknown.");
+                break;
+        }
+    }
+}
+
+
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FavoriteToolView.h"
 
-@interface FavoriteViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface FavoriteViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, FavoriteToolViewDelegate>
 
 @end

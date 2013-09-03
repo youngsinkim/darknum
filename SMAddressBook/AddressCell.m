@@ -75,7 +75,7 @@
     NSLog(@"주소록 셀 정보 : %@", _cellInfo);
     
     if (_cellInfo[@"photourl"]) {
-        [_profileImageView setImageWithURL:[NSURL URLWithString:_cellInfo[@"photourl"]]
+        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]]]
                           placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
     

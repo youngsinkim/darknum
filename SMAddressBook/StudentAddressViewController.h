@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
-@interface StudentAddressViewController : BaseViewController
+@interface StudentAddressViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+
+- (id)initWithInfo:(NSDictionary *)info;
 
 @end

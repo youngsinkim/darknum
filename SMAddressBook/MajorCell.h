@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kMajorCellH  40.0f
+
 @interface MajorCell : UITableViewCell
 
 @end

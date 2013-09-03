@@ -112,7 +112,7 @@
     [_helpBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
     [_helpBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     //    [_helpBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
-    [_helpBtn addTarget:self action:@selector(onTotalStudentBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_helpBtn addTarget:self action:@selector(onHelpBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [bgView addSubview:_helpBtn];
 

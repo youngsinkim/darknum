@@ -211,11 +211,11 @@
 //        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
 
-    
+    NSLog(@"%d / %d", indexPath.row / [_courseClasses count]);
     if ([_courseClasses count] > 0)
     {
-        Course *course = _courseClasses[indexPath.section][indexPath.row];
-        NSLog(@"셀 정보 : %@", course.title);
+//        Course *course = _courseClasses[indexPath.section][indexPath.row];
+//        NSLog(@"셀 정보 : %@", course.title);
         // 주소록 셀 정보
 //        NSDictionary *cellInfo = [_contacts objectAtIndex:indexPath.row];
 //        NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, [cellInfo description]);
