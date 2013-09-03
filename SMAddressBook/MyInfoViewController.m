@@ -387,41 +387,35 @@
     }
 }
 
+// 프로필 사진 선택 시 (사진 찍기 메뉴 표시)
 - (void)onProfileImageClicked
 {
-    NSString *deletePictureTitle = @"사진삭제";
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:LocalizedString(@"Cancel", @"Cancel")
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:LocalizedString(@"Take a Photo", @"Take a Photo"),
+                                                                      LocalizedString(@"Photo of Library", @"Photo of Library"), nil];
+    [actionSheet showInView:self.view];
     
-    UIActionSheet* selectionSheet = nil;
-	if ([UIImagePickerController isSourceTypeAvailable:
-		 UIImagePickerControllerSourceTypeCamera]) {
-        selectionSheet = [[UIActionSheet alloc]
-                          initWithTitle:nil
-                          delegate:self
-                          cancelButtonTitle:@"취소"
-                          destructiveButtonTitle:deletePictureTitle
-                          otherButtonTitles:@"카메라", @"앨범에서 가져오기", nil];
-		
-	} else {
-		selectionSheet = [[UIActionSheet alloc]
-                          initWithTitle:nil
-                          delegate:self
-                          cancelButtonTitle:@"취소"
-                          destructiveButtonTitle:deletePictureTitle
-                          otherButtonTitles:@"앨범에서 가져오기", nil];
-	}
-    selectionSheet.tag = 11;
-	[selectionSheet showInView:self.view];
 }
 
-#pragma mark -
+
+#pragma mark - UIActionSheet delegates
+// 프로필 사진 설정(사진 및 앨범) 메뉴
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         return;
     }
     
-    if (buttonIndex == 0) { // 선택된 사진 삭제
-        return;
+    if (buttonIndex == 0)       // Camera
+    {
+        [self showCamera];
+    }
+    else if (buttonIndex == 1)  // Album
+    {
+        [self showPhotoAlbum];
     }
     
 //    Camera *mera = [[Camera alloc] init];
@@ -442,65 +436,83 @@
 //    }
 }
 
-- (BOOL) startCameraControllerFromViewController: (UIViewController*) controller
-                                   usingDelegate: (id <UIImagePickerControllerDelegate,
-                                                   UINavigationControllerDelegate>) delegate {
+
+#pragma mark - Camera methods
+
+/// 카메라 띄우기
+- (void)showCamera
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO)
+        return;
     
-    if (([UIImagePickerController isSourceTypeAvailable:
-          UIImagePickerControllerSourceTypeCamera] == NO)
-        || (delegate == nil)
-        || (controller == nil))
-        return NO;
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.cameraDevice = UIImagePickerControllerCameraDeviceFront;
     
-	
-    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+    picker.showsCameraControls = YES;
+    picker.navigationBarHidden = YES;
+//    camera.toolbarHidden = YES;
+    picker.wantsFullScreenLayout = NO;
+//    camera.cameraOverlayView = overlay;
     
-    // Hides the controls for moving & scaling pictures, or for
-    // trimming movies. To instead show the controls, use YES.
-    cameraUI.allowsEditing = NO;
-    
-    cameraUI.delegate = delegate;
-    
-    [controller.navigationController presentViewController:cameraUI animated:YES completion:nil];
-    return YES;
+    [self.navigationController presentViewController:picker animated:YES completion:nil];
 }
 
-
-- (BOOL) startMediaBrowserFromViewController: (UIViewController*) controller
-                               usingDelegate: (id <UIImagePickerControllerDelegate,
-                                               UINavigationControllerDelegate>) delegate {
-    
+/// 사진 앨범 띄우기
+- (void)showPhotoAlbum
+{
     if (([UIImagePickerController isSourceTypeAvailable:
-          UIImagePickerControllerSourceTypePhotoLibrary] == NO)
-        || (delegate == nil)
-        || (controller == nil)) {
+          UIImagePickerControllerSourceTypePhotoLibrary] == NO)) {
         UIAlertView *alert = [[UIAlertView alloc ] initWithTitle:@"안내"
                                                          message:@"본 장치는 사진 앨범를 지원하지 않습니다."
                                                         delegate:self
                                                cancelButtonTitle:@"확인"
                                                otherButtonTitles:nil];
         [alert show];
-        return NO;
+        return;
     }
     
-    UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
-    mediaUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     
-    // Displays saved pictures and movies, if both are available, from the
-    // Camera Roll album.
-    mediaUI.mediaTypes =
-    [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypePhotoLibrary];
+    [self presentViewController:picker animated:YES completion:nil];
     
-    // Hides the controls for moving & scaling pictures, or for
-    // trimming movies. To instead show the controls, use YES.
-    mediaUI.allowsEditing = NO;
-    mediaUI.delegate = delegate;
-    
-    [controller.navigationController presentViewController:mediaUI animated:YES completion:nil];
-    return YES;
 }
+
+#pragma mark - UIImagePickerController delegate
+/// 사진 촬영 or 앨범에서 사진 선택 시
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"info : %@", info);
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (image == nil) {
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    
+    // Do something with the image
+    
+    if ([info objectForKey:UIImagePickerControllerEditedImage])
+    {
+        
+        NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *filename = @"user_profile.jpg";
+//        UIImage *resizedImage = [SnapStyleCommon resizeImage:[info objectForKey:UIImagePickerControllerEditedImage] size:460.0f];
+//        [[NSFileManager defaultManager] createFileAtPath:[cachesPath stringByAppendingPathComponent:filename] contents:UIImageJPEGRepresentation(resizedImage, 1.0f) attributes:nil];
+    
+//        _imageView.image = resizedImage;
+    
+//        [self uploadProfile:filename];
+    }
+    
+}
+
 
 
 #pragma mark - Assets

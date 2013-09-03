@@ -70,7 +70,7 @@
 "btn_ok" = "OK";
 
 /* Button Cancel */
-"btn_cancel" = "Cancel";
+"Cancel" = "Cancel";
 
 /* Alert Id Empty Text */
 "alert_id_empty_text" = "input user ID.";
@@ -92,4 +92,11 @@
 
 /* Favorite Cell Student Count */
 "%d student" = "%d Students.";
+
+/* Take a Photo */
+"Take a Photo" = "Take a Photo";
+
+/* from Library */
+"Photo of Library" = "from Library";
+
 

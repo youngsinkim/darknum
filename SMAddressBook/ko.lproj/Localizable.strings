@@ -70,7 +70,7 @@
 "btn_ok" = "확인";
 
 /* Button Cancel */
-"btn_cancel" = "취소";
+"Cancel" = "취소";
 
 /* Alert Id Empty Text */
 "alert_id_empty_text" = "아이디를 입력하세요.";
@@ -93,3 +93,8 @@
 /* Favorite Cell Student Count */
 "%d student" = "%d명의 학생이 있습니다.";
 
+/* Take a Photo */
+"Take a Photo" = "사진 촬영";
+
+/* from Library */
+"Photo of Library" = "앨범에서 가져오기";
