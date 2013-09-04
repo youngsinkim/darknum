@@ -9,10 +9,25 @@
 #import <UIKit/UIKit.h>
 
 @interface LoadingView : UIView
+{
+    UIView *_backgroundView;
+    UIProgressView *_progressView;
+    UIActivityIndicatorView *_activityIndicatorView;
+    
+    UILabel *_notificationLabel;
+    
+    NSString *_notificationString;
+    BOOL _showProgress;
 
-+ (LoadingView *)shared;
+}
 
-- (void)start;
+@property (nonatomic, retain) NSString *notificationString;
+@property (nonatomic, assign) BOOL showProgress;
+@property (nonatomic, retain) UIProgressView *progressView;
+
+
+- (void)setBackgroundSize:(NSString *)message;
+- (void)show;
 - (void)stop;
 
 @end

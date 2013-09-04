@@ -38,6 +38,8 @@
 @property (strong, nonatomic) NSMutableArray *courses;
 @property (strong, nonatomic) NSMutableArray *majors;
 @property (strong, nonatomic) NSMutableDictionary *updateInfo;
+
+@property (strong, nonatomic) LoadingView *loadingIndicatorView;
 @end
 
 
@@ -74,6 +76,15 @@
     // 즐겨찾기 화면 구성
     [self setupFavoriteUI];
 
+    
+    // loading progress bar
+//    _loadingIndicatorView = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f)];
+//    _loadingIndicatorView.showProgress = YES;
+//    _loadingIndicatorView.notificationString = NSLocalizedString(@"업데이트 중입니다. ", nil);
+//    
+//    [self.view addSubview:_loadingIndicatorView];
+
+    
     
     NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
     NSLog(@"LOGIN INFO : %@", loginInfo);
@@ -122,6 +133,7 @@
         NSLog(@"LOGIN INFO : %@", loginInfo);
     
         // 로딩 프로그래스 시작 시점
+        [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
     
         if (loginInfo[@"updatecount"] > 0 || [self.favorites count] == 0)
         {
@@ -250,6 +262,9 @@
     }
     
 //    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+//    [_loadingIndicatorView show];
+
+    
 
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
     NSLog(@"Thread1 - 1");
@@ -417,7 +432,7 @@
             progress += 0.01f;
             hud.progress = progress;
             NSLog(@"progress : %f", hud.progress);
-            usleep(5000);
+            usleep(4000);
         }
     }
 }
@@ -820,7 +835,10 @@
     }
     else {
         NSLog(@"insert success..");
+        [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
         
+//        [_loadingIndicatorView stop];
+
 //        // 즐겨찾기 목록 로컬 DB에서 갱신.
 //        [self loadDBFavoriteCourse];
 /*
@@ -1092,17 +1110,17 @@
         switch ([courseClass.type integerValue])
         {
             case MemberTypeFaculty: // 교수진
-            {
-                FacultyMajorViewController *facultyMajorVC = [[FacultyMajorViewController alloc] init];
-                [self.navigationController pushViewController:facultyMajorVC animated:YES];
-            }
+                {
+                    FacultyMajorViewController *facultyMajorVC = [[FacultyMajorViewController alloc] init];
+                    [self.navigationController pushViewController:facultyMajorVC animated:YES];
+                }
                 break;
                 
             case MemberTypeStaff:   // 교직원
-            {
-                StaffAddressViewController *staffAddressVc = [[StaffAddressViewController alloc] init];
-                [self.navigationController pushViewController:staffAddressVc animated:YES];
-            }
+                {
+                    StaffAddressViewController *staffAddressVc = [[StaffAddressViewController alloc] init];
+                    [self.navigationController pushViewController:staffAddressVc animated:YES];
+                }
                 break;
                 
             case MemberTypeStudent: // 학생

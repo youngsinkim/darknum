@@ -84,10 +84,10 @@
         
         
         // 라인
-        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 65 - 1, self.contentView.frame.size.width, 1.0f)];
-        line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-        
-        [self.contentView addSubview:line];
+//        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 65 - 1, self.contentView.frame.size.width, 1.0f)];
+//        line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+//        
+//        [self.contentView addSubview:line];
     }
     return self;
 }
@@ -113,8 +113,9 @@
         _nameLabel.text = cellInfo[@"name"];
     }
     
-    if (cellInfo[@"desc"]) {
-        _memberLabel.text = cellInfo[@"desc"];
+    if (cellInfo[@"status"]) {
+        NSString *description = [NSString stringWithFormat:@"[%@] %@ | %@", cellInfo[@"status"], cellInfo[@"company"], cellInfo[@"department"]];
+        _memberLabel.text = description;// cellInfo[@"desc"];
     }
     
     if (cellInfo[@"mobile"]) {

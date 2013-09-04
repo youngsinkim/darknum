@@ -8,13 +8,16 @@
 
 #import "StudentAddressViewController.h"
 #import "AppDelegate.h"
-#import "StudentCell.h"
+#import "StudentToolView.h"
+#import "StudentAddressCell.h"
+#import "StudentDetailViewController.h"
 #import "Course.h"
 #import "Student.h"
 
 @interface StudentAddressViewController ()
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) StudentToolView *footerToolView;
 @property (strong, nonatomic) UITableView *studentTableView;    //< 학생 테이블
 @property (strong, nonatomic) NSMutableArray *students;         //< 기수 학생 목록
 @property (strong, nonatomic) NSDictionary *info;               //< db 조회를 위해 넘겨받은 해당 기수 정보
@@ -71,6 +74,13 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -80,14 +90,23 @@
 // 해당 기수별 학생 목록 화면
 - (void)setupStudentAddressUI
 {
+    CGRect rect = self.view.bounds;
+    rect.size.height -= (44 + 60);
+    
     // 학생 테이블 뷰
-    _studentTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _studentTableView = [[UITableView alloc] initWithFrame:rect];
 //    _studentTableView = [UIColor greenColor];
     _studentTableView.dataSource = self;
     _studentTableView.delegate = self;
     
     [self.view addSubview:_studentTableView];
 
+    
+    // 툴바
+    _footerToolView = [[StudentToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height, rect.size.width, kStudentToolH)];
+    _footerToolView.backgroundColor = [UIColor blueColor];
+    
+    [self.view addSubview:_footerToolView];
 }
 
 #pragma mark - DB methods
@@ -122,13 +141,13 @@
 //            NSLog(@"Zip: %@", details.zip);
 //        }
         
-//        Course *class = fetchedObjects[0];
-//        if (class) {
-//            NSMutableArray *classStudents = [[class.students allObjects] mutableCopy];
-//            NSLog(@"student count : %d, %d", [class.students count], [classStudents count]);
-//
-//            return classStudents;
-//        }
+        Course *class = fetchedObjects[0];
+        if (class) {
+            NSMutableArray *classStudents = [[class.students allObjects] mutableCopy];
+            NSLog(@"student count : %d, %d", [class.students count], [classStudents count]);
+
+            return classStudents;
+        }
 //        return fetchedObjects;
     }
     return nil;
@@ -144,7 +163,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ([_students count] > 0)? kStudentCellH : self.view.frame.size.height;
+    return ([_students count] > 0)? kStudAddressCellH : self.view.frame.size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -162,29 +181,27 @@
     }
     
     static NSString *identifier = @"StudentCell";
-    StudentCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    StudentAddressCell *cell = (StudentAddressCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
-        cell = [[StudentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        //        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell = [[StudentAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
+//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     if ([_students count] > 0)
     {
-//#if (1)
-//        NSDictionary *majorInfo = _majors[indexPath.row];
-//        
-//        //        cell.titleLabel.text = major.title;
-//        //        [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
-//        cell.textLabel.text = majorInfo[@"title"];
-//#else
-//        // db에서 가져오면 managedObject로 받음
-//        Major *major = _majors[indexPath.row];
-//        NSLog(@"major (%d) : %@, %@", indexPath.row, major.title, major);
-//        cell.textLabel.text = major.title;
-//#endif
+        Student *student = _students[indexPath.row];
+        
+        // ( NSDictionary <- NSManagedObject )
+        NSArray *keys = [[[student entity] attributesByName] allKeys];
+        NSDictionary *dict = [student dictionaryWithValuesForKeys:keys];
+        
+        NSLog(@"학생 목록 셀 정보 : %@", dict);
+        [cell setCellInfo:dict];
+
+//        NSDictionary *info = @{@"photourl":student.photourl, @"name":student.name, @"desc":desc, @"mobile":student.mobile, @"email":student.email};
+
     }
     
     return cell;
@@ -195,10 +212,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
     
-    NSDictionary *majorInfo = [_students[indexPath.row] mutableCopy];
-    if ([majorInfo isKindOfClass:[NSDictionary class]])
+    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
+//    Student *student = _students[indexPath.row];
+    
+    StudentDetailViewController *viewController = [[StudentDetailViewController alloc] initWithInfo:[_students mutableCopy]];
+    [self.navigationController pushViewController:viewController animated:YES];
+
+//    NSDictionary *majorInfo = [_students[indexPath.row] mutableCopy];
+//    if ([majorInfo isKindOfClass:[NSDictionary class]])
     {
-        NSLog(@"선택된 셀 정보 : %@", majorInfo);
+//        NSLog(@"선택된 셀 정보 : %@", majorInfo);
         
         // 전공에 해당하는 교수 목록 화면으로, (type = faculty, dict = 전공 정보)
         

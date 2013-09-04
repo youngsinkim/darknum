@@ -146,7 +146,11 @@
 		BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34D17D38BF500B39C03 /* AddressViewController.m */; };
 		BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35317D38E8200B39C03 /* AddressCell.m */; };
 		BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35617D38EC600B39C03 /* StudentAddressCell.m */; };
-		BF57B37617D65BCA00B39C03 /* StudentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B37517D65BCA00B39C03 /* StudentCell.m */; };
+		BF57B38B17D78C2000B39C03 /* StudentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38A17D78C2000B39C03 /* StudentDetailViewController.m */; };
+		BF57B38E17D7928400B39C03 /* StudentDetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38D17D7928300B39C03 /* StudentDetailToolView.m */; };
+		BF57B39117D7996500B39C03 /* StudentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39017D7996400B39C03 /* StudentToolView.m */; };
+		BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39417D79CD400B39C03 /* SmsViewController.m */; };
+		BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39717D79D0D00B39C03 /* ToolViewController.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -339,8 +343,16 @@
 		BF57B35317D38E8200B39C03 /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
 		BF57B35517D38EC400B39C03 /* StudentAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentAddressCell.h; sourceTree = "<group>"; };
 		BF57B35617D38EC600B39C03 /* StudentAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentAddressCell.m; sourceTree = "<group>"; };
-		BF57B37417D65BCA00B39C03 /* StudentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentCell.h; sourceTree = "<group>"; };
-		BF57B37517D65BCA00B39C03 /* StudentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentCell.m; sourceTree = "<group>"; };
+		BF57B38917D78C1F00B39C03 /* StudentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentDetailViewController.h; sourceTree = "<group>"; };
+		BF57B38A17D78C2000B39C03 /* StudentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentDetailViewController.m; sourceTree = "<group>"; };
+		BF57B38C17D7928200B39C03 /* StudentDetailToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentDetailToolView.h; sourceTree = "<group>"; };
+		BF57B38D17D7928300B39C03 /* StudentDetailToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentDetailToolView.m; sourceTree = "<group>"; };
+		BF57B38F17D7996300B39C03 /* StudentToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentToolView.h; sourceTree = "<group>"; };
+		BF57B39017D7996400B39C03 /* StudentToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentToolView.m; sourceTree = "<group>"; };
+		BF57B39317D79CD400B39C03 /* SmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmsViewController.h; sourceTree = "<group>"; };
+		BF57B39417D79CD400B39C03 /* SmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmsViewController.m; sourceTree = "<group>"; };
+		BF57B39617D79D0D00B39C03 /* ToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewController.h; sourceTree = "<group>"; };
+		BF57B39717D79D0D00B39C03 /* ToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +436,7 @@
 				5062B63F17C4CB8B00A2495D /* SideMenu (왼쪽 메뉴) */,
 				5062B65217C4D25200A2495D /* Login (로그인) */,
 				5062B64017C4CBA100A2495D /* 즐겨찾기(메인) 화면 */,
+				BF57B39217D79C9B00B39C03 /* Tool (툴바 뷰) */,
 				BF177E8917C9BC0600614485 /* CourseClass (주소록) */,
 				BF177E9817CA6A7B00614485 /* 전체보기 */,
 				BF177E8517C9BADD00614485 /* 내 정보 설정 */,
@@ -633,8 +646,6 @@
 				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
 				BF57B35217D38E8200B39C03 /* AddressCell.h */,
 				BF57B35317D38E8200B39C03 /* AddressCell.m */,
-				BF57B35517D38EC400B39C03 /* StudentAddressCell.h */,
-				BF57B35617D38EC600B39C03 /* StudentAddressCell.m */,
 				BF57B32F17D2ED6100B39C03 /* 교수 주소록 */,
 				BF57B33617D2EDF200B39C03 /* 교직원 주소록 */,
 				BF57B33A17D2EE1400B39C03 /* 학생 주소록 */,
@@ -751,8 +762,14 @@
 			children = (
 				BF57B33717D2EE1000B39C03 /* StudentAddressViewController.h */,
 				BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */,
-				BF57B37417D65BCA00B39C03 /* StudentCell.h */,
-				BF57B37517D65BCA00B39C03 /* StudentCell.m */,
+				BF57B38F17D7996300B39C03 /* StudentToolView.h */,
+				BF57B39017D7996400B39C03 /* StudentToolView.m */,
+				BF57B35517D38EC400B39C03 /* StudentAddressCell.h */,
+				BF57B35617D38EC600B39C03 /* StudentAddressCell.m */,
+				BF57B38917D78C1F00B39C03 /* StudentDetailViewController.h */,
+				BF57B38A17D78C2000B39C03 /* StudentDetailViewController.m */,
+				BF57B38C17D7928200B39C03 /* StudentDetailToolView.h */,
+				BF57B38D17D7928300B39C03 /* StudentDetailToolView.m */,
 			);
 			name = "학생 주소록";
 			sourceTree = "<group>";
@@ -768,6 +785,17 @@
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
 			);
 			name = old;
+			sourceTree = "<group>";
+		};
+		BF57B39217D79C9B00B39C03 /* Tool (툴바 뷰) */ = {
+			isa = PBXGroup;
+			children = (
+				BF57B39617D79D0D00B39C03 /* ToolViewController.h */,
+				BF57B39717D79D0D00B39C03 /* ToolViewController.m */,
+				BF57B39317D79CD400B39C03 /* SmsViewController.h */,
+				BF57B39417D79CD400B39C03 /* SmsViewController.m */,
+			);
+			name = "Tool (툴바 뷰)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1002,7 +1030,11 @@
 				BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */,
 				BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */,
 				BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */,
-				BF57B37617D65BCA00B39C03 /* StudentCell.m in Sources */,
+				BF57B38B17D78C2000B39C03 /* StudentDetailViewController.m in Sources */,
+				BF57B38E17D7928400B39C03 /* StudentDetailToolView.m in Sources */,
+				BF57B39117D7996500B39C03 /* StudentToolView.m in Sources */,
+				BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */,
+				BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

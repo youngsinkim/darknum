@@ -203,7 +203,12 @@
         {
             Student *student = _addresses[indexPath.row];
             NSString *desc = [NSString stringWithFormat:@"[%@] %@ | %@", student.status, student.company, student.department];
-            NSDictionary *info = @{@"photourl":student.photourl, @"name":student.name, @"desc":desc, @"mobile":student.mobile, @"email":student.email};
+//            NSDictionary *info = @{@"photourl":student.photourl, @"name":student.name, @"desc":desc, @"mobile":student.mobile, @"email":student.email};
+            
+            // ( NSDictionary <- NSManagedObject )
+            NSArray *keys = [[[student entity] attributesByName] allKeys];
+            NSDictionary *info = [student dictionaryWithValuesForKeys:keys];
+
             [(AddressCell *)cell setCellInfo:info];
         }
     }
