@@ -34,7 +34,8 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) UITableView *favoriteTableView;   // 즐겨찾기 테이블 뷰
 @property (strong, nonatomic) NSMutableArray *favorites;        // 즐겨찾기 목록
-
+@property (strong, nonatomic) NSMutableArray *courses;
+@property (strong, nonatomic) NSMutableArray *majors;
 @end
 
 
@@ -47,6 +48,8 @@
         // Custom initialization
         self.navigationItem.title = LocalizedString(@"favorite_title", @"즐겨찾기");
         self.favorites = [[NSMutableArray alloc] initWithCapacity:3];
+        _courses = [[NSMutableArray alloc] init];
+        _majors = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -114,23 +117,42 @@
         // 2. update count 값에 따라 서버 API 연동 및 업데이트 받기
         NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
         NSLog(@"LOGIN INFO : %@", loginInfo);
+    
+        // 로딩 프로그래스 시작 시점
+    
         if (loginInfo[@"updatecount"] > 0 || [self.favorites count] == 0)
         {
+            // 1. 과정 기수 목록 가져오기
+            // 2. 교수 전공 목록 가져오기
+            // 3. 즐겨찾기 목록 가져와서,
+            // 3-1. 기수에 해당하는 학생 목록 추가
+            // 3-2. 전공에 맞는 교수 목록 추가
+        
             // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
             //< Request data.(과정 기수 목록)
-            [NSThread detachNewThreadSelector:@selector(requestAPIClasses) toTarget:self withObject:nil];
-
-            
+            NSLog(@"MainThread - 1");
+        [NSThread detachNewThreadSelector:@selector(requestAPIClasses) toTarget:self withObject:nil];
+//        [self performSelector:@selector(requestAPIClasses) onThread:classthred withObject:nil waitUntilDone:YES];
+        
+            NSLog(@"MainThread - 2");
+            [NSThread detachNewThreadSelector:@selector(requestAPIMajors) toTarget:self withObject:nil];
+//        [self performSelector:@selector(requestAPIMajors)];
+        
+            NSLog(@"MainThread - 3");
             //< Request data.(즐겨찾기 목록, updatecount > 0)
-            [NSThread detachNewThreadSelector:@selector(requestAPIFavorites) toTarget:self withObject:nil];
+
+//            [NSThread detachNewThreadSelector:@selector(requestAPIFavorites) toTarget:self withObject:nil];
+        [self performSelector:@selector(requestAPIFavorites)];
 //            [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
 
+            NSLog(@"MainThread - 4");
+
         }
-        
+    
     }
     
 //    [_favoriteTableView reloadData];
-
+    NSLog(@"MainThread - 5");
 }
 
 - (void)didReceiveMemoryWarning
@@ -209,9 +231,11 @@
 
 
 #pragma mark - Network API
-/// 과정별 기수 목록 가져오기
+
+/// 각 과정별 기수 목록 서버로 요청
 - (void)requestAPIClasses
 {
+    NSLog(@"testMethod1 in, runloop : %x", [NSRunLoop currentRunLoop]);
 //    NSDictionary *param = @{@"scode"=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84};
     NSDictionary *loginInfo = [[[UserContext shared] loginInfo] mutableCopy];
     NSLog(@"LOGIN INFO : %@", loginInfo);
@@ -227,51 +251,101 @@
 //    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
 
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    NSLog(@"Thread1 - 1");
     
     // 과정별 기수 목록
     [[SMNetworkClient sharedClient] postClasses:param
                                           block:^(NSMutableDictionary *result, NSError *error){
-                                              
 //                                              [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
-
-                                              if (error) {
+                                              NSLog(@"Thread1 - 3");
+                                              if (error)
+                                              {
                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
-                                              } else {
+                                              }
+                                              else
+                                              {
                                                   // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
                                                   NSArray *classes = [result valueForKeyPath:@"data"];
                                                   NSLog(@"목록 : %@", classes);
-                                                  
-//                                                  if (self.managedObjectContext == nil)
-//                                                  {
-//                                                      self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-//                                                      NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
-//                                                  }
-//
+
 //                                                  Course *class = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
 //                                                  Student *student = (Student *)[NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.managedObjectContext];
 //                                                  Staff *staff = (Staff *)[NSEntityDescription insertNewObjectForEntityForName:@"Staff" inManagedObjectContext:self.managedObjectContext];
-//
 //                                                  Major *major = (Major *)[NSEntityDescription insertNewObjectForEntityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
-//
 //                                                  Faculty *faculty = (Faculty *)[NSEntityDescription insertNewObjectForEntityForName:@"Faculty" inManagedObjectContext:self.managedObjectContext];
                                                   
 //                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      
+                                            
+                                                NSLog(@"Thread1 - 4");
                                                   // 3. 로컬 DB 저장
                                                   // 4. 메뉴 구성 업데이트
                                                   [self onUpdateDBCourse:classes];
-                                                  
+                                              
+                                              NSLog(@"Thread1 - 5");
+                                              
                                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                                          NSLog(@"Thread1 - 6");
                                                           [self.favoriteTableView reloadData];
 //                                                            [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                                                          NSLog(@"Thread1 - 7");
                                                       });
 
 //                                                  });
                                                   
                                               }
                                           }];
+    NSLog(@"Thread1 - 2");
 }
+
+
+/// 교수 전공 목록 서버로 요청
+- (void)requestAPIMajors
+{
+    NSLog(@"testMethod2 in, runloop : %x", [NSRunLoop currentRunLoop]);
+    NSString *mobileNo = @"01023873856";
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
+    
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+    
+    // background Dimmed
+//    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
+    
+    // 과정별 기수 목록
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    NSLog(@"Thread2 - 1");
+    [[SMNetworkClient sharedClient] postMajors:param
+                                         block:^(NSMutableArray *result, NSError *error) {
+                                             NSLog(@"Thread2 - 3");
+//                                             [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                             
+                                             if (error) {
+                                                 [[SMNetworkClient sharedClient] showNetworkError:error];
+                                             }
+                                             else {
+                                                 // 전공 목록은 db 저장 없이 tableview만 업데이트
+                                                 NSArray *majorList = [result mutableCopy];
+                                                 [_majors setArray:majorList];
+                                                 NSLog(@"전공 개수 : %d, %@", [_majors count], majorList);
+                                                 
+                                                 NSLog(@"Thread2 - 4");
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                     NSLog(@"Thread2 - 5");
+                                                     //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+//                                                     [self.majorTableView reloadData];
+                                                     NSLog(@"Thread2 - 6");
+                                                 });
+                                                 
+                                             }
+                                             
+                                         }];
+    
+    NSLog(@"Thread2 - 2");
+}
+
 
 /// 업데이트된 즐겨찾기 목록 (updatecount > 0)
 - (void)requestAPIFavorites
@@ -287,15 +361,16 @@
     }
     
     // background Dimmed
-    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+//    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
     
     // scode=5684825a51beb9d2fa05e4675d91253c &userid=ztest01 &certno=m9kebjkakte1tvrqfg90i9fh84 &updatedate=0000-00-00+00%3A00%3A00
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"updatedate":@"0000-00-00 00:00:00"};
-    
+    NSLog(@"Thread3 - 1");
     [[SMNetworkClient sharedClient] postFavorites:param
                                             block:^(NSMutableDictionary *result, NSError *error) {
                                               
-                                              [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
+//                                              [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
+                                                NSLog(@"Thread3 - 3");
                                               
                                               if (error) {
                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
@@ -305,11 +380,14 @@
                                                   NSDictionary *favoriteInfo = [result valueForKeyPath:@"data"];
                                                   NSLog(@"즐겨찾기 업데이트 목록 : %@", favoriteInfo);
                                                   
+                                                  NSLog(@"Thread3 - 4");
                                                   // 3. 로컬 DB 저장
                                                   // 4. 메뉴 구성 업데이트
                                                   [self onUpdateDBFavorites:favoriteInfo];
+                                                  NSLog(@"Thread3 - 5");
                                               }
                                           }];
+    NSLog(@"Thread3 - 2");
 }
 
 
@@ -499,6 +577,9 @@
         
         for (NSDictionary *student in students)
         {
+            // DB에 현재 학생의 기수가 존재하면 해당 기수에 학생을 추가하도록 함. (relationship 연결 처리)
+            
+        
             NSLog(@"학생 정보 : %@", student);
             NSArray *filtered = [self filteredObjects:student[@"studcode"] memberType:MemberTypeStudent];
             Student *mo = nil;
@@ -677,6 +758,35 @@
     NSLog(@"Filtered DB count : %d", [filtered count]);
 
     return filtered;
+}
+
+/// 조건에 맞는 기수 검색
+- (NSArray *)filteredCourses:(NSString *)classStr
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    // select Table
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass == %@", classStr];
+    [fetchRequest setPredicate:predicate];
+    
+    NSLog(@"찾을 courseclass = %@", classStr);
+    
+    // order by
+    //    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+    //    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    
+    NSError *error = nil;
+    NSArray *filtered = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"Filtered DB count : %d", [filtered count]);
+    
+    if ([filtered count] > 0) {
+        return filtered;
+    }
+    
+    return nil;
 }
 
 

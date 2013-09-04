@@ -54,7 +54,7 @@
 
 #if (1)
     // 교수진 전공 목록 서버에서 가져오기
-    [self requestAPIMajor];
+    [self requestAPIMajors];
 #else
     // 교수진 목록은 초기에 즐겨찾기 업데이트를 통해 모두 가져오므로 전공 목록은 DB에서 가져오면 됨.
     [_majors setArray:[self loadDBMajors]];
@@ -190,7 +190,7 @@
 #pragma mark - Network API
 
 /// 과정별 기수 목록 가져오기
-- (void)requestAPIMajor
+- (void)requestAPIMajors
 {
     NSString *mobileNo = @"01023873856";
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
