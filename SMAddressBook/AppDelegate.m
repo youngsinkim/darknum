@@ -37,6 +37,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -72,54 +73,69 @@
 //    }
 
     
-    // sochae - 메뉴 구성 먼저 하고 로그인 창 모달로 띄우도록 시나리오 변경
-    
     // MARK: App 실행 (왼쪽 메뉴, 즐겨찾기 메인 뷰 구성)
+    
+    // sochae - 메뉴 구성 먼저 하고 로그인 창 모달로 띄우도록 시나리오 변경
     [self showMainViewController:nil animated:NO];
     [self.window makeKeyAndVisible];
 
     
     // 로그인 여부 확인
-    NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
     BOOL isAutoLogin = [[UserContext shared] isAutoLogin];
-    
-    NSLog(@"autoLogin(%d), LOGIN INFO : %@", isAutoLogin, loginInfo);
+    NSLog(@"AUTO_LOGIN(%d), CertNo : %@", isAutoLogin, [UserContext shared].certNo);
     
     // 자동 로그인 설정 유무
-    if (isAutoLogin && loginInfo[@"certno"])
+    if (isAutoLogin && [[UserContext shared].userId length] > 0 && [[UserContext shared].userPwd length] > 0)
     {
-        // 로그인 값이 존재하고, 자동 로그인이 설정되어 있으면 자동 로그인 수행.
+        /* Splash 뷰 노출 */
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+//        float screenWidth = screenRect.size.width;
+        float screenHeight = screenRect.size.height;
+        UIImage *splashImage = nil;
+        
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+//            splashView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+            if (screenHeight == 568.0) {
+                splashImage = [UIImage imageNamed:@"Default-568h@2x.png"];//iPhone 5
+            }else{
+                splashImage = [UIImage imageNamed:@"Default.png"]; //other iPhones
+            } 
+        }
+            
         self.splashViewController = [[UIViewController alloc] init];
-        self.splashViewController.view.layer.contents = (id)[UIImage imageNamed:@"Default.png"].CGImage;
+        self.splashViewController.view.layer.contents = (id)splashImage.CGImage;
 
         [self.container.centerViewController presentViewController:self.splashViewController animated:NO completion:nil];
 
+        
+        // 자동 로그인 요청
         [self requestAPILogin];
+        
     }
     else
     {
-        if ([[UserContext shared] loginInfo] != nil)
+        // TODO: 자동 로그인이 아니면 이전 설정값 삭제
         {
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLoginInfo];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserId];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserPwd];
+            
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCertNo];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMemType];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUpdateCount];
+
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
-        
-        NSLog(@"after LoginInfo : %@", [[NSUserDefaults standardUserDefaults] dictionaryForKey:kLoginInfo]);
 
         // MARK: 로그인 전이면, 로그인 화면 표시
-        UINavigationController *loginNav = [self loginViewController];
+        UINavigationController *loginNavigationController = [self loginViewController];
         
-        [self.container.centerViewController presentViewController:loginNav animated:NO completion:nil];
+        [self.container.centerViewController presentViewController:loginNavigationController animated:NO completion:nil];
 
-        {
-        
-//            if (self.loginSaveCheckBtn.selected == YES)
-//                {
-//                [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
-//                [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
-//                }
-
-        }
+//        if (self.loginSaveCheckBtn.selected == YES)
+//            {
+//            [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
+//            [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
+//            }
     }
 //    else if (![[UserContext shared] isAcceptTerms])
 //        {
@@ -391,8 +407,6 @@
                                                 // 로그인 결과 로컬(파일) 저장.
 //                                                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
 //                                                
-//                                                [UserContext shared].loginInfo = dict;
-//                                                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kLoginInfo];
 //                                                [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:@"certno"];
 //                                                
 //                                                // 자동 로그인이 설정되어 있는 경우, 로그인 아이디/비밀번호 파일 저장.

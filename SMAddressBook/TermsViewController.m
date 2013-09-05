@@ -10,12 +10,16 @@
 #import "TermsViewController.h"
 #import "MenuTableViewController.h"
 #import "MyInfoViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TermsViewController ()
 
 @property (strong, nonatomic) UIScrollView *scrollView;
-@property (strong, nonatomic) UIWebView *webView;
-@property (strong, nonatomic) UIButton *acceptBtn;
+@property (strong, nonatomic) UIWebView *webView1;
+@property (strong, nonatomic) UIWebView *webView2;
+@property (strong, nonatomic) UIButton *acceptBtn1;
+@property (strong, nonatomic) UIButton *acceptBtn2;
+@property (strong, nonatomic) UIButton *nextBtn;
 @end
 
 @implementation TermsViewController
@@ -61,31 +65,94 @@
 
 - (void)setupTermsViewUI
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+//    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+    CGRect rect = self.view.bounds;
 //    if ([[UIScreen mainScreen] bounds].size.height == 568)
     
     // 배경 스크롤 뷰
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 300.0f, rect.size.height - 44.0f - 20.0f)];
-    _scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
-    _scrollView.contentSize = CGSizeMake(300.0f, 396.0f+200.0f);
+//    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height - 44.0f)];
+//    _scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
+//    _scrollView.contentSize = CGSizeMake(300.0f, 396.0f+200.0f);
+//    
+//    [self.view addSubview:_scrollView];
     
-    [self.view addSubview:_scrollView];
+    CGFloat sizeHeight = (rect.size.height - 44.0f - 160) / 2;
+    CGFloat yOffset = 10.0f;
+    
+    // 서비스 약관
+    _webView1 = [[UIWebView alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, sizeHeight)];
+    [[_webView1 layer] setCornerRadius:10];
+    [_webView1 setClipsToBounds:YES];
+    
+    [[_webView1 layer]setBorderColor:[[UIColor colorWithRed:0.52 green:0.09 blue:0.07 alpha:1] CGColor]];
+    [[_webView1 layer] setBorderWidth:2.75];
+    
+    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
+    NSData *htmlData = [NSData dataWithContentsOfFile:htmlFile];
+    [_webView1 loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:@""]];
+    
+    [self.view addSubview:_webView1];
+    yOffset += (sizeHeight + 5);
     
     
-    // 약관 웹 뷰
+    // 서비스 약관동의 버튼
+    _acceptBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    _acceptBtn1.frame = CGRectMake(10.0f, yOffset, 70.0f, 30.0f);
+//    _acceptBtn1.center = CGPointMake(300.0f / 2, 566.0f);
+    [_acceptBtn1 setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
+    [_acceptBtn1 setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
+    [_acceptBtn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _acceptBtn1.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    _acceptBtn1.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_acceptBtn1 addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_acceptBtn1];
+    yOffset += (30.0f + 10);
+
+
+    // 개인보호
+    _webView2 = [[UIWebView alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, sizeHeight)];
+    [[_webView2 layer] setCornerRadius:10];
+    [_webView2 setClipsToBounds:YES];
+    
+    [[_webView2 layer]setBorderColor:[[UIColor colorWithRed:0.52 green:0.09 blue:0.07 alpha:1] CGColor]];
+    [[_webView2 layer] setBorderWidth:2.75];
+    
+    NSString *htmlFile2 = [[NSBundle mainBundle] pathForResource:@"personTerms" ofType:@"html"];
+    NSData *htmlData2 = [NSData dataWithContentsOfFile:htmlFile2];
+    [_webView2 loadData:htmlData2 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:@""]];
+    
+    [self.view addSubview:_webView2];
+    yOffset += (sizeHeight + 5);
+    
+    
+    // 개인보호 정책동의 버튼
+    _acceptBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    _acceptBtn2.frame = CGRectMake(10.0f, yOffset, 70.0f, 30.0f);
+//    _acceptBtn2.center = CGPointMake(300.0f / 2, 566.0f);
+    [_acceptBtn2 setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
+    [_acceptBtn2 setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
+    [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _acceptBtn2.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    _acceptBtn2.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_acceptBtn2 addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_acceptBtn2];
+    yOffset += (30.0f + 10.0f);
+
     
     // 약관동의 버튼
-    _acceptBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn.frame = CGRectMake(0.0f, _scrollView.frame.size.height - 50.0f, 70.0f, 30.0f);
-    _acceptBtn.center = CGPointMake(300.0f / 2, 566.0f);
-    [_acceptBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-    [_acceptBtn setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
-    [_acceptBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _acceptBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    _acceptBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_acceptBtn addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _nextBtn.frame = CGRectMake((320 - 70) / 2, yOffset, 70.0f, 30.0f);
+//    _nextBtn.center = CGPointMake(300.0f / 2, 566.0f);
+    [_nextBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
+    [_nextBtn setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
+    [_nextBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    _nextBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_nextBtn addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     
-    [_scrollView addSubview:_acceptBtn];
+    [self.view addSubview:_nextBtn];
     
 }
 
@@ -146,13 +213,13 @@
 - (void)setIsByMenu:(BOOL)isByMenu
 {
     _isByMenu = isByMenu;
-    [_acceptBtn setHidden:YES];
+    [_nextBtn setHidden:YES];
 }
 
 - (void)hideAcceptBtn
 {
     // 동의함 버튼 숨김은 메뉴에서 진입 시에 해당함.
-    _acceptBtn.hidden = YES;
+    _nextBtn.hidden = YES;
     
     //
     // TODO: WebView 사이즈 조정

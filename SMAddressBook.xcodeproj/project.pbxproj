@@ -153,6 +153,9 @@
 		BF57B39117D7996500B39C03 /* StudentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39017D7996400B39C03 /* StudentToolView.m */; };
 		BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39417D79CD400B39C03 /* SmsViewController.m */; };
 		BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39717D79D0D00B39C03 /* ToolViewController.m */; };
+		BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */; };
+		BF57B39E17D8F72B00B39C03 /* serviceTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39C17D8F72B00B39C03 /* serviceTerms.html */; };
+		BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39D17D8F72B00B39C03 /* personTerms.html */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -358,6 +361,10 @@
 		BF57B39417D79CD400B39C03 /* SmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmsViewController.m; sourceTree = "<group>"; };
 		BF57B39617D79D0D00B39C03 /* ToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewController.h; sourceTree = "<group>"; };
 		BF57B39717D79D0D00B39C03 /* ToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewController.m; sourceTree = "<group>"; };
+		BF57B39917D8B90200B39C03 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
+		BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
+		BF57B39C17D8F72B00B39C03 /* serviceTerms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = serviceTerms.html; sourceTree = "<group>"; };
+		BF57B39D17D8F72B00B39C03 /* personTerms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = personTerms.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -436,9 +443,9 @@
 				BF57B30717D1CC3C00B39C03 /* Extern (외부 모듈) */,
 				BF57B30017D1CC2A00B39C03 /* Category */,
 				BF3B468017C86E6E0069AA9A /* Common (공통 모듈) */,
+				5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */,
 				5052624717C7580F004C4724 /* Models */,
 				BF3B465817C64BF20069AA9A /* Network (네트워크 모듈) */,
-				5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */,
 				5062B64717C4CCAF00A2495D /* BaseClass (기본 구성) */,
 				5062B63F17C4CB8B00A2495D /* SideMenu (왼쪽 메뉴) */,
 				5062B65217C4D25200A2495D /* Login (로그인) */,
@@ -458,6 +465,8 @@
 		5062B62117C4C10400A2495D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF57B39C17D8F72B00B39C03 /* serviceTerms.html */,
+				BF57B39D17D8F72B00B39C03 /* personTerms.html */,
 				BF3B466C17C6691E0069AA9A /* Localizable.strings */,
 				5062B65317C4D72F00A2495D /* Assets */,
 				5062B62217C4C10400A2495D /* SMAddressBook-Info.plist */,
@@ -704,6 +713,8 @@
 		BF57B30017D1CC2A00B39C03 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				BF57B39917D8B90200B39C03 /* NSDate+Helper.h */,
+				BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */,
 				BF57B30117D1CC2D00B39C03 /* NSString+MD5.h */,
 				BF57B30217D1CC2D00B39C03 /* NSString+MD5.m */,
 				BF57B30317D1CC2D00B39C03 /* UIView+Shadow.h */,
@@ -952,6 +963,8 @@
 				BF57B2F717D0C6E700B39C03 /* list_photo_on@2x.png in Resources */,
 				BF57B31717D1F5FD00B39C03 /* profile_default_img.png in Resources */,
 				BF57B32217D210E300B39C03 /* Readme.md in Resources */,
+				BF57B39E17D8F72B00B39C03 /* serviceTerms.html in Resources */,
+				BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1045,6 +1058,7 @@
 				BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */,
 				BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */,
 				50C4A2D317D87B86006DEC43 /* Util.m in Sources */,
+				BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

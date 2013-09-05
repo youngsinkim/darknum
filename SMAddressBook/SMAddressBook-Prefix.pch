@@ -20,6 +20,8 @@
 
 #import "SMNetworkClient.h"     //< 네트워크 모듈
 #import "UserContext.h"         //< 사용자 정보
+#import "Util.h"
+
 #import "LoadingView.h"
 #import <MBProgressHUD.h>
 

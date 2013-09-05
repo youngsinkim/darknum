@@ -51,7 +51,10 @@
     if (self) {
         // Custom initialization
         self.navigationItem.title = LocalizedString(@"favorite_title", @"즐겨찾기");
+        
         self.favorites = [[NSMutableArray alloc] initWithCapacity:3];
+        
+        // 즐겨찾기 임시 저장 목록
         _courses = [[NSMutableArray alloc] init];
         _majors = [[NSMutableArray alloc] init];
         _updateInfo = [[NSMutableDictionary alloc] initWithCapacity:3];
@@ -77,46 +80,52 @@
     [self setupFavoriteUI];
 
     
-    // loading progress bar
-//    _loadingIndicatorView = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f)];
-//    _loadingIndicatorView.showProgress = YES;
-//    _loadingIndicatorView.notificationString = NSLocalizedString(@"업데이트 중입니다. ", nil);
-//    
-//    [self.view addSubview:_loadingIndicatorView];
-
-    
-    
-    NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
-    NSLog(@"LOGIN INFO : %@", loginInfo);
-
     // 로그인 전이면 화면 구성 중단.
-    if ([UserContext shared].isLogined == NO)
-    {
-        NSLog(@"로그인 전이네요.... -.- -.- -.-");
-//        if (!loginInfo[@"certno"])
-//    {
+    NSLog(@"로그인 후 즐겨찾기로 왔습니까? : %d", [UserContext shared].isLogined);
+    if ([[UserContext shared] isLogined] != YES) {
+        NSLog(@"로그인 전입니다.");
+        return;
+//        if (!loginInfo[@"certno"]) {
 //        // MARK: 로그인 되지 않은 상태이면 로그인 화면 노출.
 //        UIViewController *loginViewController = [appDelegate loginViewController];
 //    
 //        [self.navigationController presentViewController:loginViewController animated:NO completion:nil];
 //    }
-//    else if (![[UserContext shared] isAcceptTerms])
-//    {
+//    else if (![[UserContext shared] isAcceptTerms]) {
 //        // MARK: 약관 동의를 하지 않았으면 약관동의 화면 노출.
 //        UIViewController *termsViewController = [appDelegate termsViewController];
 //        
 //        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
 //    }
-//    else if (![[UserContext shared] isExistProfile])
-//        {
-        // MARK:
+//    else if (![[UserContext shared] isExistProfile]) {
+//        // MARK:
 //        }
     }
-    else
+    
+    if ([[UserContext shared] isAcceptTerms] != YES) {
+        NSLog(@"약관 동의 전입니다.");
+        return;
+    }
+
+    if ([[UserContext shared] isExistProfile] != YES) {
+        NSLog(@"프로필 설정 전입니다.");
+        return;
+    }
+
+    // 로그인 과정이 모두 끝난 상태.
     {
-        // 1. 로그인 후, 로컬 DB에서 즐겨찾기(CourseClass) 목록 가져오기
+        // loading progress bar
+        //    _loadingIndicatorView = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f)];
+        //    _loadingIndicatorView.showProgress = YES;
+        //    _loadingIndicatorView.notificationString = NSLocalizedString(@"업데이트 중입니다. ", nil);
+        //
+        //    [self.view addSubview:_loadingIndicatorView];
+
+        
+        // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
+        
         [self.favorites setArray:[self loadDBFavoriteCourse]];
-        NSLog(@"기존 DB 즐겨찾기 목록 : %d", [self.favorites count]);
+        NSLog(@"DB 즐겨찾기 목록 : %d", [self.favorites count]);
 
         if ([self.favorites count] > 0)
         {
@@ -128,15 +137,16 @@
             [menu setAddrMenuList:self.favorites];
         }
 
-        // 2. update count 값에 따라 서버 API 연동 및 업데이트 받기
-        NSDictionary *loginInfo = (NSDictionary *)[[UserContext shared] loginInfo];
-        NSLog(@"LOGIN INFO : %@", loginInfo);
-    
-        // 로딩 프로그래스 시작 시점
-        [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
-    
-        if (loginInfo[@"updatecount"] > 0 || [self.favorites count] == 0)
+        
+        // (updateCount > 0)이면, 서버 데이터 업데이트 요청
+        NSInteger updateCount = [[[UserContext shared] updateCount] integerValue];
+        NSLog(@"Login Update Count : %d", updateCount);
+        
+        if ((updateCount > 0) || ([self.favorites count] == 0))
         {
+            // 로딩 프로그래스 시작...
+            [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+
             // 1. 과정 기수 목록 가져오기
             // 2. 교수 전공 목록 가져오기
             // 3. 즐겨찾기 목록 가져와서,
@@ -144,18 +154,18 @@
             // 3-2. 전공에 맞는 교수 목록 추가
         
             // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
-            //< Request data.(과정 기수 목록)
             NSLog(@"MainThread - 1");
+            //< Request data. (과정별 기수 목록)
             [NSThread detachNewThreadSelector:@selector(requestAPIClasses) toTarget:self withObject:nil];
 //        [self performSelector:@selector(requestAPIClasses) onThread:classthred withObject:nil waitUntilDone:YES];
         
             NSLog(@"MainThread - 2");
+            //< Request data. (교수 전공 목록)
             [NSThread detachNewThreadSelector:@selector(requestAPIMajors) toTarget:self withObject:nil];
 //        [self performSelector:@selector(requestAPIMajors)];
         
             NSLog(@"MainThread - 3");
-            //< Request data.(즐겨찾기 목록, updatecount > 0)
-
+            //< Request data. (즐겨찾기 업데이트 목록, updatecount > 0)
             [NSThread detachNewThreadSelector:@selector(requestAPIFavorites) toTarget:self withObject:nil];
 //            [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
 
@@ -251,11 +261,10 @@
 {
     NSLog(@"testMethod1 in, runloop : %x", [NSRunLoop currentRunLoop]);
 //    NSDictionary *param = @{@"scode"=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84};
-    NSDictionary *loginInfo = [[[UserContext shared] loginInfo] mutableCopy];
-    NSLog(@"LOGIN INFO : %@", loginInfo);
-    NSString *mobileNo = @"01023873856";
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
+    
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
     
     if (!mobileNo || !userId | !certNo) {
         return;
@@ -322,9 +331,9 @@
 - (void)requestAPIMajors
 {
     NSLog(@"testMethod2 in, runloop : %x", [NSRunLoop currentRunLoop]);
-    NSString *mobileNo = @"01023873856";
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
     
     if (!mobileNo || !userId | !certNo) {
         return;
@@ -377,11 +386,9 @@
 /// 업데이트된 즐겨찾기 목록 (updatecount > 0)
 - (void)requestAPIFavorites
 {
-    NSDictionary *loginInfo = [[[UserContext shared] loginInfo] mutableCopy];
-    NSLog(@"LOGIN INFO : %@", loginInfo);
-    NSString *mobileNo = @"01023873856";
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
     
     if (!mobileNo || !userId | !certNo) {
         return;
@@ -447,7 +454,7 @@
 
 #pragma mark - CoreData methods
 
-/// 즐겨찾기 DB 목록 가져오기
+/// 즐겨찾기 DB 목록 불러오기
 - (NSArray *)loadDBFavoriteCourse
 {
     if (self.managedObjectContext == nil) {
@@ -476,11 +483,6 @@
         NSLog(@"title : %@", class.title);
     }
     
-//    if (fetchedObjects && [fetchedObjects count] > 0)
-//    {
-//        return fetchedObjects;
-//    }
-//    return nil;
     return fetchedObjects;
 }
 

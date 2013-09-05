@@ -10,4 +10,7 @@
 
 @interface Util : NSObject
 
+/// 단말 전화 번호
++ (NSString *)phoneNumber;
+
 @end

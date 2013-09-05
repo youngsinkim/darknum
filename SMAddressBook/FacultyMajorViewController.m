@@ -194,7 +194,7 @@
 {
     NSString *mobileNo = @"01023873856";
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
+    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kCertNo];
     
     if (!mobileNo || !userId | !certNo) {
         return;

@@ -238,10 +238,10 @@
 }
 
 #pragma mark - ViewController methods
-- (void)reset
+- (void)resetUI
 {
-    [self.HUD hide:YES];
-    
+//    [self.HUD hide:YES];
+
     [self.loginBtn setEnabled:YES];
     [self.idSaveCheckBtn setEnabled:YES];
     [self.loginSaveCheckBtn setEnabled:YES];
@@ -282,7 +282,7 @@
     [self.view endEditing:YES];// this will do the trick
     
     // 로딩 중이면 멈춤
-    [self reset];
+    [self resetUI];
 }
 
 #pragma mark - UITextField delegate
@@ -429,10 +429,11 @@
 //    self.loading.center = self.view.center;
 //    [self.view addSubview:self.loading];
     
-    self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-	self.HUD.delegate = self;
-    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
-    self.HUD.margin = 10.0f;
+//    self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//	self.HUD.delegate = self;
+//    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
+//    self.HUD.margin = 10.0f;
+    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
 
     NSLog(@"LOGIN Request Parameter : %@", param);
     
@@ -448,32 +449,36 @@
                                             {
                                                 // 로그인 결과 로컬(파일) 저장.
                                                 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
-                                            
-                                                [UserContext shared].loginInfo = dict;
-                                                [UserContext shared].isLogined = YES;
-                                                [UserContext shared].loginCertNo = result[kUserCertNo];
-                                                [UserContext shared].loginMemType = result[kMemType];
-                                                [UserContext shared].loginUpdateCnt = result[kUpdateCount];
-                                                
-                                                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kLoginInfo];
-                                                [[NSUserDefaults standardUserDefaults] setObject:result[kUserCertNo] forKey:kUserCertNo];
-                                                [[NSUserDefaults standardUserDefaults] setObject:result[kMemType] forKey:kMemType];
-                                                [[NSUserDefaults standardUserDefaults] setObject:result[kUpdateCount] forKey:kUpdateCount];
-                                            
-                                                // 자동 로그인이 설정되어 있는 경우, 로그인 아이디/비밀번호 파일 저장.
-                                                // FIXME: 현재 API에 userID가 필수여서 무조건 저장함. => 그럼 로그인 창의 아이디 저장 뭐하러 있지?
-                                                [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
-                                                
-                                                if (self.loginSaveCheckBtn.selected == YES)
+                                                if (![dict isKindOfClass:[NSNull class]])
                                                 {
-                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:kUserPwd];
-                                                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
-                                                }
-                                                [[NSUserDefaults standardUserDefaults] synchronize];
-
+                                                    [[NSUserDefaults standardUserDefaults] setObject:dict[kCertNo] forKey:kCertNo];
+                                                    [[NSUserDefaults standardUserDefaults] setObject:dict[kMemType] forKey:kMemType];
+                                                    [[NSUserDefaults standardUserDefaults] setObject:dict[kUpdateCount] forKey:kUpdateCount];
                                                 
+                                                    // 자동 로그인의 경우, 로그인 아이디/비밀번호 파일 저장.
+                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
+                                                    
+                                                    if (self.loginSaveCheckBtn.selected == YES)
+                                                    {
+                                                        [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:kUserPwd];
+                                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
+                                                    }
+                                                    
+                                                    [[NSUserDefaults standardUserDefaults] synchronize];
+                                                    [[UserContext shared] loadAppSetting];
+
+                                                }
+                                                
+
                                                 // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
-                                                if ([[UserContext shared] isAcceptTerms] == YES)
+                                                if ([[UserContext shared] isAcceptTerms] == NO)
+                                                {
+                                                    // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
+                                                    TermsViewController *termsViewController = [[TermsViewController alloc] init];
+                                                    
+                                                    [self.navigationController pushViewController:termsViewController animated:YES];
+                                                }
+                                                else
                                                 {
                                                     // 로그인 성공하면 즐겨찾기 화면으로 이동
                                                     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -491,19 +496,12 @@
                                                     }
 
                                                 }
-                                                else
-                                                {
-                                                    // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
-                                                    TermsViewController *termsViewController = [[TermsViewController alloc] init];
-
-                                                    [self.navigationController pushViewController:termsViewController animated:YES];
-                                                }
 
                                             }
                                             
-//                                            [self.loading setHidden:YES];
-//                                            [self.loginBtn setEnabled:YES];
-                                            [self reset];
+                                            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+
+                                            [self resetUI];
                                         }];
 }
 @end

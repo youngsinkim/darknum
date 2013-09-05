@@ -85,7 +85,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 
-    NSInteger memType = [[[UserContext shared] loginMemType] integerValue];
+    NSInteger memType = [[[UserContext shared] memberType] integerValue];
     NSLog(@"내 멤버 타입 : %d", memType);
     
 //    if (memType == MemberTypeStudent)
@@ -548,10 +548,11 @@
 //    path    /fb/myinfo
 //    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
     
-    NSDictionary *loginInfo = [[UserContext shared] loginInfo];
-    NSString *mobileNo = @"01023873856";
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
+    NSString *mobileNo = [Util phoneNumber];
+//    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+//    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserCertNo];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
     
     if (!mobileNo || !userId | !certNo) {
         return;
