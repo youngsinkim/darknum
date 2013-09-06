@@ -35,7 +35,7 @@ static UserContext *_sharedUserContext = nil;
         _sharedUserContext.profileInfo = [[NSMutableDictionary alloc] init];
 
         //< 최초 업데이트 시간 (0000-00-00 00:00:00)
-        _sharedUserContext.updateDate = @"0000-00-00 00:00:00";// [[NSDateFormatter alloc] dateFromString:@"0000-00-00 00:00:00"];
+        _sharedUserContext.lastUpdateDate = @"0000-00-00 00:00:00";// [[NSDateFormatter alloc] dateFromString:@"0000-00-00 00:00:00"];
         _sharedUserContext.userId = @"";        // 사용자 ID
         _sharedUserContext.userPwd = @"";       // 사용자 비밀번호
 
@@ -82,8 +82,8 @@ static UserContext *_sharedUserContext = nil;
         NSLog(@"previous ProfileInfo : %@", [_profileInfo description]);
     }
 
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUpdateDate]) {
-        _updateDate = [[NSUserDefaults standardUserDefaults] objectForKey:kUpdateDate];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kLastUpdate]) {
+        _lastUpdateDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastUpdate];
     }
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserId]) {
@@ -124,7 +124,7 @@ static UserContext *_sharedUserContext = nil;
 
     
     NSLog(@"previous AppInfo : \nautoLogin(%d), acceptTerms(%d), isProfile(%d), certno(%@), memtype(%@), updatecnt(%@), updateTime:%@, userID(%@), passWD(%@)",
-          _isAutoLogin, _isAcceptTerms, _isExistProfile, _certNo, _memberType, _updateCount, _updateDate, _userId, _userPwd);
+          _isAutoLogin, _isAcceptTerms, _isExistProfile, _certNo, _memberType, _updateCount, _lastUpdateDate, _userId, _userPwd);
 
 }
 

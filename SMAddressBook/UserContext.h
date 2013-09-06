@@ -13,7 +13,7 @@
 #define USERINFO        @"UserInfo"
 
 #define kProfileInfo    @"ProfileInfo"  //< 내 프로필 정보
-#define kUpdateDate     @"UpdateDate"   //< 마지막 서버에서 업데이트 받은 시간
+#define kLastUpdate     @"LastUpdate"   //< 마지막 서버에서 업데이트 받은 시간
 
 #define kAutoLogin      @"AutoLogin"    //< 자동 로그인 여부 (자동 여부 설정에 따라 로그인 창 화면 노출 결정)
 #define kAcceptTerms    @"AcceptTerms"  //< 약관 동의 여부 (약관 동의 여부에 따라 약관 화면 노출 결정)
@@ -32,7 +32,7 @@
 @interface UserContext : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary *profileInfo; // 내 정보(프로필) 데이터
-@property (strong, nonatomic) NSString *updateDate;             //< 업데이트 시간 (마지막 서버 연동 시간 저장, 이 시간 값을 기준으로 서버의 새로운 데이터를 받아온다.)
+@property (strong, nonatomic) NSString *lastUpdateDate;         //< 업데이트 시간 (마지막 서버 연동 시간 저장, 이 시간 값을 기준으로 서버의 새로운 데이터를 받아온다.)
 @property (strong, nonatomic) NSString *userId;
 @property (strong, nonatomic) NSString *userPwd;
 
