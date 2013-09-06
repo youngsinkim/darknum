@@ -55,10 +55,17 @@
     [_smsBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
     [_smsBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     //    [_smsBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
-    [_smsBtn addTarget:self action:@selector(onFavoriteSetBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [_smsBtn addTarget:self action:@selector(onSmsBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:_smsBtn];
     xStart += 125;
 }
 
+#pragma mark - UI Control Events
+- (void)onSmsBtnClicked:(id)sender
+{
+    if ([_delegate respondsToSelector:@selector(onTouchedSmsBtn:)]) {
+        [_delegate onTouchedSmsBtn:sender];
+    }
+}
 @end

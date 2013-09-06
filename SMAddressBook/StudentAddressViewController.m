@@ -8,11 +8,14 @@
 
 #import "StudentAddressViewController.h"
 #import "AppDelegate.h"
-#import "StudentToolView.h"
 #import "StudentAddressCell.h"
+
 #import "StudentDetailViewController.h"
 #import "Course.h"
 #import "Student.h"
+
+#import "PortraitNavigationController.h"
+#import "SmsViewController.h"
 
 @interface StudentAddressViewController ()
 
@@ -104,6 +107,7 @@
     
     // 툴바
     _footerToolView = [[StudentToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height, rect.size.width, kStudentToolH)];
+    _footerToolView.delegate = self;
     _footerToolView.backgroundColor = [UIColor blueColor];
     
     [self.view addSubview:_footerToolView];
@@ -229,6 +233,17 @@
 //        AddressViewController *addressVC = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
 //        [self.navigationController pushViewController:addressVC animated:YES];
     }
+}
+
+#pragma mark - Callback methods
+/// SMS 발송 버튼
+- (void)onTouchedSmsBtn:(id)sender
+{
+    SmsViewController *smsVC = [[SmsViewController alloc] init];
+    smsVC.view.backgroundColor = [UIColor whiteColor];
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 @end

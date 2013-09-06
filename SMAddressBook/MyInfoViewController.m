@@ -119,7 +119,12 @@
 
     
     // MARK: 프로필 유무 설정하여 최초 실행 이후에 프로필 화면으로 이동하지 않도록 처리.
-//    [UserContext shared].isExistProfile = YES;
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    [UserContext shared].isExistProfile = YES;
+
+
 }
 
 - (void)didReceiveMemoryWarning

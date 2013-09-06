@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SmsViewController : UIViewController
+@interface SmsViewController : UIViewController <UISearchDisplayDelegate, UISearchBarDelegate>
+
+@property (strong, nonatomic) UISearchDisplayController *searchDisplay;
 
 @end

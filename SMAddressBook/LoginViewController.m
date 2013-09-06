@@ -468,6 +468,9 @@
                                                     }
                                                     
                                                     [[NSUserDefaults standardUserDefaults] synchronize];
+                                                    
+                                                    [UserContext shared].isLogined = YES;
+                                                    
                                                     [[UserContext shared] loadAppSetting];
 
                                                 }

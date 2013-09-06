@@ -10,6 +10,18 @@
 
 #define kStudentToolH       60.0f
 
+
+@class StudentToolView;
+
+@protocol StudentToolViewDelegate <NSObject>
+
+/// SMS 버튼
+- (void)onTouchedSmsBtn:(id)sender;
+
+@end
+
 @interface StudentToolView : UIView
+
+@property id<StudentToolViewDelegate> delegate;
 
 @end

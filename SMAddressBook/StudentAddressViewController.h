@@ -7,8 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "StudentToolView.h"
 
-@interface StudentAddressViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface StudentAddressViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, StudentToolViewDelegate>
 
 - (id)initWithInfo:(NSDictionary *)info;
 
