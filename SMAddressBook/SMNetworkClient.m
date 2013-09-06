@@ -64,12 +64,16 @@
 /// Network Error 처리
 - (void)showNetworkError:(NSError *)error
 {
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
-                                message:@"error"//[error localizedDescription]
-                               delegate:nil
-                      cancelButtonTitle:nil
-                      otherButtonTitles:NSLocalizedString(@"OK", nil), nil]
-     show];
+    NSLog(@"error ---- %@", [error localizedDescription]);
+    NSDictionary *info = [NSDictionary dictionaryWithDictionary:[error userInfo]];
+    if (![info isKindOfClass:[NSNull class]]) {
+        [[[UIAlertView alloc] initWithTitle:nil //NSLocalizedString(@"Error", nil)
+                                    message:info[kErrorMsg]
+                                   delegate:nil
+                          cancelButtonTitle:nil
+                          otherButtonTitles:NSLocalizedString(@"OK", nil), nil]
+         show];
+    }
 }
 
 // json data 검사를 위해 override
@@ -99,17 +103,29 @@
          parameters:(NSDictionary *)parameters
             success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
+                NSDictionary *response = [NSMutableDictionary dictionaryWithDictionary:responseObject];
                 NSLog(@"response : %@", responseObject);
-                NSDictionary *respResult = [NSMutableDictionary dictionaryWithDictionary:responseObject];
-                if (![responseObject isEqual:[NSNull null]]) {
-                    NSLog(@"error code : %@", respResult[@"errcode"]);
-                    if ([respResult[@"errcode"] isEqualToString:@"0"])
+
+                if (![responseObject isKindOfClass:[NSNull class]])
+                {
+                    NSLog(@"error (%@) : %@", response[kErrorCode], response[kErrorMsg]);
+                
+                    if ([response[kErrorCode] integerValue] == 0)
                     {
+                        // no errors.
                         success(operation, responseObject);
                     }
                     else
                     {
-                        failure(operation, [NSError errorWithDomain:@"Login" code:[respResult[@"errcode"] intValue] userInfo:nil]);
+                        failure(operation, [NSError errorWithDomain:path code:[response[@"errcode"] intValue] userInfo:response]);
+                    
+//                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+//                                                                            message:response[kErrorMsg]
+//                                                                           delegate:nil
+//                                                                  cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+//                                                                  otherButtonTitles:nil];
+//                        [alertView show];
+
                     }
                 }
             }
@@ -132,33 +148,42 @@
     [self postPath:kAPILogin
         parameters:param
            success:^(AFHTTPRequestOperation *operation, id JSON) {
+               
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
-               if (block) {
-                   NSLog(@"RESPONSE JSON: %@", JSON);
-                   
-//                   // (errcode = 0)인 경우만 성공으로 처리.
-//                   //                   NSDictionary * = (NSDictionary *)JSON;
-//                   if (![JSON isEqual:[NSNull null]])
-//                   {
-//                       NSLog(@"error code : %@", JSON[@"errcode"]);
-//                       if (![JSON[@"errcode"] isEqualToString:@"0"]) {
-//                           // alert
-//                           
-//                           return;
-//                       }
-//                   }
+               if (block)
+               {
+                    // (errcode = 0)인 경우만 성공으로 처리.
+                    NSDictionary *response = (NSDictionary *)JSON;
+                    NSLog(@"RESPONSE INFO: %@", response);
 
-//                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
-                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
-               }
+                    if (![response isKindOfClass:[NSNull class]])
+                    {
+                        block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
 
-           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-               if (block) {
-                   block([NSMutableDictionary dictionary], error);
-               }
-               NSLog(@"error : %@", [error description]);
-           }];
+//                        NSLog(@"error (%d) : %@", [response[kErrorCode] integerValue], response[kErrorMsg]);
+//                        if (![response[kErrorCode] integerValue] == 0)
+//                        {
+////                           block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+//                        }
+//                        else
+//                        {
+//                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+//                                                                                message:response[kErrorMsg]
+//                                                                               delegate:nil
+//                                                                      cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+//                                                                      otherButtonTitles:nil];
+//                            [alertView show];
+//                        }
+                    }
+                }
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                NSLog(@"error : %@", [error description]);
+                if (block) {
+                    block([NSMutableDictionary dictionary], error);
+                }
+            }];
 
 }
 

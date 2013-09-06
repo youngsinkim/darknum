@@ -8,6 +8,21 @@
 
 #import "AFHTTPClient.h"
 
+/// response JSON key codes
+#define kErrorCode      @"errcode"
+#define kErrorMsg       @"errmsg"
+#define kData           @"data"
+
+// input key codes
+#define kUserId         @"userid"
+#define kScode          @"scode"
+
+#define kCertNo         @"certno"
+#define kMemType        @"memtype"
+#define kLastUpdate     @"lastupdate"
+#define kUpdateCount    @"updatecount"
+
+
 @interface SMNetworkClient : AFHTTPClient
 
 + (SMNetworkClient *)sharedClient;

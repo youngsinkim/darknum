@@ -67,7 +67,7 @@
 "login_error_text" = "서울대학교 경영전문대학원 소속이 아니거나,\n 잘못된 아이디 또는 비밀번호로 입력하셨습니다. ";
 
 /* Button OK */
-"btn_ok" = "OK";
+"Ok" = "OK";
 
 /* Button Cancel */
 "Cancel" = "Cancel";
