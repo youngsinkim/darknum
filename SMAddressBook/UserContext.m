@@ -27,7 +27,7 @@ static UserContext *_sharedUserContext = nil;
 + (id)alloc
 {
 	@synchronized([UserContext class])
-	{
+    {
         NSAssert(_sharedUserContext == nil, @"Attempted to allocate a second instance of a singleton.");
         _sharedUserContext = [super alloc];
         
@@ -48,6 +48,7 @@ static UserContext *_sharedUserContext = nil;
         _sharedUserContext.isAutoLogin = NO;    //< 최초 자동 로그인 값 (NO)
         _sharedUserContext.isAcceptTerms = NO;  //< 약관 동의 여부
         _sharedUserContext.isExistProfile = NO; //< 프로필 설정 여부
+        _sharedUserContext.isSavedID = NO;
 
         return _sharedUserContext;
 	}
@@ -84,16 +85,42 @@ static UserContext *_sharedUserContext = nil;
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kUpdateDate]) {
         _updateDate = [[NSUserDefaults standardUserDefaults] objectForKey:kUpdateDate];
     }
-    _userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    _userPwd = [[NSUserDefaults standardUserDefaults] objectForKey:kUserPwd];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserId]) {
+        _userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserPwd]) {
+        _userPwd = [[NSUserDefaults standardUserDefaults] objectForKey:kUserPwd];
+    }
 
-    _certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kCertNo];
-    _memberType = [[NSUserDefaults standardUserDefaults] objectForKey:kMemType];
-    _updateCount = [[NSUserDefaults standardUserDefaults] objectForKey:kUpdateCount];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kCertNo]) {
+        _certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kCertNo];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kMemType]) {
+        _memberType = [[NSUserDefaults standardUserDefaults] objectForKey:kMemType];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUpdateCount]) {
+        _updateCount = [[NSUserDefaults standardUserDefaults] objectForKey:kUpdateCount];
+    }
 
-    _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
-    _isAcceptTerms = [[NSUserDefaults standardUserDefaults] boolForKey:kAcceptTerms];
-    _isExistProfile = [[NSUserDefaults standardUserDefaults] boolForKey:kSetProfile];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kAutoLogin]) {
+        _isAutoLogin = [[NSUserDefaults standardUserDefaults] boolForKey:kAutoLogin];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kAcceptTerms]) {
+        _isAcceptTerms = [[NSUserDefaults standardUserDefaults] boolForKey:kAcceptTerms];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSetProfile]) {
+        _isExistProfile = [[NSUserDefaults standardUserDefaults] boolForKey:kSetProfile];
+    }
+
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSavedId]) {
+        _isSavedID = [[NSUserDefaults standardUserDefaults] boolForKey:kSavedId];
+    }
 
     
     NSLog(@"previous AppInfo : \nautoLogin(%d), acceptTerms(%d), isProfile(%d), certno(%@), memtype(%@), updatecnt(%@), updateTime:%@, userID(%@), passWD(%@)",
