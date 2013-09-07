@@ -436,7 +436,7 @@
                                                     // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
                                                     MenuTableViewController *leftMenuViewController = (MenuTableViewController *)self.container.leftMenuViewController;
                                                     
-                                                    [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo];
+                                                    [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
                                                 }
                                                 else
                                                 {

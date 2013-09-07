@@ -409,21 +409,26 @@
                 {
                     case MemberTypeFaculty: // 교수진
                         {
-                            [self menuNavigationController:MenuViewTypeAddrFaculty];
+                            [self menuNavigationController:MenuViewTypeAddrFaculty withMenuInfo:nil];
                             return;
                         }
                         break;
                         
                     case MemberTypeStaff:   // 교직원
                         {
-                            [self menuNavigationController:MenuViewTypeAddrStaff];
+                            [self menuNavigationController:MenuViewTypeAddrStaff withMenuInfo:nil];
                             return;
                         }
                         break;
                         
                     case MemberTypeStudent: // 학생  
                         {
-                            [self menuNavigationController:MenuViewTypeAddrStudent];
+                            // ( NSDictionary <- NSManagedObject )
+                            NSArray *keys = [[[courseClass entity] attributesByName] allKeys];
+                            NSDictionary *info = [courseClass dictionaryWithValuesForKeys:keys];
+                            NSLog(@"메뉴의 학생 정보 : %@", info);
+
+                            [self menuNavigationController:MenuViewTypeAddrStudent withMenuInfo:info];
                             return;
                         }
                         break;
@@ -443,12 +448,12 @@
         {
             if ([menuDict[@"type"] intValue] == MenuViewTypeSettMyInfo)
             {
-                [self menuNavigationController:MenuViewTypeSettMyInfo];
+                [self menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
                 return;
             }
             else if ([menuDict[@"type"] intValue] == MenuViewTypeSettTerms)
             {
-                [self menuNavigationController:MenuViewTypeSettTerms];
+                [self menuNavigationController:MenuViewTypeSettTerms withMenuInfo:nil];
                 return;
             }
 
@@ -514,7 +519,7 @@
 }
 
 /// 네비게이션 뷰 컨트롤러
-- (UINavigationController *)menuNavigationController:(MenuViewType)menuType
+- (UINavigationController *)menuNavigationController:(MenuViewType)menuType withMenuInfo:(NSDictionary *)info
 {
     UINavigationController *nav = nil;
     NSArray *controllers = nil;
@@ -543,7 +548,7 @@
             
         case MenuViewTypeAddrStudent:
             {
-                StudentAddressViewController *viewController = [[StudentAddressViewController alloc] init];
+                StudentAddressViewController *viewController = [[StudentAddressViewController alloc] initWithInfo:info];
                 
                 self.menuContainerViewController.centerViewController = [self navigationController:viewController];
 

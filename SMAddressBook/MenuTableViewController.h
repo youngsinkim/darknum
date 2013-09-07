@@ -39,6 +39,6 @@ typedef enum {
 - (UINavigationController *)navigationController:(UIViewController *)viewController;
 
 /// 네비게이션 뷰 컨트롤러
-- (UINavigationController *)menuNavigationController:(MenuViewType)menuType;
+- (UINavigationController *)menuNavigationController:(MenuViewType)menuType withMenuInfo:(NSDictionary *)info;
 
 @end
