@@ -374,29 +374,31 @@
 /// 로그인 요청
 - (void)requestAPILogin
 {
-    self.HUD = [MBProgressHUD showHUDAddedTo:self.window.rootViewController.view animated:YES];
-	self.HUD.delegate = self;
-    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
-    self.HUD.margin = 10.0f;
+//    self.HUD = [MBProgressHUD showHUDAddedTo:self.window.rootViewController.view animated:YES];
+//	self.HUD.delegate = self;
+//    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
+//    self.HUD.margin = 10.0f;
 
-    // TODO: 단말 전화번호 가져오기 기능 추가 필요
-    NSString *crytoMobileNo = [NSString stringWithFormat:@"01023873856"];
+    NSString *crytoMobileNo = [Util phoneNumber];
+    NSString *lastUpdate = [[UserContext shared] lastUpdateDate];
     
     // TODO: 업데이트 시간 최초 이회에 마지막 시간 값으로 세팅되도록 수정 필요
     NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
                             @"phone":crytoMobileNo,
-                            @"updatedate":@"0000-00-00 00:00:00",
-                            @"userid":[[NSUserDefaults standardUserDefaults] valueForKey:kUserId],
-                            @"passwd":[[NSUserDefaults standardUserDefaults] valueForKey:kUserPwd]};
+                            @"updatedate":lastUpdate,
+                            @"userid":[UserContext shared].userId,
+                            @"passwd":[UserContext shared].userPwd};
+    NSLog(@"(/fb/login) Request Parameter : %@", param);
 
-    NSLog(@"LOGIN Request Parameter : %@", param);
+//    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     
     // 로그인 요청
     [[SMNetworkClient sharedClient] postLogin:param
                                         block:^(NSMutableDictionary *result, NSError *error) {
+
                                             NSLog(@"API(LOGIN) Result : \n%@", result);
-                                            
-                                            [self.HUD hide:YES];
+//                                            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];                                            
+                                            //[self.HUD hide:YES];
 
                                             if (error) {
                                                 [[SMNetworkClient sharedClient] showNetworkError:error];

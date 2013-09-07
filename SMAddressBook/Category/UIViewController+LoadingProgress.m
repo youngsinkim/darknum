@@ -13,22 +13,23 @@
 
 - (void)startLoading
 {
-    MBProgressHUD *hud = (MBProgressHUD *)[self.navigationController.view viewWithTag:77777];
+    MBProgressHUD *hud = (MBProgressHUD *)[self.navigationController.view viewWithTag:55555];
     if (hud == nil) {
         hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-        hud.tag = 77777;
+        hud.tag = 55555;
         [self.navigationController.view addSubview:hud];
 //        [self.navigationController.view bringSubviewToFront:hud];
     }
     
     if (hud != nil) {
+        hud.mode = MBProgressHUDModeIndeterminate;
         [hud show:YES];
     }
 }
 
 - (void)stopLoading
 {
-    MBProgressHUD *hud = (MBProgressHUD *)[self.navigationController.view viewWithTag:77777];
+    MBProgressHUD *hud = (MBProgressHUD *)[self.navigationController.view viewWithTag:55555];
     if (hud != nil) {
         [hud removeFromSuperViewOnHide];
         [hud hide:YES afterDelay:0.3f];

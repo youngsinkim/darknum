@@ -278,19 +278,18 @@
         return;
     }
     
-//    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
-//    [_loadingIndicatorView show];
-
-    
-
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    NSLog(@"(/fb/courseclass) Request Parameter : %@", param);
     NSLog(@"Thread1 - 1");
-    
+
+//    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+
     // 과정별 기수 목록
     [[SMNetworkClient sharedClient] postClasses:param
                                           block:^(NSMutableDictionary *result, NSError *error){
 //                                              [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
                                               NSLog(@"Thread1 - 3");
+                                              
                                               if (error)
                                               {
                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
@@ -346,14 +345,12 @@
     if (!mobileNo || !userId | !certNo) {
         return;
     }
-    
-    // background Dimmed
-//    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
-    
-    // 과정별 기수 목록
+
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    NSLog(@"(/fb/majors) Request Parameter : %@", param);
     NSLog(@"Thread2 - 1");
-    
+
+    // 과정별 기수 목록
     [[SMNetworkClient sharedClient] postMajors:param
                                          block:^(NSMutableArray *result, NSError *error) {
                                              NSLog(@"Thread2 - 3");
@@ -397,17 +394,19 @@
     NSString *mobileNo = [Util phoneNumber];
     NSString *userId = [UserContext shared].userId;
     NSString *certNo = [UserContext shared].certNo;
+    NSString *lastUpdate = [UserContext shared].lastUpdateDate;
     
-    if (!mobileNo || !userId | !certNo) {
+    if (!mobileNo || !userId | !certNo || !lastUpdate) {
         return;
     }
-    
-    // background Dimmed
-//    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
-    
-    // scode=5684825a51beb9d2fa05e4675d91253c &userid=ztest01 &certno=m9kebjkakte1tvrqfg90i9fh84 &updatedate=0000-00-00+00%3A00%3A00
-    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"updatedate":@"0000-00-00 00:00:00"};
+
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"updatedate":lastUpdate};
+    NSLog(@"(/fb/updated) Request Parameter : %@", param);
     NSLog(@"Thread3 - 1");
+
+//    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+
+    // 즐겨찾기 업데이트 목록
     [[SMNetworkClient sharedClient] postFavorites:param
                                             block:^(NSMutableDictionary *result, NSError *error) {
                                               

@@ -13,6 +13,7 @@
 #import "NSString+MD5.h"
 #import "MenuTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIViewController+LoadingProgress.h"
 
 @interface LoginViewController ()
 
@@ -371,7 +372,6 @@
     
     // TODO: 단말 전화번호 가져오기 기능 추가 필요
     NSString *crytoMobileNo = [Util phoneNumber];
-    
 //    NSDate *updateTime = [[UserContext shared] updateDate];
     NSString *lastUpdate = [[UserContext shared] lastUpdateDate];
     
@@ -381,7 +381,7 @@
                             @"updatedate":lastUpdate,
                             @"userid":_idTextField.text,
                             @"passwd":_pwdTextField.text};
-    
+
     // MARK: 서버로 로그인 요청
     [self requestAPILogin:param];
 }
@@ -436,14 +436,18 @@
 //	self.HUD.delegate = self;
 //    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
 //    self.HUD.margin = 10.0f;
-    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
+
     NSLog(@"LOGIN Request Parameter : %@", param);
+    
+    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
 
     // 로그인 요청
     [[SMNetworkClient sharedClient] postLogin:param
                                         block:^(NSMutableDictionary *result, NSError *error) {
                                             
                                             NSLog(@"API(LOGIN) Result : \n%@", result);
+                                            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+
 
                                             if (error) {
                                                 [[SMNetworkClient sharedClient] showNetworkError:error];
@@ -516,8 +520,7 @@
 
                                             }
                                             
-                                            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
-
+                                            // 컨트롤 비활성화 했던거 복구.
                                             [self resetUI];
                                         }];
 }

@@ -13,6 +13,7 @@
 //#import "FacultyAddressViewController.h"
 #import "NSString+MD5.h"
 #import "AppDelegate.h"
+#import "UIViewController+LoadingProgress.h"
 
 @interface FacultyMajorViewController ()
 
@@ -192,19 +193,21 @@
 /// 과정별 기수 목록 가져오기
 - (void)requestAPIMajors
 {
-    NSString *mobileNo = @"01023873856";
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSString *certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kCertNo];
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
     
     if (!mobileNo || !userId | !certNo) {
         return;
     }
-    
+
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    NSLog(@"(/fb/majors) Request Parameter : %@", param);
+
     // background Dimmed
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     
     // 과정별 기수 목록
-    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
     [[SMNetworkClient sharedClient] postMajors:param
                                          block:^(NSMutableArray *result, NSError *error) {
                                              
