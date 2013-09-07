@@ -156,6 +156,10 @@
 		BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */; };
 		BF57B39E17D8F72B00B39C03 /* serviceTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39C17D8F72B00B39C03 /* serviceTerms.html */; };
 		BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39D17D8F72B00B39C03 /* personTerms.html */; };
+		BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A217DB754400B39C03 /* SearchViewController.m */; };
+		BF57B3A617DB785D00B39C03 /* btn_white.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3A417DB785D00B39C03 /* btn_white.png */; };
+		BF57B3A717DB785D00B39C03 /* btn_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3A517DB785D00B39C03 /* btn_white@2x.png */; };
+		BF57B3AA17DB7A4200B39C03 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -365,6 +369,12 @@
 		BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		BF57B39C17D8F72B00B39C03 /* serviceTerms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = serviceTerms.html; sourceTree = "<group>"; };
 		BF57B39D17D8F72B00B39C03 /* personTerms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = personTerms.html; sourceTree = "<group>"; };
+		BF57B3A117DB754400B39C03 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		BF57B3A217DB754400B39C03 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		BF57B3A417DB785D00B39C03 /* btn_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_white.png; sourceTree = "<group>"; };
+		BF57B3A517DB785D00B39C03 /* btn_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_white@2x.png"; sourceTree = "<group>"; };
+		BF57B3A817DB7A4100B39C03 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
+		BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -453,6 +463,7 @@
 				BF57B39217D79C9B00B39C03 /* Tool (툴바 뷰) */,
 				BF177E8917C9BC0600614485 /* CourseClass (주소록) */,
 				BF177E9817CA6A7B00614485 /* 전체보기 */,
+				BF57B3A017DB74EE00B39C03 /* Search (검색) */,
 				BF177E8517C9BADD00614485 /* 내 정보 설정 */,
 				BF177E8417C9BAC600614485 /* 즐겨찾기 설정 */,
 				BF3B468B17C8DE7A0069AA9A /* Terms (약관 동의) */,
@@ -536,6 +547,8 @@
 		5062B65317C4D72F00A2495D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				BF57B3A417DB785D00B39C03 /* btn_white.png */,
+				BF57B3A517DB785D00B39C03 /* btn_white@2x.png */,
 				BF57B31617D1F5FD00B39C03 /* profile_default_img.png */,
 				BF57B2F417D0C6E700B39C03 /* list_photo_on.png */,
 				BF57B2F517D0C6E700B39C03 /* list_photo_on@2x.png */,
@@ -818,6 +831,18 @@
 			name = "Tool (툴바 뷰)";
 			sourceTree = "<group>";
 		};
+		BF57B3A017DB74EE00B39C03 /* Search (검색) */ = {
+			isa = PBXGroup;
+			children = (
+				BF57B3A117DB754400B39C03 /* SearchViewController.h */,
+				BF57B3A217DB754400B39C03 /* SearchViewController.m */,
+				BF57B3A817DB7A4100B39C03 /* SearchResultViewController.h */,
+				BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */,
+			);
+			name = "Search (검색)";
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -965,6 +990,8 @@
 				BF57B32217D210E300B39C03 /* Readme.md in Resources */,
 				BF57B39E17D8F72B00B39C03 /* serviceTerms.html in Resources */,
 				BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */,
+				BF57B3A617DB785D00B39C03 /* btn_white.png in Resources */,
+				BF57B3A717DB785D00B39C03 /* btn_white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1059,6 +1086,8 @@
 				BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */,
 				50C4A2D317D87B86006DEC43 /* Util.m in Sources */,
 				BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */,
+				BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */,
+				BF57B3AA17DB7A4200B39C03 /* SearchResultViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

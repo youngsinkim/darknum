@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import "FavoriteViewController.h"
 #import "MenuTableViewController.h"
+#import "SearchViewController.h"
 
 @interface BaseViewController ()
 
@@ -261,8 +262,12 @@
 }
 
 /// 네비게이션 [검색] 버튼 선택
-- (void)onSearchButtonClicked:(id)sender {
+- (void)onSearchButtonClicked:(id)sender
+{
+    SearchViewController *searchViewController = [[SearchViewController alloc] init];
     
+    MenuTableViewController *leftMenu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    self.menuContainerViewController.centerViewController = [leftMenu navigationController:searchViewController];
 }
 
 @end
