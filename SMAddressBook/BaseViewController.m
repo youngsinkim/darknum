@@ -38,9 +38,9 @@
 	// Do any additional setup after loading the view.
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_title_bg"] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTranslucent:YES];
-//    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
-//    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x133E89)];
+    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x104E8B)];
     
     // 공통 뷰 배경
     self.view.backgroundColor = [UIColor whiteColor];

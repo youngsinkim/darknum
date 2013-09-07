@@ -185,13 +185,13 @@
         
         /* 아이디 저장 버튼 */
         _idSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _idSaveCheckBtn.frame = CGRectMake(xOffset + 10, startY, 120.0f, 24.0f);
+        _idSaveCheckBtn.frame = CGRectMake(xOffset + 10, startY, 120.0f, 27.0f);
         [_idSaveCheckBtn setTitle:LocalizedString(@"id_save_text", @"아이디 저장") forState:UIControlStateNormal];
         [_idSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         _idSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
-        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
+        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
+        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
         [_idSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_idSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
         [_idSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
@@ -202,13 +202,13 @@
         
         /* 로그인 유지 버튼 */
         _loginSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loginSaveCheckBtn.frame = CGRectMake(xOffset + _idSaveCheckBtn.frame.size.width + 30.0f, startY, 120.0f, 24.0f);
+        _loginSaveCheckBtn.frame = CGRectMake(xOffset + _idSaveCheckBtn.frame.size.width + 30.0f, startY, 120.0f, 27.0f);
         [_loginSaveCheckBtn setTitle:LocalizedString(@"login_save_text", @"로그인 유지") forState:UIControlStateNormal];
         [_loginSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         _loginSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
-        [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
+        [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
+        [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
         [_loginSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [_loginSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
         [_loginSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
@@ -454,24 +454,35 @@
                                                 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
                                                 if (![dict isKindOfClass:[NSNull class]])
                                                 {
-                                                    [[NSUserDefaults standardUserDefaults] setObject:dict[kCertNo] forKey:kCertNo];
-                                                    [[NSUserDefaults standardUserDefaults] setObject:dict[kMemType] forKey:kMemType];
-                                                    [[NSUserDefaults standardUserDefaults] setObject:dict[kUpdateCount] forKey:kUpdateCount];
+                                                    [UserContext shared].certNo     = dict[kCertNo];
+                                                    [UserContext shared].memberType = dict[kMemType];
+                                                    [UserContext shared].updateCount= dict[kUpdateCount];
+                                                    [UserContext shared].userId     = [self.idTextField text];
                                                 
-                                                    // 자동 로그인의 경우, 로그인 아이디/비밀번호 파일 저장.
+                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kCertNo] forKey:kCertNo];
+                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kMemType] forKey:kMemType];
+                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kUpdateCount] forKey:kUpdateCount];
                                                     [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
-                                                    
+                                                
+                                                    // 아이디 저장 체크되어 있으면 아이디 저장
+                                                    if (self.idSaveCheckBtn.selected == YES)
+                                                    {
+                                                        [UserContext shared].isSavedID = YES;
+                                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
+                                                    }
+                                                
+                                                    // 자동 로그인 체크되어 있으면 비밀번호 및 자동 로그인 여부 저장.
                                                     if (self.loginSaveCheckBtn.selected == YES)
                                                     {
+                                                        [UserContext shared].userPwd = dict[kUserPwd];
+                                                        [UserContext shared].isAutoLogin = YES;
+
                                                         [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:kUserPwd];
                                                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
                                                     }
                                                     
                                                     [[NSUserDefaults standardUserDefaults] synchronize];
-                                                    
                                                     [UserContext shared].isLogined = YES;
-                                                    
-                                                    [[UserContext shared] loadAppSetting];
 
                                                 }
                                                 

@@ -84,8 +84,8 @@
     [[_webView1 layer] setCornerRadius:10];
     [_webView1 setClipsToBounds:YES];
     
-    [[_webView1 layer]setBorderColor:[[UIColor colorWithRed:0.52 green:0.09 blue:0.07 alpha:1] CGColor]];
-    [[_webView1 layer] setBorderWidth:2.75];
+    [[_webView1 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
+    [[_webView1 layer] setBorderWidth:2.0f];
     
     NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
     NSData *htmlData = [NSData dataWithContentsOfFile:htmlFile];
@@ -97,14 +97,18 @@
     
     // 서비스 약관동의 버튼
     _acceptBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn1.frame = CGRectMake(10.0f, yOffset, 70.0f, 30.0f);
-//    _acceptBtn1.center = CGPointMake(300.0f / 2, 566.0f);
-    [_acceptBtn1 setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
+    _acceptBtn1.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
     [_acceptBtn1 setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
-    [_acceptBtn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _acceptBtn1.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    _acceptBtn1.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_acceptBtn1 addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_acceptBtn1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [_acceptBtn1 setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [_acceptBtn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
+    [_acceptBtn1.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_acceptBtn1 setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
+    [_acceptBtn1 setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
+    [_acceptBtn1 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_acceptBtn1 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+    [_acceptBtn1 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_acceptBtn1 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_acceptBtn1];
     yOffset += (30.0f + 10);
@@ -115,8 +119,8 @@
     [[_webView2 layer] setCornerRadius:10];
     [_webView2 setClipsToBounds:YES];
     
-    [[_webView2 layer]setBorderColor:[[UIColor colorWithRed:0.52 green:0.09 blue:0.07 alpha:1] CGColor]];
-    [[_webView2 layer] setBorderWidth:2.75];
+    [[_webView2 layer]setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
+    [[_webView2 layer] setBorderWidth:2.0f];
     
     NSString *htmlFile2 = [[NSBundle mainBundle] pathForResource:@"personTerms" ofType:@"html"];
     NSData *htmlData2 = [NSData dataWithContentsOfFile:htmlFile2];
@@ -128,14 +132,18 @@
     
     // 개인보호 정책동의 버튼
     _acceptBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn2.frame = CGRectMake(10.0f, yOffset, 70.0f, 30.0f);
-//    _acceptBtn2.center = CGPointMake(300.0f / 2, 566.0f);
-    [_acceptBtn2 setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
+    _acceptBtn2.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
     [_acceptBtn2 setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
-    [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _acceptBtn2.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-    _acceptBtn2.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_acceptBtn2 addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [_acceptBtn2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+    [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
+    [_acceptBtn2.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_acceptBtn2 setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
+    [_acceptBtn2 setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
+    [_acceptBtn2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_acceptBtn2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+    [_acceptBtn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_acceptBtn2 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_acceptBtn2];
     yOffset += (30.0f + 10.0f);
@@ -146,7 +154,7 @@
     _nextBtn.frame = CGRectMake((320 - 70) / 2, yOffset, 70.0f, 30.0f);
 //    _nextBtn.center = CGPointMake(300.0f / 2, 566.0f);
     [_nextBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-    [_nextBtn setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
+    [_nextBtn setTitle:LocalizedString(@"Ok", @"Ok") forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     _nextBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -158,13 +166,29 @@
 
 #pragma mark - UI Control Callbacks
 
+- (void)onAcceptClicked:(id)sender
+{
+    [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
+}
+
 // 약관 동의 버튼
 - (void)onAcceptBtnClicked
 {
+    if (!_acceptBtn1.selected || !_acceptBtn2.selected) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"모두 동의해 주셔야 서비스를 이용하실 수 있습니다."
+                                                           delegate:self cancelButtonTitle:LocalizedString(@"Cancel", @"Cancel")
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+    
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     // 약관 동의 설정값 저장
     [UserContext shared].isAcceptTerms = YES;
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAcceptTerms];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
     // 약관 동의 화면 (fade out)감추기
     [UIView animateWithDuration:0.5f

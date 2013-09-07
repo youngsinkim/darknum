@@ -80,103 +80,111 @@
     [self setupFavoriteUI];
 
     
+    
+//    [_favoriteTableView reloadData];
+    NSLog(@"MainThread - 5");
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSLog(@"즐겨찾기 화면 진입");
+    
     // 로그인 전이면 화면 구성 중단.
     NSLog(@"로그인 후 즐겨찾기로 왔습니까? : %d", [UserContext shared].isLogined);
     if ([[UserContext shared] isLogined] != YES) {
         NSLog(@"로그인 전입니다.");
         return;
-//        if (!loginInfo[@"certno"]) {
-//        // MARK: 로그인 되지 않은 상태이면 로그인 화면 노출.
-//        UIViewController *loginViewController = [appDelegate loginViewController];
-//    
-//        [self.navigationController presentViewController:loginViewController animated:NO completion:nil];
-//    }
-//    else if (![[UserContext shared] isAcceptTerms]) {
-//        // MARK: 약관 동의를 하지 않았으면 약관동의 화면 노출.
-//        UIViewController *termsViewController = [appDelegate termsViewController];
-//        
-//        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
-//    }
-//    else if (![[UserContext shared] isExistProfile]) {
-//        // MARK:
-//        }
+        //        if (!loginInfo[@"certno"]) {
+        //        // MARK: 로그인 되지 않은 상태이면 로그인 화면 노출.
+        //        UIViewController *loginViewController = [appDelegate loginViewController];
+        //
+        //        [self.navigationController presentViewController:loginViewController animated:NO completion:nil];
+        //    }
+        //    else if (![[UserContext shared] isAcceptTerms]) {
+        //        // MARK: 약관 동의를 하지 않았으면 약관동의 화면 노출.
+        //        UIViewController *termsViewController = [appDelegate termsViewController];
+        //
+        //        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
+        //    }
+        //    else if (![[UserContext shared] isExistProfile]) {
+        //        // MARK:
+        //        }
     }
     
     if ([[UserContext shared] isAcceptTerms] != YES) {
         NSLog(@"약관 동의 전입니다.");
         return;
     }
-
+    
     if ([[UserContext shared] isExistProfile] != YES) {
         NSLog(@"프로필 설정 전입니다.");
         return;
     }
-
+    
     // 로그인 과정이 모두 끝난 상태.
     {
-        // loading progress bar
-        //    _loadingIndicatorView = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f)];
-        //    _loadingIndicatorView.showProgress = YES;
-        //    _loadingIndicatorView.notificationString = NSLocalizedString(@"업데이트 중입니다. ", nil);
-        //
-        //    [self.view addSubview:_loadingIndicatorView];
-
-        
-        // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
-        
-        [self.favorites setArray:[self loadDBFavoriteCourse]];
-        NSLog(@"DB 즐겨찾기 목록 : %d", [self.favorites count]);
-
-        if ([self.favorites count] > 0)
+    // loading progress bar
+    //    _loadingIndicatorView = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f)];
+    //    _loadingIndicatorView.showProgress = YES;
+    //    _loadingIndicatorView.notificationString = NSLocalizedString(@"업데이트 중입니다. ", nil);
+    //
+    //    [self.view addSubview:_loadingIndicatorView];
+    
+    
+    // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
+    
+    [self.favorites setArray:[self loadDBFavoriteCourse]];
+    NSLog(@"DB 즐겨찾기 목록 : %d", [self.favorites count]);
+    
+    if ([self.favorites count] > 0)
         {
-            // 즐겨찾기 목록 테이블 뷰 적용
-            [self.favoriteTableView reloadData];
+        // 즐겨찾기 목록 테이블 뷰 적용
+        [self.favoriteTableView reloadData];
         
-            // 즐겨찾기 목록 메뉴 적용
-            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-            [menu setAddrMenuList:self.favorites];
+        // 즐겨찾기 목록 메뉴 적용
+        MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+        [menu setAddrMenuList:self.favorites];
         }
-
-        
-        // (updateCount > 0)이면, 서버 데이터 업데이트 요청
-        NSInteger updateCount = [[[UserContext shared] updateCount] integerValue];
-        NSLog(@"Login Update Count : %d", updateCount);
-        
-        if ((updateCount > 0) || ([self.favorites count] == 0))
+    
+    
+    // (updateCount > 0)이면, 서버 데이터 업데이트 요청
+    NSInteger updateCount = [[[UserContext shared] updateCount] integerValue];
+    NSLog(@"Login Update Count : %d", updateCount);
+    
+    if ((updateCount > 0) || ([self.favorites count] == 0))
         {
-            // 로딩 프로그래스 시작...
-            [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
-
-            // 1. 과정 기수 목록 가져오기
-            // 2. 교수 전공 목록 가져오기
-            // 3. 즐겨찾기 목록 가져와서,
-            // 3-1. 기수에 해당하는 학생 목록 추가
-            // 3-2. 전공에 맞는 교수 목록 추가
+        // 로딩 프로그래스 시작...
+        [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
         
-            // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
-            NSLog(@"MainThread - 1");
-            //< Request data. (과정별 기수 목록)
-            [NSThread detachNewThreadSelector:@selector(requestAPIClasses) toTarget:self withObject:nil];
-//        [self performSelector:@selector(requestAPIClasses) onThread:classthred withObject:nil waitUntilDone:YES];
+        // 1. 과정 기수 목록 가져오기
+        // 2. 교수 전공 목록 가져오기
+        // 3. 즐겨찾기 목록 가져와서,
+        // 3-1. 기수에 해당하는 학생 목록 추가
+        // 3-2. 전공에 맞는 교수 목록 추가
         
-            NSLog(@"MainThread - 2");
-            //< Request data. (교수 전공 목록)
-            [NSThread detachNewThreadSelector:@selector(requestAPIMajors) toTarget:self withObject:nil];
-//        [self performSelector:@selector(requestAPIMajors)];
+        // 즐겨찾기 목록이 DB에 없는 경우, 서버로 과정 기수 목록 요청하기  (과정 기수 목록에 즐겨찾기 포함되어 있음)
+        NSLog(@"MainThread - 1");
+        //< Request data. (과정별 기수 목록)
+        [NSThread detachNewThreadSelector:@selector(requestAPIClasses) toTarget:self withObject:nil];
+        //        [self performSelector:@selector(requestAPIClasses) onThread:classthred withObject:nil waitUntilDone:YES];
         
-            NSLog(@"MainThread - 3");
-            //< Request data. (즐겨찾기 업데이트 목록, updatecount > 0)
-            [NSThread detachNewThreadSelector:@selector(requestAPIFavorites) toTarget:self withObject:nil];
-//            [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
-
-            NSLog(@"MainThread - 4");
-
+        NSLog(@"MainThread - 2");
+        //< Request data. (교수 전공 목록)
+        [NSThread detachNewThreadSelector:@selector(requestAPIMajors) toTarget:self withObject:nil];
+        //        [self performSelector:@selector(requestAPIMajors)];
+        
+        NSLog(@"MainThread - 3");
+        //< Request data. (즐겨찾기 업데이트 목록, updatecount > 0)
+        [NSThread detachNewThreadSelector:@selector(requestAPIFavorites) toTarget:self withObject:nil];
+        //            [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+        
+        NSLog(@"MainThread - 4");
+        
         }
     
     }
-    
-//    [_favoriteTableView reloadData];
-    NSLog(@"MainThread - 5");
+
 }
 
 - (void)didReceiveMemoryWarning

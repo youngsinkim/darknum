@@ -443,7 +443,7 @@
 				BF57B30717D1CC3C00B39C03 /* Extern (외부 모듈) */,
 				BF57B30017D1CC2A00B39C03 /* Category */,
 				BF3B468017C86E6E0069AA9A /* Common (공통 모듈) */,
-				5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */,
+				5062B64B17C4CDBF00A2495D /* UserContext (사용자 정보) */,
 				5052624717C7580F004C4724 /* Models */,
 				BF3B465817C64BF20069AA9A /* Network (네트워크 모듈) */,
 				5062B64717C4CCAF00A2495D /* BaseClass (기본 구성) */,
@@ -515,13 +515,13 @@
 			name = "BaseClass (기본 구성)";
 			sourceTree = "<group>";
 		};
-		5062B64B17C4CDBF00A2495D /* UserInfo (사용자 정보) */ = {
+		5062B64B17C4CDBF00A2495D /* UserContext (사용자 정보) */ = {
 			isa = PBXGroup;
 			children = (
 				5062B64C17C4CDDC00A2495D /* UserContext.h */,
 				5062B64D17C4CDDC00A2495D /* UserContext.m */,
 			);
-			name = "UserInfo (사용자 정보)";
+			name = "UserContext (사용자 정보)";
 			sourceTree = "<group>";
 		};
 		5062B65217C4D25200A2495D /* Login (로그인) */ = {

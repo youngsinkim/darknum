@@ -139,37 +139,6 @@ static UserContext *_sharedUserContext = nil;
 //    NSLog(@"auto_login= %d", _isAutoLogin);
 //
 //}
-//
-///// 약관 동의 설정
-//- (void)setIsAcceptTerms:(BOOL)isAcceptTerms
-//{
-//    [[NSUserDefaults standardUserDefaults] setBool:isAcceptTerms forKey:kAcceptTerms];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    
-//    _isAcceptTerms = isAcceptTerms;
-//}
-//
-///// 내 정보(profile) 설정
-//- (void)setIsExistProfile:(BOOL)isExistProfile
-//{
-//    [[NSUserDefaults standardUserDefaults] setBool:isExistProfile forKey:kSetProfile];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    
-//    _isExistProfile = isExistProfile;
-//}
 
-- (void)saveLoginContext
-{
-    [[NSUserDefaults standardUserDefaults] setObject:_userId forKey:kUserId];
-    [[NSUserDefaults standardUserDefaults] setObject:_userPwd forKey:kUserPwd];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:_certNo forKey:kCertNo];
-    [[NSUserDefaults standardUserDefaults] setObject:_memberType forKey:kMemType];
-    [[NSUserDefaults standardUserDefaults] setObject:_updateCount forKey:kUpdateCount];
 
-    [[NSUserDefaults standardUserDefaults] synchronize];
-
-    _isLogined = YES;
-
-}
 @end

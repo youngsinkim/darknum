@@ -55,5 +55,5 @@
 + (UserContext *)shared;
 
 - (void)loadAppSetting;
-//- (void)saveLoginContext;   // 로그인 결과값 저장
+
 @end

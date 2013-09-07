@@ -96,8 +96,10 @@
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
 //            splashView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
             if (screenHeight == 568.0) {
-                splashImage = [UIImage imageNamed:@"Default-568h@2x.png"];//iPhone 5
+                NSLog(@"iPhone 5 이미지 로딩");
+                splashImage = [UIImage imageNamed:@"Default-568h.png"];//iPhone 5
             }else{
+                NSLog(@"iPhone 이미지 로딩");
                 splashImage = [UIImage imageNamed:@"Default.png"]; //other iPhones
             } 
         }
@@ -401,21 +403,22 @@
                                             }
                                             else
                                             {
-                                                // 이 함수는 자동 로그인인 경우에 실행되므로 별도 저장 없음.
-                                                [UserContext shared].isLogined = YES;
-                                                
                                                 // 로그인 결과 로컬(파일) 저장.
-//                                                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
-//                                                
-//                                                [[NSUserDefaults standardUserDefaults] setObject:result[@"certno"] forKey:@"certno"];
-//                                                
-//                                                // 자동 로그인이 설정되어 있는 경우, 로그인 아이디/비밀번호 파일 저장.
-//                                                if (self.loginSaveCheckBtn.selected == YES)
-//                                                {
-//                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
-//                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:@"userPwd"];
-//                                                }
-//                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
+                                                if (![dict isKindOfClass:[NSNull class]])
+                                                {
+                                                    [UserContext shared].certNo     = dict[kCertNo];
+                                                    [UserContext shared].memberType = dict[kMemType];
+                                                    [UserContext shared].updateCount= dict[kUpdateCount];
+                                                    
+                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kCertNo] forKey:kCertNo];
+                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kMemType] forKey:kMemType];
+                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kUpdateCount] forKey:kUpdateCount];
+                                                
+                                                    [[NSUserDefaults standardUserDefaults] synchronize];
+                                                    [UserContext shared].isLogined = YES;
+                                                    
+                                                }
                                                 
                                                 
                                                 [self.splashViewController dismissViewControllerAnimated:NO completion:nil];

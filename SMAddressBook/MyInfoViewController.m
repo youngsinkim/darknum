@@ -121,7 +121,6 @@
     // MARK: 프로필 유무 설정하여 최초 실행 이후에 프로필 화면으로 이동하지 않도록 처리.
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
     [UserContext shared].isExistProfile = YES;
 
 
@@ -577,7 +576,7 @@
                                                  NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
                                                  
                                                  NSLog(@"서버에서 가져온 내 정보 : %@", dict);
-                                                 [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"profile"];
+                                                 [[NSUserDefaults standardUserDefaults] setValue:dict forKey:@"profile"];
                                                  [[NSUserDefaults standardUserDefaults] synchronize];
                                                  [[UserContext shared] setProfileInfo:dict];
                                                  
