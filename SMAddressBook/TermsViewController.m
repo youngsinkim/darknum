@@ -6,7 +6,6 @@
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
-#import "AppDelegate.h"
 #import "TermsViewController.h"
 #import "MenuTableViewController.h"
 #import "MyInfoViewController.h"

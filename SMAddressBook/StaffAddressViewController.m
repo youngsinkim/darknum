@@ -9,7 +9,6 @@
 #import "StaffAddressViewController.h"
 #import "DetailViewController.h"
 #import "UIViewController+LoadingProgress.h"
-#import "AppDelegate.h"
 #import "NSString+MD5.h"
 #import "AddressCell.h"
 #import "Staff.h"
@@ -31,6 +30,7 @@
     if (self) {
         // Custom initialization
         self.navigationItem.title = LocalizedString(@"staff_text", @"교직원");
+        
         _staffs = [[NSMutableArray alloc] init];
 
     }

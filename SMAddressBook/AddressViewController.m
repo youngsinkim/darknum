@@ -7,7 +7,6 @@
 //
 
 #import "AddressViewController.h"
-#import "AppDelegate.h"
 #import "AddressCell.h"
 #import "StudentAddressCell.h"
 #import "DetailViewController.h"    // imsi

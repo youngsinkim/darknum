@@ -10,4 +10,6 @@
 
 @interface FacultyAddressViewController : BaseViewController
 
+- (id)initWithInfo:(NSDictionary *)info;
+
 @end

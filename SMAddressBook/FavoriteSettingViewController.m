@@ -7,7 +7,6 @@
 //
 
 #import "FavoriteSettingViewController.h"
-#import "AppDelegate.h"
 #import "Course.h"
 
 @interface FavoriteSettingViewController ()

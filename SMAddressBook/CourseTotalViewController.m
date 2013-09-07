@@ -8,7 +8,6 @@
 
 #import "CourseTotalViewController.h"
 #import "CourseClassCell.h"
-#import "AppDelegate.h"
 //#import <HMSegmentedControl.h>
 #import <PPiFlatSegmentedControl.h>
 #import "Course.h"

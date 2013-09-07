@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import <MBProgressHUD.h>
+#import <MFSideMenu.h>
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate, MBProgressHUDDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

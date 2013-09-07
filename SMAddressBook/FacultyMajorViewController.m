@@ -10,9 +10,8 @@
 #import "AddressViewController.h"
 #import "MajorCell.h"
 #import "Major.h"
-//#import "FacultyAddressViewController.h"
+#import "FacultyAddressViewController.h"
 #import "NSString+MD5.h"
-#import "AppDelegate.h"
 #import "UIViewController+LoadingProgress.h"
 
 @interface FacultyMajorViewController ()
@@ -181,10 +180,10 @@
         
         // 전공에 해당하는 교수 목록 화면으로, (type = faculty, dict = 전공 정보)
         
-//        FacultyAddressViewController *facultyAddressVC = [[FacultyAddressViewController alloc] init];
-        AddressViewController *addressVC = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
-        
-        [self.navigationController pushViewController:addressVC animated:YES];
+        FacultyAddressViewController *viewController = [[FacultyAddressViewController alloc] initWithInfo:majorInfo];
+//        AddressViewController *viewController = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
+    
+        [self.navigationController pushViewController:viewController animated:YES];
     }
 }
 

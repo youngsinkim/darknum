@@ -7,7 +7,6 @@
 //
 
 #import "StudentAddressViewController.h"
-#import "AppDelegate.h"
 #import "StudentAddressCell.h"
 
 #import "StudentDetailViewController.h"
@@ -44,12 +43,13 @@
     self = [super init];
     if (self)
     {
-        _students = [[NSMutableArray alloc] init];
-        
         _info = [NSDictionary dictionaryWithDictionary:info];
-        
-        self.navigationItem.title = _info[@"title"];
         NSLog(@"학생 정보 : %@", _info);
+
+        self.navigationItem.title = _info[@"title"];
+
+        _students = [[NSMutableArray alloc] init];
+    
     }
     return self;
 }

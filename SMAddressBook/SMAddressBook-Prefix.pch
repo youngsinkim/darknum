@@ -18,6 +18,7 @@
 // 
 //#import <MFSideMenu.h>          //< 사이드 메뉴 오픈 소스
 
+#import "AppDelegate.h"
 #import "SMNetworkClient.h"     //< 네트워크 모듈
 #import "UserContext.h"         //< 사용자 정보
 #import "Util.h"

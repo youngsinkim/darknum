@@ -8,7 +8,6 @@
 
 #import "MyInfoViewController.h"
 #import "NSString+MD5.h"
-#import "AppDelegate.h"
 #import "StudentProfileViewController.h"
 #import "StaffProfileViewController.h"
 

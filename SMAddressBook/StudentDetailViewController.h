@@ -10,7 +10,7 @@
 #import "MMHorizontalListView.h"
 
 /// 학생 상세보기 뷰 컨트롤러
-@interface StudentDetailViewController : BaseViewController <MMHorizontalListViewDataSource, MMHorizontalListViewDelegate>
+@interface StudentDetailViewController : UIViewController <MMHorizontalListViewDataSource, MMHorizontalListViewDelegate>
 
 - (id)initWithInfo:(NSArray *)items;
 
