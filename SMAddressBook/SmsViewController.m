@@ -7,10 +7,14 @@
 //
 
 #import "SmsViewController.h"
+#import "Student.h"
 
 @interface SmsViewController ()
 
+@property (strong, nonatomic) UITableView *smsTableView;
 @property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) UISearchDisplayController *searchDisplay;
+
 @end
 
 @implementation SmsViewController
@@ -20,7 +24,20 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _members = [[NSMutableArray alloc] init];
     }
+    return self;
+}
+
+- (id)initWithInfo:(NSMutableArray *)items
+{
+    self = [super init];
+    if (self) {
+        
+        _members = [[NSMutableArray alloc] initWithArray:items];
+        NSLog(@"학생 정보 : %@", _members);
+    }
+    
     return self;
 }
 
@@ -48,13 +65,21 @@
 
 - (void)smsUI
 {
+    CGRect rect = CGRectMake(0.0f, 44.0f, 320.0f, self.view.bounds.size.height - 44.0f - 44.0f);
+    _smsTableView = [[UITableView alloc] initWithFrame:rect];
+    _smsTableView.dataSource = self;
+    _smsTableView.delegate = self;
+    
+    [self.view addSubview:_smsTableView];
+
+    
     _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320.0f, 44.0f)];
     _searchBar.tintColor = [UIColor colorWithWhite:0.8 alpha:1.0];
     _searchBar.delegate = self;
     _searchBar.barStyle = UIBarStyleBlackTranslucent;
     
 //    _searchBar.prompt = @"타이틀";
-    _searchBar.placeholder = @"검색어를 입력해주세용";
+    _searchBar.placeholder = @"대상자를 선택해주세요.";
     _searchBar.keyboardType = UIKeyboardTypeAlphabet;
 
     [self.view addSubview:_searchBar];
@@ -67,7 +92,92 @@
     _searchDisplay.searchResultsDelegate = self;
 }
 
-#pragma mark - 
+- (void)setMembers:(NSMutableArray *)members
+{
+    [_members setArray:members];
+    
+    [_smsTableView reloadData];
+}
+
+
+#pragma mark - UITableView DataSources
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return ([_members count] > 0)? [_members count] : 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return ([_members count] > 0)? 40.0f : self.view.frame.size.height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([_members count] == 0)
+    {
+        static NSString *identifier = @"NoSmsCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        
+        return cell;
+    }
+    
+    static NSString *identifier = @"SmsCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        //        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+    if ([_members count] > 0)
+    {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        if (![_members[indexPath.row] isKindOfClass:[NSDictionary class]]) {
+            Student *student = _members[indexPath.row];
+         
+            // ( NSDictionary <- NSManagedObject )
+            NSArray *keys = [[[student entity] attributesByName] allKeys];
+            [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
+
+        } else {
+            dict = _members[indexPath.row];
+        }
+//        Staff *staff = _staffs[indexPath.row];
+//        NSDictionary *info = @{@"photourl":staff.photourl, @"name":staff.name, @"email":staff.email};
+//        
+//        [cell setCellInfo:info];
+    
+        cell.textLabel.text = dict[@"name"];
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
+    
+//    Staff *staff = _staffs[indexPath.row];
+//    if (staff)
+//        {
+//        DetailViewController *detailViewController = [[DetailViewController alloc] init];
+//        detailViewController.contacts = _staffs;
+//        //    [detailViewController.contacts setArray:_contacts];
+//        
+//        [self.navigationController pushViewController:detailViewController animated:YES];
+//        }
+}
+
+
+#pragma mark - UISearchBar delegate
+
 /// 검색바의 텍스트 영역 클릭 시 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
@@ -95,7 +205,9 @@
 
 }
 
-#pragma mark -
+
+#pragma mark - UISearchDisplayController
+
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     NSLog(@"searchDisplayControllerWillBeginSearch");
 

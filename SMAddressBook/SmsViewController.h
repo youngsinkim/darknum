@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SmsViewController : UIViewController <UISearchDisplayDelegate, UISearchBarDelegate>
+@interface SmsViewController : UIViewController <UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) UISearchDisplayController *searchDisplay;
+@property (strong, nonatomic) NSMutableArray *members;
+
+- (id)initWithInfo:(NSMutableArray *)items;
 
 @end

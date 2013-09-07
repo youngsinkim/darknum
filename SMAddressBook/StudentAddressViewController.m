@@ -306,9 +306,11 @@
 - (void)onTouchedSmsBtn:(id)sender
 {
     SmsViewController *smsVC = [[SmsViewController alloc] init];
+    smsVC.navigationItem.title = _info[@"title"];
     smsVC.view.backgroundColor = [UIColor whiteColor];
-    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+    [smsVC setMembers:_students];
     
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
