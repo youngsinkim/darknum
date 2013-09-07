@@ -301,22 +301,15 @@
                                                   
                                                   [_courses setArray:classes];
                                                   NSLog(@"서버 수신 기수 목록 : %d", [_courses count]);
-
-//                                                  Course *class = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
-//                                                  Student *student = (Student *)[NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.managedObjectContext];
-//                                                  Staff *staff = (Staff *)[NSEntityDescription insertNewObjectForEntityForName:@"Staff" inManagedObjectContext:self.managedObjectContext];
-//                                                  Major *major = (Major *)[NSEntityDescription insertNewObjectForEntityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
-//                                                  Faculty *faculty = (Faculty *)[NSEntityDescription insertNewObjectForEntityForName:@"Faculty" inManagedObjectContext:self.managedObjectContext];
                                                   
 //                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                            
-                                                NSLog(@"Thread1 - 4");
+                                                    NSLog(@"Thread1 - 4");
                                                   
                                                   // 3. 기수목록 DB 저장
                                                   [self onUpdateDBCourse:classes];
                                               
-                                              NSLog(@"Thread1 - 5");
+                                                    NSLog(@"Thread1 - 5");
                                               
                                                   [self performSelector:@selector(updateDBFavorites) withObject:nil];
 //                                                      dispatch_async(dispatch_get_main_queue(), ^{

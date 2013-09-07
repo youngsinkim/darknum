@@ -56,9 +56,7 @@
     // 교지원 db 가져오기
     [_staffs setArray:[self loadDBStaffs]];
     
-    if (_staffs && [_staffs count] > 0) {
-        [_staffTableView reloadData];
-    }
+    [_staffTableView reloadData];
 
 }
 
