@@ -8,6 +8,7 @@
 
 #import "CourseTotalViewController.h"
 #import "CourseClassCell.h"
+#import "StudentAddressViewController.h"
 //#import <HMSegmentedControl.h>
 #import <PPiFlatSegmentedControl.h>
 #import "Course.h"
@@ -16,7 +17,10 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) UITableView *totalTableView;
+@property (strong, nonatomic) NSMutableArray *courses;          //< 과정 목록
+//@property (strong, nonatomic) NSMutableArray *courseClasses;      // 
 @property (strong, nonatomic) NSMutableArray *totalStudents;
+@property (assign) NSInteger tabIndex;
 
 @end
 
@@ -27,6 +31,11 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.navigationItem.title = LocalizedString(@"total_view_text", "전체보기");
+        
+        _courses = [[NSMutableArray alloc] init];
+        _tabIndex = 0;
+//        _courseClasses = [[NSMutableArray alloc] init];
         _totalStudents = [[NSMutableArray alloc] initWithCapacity:1];
     }
     return self;
@@ -44,9 +53,36 @@
         self.managedObjectContext = [appDelegate managedObjectContext];
         NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
     }
+    
+    // 전체 과정 목록을 db에서 가져온다. (group by)
+//    [_courses setArray:[self loadDBCourses]];
+    NSArray *tabs = [self loadDBCourses];
+    NSLog(@"과정 개수 : %d", [tabs count]);
+    
+    for (NSMutableDictionary *courseInfo in tabs)
+    {
+        NSLog(@"Before 과정 정보 : %@", courseInfo);
+    
+        // 각 과정 그룹별 기수 목록 가져와서 트리 구성.
+        NSArray *filterd = [self loadDBCourseClasses:courseInfo[@"course"]];
 
+        if ([filterd count] > 0) {
+//            NSDictionary *subItems = [NSDictionary dictionaryWithObject:filterd forKey:@"courseclass"];// @{@"courseclass":filterd};
+//            [courseInfo addEntriesFromDictionary:subItems];//@{@"subItem":filterd}];
+//            NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:courseInfo];
+//            [dict setObject:filterd forKey:@"courseclass"];
+            
+            [_courses addObject:filterd];
+        }
+    
+        NSLog(@"After 과정 정보 : %@", _courses);
+        // 0(EMBA), 1(GMBA), 2(SMBA)
+//        [_totalStudents setArray:[self loadDBCourseClasses:[segmentIdx integerValue]]];
+    }
+
+    
     // 전체보기 화면 구성
-    [self setupTotalCourseUI];
+    [self setupTotalCourseUI:tabs];
     
     // 과정별 기수 목록 DB에서 가져오기
     [self onSegmentChangedValue:0]; // 0(EMBA), 1(GMBA), 2(SMBA)
@@ -58,7 +94,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setupTotalCourseUI
+- (void)setupTotalCourseUI:(NSArray *)tabs
 {
     CGRect rect = [[UIScreen mainScreen] applicationFrame];
     
@@ -72,10 +108,23 @@
 //    [segmentedControl setSelectionIndicatorColor:[UIColor lightGrayColor]];
 //
 //    [self.view addSubview:segmentedControl];
+
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in tabs)
+    {
+        NSDictionary *item = @{@"text":dict[@"course"]};
+        [items addObject:item];
+    }
+    
+    if ([items count] == 0) {
+        return;
+    }
+    
     PPiFlatSegmentedControl *courseSegment = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30)
-                                                                                      items:@[@{@"text":@"EMBA"},
-                                                                                              @{@"text":@"GMBA"},
-                                                                                              @{@"text":@"SNUMBA"}]
+                                                                                      items:items
+//                                                                                            @[@{@"text":@"EMBA"},
+//                                                                                              @{@"text":@"GMBA"},
+//                                                                                              @{@"text":@"SNUMBA"}]
                                                                                iconPosition:IconPositionRight
                                                                           andSelectionBlock:^(NSUInteger segmentIndex) {
                                                                               NSLog(@"선택된 셀 : %d", segmentIndex);
@@ -105,7 +154,7 @@
     _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 30.0f, rect.size.width, rect.size.height - 44.0f - 30.0f) style:UITableViewStylePlain];
     _totalTableView.dataSource = self;
     _totalTableView.delegate = self;
-    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+//    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
     
     [self.view addSubview:_totalTableView];
     
@@ -118,15 +167,15 @@
     NSLog(@"선택된 셀 : %d", [segmentIdx integerValue]);
     
     // 세그먼트 탭에 따라 테이블 내용 업데이트.
-    // 0(EMBA), 1(GMBA), 2(SMBA)
-    [_totalStudents setArray:[self loadDBCourseClasses:[segmentIdx integerValue]]];
+    _tabIndex = [segmentIdx integerValue];
+    
+    NSLog(@"어떤 셀이지: %@", _courses[_tabIndex]);
     
     [_totalTableView reloadData];
 }
 
 #pragma mark - DB methods
-/// 과정별 기수 목록
-- (NSArray *)loadDBCourseClasses:(NSInteger)tabIndex
+- (NSArray *)loadDBCourses
 {
     if (self.managedObjectContext == nil) {
         return nil;
@@ -139,32 +188,58 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    // * (column)
+    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
+    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
+    [fetchRequest setResultType:NSDictionaryResultType];
+    
     // where
-    NSPredicate *predicate = nil;
-    switch (tabIndex)
-    {
-        case 0: // EMBA
-            predicate = [NSPredicate predicateWithFormat:@"(course == 'EMBA')"];
-            break;
-            
-        case 1: // GMBA
-            predicate = [NSPredicate predicateWithFormat:@"(course == 'GMBA')"];
-            break;
-            
-        case 2: // SMBA
-            predicate = [NSPredicate predicateWithFormat:@"(course == 'SNUMBA')"];
-            break;
-            
-        default:
-            predicate = [NSPredicate predicateWithFormat:@"(course == 'EMBA')"];
-            break;
-    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(courseclass != '')"];
     [fetchRequest setPredicate:predicate];
     
     // order by (ZCOURSECLASS)
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    for (NSDictionary *info in fetchedObjects) {
+        NSLog(@"title : %@", info);
+    }
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+    {
+        return fetchedObjects;
+    }
+    return nil;
+}
+
+/// 과정별 기수 목록
+- (NSArray *)loadDBCourseClasses:(NSString *)courseName//:(NSInteger)tabIndex
+{
+    if (self.managedObjectContext == nil) {
+        return nil;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+//    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
+//    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
+//    [fetchRequest setResultType:NSDictionaryResultType];
+    
+    // where
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == %@)", courseName];
+    [fetchRequest setPredicate:predicate];
+    
+    // order by (ZCOURSECLASS)
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
     
@@ -183,12 +258,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return ([_totalStudents count] > 0)? [_totalStudents count] : 1;
+    NSArray *courseClasses = _courses[_tabIndex];
+    
+    if (courseClasses) {
+        return ([courseClasses count] > 0)? [courseClasses count] : 1;
+    }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([_totalStudents count] == 0)
+    NSArray *list = _courses[_tabIndex];
+    if (list == nil) {
+        return nil;
+    }
+    
+    if ([list count] == 0)
     {
         static NSString *identifier = @"NoTotalStudentCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -201,17 +286,18 @@
     }
     
     static NSString *identifier = @"TotalStudentCell";
-    UITableViewCell *cell = [self.totalTableView dequeueReusableCellWithIdentifier:identifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    if ([_totalStudents count] > 0)
+    if ([list count] > 0)
     {
         // 주소록 셀 정보
-        Course *course = [_totalStudents objectAtIndex:indexPath.row];
+        Course *course = [list objectAtIndex:indexPath.row];
         NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, course.title);
         
         cell.textLabel.text = course.title;
@@ -219,6 +305,34 @@
     }
         
     return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *list = _courses[_tabIndex];
+    if (list == nil) {
+        return;
+    }
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
+    
+    Course *courseClass = list[indexPath.row];
+    
+    if (courseClass)
+    {
+        NSLog(@"선택된 셀 정보 : %@", courseClass);
+
+        NSArray *keys = [[[courseClass entity] attributesByName] allKeys];
+        NSDictionary *dict = [courseClass dictionaryWithValuesForKeys:keys];
+        NSLog(@"셀 (기수) 정보 : %@", dict);
+        
+        StudentAddressViewController *studentAddressVC = [[StudentAddressViewController alloc] initWithInfo:dict];
+    
+        [self.navigationController pushViewController:studentAddressVC animated:YES];
+
+    }
 }
 
 @end

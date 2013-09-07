@@ -16,6 +16,10 @@
 #import "PortraitNavigationController.h"
 #import "SmsViewController.h"
 
+#import "TSLanguageManager.h"
+#import "NSString+MD5.h"
+
+
 @interface StudentAddressViewController ()
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -72,8 +76,14 @@
     
     // 학생 목록 DB에서 가져오기
     [_students setArray:[self loadDBFilteredStudents]];
-
-    [_studentTableView reloadData];
+    
+    if ([_students count] == 0) {
+        // 전체보기에서 들어올 경우는 즐겨찾기로 저장된 기수가 아니면 db에 목록이 존재하지 않으므로 서버로 요청한다...
+        [self requestAPIStudents];
+    }
+    else {
+        [_studentTableView reloadData];
+    }
 
 }
 
@@ -123,6 +133,7 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
     NSEntityDescription * entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
@@ -146,7 +157,8 @@
 //        }
         
         Course *class = fetchedObjects[0];
-        if (class) {
+        if (class)
+        {
             NSMutableArray *classStudents = [[class.students allObjects] mutableCopy];
             NSLog(@"student count : %d, %d", [class.students count], [classStudents count]);
 
@@ -155,6 +167,51 @@
 //        return fetchedObjects;
     }
     return nil;
+}
+
+
+#pragma mark - Network API
+/// 해당 기수의 학생 목록 요청
+- (void)requestAPIStudents
+{
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+    
+    NSString *lang = [TSLanguageManager selectedLanguage];
+    
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang, @"courseclass":_info[@"courseclass"]};
+    NSLog(@"(/fb/students) Request Parameter : %@", param);
+    
+    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
+    
+    // 과정별 기수 목록
+    [[SMNetworkClient sharedClient] postStudents:param
+                                           block:^(NSMutableArray *result, NSError *error) {
+                                               
+                                               [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                               
+                                               if (error) {
+                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
+                                               }
+                                               else
+                                               {
+                                                   // 기수 학생 목록
+                                                   [_students setArray:[result mutableCopy]];
+                                                   NSLog(@"(%@)기수 학생 수 : %d", _info[@"courseclass"], [_students count]);
+                                               
+                                                   dispatch_async(dispatch_get_main_queue(), ^{
+//                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                                                       [_studentTableView reloadData];
+                                                   });
+                                                 
+                                               }
+                                             
+                                           }];
 }
 
 
@@ -195,16 +252,25 @@
     
     if ([_students count] > 0)
     {
-        Student *student = _students[indexPath.row];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+        if ([_students[indexPath.row] isKindOfClass:[NSDictionary class]])
+        {
+            // 서버에서 받아온 데이터는 NSDictionary.
+            [dict setDictionary:_students[indexPath.row]];
+        }
+        else
+        {
+            // DB에서 읽으면 NSManagedObject
+            Student *student = _students[indexPath.row];
         
-        // ( NSDictionary <- NSManagedObject )
-        NSArray *keys = [[[student entity] attributesByName] allKeys];
-        NSDictionary *dict = [student dictionaryWithValuesForKeys:keys];
-        
+            // ( NSDictionary <- NSManagedObject )
+            NSArray *keys = [[[student entity] attributesByName] allKeys];
+            [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
+        }
         NSLog(@"학생 목록 셀 정보 : %@", dict);
+    
         [cell setCellInfo:dict];
-
-//        NSDictionary *info = @{@"photourl":student.photourl, @"name":student.name, @"desc":desc, @"mobile":student.mobile, @"email":student.email};
 
     }
     
