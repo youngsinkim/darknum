@@ -23,6 +23,7 @@
 #import "FacultyMajorViewController.h"
 #import "StaffAddressViewController.h"
 #import "StudentAddressViewController.h"
+#import "NSDate+Helper.h"
 
 #import "FavoriteSettingViewController.h"
 #import "CourseTotalViewController.h"
@@ -409,28 +410,41 @@
     // 즐겨찾기 업데이트 목록
     [[SMNetworkClient sharedClient] postFavorites:param
                                             block:^(NSMutableDictionary *result, NSError *error) {
-                                              
+                                                
 //                                              [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
                                                 NSLog(@"Thread3 - 3");
-                                              
-                                              if (error) {
-                                                  [[SMNetworkClient sharedClient] showNetworkError:error];
-                                              }
-                                              else {
-                                                  // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
-                                                  NSDictionary *favoriteInfo = [result valueForKeyPath:@"data"];
-                                                  NSLog(@"즐겨찾기 업데이트 목록 : %@", favoriteInfo);
-                                                  
-                                                  NSLog(@"Thread3 - 4");
-                                                  // 3. 로컬 DB 저장
-                                                  // 4. 메뉴 구성 업데이트
-//                                                  [self onUpdateDBFavorites:favoriteInfo];
-//                                                  NSLog(@"Thread3 - 5");
-                                                  [_updateInfo setDictionary:favoriteInfo];
-                                                  [self performSelector:@selector(updateDBFavorites) withObject:nil];
+                                                
+                                                if (error) {
+                                                    [[SMNetworkClient sharedClient] showNetworkError:error];
+                                                }
+                                                else
+                                                {
+                                                    // 즐겨찾기 업데이트 수신 후, 현재 시간을 마지막 업데이트 시간으로 저장
+                                                    {
+                                                        NSDate *date = [NSDate date];
+                                                        NSString *displayString = [date string];
+                                                        NSLog(@"즐겨찾기 업데이트 시간? %@", displayString);
+                                                    
+                                                        [UserContext shared].lastUpdateDate = displayString;
+                                                        [[NSUserDefaults standardUserDefaults] setValue:displayString forKey:kLastUpdate];
+                                                        [[NSUserDefaults standardUserDefaults] synchronize];
+                                                    }
+                                                
+                                                    // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
+                                                    NSDictionary *favoriteInfo = [result valueForKeyPath:@"data"];
+                                                    NSLog(@"즐겨찾기 업데이트 목록 : %@", favoriteInfo);
+                                                      
+                                                    NSLog(@"Thread3 - 4");
+                                                    // 3. 로컬 DB 저장
+                                                    // 4. 메뉴 구성 업데이트
+    //                                                [self onUpdateDBFavorites:favoriteInfo];
+    //                                                 NSLog(@"Thread3 - 5");
+                                                    [_updateInfo setDictionary:favoriteInfo];
+                                                    [self performSelector:@selector(updateDBFavorites) withObject:nil];
 
-                                              }
-                                          }];
+                                                }
+                                                 
+                                            }];
     NSLog(@"Thread3 - 2");
 }
 
