@@ -526,7 +526,7 @@
     
     switch (menuType)
     {
-        case MenuViewTypeAddrFaculty:
+        case MenuViewTypeAddrFaculty:   //< 교수진 전공 목록 화면으로 이동
             {
     //            CourseClassViewController *viewController = [[CourseClassViewController alloc] init];
     ////            nav = [[PortraitNavigationController alloc] initWithRootViewController:viewController];
@@ -538,7 +538,7 @@
             }
             break;
             
-        case MenuViewTypeAddrStaff:
+        case MenuViewTypeAddrStaff:     //< 교직원 목록 화면으로 이동
             {
                 StaffAddressViewController *viewController = [[StaffAddressViewController alloc] init];
                 
@@ -546,7 +546,7 @@
             }
             break;
             
-        case MenuViewTypeAddrStudent:
+        case MenuViewTypeAddrStudent:   //< 해당 기수의 학생 목록 화면으로 이동
             {
                 StudentAddressViewController *viewController = [[StudentAddressViewController alloc] initWithInfo:info];
                 
@@ -558,7 +558,7 @@
             }
             break;
 
-        case MenuViewTypeSettMyInfo:
+        case MenuViewTypeSettMyInfo:    //< 내 정보 설정 화면으로 이동
             {
                 MyInfoViewController *myInfoVC = [[MyInfoViewController alloc] init];
 //                controllers = @[myInfoVC];

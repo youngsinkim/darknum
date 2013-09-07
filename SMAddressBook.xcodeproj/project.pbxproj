@@ -662,7 +662,7 @@
 				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
 				BF57B35217D38E8200B39C03 /* AddressCell.h */,
 				BF57B35317D38E8200B39C03 /* AddressCell.m */,
-				BF57B32F17D2ED6100B39C03 /* 교수 주소록 */,
+				BF57B32F17D2ED6100B39C03 /* 교수진 주소록 */,
 				BF57B33617D2EDF200B39C03 /* 교직원 주소록 */,
 				BF57B33A17D2EE1400B39C03 /* 학생 주소록 */,
 			);
@@ -755,7 +755,7 @@
 			path = TSLanguageManager;
 			sourceTree = "<group>";
 		};
-		BF57B32F17D2ED6100B39C03 /* 교수 주소록 */ = {
+		BF57B32F17D2ED6100B39C03 /* 교수진 주소록 */ = {
 			isa = PBXGroup;
 			children = (
 				BF57B33017D2EDD700B39C03 /* FacultyMajorViewController.h */,
@@ -765,7 +765,7 @@
 				BF57B32C17D2ED5800B39C03 /* FacultyAddressViewController.h */,
 				BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */,
 			);
-			name = "교수 주소록";
+			name = "교수진 주소록";
 			sourceTree = "<group>";
 		};
 		BF57B33617D2EDF200B39C03 /* 교직원 주소록 */ = {
