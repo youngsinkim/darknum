@@ -7,6 +7,7 @@
 //
 
 #import "FavoriteSettingViewController.h"
+#import "FavoriteSettCell.h"
 #import "Course.h"
 
 @interface FavoriteSettingViewController ()
@@ -342,7 +343,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *courseClasses = _courseClasses[section];
-    NSLog(@"section : %@", courseClasses);
+//    NSLog(@"section : %@", courseClasses);
     
     if (courseClasses) {
         return ([courseClasses count] > 0)? [courseClasses count] : 1;
@@ -370,22 +371,32 @@
     }
     
     static NSString *identifier = @"FvSettingCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    FavoriteSettCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[FavoriteSettCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     if ([list count] > 0)
     {
         // 주소록 셀 정보
         Course *course = [list objectAtIndex:indexPath.row];
-        NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, course.title);
+        
+        // ( NSDictionary <- NSManagedObject )
+        NSArray *keys = [[[course entity] attributesByName] allKeys];
+        NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
+        NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, info[@"favyn"]);
         
         cell.textLabel.text = course.title;
         //        cell.cellInfo = cellInfo;
+        
+//        if ([course.favyn integerValue] == YES || [course.type integerValue] > 1) {
+//            [cell setHidden:YES];
+//        } else {
+//            [cell setHidden:NO];
+//        }
     }
     
     return cell;

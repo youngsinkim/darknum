@@ -160,6 +160,11 @@
 		BF57B3A617DB785D00B39C03 /* btn_white.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3A417DB785D00B39C03 /* btn_white.png */; };
 		BF57B3A717DB785D00B39C03 /* btn_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3A517DB785D00B39C03 /* btn_white@2x.png */; };
 		BF57B3AA17DB7A4200B39C03 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */; };
+		BF57B3AD17DC28A800B39C03 /* FavoriteSettCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3AC17DC28A800B39C03 /* FavoriteSettCell.m */; };
+		BF57B3B217DC387800B39C03 /* join_agreebox_ch.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3AE17DC387800B39C03 /* join_agreebox_ch.png */; };
+		BF57B3B317DC387800B39C03 /* join_agreebox_ch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3AF17DC387800B39C03 /* join_agreebox_ch@2x.png */; };
+		BF57B3B417DC387800B39C03 /* join_agreebox.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B017DC387800B39C03 /* join_agreebox.png */; };
+		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -375,6 +380,12 @@
 		BF57B3A517DB785D00B39C03 /* btn_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_white@2x.png"; sourceTree = "<group>"; };
 		BF57B3A817DB7A4100B39C03 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
 		BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
+		BF57B3AB17DC28A700B39C03 /* FavoriteSettCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteSettCell.h; sourceTree = "<group>"; };
+		BF57B3AC17DC28A800B39C03 /* FavoriteSettCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteSettCell.m; sourceTree = "<group>"; };
+		BF57B3AE17DC387800B39C03 /* join_agreebox_ch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = join_agreebox_ch.png; sourceTree = "<group>"; };
+		BF57B3AF17DC387800B39C03 /* join_agreebox_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "join_agreebox_ch@2x.png"; sourceTree = "<group>"; };
+		BF57B3B017DC387800B39C03 /* join_agreebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = join_agreebox.png; sourceTree = "<group>"; };
+		BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "join_agreebox@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -547,6 +558,10 @@
 		5062B65317C4D72F00A2495D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				BF57B3AE17DC387800B39C03 /* join_agreebox_ch.png */,
+				BF57B3AF17DC387800B39C03 /* join_agreebox_ch@2x.png */,
+				BF57B3B017DC387800B39C03 /* join_agreebox.png */,
+				BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */,
 				BF57B3A417DB785D00B39C03 /* btn_white.png */,
 				BF57B3A517DB785D00B39C03 /* btn_white@2x.png */,
 				BF57B31617D1F5FD00B39C03 /* profile_default_img.png */,
@@ -650,6 +665,8 @@
 			children = (
 				BF177E7D17C9BA9F00614485 /* FavoriteSettingViewController.h */,
 				BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */,
+				BF57B3AB17DC28A700B39C03 /* FavoriteSettCell.h */,
+				BF57B3AC17DC28A800B39C03 /* FavoriteSettCell.m */,
 			);
 			name = "즐겨찾기 설정";
 			sourceTree = "<group>";
@@ -992,6 +1009,10 @@
 				BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */,
 				BF57B3A617DB785D00B39C03 /* btn_white.png in Resources */,
 				BF57B3A717DB785D00B39C03 /* btn_white@2x.png in Resources */,
+				BF57B3B217DC387800B39C03 /* join_agreebox_ch.png in Resources */,
+				BF57B3B317DC387800B39C03 /* join_agreebox_ch@2x.png in Resources */,
+				BF57B3B417DC387800B39C03 /* join_agreebox.png in Resources */,
+				BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1109,7 @@
 				BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */,
 				BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */,
 				BF57B3AA17DB7A4200B39C03 /* SearchResultViewController.m in Sources */,
+				BF57B3AD17DC28A800B39C03 /* FavoriteSettCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
