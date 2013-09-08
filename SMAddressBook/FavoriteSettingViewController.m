@@ -7,7 +7,6 @@
 //
 
 #import "FavoriteSettingViewController.h"
-#import "FavoriteSettCell.h"
 #import "Course.h"
 
 @interface FavoriteSettingViewController ()
@@ -109,6 +108,7 @@
 {
     // 과정 기수 목록 구성
     CGRect rect = self.view.bounds;
+    rect.size.height -= 44.0f;
     
     _fvSettTableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
     _fvSettTableView.dataSource = self;
@@ -116,6 +116,34 @@
     
     [self.view addSubview:_fvSettTableView];
 
+}
+
+
+#pragma mark - FavoriteSettCell delegate
+
+- (void)onFavoriteCheckTouched:(id)sender
+{
+    NSLog(@"즐겨찾기 체크 이벤트");
+    if ([sender isKindOfClass:[FavoriteSettCell class]])
+    {
+            FavoriteSettCell *cell =  (FavoriteSettCell *)sender;
+            NSIndexPath *indexPath = [_fvSettTableView indexPathForCell:cell];
+        
+            NSArray *list = _courseClasses[indexPath.section];
+        
+            NSLog(@"section(%d), row(%d) :\n%@", indexPath.section, indexPath.row, list);
+            // 주소록 셀 정보
+            Course *course = [list objectAtIndex:indexPath.row];
+        
+            // ( NSDictionary <- NSManagedObject )
+            NSArray *keys = [[[course entity] attributesByName] allKeys];
+            NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
+
+            NSLog(@"selected Data : %@", info);
+        
+//            NSString *tag = [NSString stringWithFormat:@"tag%d", [type intValue]];
+//            NSString *postId = [threadData objectForKey:kDataPostId];
+    }
 }
 
 
@@ -351,6 +379,11 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return ([_courses count] > 0)? FavoriteSettCellH : self.view.frame.size.height;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *list = _courseClasses[indexPath.section];
@@ -375,6 +408,8 @@
     
     if (!cell) {
         cell = [[FavoriteSettCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.delegate = self;
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -389,14 +424,15 @@
         NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
         NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, info[@"favyn"]);
         
-        cell.textLabel.text = course.title;
-        //        cell.cellInfo = cellInfo;
+//        cell.textLabel.text = course.title;
+        cell.classLabel.text = course.title;
+        cell.cellInfo = info;
         
-//        if ([course.favyn integerValue] == YES || [course.type integerValue] > 1) {
-//            [cell setHidden:YES];
-//        } else {
-//            [cell setHidden:NO];
-//        }
+        if ([course.favyn isEqualToString:@"y"] || [course.type integerValue] > 1) {
+            [cell setHidden:YES];
+        } else {
+            [cell setHidden:NO];
+        }
     }
     
     return cell;

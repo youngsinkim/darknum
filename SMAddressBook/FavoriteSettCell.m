@@ -21,15 +21,25 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        CGRect rect = self.bounds;
+        
+        _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 200.0f, 22.0f)];
+        [_classLabel setTextColor:[UIColor darkGrayColor]];
+        [_classLabel setBackgroundColor:[UIColor clearColor]];
+        [_classLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        
+        [self.contentView addSubview:_classLabel];
+        
         
         _favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _favoriteBtn.frame = CGRectMake(320.0f-100.0f, 5.0f, 21.0f, 22.0f);
+        _favoriteBtn.tag = 300;
+        _favoriteBtn.frame = CGRectMake(rect.size.width - 60.0f, 10.0f, 21.0f, 22.0f);
         [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
         [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
         
         [_favoriteBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
-        [self addSubview:_favoriteBtn];
+        [self.contentView addSubview:_favoriteBtn];
     }
     return self;
 }
@@ -41,18 +51,51 @@
     // Configure the view for the selected state
 }
 
-- (void)onBtnClicked:(id)sender
+- (void)layoutSubviews
 {
-    [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
+    [super layoutSubviews];
+    
+//    UIButton *button = (UIButton *)[self viewWithTag:300];
+    
+    if (_hidden) {
+        _favoriteBtn.hidden = YES;
+    }
+    else {
+        _favoriteBtn.hidden = NO;
+    }
+    
+}
+
+- (void)setClassLabel:(UILabel *)classLabel
+{
+    _classLabel = classLabel;
+    
+    [self layoutSubviews];
 }
 
 - (void)setHidden:(BOOL)hidden
 {
     _hidden = hidden;
-    if (hidden == YES) {
-        _favoriteBtn.hidden = YES;
-        
-        [self setNeedsDisplay];
+    
+    [self layoutSubviews];
+}
+
+- (void)setCellInfo:(NSDictionary *)cellInfo
+{
+    _cellInfo = cellInfo;
+    
+    [self layoutSubviews];
+}
+
+- (void)onBtnClicked:(id)sender
+{
+    [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
+    NSLog(@"cell selected(%d)", [sender isSelected]);
+    
+    if ([_delegate respondsToSelector:@selector(onFavoriteCheckTouched:)]) {
+        [_delegate onFavoriteCheckTouched:self];
     }
 }
+
+
 @end
