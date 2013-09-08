@@ -165,6 +165,7 @@
 		BF57B3B317DC387800B39C03 /* join_agreebox_ch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3AF17DC387800B39C03 /* join_agreebox_ch@2x.png */; };
 		BF57B3B417DC387800B39C03 /* join_agreebox.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B017DC387800B39C03 /* join_agreebox.png */; };
 		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
+		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -386,6 +387,8 @@
 		BF57B3AF17DC387800B39C03 /* join_agreebox_ch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "join_agreebox_ch@2x.png"; sourceTree = "<group>"; };
 		BF57B3B017DC387800B39C03 /* join_agreebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = join_agreebox.png; sourceTree = "<group>"; };
 		BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "join_agreebox@2x.png"; sourceTree = "<group>"; };
+		BF57B3B617DCD09E00B39C03 /* DetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewCell.h; sourceTree = "<group>"; };
+		BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -692,6 +695,8 @@
 				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
+				BF57B3B617DCD09E00B39C03 /* DetailViewCell.h */,
+				BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */,
 				BF57B35217D38E8200B39C03 /* AddressCell.h */,
 				BF57B35317D38E8200B39C03 /* AddressCell.m */,
 				BF57B32F17D2ED6100B39C03 /* 교수진 주소록 */,
@@ -1110,6 +1115,7 @@
 				BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */,
 				BF57B3AA17DB7A4200B39C03 /* SearchResultViewController.m in Sources */,
 				BF57B3AD17DC28A800B39C03 /* FavoriteSettCell.m in Sources */,
+				BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

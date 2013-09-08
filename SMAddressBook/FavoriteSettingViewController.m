@@ -126,23 +126,23 @@
     NSLog(@"즐겨찾기 체크 이벤트");
     if ([sender isKindOfClass:[FavoriteSettCell class]])
     {
-            FavoriteSettCell *cell =  (FavoriteSettCell *)sender;
-            NSIndexPath *indexPath = [_fvSettTableView indexPathForCell:cell];
-        
-            NSArray *list = _courseClasses[indexPath.section];
-        
-            NSLog(@"section(%d), row(%d) :\n%@", indexPath.section, indexPath.row, list);
-            // 주소록 셀 정보
-            Course *course = [list objectAtIndex:indexPath.row];
-        
-            // ( NSDictionary <- NSManagedObject )
-            NSArray *keys = [[[course entity] attributesByName] allKeys];
-            NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
+        FavoriteSettCell *cell =  (FavoriteSettCell *)sender;
+        NSIndexPath *indexPath = [_fvSettTableView indexPathForCell:cell];
+    
+        NSArray *list = _courseClasses[indexPath.section];
+    
+        NSLog(@"section(%d), row(%d) :\n%@", indexPath.section, indexPath.row, list);
+        // 주소록 셀 정보
+        Course *course = [list objectAtIndex:indexPath.row];
+    
+        // ( NSDictionary <- NSManagedObject )
+        NSArray *keys = [[[course entity] attributesByName] allKeys];
+        NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
 
-            NSLog(@"selected Data : %@", info);
-        
-//            NSString *tag = [NSString stringWithFormat:@"tag%d", [type intValue]];
-//            NSString *postId = [threadData objectForKey:kDataPostId];
+        NSLog(@"selected Data : %@", info);
+    
+//        NSString *tag = [NSString stringWithFormat:@"tag%d", [type intValue]];
+//        NSString *postId = [threadData objectForKey:kDataPostId];
     }
 }
 

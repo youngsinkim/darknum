@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "DetailViewCell.h"
 #import "UIView+Shadow.h"
 #import "Faculty.h"
 
@@ -110,10 +111,10 @@
 - (MMHorizontalListViewCell*)MMHorizontalListView:(MMHorizontalListView *)horizontalListView cellAtIndex:(NSInteger)index
 {
     // dequeue cell for reusability
-    MMHorizontalListViewCell *cell = [horizontalListView dequeueCellWithReusableIdentifier:@"test"];
+    DetailViewCell *cell = [horizontalListView dequeueCellWithReusableIdentifier:@"test"];
 
     if (!cell) {
-        cell = [[MMHorizontalListViewCell alloc] initWithFrame:CGRectMake(0, 0, 319.0f, 300.0f)];
+        cell = [[DetailViewCell alloc] initWithFrame:CGRectMake(0, 0, 319.0f, 300.0f)];
         cell.reusableIdentifier = @"test";  // assign the cell identifier for reusability
     }
 
