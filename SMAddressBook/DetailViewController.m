@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) UITableView *contactTableView;
 @property (strong, nonatomic) MMHorizontalListView *horListView;    //< 세로 주소록 테이블 뷰
+@property (assign) MemberType memType;
 
 @end
 
@@ -25,8 +26,24 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.view.backgroundColor = [UIColor whiteColor];
     }
     return self;
+}
+
+// 상세정보 생성 타입별 구분
+- (id)initWithType:(MemberType)type
+{
+    self = [super init];
+    if (self) {
+        // Custom initialization
+        self.view.backgroundColor = [UIColor whiteColor];
+
+        _memType = type;
+
+    }
+    return self;
+    
 }
 
 - (void)viewDidLoad
@@ -92,6 +109,10 @@
     _contacts = contacts;
     
     [self.horListView reloadData];
+    
+    // 해당 셀로 이동.
+    [self.horListView scrollToIndex:3 animated:YES];
+
 }
 
 
@@ -118,8 +139,20 @@
         cell.reusableIdentifier = @"test";  // assign the cell identifier for reusability
     }
 
-    [cell setBackgroundColor:[UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:0.5]];
+//    [cell setBackgroundColor:[UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:0.5]];
+
+    if ([_contacts count] > 0)
+    {
+        Faculty *faculty = _contacts[index];
+
+        // ( NSDictionary <- NSManagedObject )
+        NSArray *keys = [[[faculty entity] attributesByName] allKeys];
+        NSDictionary *info = [faculty dictionaryWithValuesForKeys:keys];
     
+        cell.memType = MemberTypeFaculty;
+        [(DetailViewCell *)cell setCellInfo:info];
+
+    }
 #if (1)
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 300)];
     Faculty *faculty = _contacts[index];
@@ -143,5 +176,6 @@
     // do something when a cell is deselected
     NSLog(@"deselected cell %d", index);
 }
+
 
 @end

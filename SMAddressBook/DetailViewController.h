@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) NSMutableArray *contacts;         //< 주소록 목록
 
+- (id)initWithType:(MemberType)type;
+
 @end

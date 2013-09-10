@@ -71,6 +71,14 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -191,6 +199,8 @@
     detailViewController.contacts = _faculties;
     //    [detailViewController.contacts setArray:_contacts];
     
+    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
+
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

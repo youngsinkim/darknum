@@ -10,4 +10,7 @@
 
 @interface DetailViewCell : MMHorizontalListViewCell
 
+@property (assign, nonatomic) MemberType memType;
+@property (strong, nonatomic) NSDictionary *cellInfo;
+
 @end

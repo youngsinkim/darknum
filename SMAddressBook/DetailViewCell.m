@@ -177,4 +177,32 @@
 }
 */
 
+- (void)setMemType:(MemberType)memType
+{
+    _memType = memType;
+    
+    [self layoutSubviews];
+}
+
+- (void)setCellInfo:(NSDictionary *)cellInfo
+{
+    _cellInfo = cellInfo;
+    NSLog(@"셀 정보: %@", _cellInfo);
+    
+    [self layoutSubviews];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    // 멤버 타입별로 셀 내용 다르게 노출
+    if (_memType == MemberTypeFaculty) {
+        _nameLabel.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    } else if (_memType == MemberTypeStaff) {
+        
+    } else if (_memType == MemberTypeStudent) {
+        
+    }
+}
 @end
