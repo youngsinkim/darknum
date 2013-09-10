@@ -73,9 +73,9 @@
     //
     //    [parentView addSubview:_contactTableView];
     
-    _horListView = [[MMHorizontalListView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 300.0f)];
-    _horListView.backgroundColor = [UIColor orangeColor];
-//    _horContactTableView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.6];
+    _horListView = [[MMHorizontalListView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, self.view.frame.size.height - 44.0f - 60.0f)];
+//    _horListView.backgroundColor = [UIColor orangeColor];
+    _horListView.backgroundColor = [UIColor whiteColor];// colorWithAlphaComponent:0.6];
     //    _horListView.alpha = 1;
     //    _horListView.opaque = YES;
     _horListView.dataSource = self;
@@ -153,7 +153,7 @@
         [(DetailViewCell *)cell setCellInfo:info];
 
     }
-#if (1)
+#if (0)
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 300)];
     Faculty *faculty = _contacts[index];
 
