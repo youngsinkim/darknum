@@ -17,11 +17,13 @@
     if (self)
     {
         // Initialization code
+        self.contentView.backgroundColor = [UIColor clearColor];
+        
         UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, kCellH)];
 //        [background setImage:[[UIImage imageNamed:@"cell_background"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f]];
         
         self.backgroundView = background;
-        
+        self.backgroundColor = [UIColor clearColor];
         
         UIImageView *selectedBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, kCellH)];
         [selectedBackground setImage:[[UIImage imageNamed:@"cell_selected_background"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f]];

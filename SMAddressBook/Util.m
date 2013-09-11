@@ -8,11 +8,23 @@
 
 #import "Util.h"
 
+NSUInteger DeviceSystemMajorVersion() {
+    static NSUInteger _deviceSystemMajorVersion = -1;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _deviceSystemMajorVersion = [[[[[UIDevice currentDevice] systemVersion]
+                                       componentsSeparatedByString:@"."] objectAtIndex:0] intValue];
+    });
+    return _deviceSystemMajorVersion;
+}
+
+
 /// 단말 전화번호 사용을 위해 추가 
 extern NSString* CTSettingCopyMyPhoneNumber();
 
 @implementation Util
 
+#pragma mark - Device Phone Number method
 /// 단말 전화 번호
 + (NSString *)phoneNumber
 {

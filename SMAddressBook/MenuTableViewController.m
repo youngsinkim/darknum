@@ -59,7 +59,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -79,27 +79,35 @@
 
 - (void)setupMenuTableView
 {
+    CGFloat yOffset = 0.0f;
+    if (!IS_LESS_THEN_IOS7) {
+        yOffset = 20.0f;
+
+        UIEdgeInsets edges;
+        edges.left = 0;
+        self.tableView.separatorInset = edges;
+    }
+    
     self.tableView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
-    self.tableView.separatorColor = [UIColor colorWithRed:56.0f/255.0f green:60.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
     
     // TODO: 내 프로필 정보에서 헤더 구성 데이터 가져오기
     NSDictionary *profileDict = @{@"name":@"홍길동", @"class":@"GMBA 5기", @"photourl":@""};
 
     // 내 정보 해더 구성
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kHeaderH)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kHeaderH + yOffset)];
     headerView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
     
     self.tableView.tableHeaderView = headerView;
 
     {
         // 내 프로필 사진
-        UIImageView *profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, 50.0f, 50.0f)];
+        UIImageView *profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, yOffset + 5.0f, 50.0f, 50.0f)];
         [profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
         
         [headerView addSubview:profileImgView];
         
         // 내 이름
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(44.0f, 7.0f, 150.0f, 16.0f)];
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset +7.0f, 150.0f, 16.0f)];
         nameLabel.text = profileDict[@"name"];
         nameLabel.textColor = [UIColor whiteColor];
         [nameLabel setFont:[UIFont systemFontOfSize:15.0f]];
@@ -108,7 +116,7 @@
         [headerView addSubview:nameLabel];
         
         // 내 기수
-        UILabel *classLabel = [[UILabel alloc] initWithFrame:CGRectMake(44.0f, 25.0f, 150.0f, 14.0f)];
+        UILabel *classLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset + 25.0f, 150.0f, 14.0f)];
         classLabel.text = profileDict[@"class"];
         classLabel.textColor = [UIColor colorWithRed:170.0f/255.0f green:102.0f/255.0f blue:204.0f/255.0f alpha:1.0f];
         [classLabel setFont:[UIFont systemFontOfSize:11.0f]];
@@ -117,7 +125,7 @@
         [headerView addSubview:classLabel];
         
         UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        settingBtn.frame = CGRectMake(headerView.frame.size.width - 105.0f, 3.0f, 47.0f, 47.0f);
+        settingBtn.frame = CGRectMake(headerView.frame.size.width - 105.0f, yOffset + 3.0f, 47.0f, 47.0f);
         [settingBtn setImage:[UIImage imageNamed:@"profile_btn_my_set"] forState:UIControlStateNormal];
 //        [settingBtn setImage:[UIImage imageNamed:@"menu_img"] forState:UIControlStateHighlighted];
         [settingBtn addTarget:self action:@selector(onMyInfoSettingClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -222,6 +230,8 @@
     if (cell == nil) {
         cell = [[MenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.tableView.separatorColor = [UIColor colorWithRed:56.0f/255.0f green:60.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
     }
     
 //    cell.textLabel.text = [NSString stringWithFormat:@"Item %d", indexPath.row];

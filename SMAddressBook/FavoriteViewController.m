@@ -32,6 +32,7 @@
 @interface FavoriteViewController ()
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) FavoriteToolView *favoriteToolbar;
 @property (strong, nonatomic) UITableView *favoriteTableView;   // 즐겨찾기 테이블 뷰
 @property (strong, nonatomic) NSMutableArray *favorites;        // 즐겨찾기 목록
 
@@ -138,14 +139,14 @@
     NSLog(@"DB 즐겨찾기 목록 : %d", [self.favorites count]);
     
     if ([self.favorites count] > 0)
-        {
+    {
         // 즐겨찾기 목록 테이블 뷰 적용
         [self.favoriteTableView reloadData];
         
         // 즐겨찾기 목록 메뉴 적용
         MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
         [menu setAddrMenuList:self.favorites];
-        }
+    }
     
     
     // (updateCount > 0)이면, 서버 데이터 업데이트 요청
@@ -215,11 +216,16 @@
     
     
     // 하단 버튼 툴바
-    FavoriteToolView *favoriteToolVC = [[FavoriteToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 44 - kFvToolH, 320, kFvToolH)];
-    favoriteToolVC.delegate = self;
+    _favoriteToolbar = [[FavoriteToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 44 - kFvToolH, 320, kFvToolH)];
+    _favoriteToolbar.delegate = self;
+
+    if (!IS_LESS_THEN_IOS7) {
+//        favoriteToolbar.frame = CGRectOffset(favoriteToolbar.frame, 0.0f, -64.0f);
+        _favoriteToolbar.frame = CGRectMake(0.0f, rect.origin.y + rect.size.height - kFvToolH, rect.size.width, kFvToolH);
+    }
     
-    [self.view addSubview:favoriteToolVC];
-    [self.view bringSubviewToFront:favoriteToolVC];
+    [self.view addSubview:_favoriteToolbar];
+//    [self.view bringSubviewToFront:favoriteToolVC];
     
 //    FavoriteToolViewController *footerToolVC = [[FavoriteToolViewController alloc] init];
 //    footerToolVC.view.frame = CGRectMake(0.0f, rect.size.height - 44.0f - kFvToolH, 320.0f, kFvToolH);
@@ -424,8 +430,8 @@
                                                 
                                                     // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
                                                     NSDictionary *favoriteInfo = [result valueForKeyPath:@"data"];
-                                                    NSLog(@"즐겨찾기 업데이트 목록 : %@", favoriteInfo);
-                                                      
+//                                                    NSLog(@"즐겨찾기 업데이트 목록 : %@", favoriteInfo);
+                                                    
                                                     NSLog(@"Thread3 - 4");
                                                     // 3. 로컬 DB 저장
                                                     // 4. 메뉴 구성 업데이트
@@ -451,7 +457,7 @@
         while (progress < 1.0f) {
             progress += 0.01f;
             hud.progress = progress;
-            NSLog(@"progress : %f", hud.progress);
+//            NSLog(@"progress : %f", hud.progress);
             usleep(4000);
         }
     }
@@ -492,9 +498,9 @@
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
     
-    for (Course *class in fetchedObjects) {
-        NSLog(@"title : %@", class.title);
-    }
+//    for (Course *class in fetchedObjects) {
+//        NSLog(@"title : %@", class.title);
+//    }
     
     return fetchedObjects;
 }
@@ -524,8 +530,8 @@
 
             // ( NSManagedObject <- NSDictionary )
             [course setValuesForKeysWithDictionary:dict];
-            NSLog(@"UPDATE 기수 : course(%@), courseclass(%@), title(%@), title_en(%@), favyn(%@), count (%@), students(%d) ",
-                  course.course, course.courseclass, course.title, course.title_en, course.favyn, course.count, [course.students count]);
+//            NSLog(@"UPDATE 기수 : course(%@), courseclass(%@), title(%@), title_en(%@), favyn(%@), count (%@), students(%d) ",
+//                  course.course, course.courseclass, course.title, course.title_en, course.favyn, course.count, [course.students count]);
             
 //            favorite.course = dict[@"course"];
 //            favorite.courseclass = dict[@"courseclass"];
@@ -541,8 +547,8 @@
             
             // ( NSManagedObject <- NSDictionary )
             [course setValuesForKeysWithDictionary:dict];
-            NSLog(@"INSERT 기수 : course(%@), courseclass(%@), title(%@), title_en(%@), favyn(%@), count (%@), students(%d) ",
-                  course.course, course.courseclass, course.title, course.title_en, course.favyn, course.count, [course.students count]);
+//            NSLog(@"INSERT 기수 : course(%@), courseclass(%@), title(%@), title_en(%@), favyn(%@), count (%@), students(%d) ",
+//                  course.course, course.courseclass, course.title, course.title_en, course.favyn, course.count, [course.students count]);
 
 //            favorite.course = dict[@"course"];
 //            favorite.courseclass = dict[@"courseclass"];
@@ -595,7 +601,7 @@
     for (NSDictionary *dict in majors)
     {
         Major *major = nil;
-        NSLog(@"저장할 전공 정보 : %@", dict);
+//        NSLog(@"저장할 전공 정보 : %@", dict);
 
         NSArray *fetched = [self fetchedMajors:dict];
         NSLog(@"찾은 전공 개수 ? %d", [fetched count]);
@@ -612,8 +618,8 @@
 
             // ( NSManagedObject <- NSDictionary )
             [major setValuesForKeysWithDictionary:dict];
-            NSLog(@"UPDATE 전공 : major(%@), title(%@), title_en(%@), facultys(%d) ",
-            major.major, major.title, major.title_en, [major.facultys count]);
+//            NSLog(@"UPDATE 전공 : major(%@), title(%@), title_en(%@), facultys(%d) ",
+//            major.major, major.title, major.title_en, [major.facultys count]);
         }
         else
         {
@@ -622,8 +628,8 @@
 
             // ( NSManagedObject <- NSDictionary )
             [major setValuesForKeysWithDictionary:dict];
-            NSLog(@"UPDATE 전공 : major(%@), title(%@), title_en(%@), facultys(%d) ",
-                  major.major, major.title, major.title_en, [major.facultys count]);
+//            NSLog(@"UPDATE 전공 : major(%@), title(%@), title_en(%@), facultys(%d) ",
+//                  major.major, major.title, major.title_en, [major.facultys count]);
 
         }
     }
@@ -660,7 +666,7 @@
         for (NSDictionary *dict in students)
         {
             // DB에 현재 학생의 기수가 존재하면 해당 기수에 학생을 추가하도록 함. (relationship 연결 처리)
-            NSLog(@"업데이트 학생 정보 : %@", dict);
+//            NSLog(@"업데이트 학생 정보 : %@", dict);
             
             
             //- 학생의 기수 종류 먼저 검색
@@ -719,8 +725,8 @@
 
             [course addStudentsObject:student];
             
-            NSLog(@"UPDATE 즐겨찾기 학생 : course(%@ = %@), courseclass(%@ = %@), title(%@ = %@), title_en(%@), favyn(%@), count (%@), students(%d) ",
-                  course.course, dict[@"course"], course.courseclass, dict[@"courseclass"], course.title, dict[@"classtitle"], course.title_en, course.favyn, course.count, [course.students count]);
+//            NSLog(@"UPDATE 즐겨찾기 학생 : course(%@ = %@), courseclass(%@ = %@), title(%@ = %@), title_en(%@), favyn(%@), count (%@), students(%d) ",
+//                  course.course, dict[@"course"], course.courseclass, dict[@"courseclass"], course.title, dict[@"classtitle"], course.title_en, course.favyn, course.count, [course.students count]);
 
             
 //            mo.class_info.course = student[@"course"];
@@ -739,7 +745,7 @@
         
         for (NSDictionary *dict in facultys)
         {
-            NSLog(@"업데이트 교수 정보 : %@", dict);
+//            NSLog(@"업데이트 교수 정보 : %@", dict);
             
             //- 교수 전공 종류 먼저 검색
             Major *major = nil;
@@ -795,8 +801,8 @@
             
             [major addFacultysObject:faculty];
             
-            NSLog(@"UPDATE 즐겨찾기 교수 : memberIdx(%@) major(%@ = %@), title(%@ = %@), title_en(%@), facultys(%d)",
-                  dict[@"memberIdx"], major.major, dict[@"major"], major.title, dict[@"title"], major.title_en, [major.facultys count]);
+//            NSLog(@"UPDATE 즐겨찾기 교수 : memberIdx(%@) major(%@ = %@), title(%@ = %@), title_en(%@), facultys(%d)",
+//                  dict[@"memberIdx"], major.major, dict[@"major"], major.title, dict[@"title"], major.title_en, [major.facultys count]);
             
 //            mo.major.major = faculty[@"major"];
         }
@@ -811,7 +817,7 @@
         
         for (NSDictionary *dict in staffs)
         {
-            NSLog(@"교직원 정보 : %@", dict);
+//            NSLog(@"교직원 정보 : %@", dict);
             NSArray *filteredObjects = [self filteredObjects:dict[@"memberidx"] memberType:MemberTypeStaff];
             Staff *staff = nil;
             
@@ -830,8 +836,8 @@
             // ( NSManagedObject <- NSDictionary )
             [staff setValuesForKeysWithDictionary:dict];
             
-            NSLog(@"UPDATE 즐겨찾기 교직원 : memberIdx(%@), name(%@ = %@), name_en(%@), tel(%@)",
-                  staff.memberidx, staff.name, staff.name_en, staff.tel);
+//            NSLog(@"UPDATE 즐겨찾기 교직원 : memberIdx(%@), name(%@ = %@), name_en(%@), tel(%@)",
+//                  staff.memberidx, staff.name, staff.name_en, staff.tel);
             
 //            mo.name = staff[@"name"];
 //            mo.name_en = staff[@"name_en"];
@@ -964,7 +970,7 @@
     // select Table
     NSEntityDescription *entity = nil;
     NSPredicate *predicate = nil;
-    NSLog(@"code = %@", code);
+//    NSLog(@"code = %@", code);
     
     if (memType == MemberTypeStudent) {
         // 학생 table
@@ -1000,7 +1006,7 @@
     
     NSError *error = nil;
     NSArray *filtered = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    NSLog(@"Filtered DB count : %d", [filtered count]);
+//    NSLog(@"Filtered DB count : %d", [filtered count]);
     
     return filtered;
 }

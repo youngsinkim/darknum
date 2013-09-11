@@ -24,7 +24,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = UIColorFromRGB(0xFCFCFA);
         
         [self setupFavoriteToolbarUI];
     }
@@ -47,9 +47,9 @@
     //    NSLog(@"size (%f, %f)", viewSize.width, viewSize.height);
     
     // 배경 라인 박스
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(1.0f, 1.0f, 320.0f, viewSize.height)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 1.0f, 320.0f, viewSize.height)];
 //    [bgView.layer setCornerRadius:2.0f];
-    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5f].CGColor];
+    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.3f].CGColor];
     [bgView.layer setBorderWidth:1.0f];
 
     [self addSubview:bgView];
@@ -81,6 +81,7 @@
     [bgView addSubview:_favoriteSettBtn];
     xStart += 125;
     
+    
     // 전체보기
     _totalStudentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _totalStudentBtn.frame = CGRectMake(xStart, yOffset, 85.0f, 30.0f);
@@ -99,6 +100,7 @@
     [bgView addSubview:_totalStudentBtn];
     xStart += 100;
 
+    
     // 도움말
     _helpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _helpBtn.frame = CGRectMake(xStart, yOffset, 75.0f, 30.0f);

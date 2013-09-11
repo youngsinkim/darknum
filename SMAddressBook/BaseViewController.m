@@ -39,9 +39,14 @@
 	// Do any additional setup after loading the view.
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_title_bg"] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTranslucent:YES];
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x104E8B)];
+//    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x104E8B)];
+    if (IS_LESS_THEN_IOS7) {
+        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
+    } else {
+//        [self.navigationController.navigationBar setBarTintColor:[UIColor blueColor]];
+    }
     
     // 공통 뷰 배경
     self.view.backgroundColor = [UIColor whiteColor];
@@ -145,60 +150,76 @@
 /// 네비게이션 오른쪽 버튼
 - (UIBarButtonItem *)rightMenuBarButtonItem
 {
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 44.01f)]; // 44.01 shifts it up 1px for some reason
-    [toolbar setBarStyle: UIBarStyleBlackOpaque];
+//    UIToolbar *tools = [[UIToolbar alloc]
+//                        initWithFrame:CGRectMake(0.0f, 10.0f, 103.0f, 30.01f)]; // 44.01 shifts it up 1px for some reason
+//    tools.clearsContextBeforeDrawing = NO;
+//    tools.clipsToBounds = NO;
+//    tools.tintColor = [UIColor colorWithWhite:0.305f alpha:0.0f]; // closest I could get by eye to black, translucent style.
+    // anyone know how to get it perfect?
+//    tools.barStyle = -1; // clear background
+    UIView *toolbar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 44.0f)];
+//    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 44.0f)]; // 44.01 shifts it up 1px for some reason
+//    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
+//    [toolbar setBackgroundColor:[UIColor whiteColor]];
+//    [toolbar setTintColor:[UIColor whiteColor]];
+//    [toolbar setBarStyle: UIBarStyleBlackOpaque];
     
-    toolbar.clearsContextBeforeDrawing = NO;
-    toolbar.clipsToBounds = NO;
-    toolbar.tintColor = [UIColor colorWithWhite:0.305f alpha:0.0f]; // closest I could get by eye to black, translucent style.
+//    toolbar.clearsContextBeforeDrawing = NO;
+//    toolbar.clipsToBounds = NO;
+//    toolbar.tintColor = [UIColor clearColor];
+//    toolbar.tintColor = [UIColor colorWithWhite:0.305f alpha:0.0f]; // closest I could get by eye to black, translucent style.
     //    tools.tintColor = [UIColor blueColor];
     //    tools.backgroundColor = [UIColor redColor];
     // anyone know how to get it perfect?
-    toolbar.barStyle = -1; // clear background
+//    toolbar.barStyle = -1; // clear background
     
     
     UIBarButtonItem *barButtonItem = nil;
     
     // create an array for the buttons
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:3];
-    CGFloat size = 30.0f;
+    CGFloat size = 40.0f;
     
     /* back 버튼 */
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0.0f, 0.0f, size, size);
+    backButton.frame = CGRectMake(0.0f, 5.0f, size, size);
     [backButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    [buttons addObject:barButtonItem];
+
+    [toolbar addSubview:backButton];
+//    [buttons addObject:barButtonItem];
     
     
     /* 홈 버튼 */
     UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    homeButton.frame = CGRectMake(0.0f, 0.0f, size, size);
+    homeButton.frame = CGRectMake(40.0f, 5.0f, size, size);
     [homeButton setImage:[UIImage imageNamed:@"btn_home"] forState:UIControlStateNormal];
     [homeButton addTarget:self action:@selector(onHomeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:homeButton];
     
+    [toolbar addSubview:homeButton];
     [buttons addObject:barButtonItem];
     
     
     /* 검색 버튼 */
     UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    searchButton.frame = CGRectMake(0.0f, 0.0f, size, size);
+    searchButton.frame = CGRectMake(80.0f, 5.0f, size, size);
     [searchButton setImage:[UIImage imageNamed:@"btn_filter"] forState:UIControlStateNormal];
     [searchButton addTarget:self action:@selector(onSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
     
+    [toolbar addSubview:searchButton];
     [buttons addObject:barButtonItem];
     
     
     // Add buttons to toolbar and toolbar to nav bar.
-    [toolbar setItems:buttons animated:NO];
+//    [toolbar setItems:buttons animated:NO];
     
+//    return [[UIBarButtonItem alloc] initWithCustomView:tools];
     return [[UIBarButtonItem alloc] initWithCustomView:toolbar];
 }
 
