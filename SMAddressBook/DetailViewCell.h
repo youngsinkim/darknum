@@ -12,5 +12,6 @@
 
 @property (assign, nonatomic) MemberType memType;
 @property (strong, nonatomic) NSDictionary *cellInfo;
+@property (strong, nonatomic) UIImageView *profileImage;
 
 @end

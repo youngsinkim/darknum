@@ -9,6 +9,7 @@
 #import "StudentAddressViewController.h"
 #import "StudentAddressCell.h"
 
+#import "DetailViewController.h"
 #import "StudentDetailViewController.h"
 #import "Course.h"
 #import "Student.h"
@@ -285,7 +286,10 @@
     self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
 //    Student *student = _students[indexPath.row];
     
-    StudentDetailViewController *viewController = [[StudentDetailViewController alloc] initWithInfo:[_students mutableCopy]];
+//    StudentDetailViewController *viewController = [[StudentDetailViewController alloc] initWithInfo:[_students mutableCopy]];
+    DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
+    viewController.contacts = [_students mutableCopy];
+    
     [self.navigationController pushViewController:viewController animated:YES];
 
 //    NSDictionary *majorInfo = [_students[indexPath.row] mutableCopy];

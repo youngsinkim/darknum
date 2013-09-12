@@ -114,6 +114,11 @@
 		BF3B467C17C84FF50069AA9A /* input_text_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3B467A17C84FF50069AA9A /* input_text_border@2x.png */; };
 		BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467E17C86E680069AA9A /* LoadingView.m */; };
 		BF3B468A17C8DE660069AA9A /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B468917C8DE660069AA9A /* TermsViewController.m */; };
+		BF3E747617E21001006AAF8D /* DetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3E747517E21001006AAF8D /* DetailToolView.m */; };
+		BF3E747917E217F2006AAF8D /* recommend_icon_adress.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3E747717E217F2006AAF8D /* recommend_icon_adress.png */; };
+		BF3E747A17E217F2006AAF8D /* recommend_icon_adress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3E747817E217F2006AAF8D /* recommend_icon_adress@2x.png */; };
+		BF3E747C17E21F0D006AAF8D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */; };
+		BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
 		BF57B2CE17CCE28400B39C03 /* btn_back.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2C817CCE28400B39C03 /* btn_back.png */; };
 		BF57B2CF17CCE28400B39C03 /* btn_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2C917CCE28400B39C03 /* btn_back@2x.png */; };
 		BF57B2D017CCE28400B39C03 /* btn_filter.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CA17CCE28400B39C03 /* btn_filter.png */; };
@@ -304,6 +309,12 @@
 		BF3B467E17C86E680069AA9A /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		BF3B468817C8DE660069AA9A /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		BF3B468917C8DE660069AA9A /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
+		BF3E747417E21001006AAF8D /* DetailToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailToolView.h; sourceTree = "<group>"; };
+		BF3E747517E21001006AAF8D /* DetailToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailToolView.m; sourceTree = "<group>"; };
+		BF3E747717E217F2006AAF8D /* recommend_icon_adress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recommend_icon_adress.png; sourceTree = "<group>"; };
+		BF3E747817E217F2006AAF8D /* recommend_icon_adress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recommend_icon_adress@2x.png"; sourceTree = "<group>"; };
+		BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		BF3E747D17E2223F006AAF8D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		BF57B2C817CCE28400B39C03 /* btn_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back.png; sourceTree = "<group>"; };
 		BF57B2C917CCE28400B39C03 /* btn_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back@2x.png"; sourceTree = "<group>"; };
 		BF57B2CA17CCE28400B39C03 /* btn_filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_filter.png; sourceTree = "<group>"; };
@@ -396,6 +407,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */,
+				BF3E747C17E21F0D006AAF8D /* AddressBookUI.framework in Frameworks */,
 				50C4A2D617D87BD9006DEC43 /* CoreTelephony.framework in Frameworks */,
 				5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */,
 				5062B61B17C4C10400A2495D /* Foundation.framework in Frameworks */,
@@ -449,6 +462,8 @@
 		5062B61717C4C10400A2495D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF3E747D17E2223F006AAF8D /* AddressBook.framework */,
+				BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */,
 				5062B61817C4C10400A2495D /* UIKit.framework */,
 				5062B61A17C4C10400A2495D /* Foundation.framework */,
 				5062B61C17C4C10400A2495D /* CoreGraphics.framework */,
@@ -561,6 +576,8 @@
 		5062B65317C4D72F00A2495D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				BF3E747717E217F2006AAF8D /* recommend_icon_adress.png */,
+				BF3E747817E217F2006AAF8D /* recommend_icon_adress@2x.png */,
 				BF57B3AE17DC387800B39C03 /* join_agreebox_ch.png */,
 				BF57B3AF17DC387800B39C03 /* join_agreebox_ch@2x.png */,
 				BF57B3B017DC387800B39C03 /* join_agreebox.png */,
@@ -695,6 +712,8 @@
 				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
+				BF3E747417E21001006AAF8D /* DetailToolView.h */,
+				BF3E747517E21001006AAF8D /* DetailToolView.m */,
 				BF57B3B617DCD09E00B39C03 /* DetailViewCell.h */,
 				BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */,
 				BF57B35217D38E8200B39C03 /* AddressCell.h */,
@@ -970,6 +989,7 @@
 				5062B6C717C4D72F00A2495D /* profile_iconbtn_3@2x.png in Resources */,
 				5062B6C817C4D72F00A2495D /* profile_iconbtn_4.png in Resources */,
 				5062B6C917C4D72F00A2495D /* profile_iconbtn_4@2x.png in Resources */,
+				BF3E747917E217F2006AAF8D /* recommend_icon_adress.png in Resources */,
 				5062B6CA17C4D72F00A2495D /* profile_iconbtn_5.png in Resources */,
 				5062B6CB17C4D72F00A2495D /* profile_iconbtn_5@2x.png in Resources */,
 				5062B6CC17C4D72F00A2495D /* profile_iconbtn_6.png in Resources */,
@@ -992,6 +1012,7 @@
 				5062B6DF17C4D72F00A2495D /* white_btn_bg2@2x.png in Resources */,
 				BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */,
 				5052623417C72ACC004C4724 /* http_sample_data in Resources */,
+				BF3E747A17E217F2006AAF8D /* recommend_icon_adress@2x.png in Resources */,
 				BF3B467B17C84FF50069AA9A /* input_text_border.png in Resources */,
 				BF3B467C17C84FF50069AA9A /* input_text_border@2x.png in Resources */,
 				BF177E8F17CA1FA000614485 /* menu_img.png in Resources */,
@@ -1068,6 +1089,7 @@
 				5062B64617C4CC2700A2495D /* BaseViewController.m in Sources */,
 				5062B64A17C4CCEE00A2495D /* PortraitNavigationController.m in Sources */,
 				5062B64E17C4CDDC00A2495D /* UserContext.m in Sources */,
+				BF3E747617E21001006AAF8D /* DetailToolView.m in Sources */,
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,

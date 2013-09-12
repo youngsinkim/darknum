@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewCell.h"
+#import <UIImageView+AFNetworking.h>
 
 @interface DetailViewCell ()
 
@@ -36,6 +37,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.backgroundColor = [UIColor greenColor];
+        
+        _profileImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_profileImage setImage:[UIImage imageNamed:@"placeholder"]];
+        
+        [self addSubview:_profileImage];
+        
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_nameLabel setBackgroundColor:[UIColor clearColor]];
@@ -183,7 +191,7 @@
         int tag = 500;
         for (int idx = 0; idx < 5; idx++)
         {
-            UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 200 + (idx * 22.0f), 280.0f, 1.0f)];
+            UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, 200 + (idx * 24.0f), 280.0f, 1.0f)];
             line.tag = (tag + idx);
             line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:1.0f];
             
@@ -214,6 +222,31 @@
     _cellInfo = cellInfo;
     NSLog(@"셀 정보: %@", _cellInfo);
     
+    if (_memType == MemberTypeFaculty)
+    {
+        
+    }
+    else if (_memType == MemberTypeStaff)
+    {
+        
+    }
+    else if (_memType == MemberTypeStudent)
+    {
+        if (_cellInfo[@"photourl"]) {
+            NSLog(@"프로필 이미지 : http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]);
+            [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]]]
+                          placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        }
+        
+        if (_cellInfo[@"name"]) {
+            _nameValueLabel.text = _cellInfo[@"name"];
+        }
+        
+        if (_cellInfo[@"email"]) {
+            _emailLabel.text = _cellInfo[@"email"];
+        }
+    }
+    
     [self layoutSubviews];
 }
 
@@ -223,29 +256,21 @@
 
     // 멤버 타입별로 셀 내용 다르게 노출
     CGFloat yOffset = 200.0f;
-    int tag = 500;
-    CGFloat yy = yOffset;// 100.0f + (20.0f * idx);
+//    int tag = 500;
+//    CGFloat yy = yOffset;// 100.0f + (20.0f * idx);
     
     if (_memType == MemberTypeFaculty)
     {
-        for (int idx = 0; idx < 5; idx++)
-        {
-            UILabel *line = (UILabel *)[self viewWithTag:tag];
-                yy += 30.0f;
-                NSLog(@"yy = %f", yy);
-                line.frame = CGRectMake(20.0f, yOffset + (idx * 24.0f) , 280.0f, 1.0f);
-        }
-        
         _nameLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 23.0f;
+        yOffset += 24.0f;
         _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 23.0f;
+        yOffset += 24.0f;
         _telLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 23.0f;
+        yOffset += 24.0f;
         _mobileLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 23.0f;
+        yOffset += 24.0f;
         _emailLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 23.0f;
+        yOffset += 24.0f;
         _officeLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
         
     }
@@ -255,7 +280,19 @@
     }
     else if (_memType == MemberTypeStudent)
     {
-        
+        _profileImage.frame = CGRectMake(0.0f, 50.0f, 320.0f, 150.0f);
+        _nameLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+        _nameValueLabel.frame = CGRectMake(100.0f, yOffset, 80.0f, 20.0f);
+        yOffset += 23.0f;
+//        _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+//        yOffset += 23.0f;
+//        _telLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+//        yOffset += 23.0f;
+//        _mobileLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+//        yOffset += 23.0f;
+//        _emailLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+//        yOffset += 23.0f;
+//        _officeLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
     }
 }
 @end

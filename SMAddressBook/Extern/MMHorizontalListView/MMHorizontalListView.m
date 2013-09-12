@@ -108,6 +108,7 @@
         
         CGFloat cellWidth = [self.dataSource MMHorizontalListView:self widthForCellAtIndex:i];
 
+        NSLog(@"셀 생성 높이-1 : %f", self.frame.size.height);
         CGRect cellDestinationFrame = CGRectMake(contentWidth, 0.0, cellWidth, self.frame.size.height);
 
         contentWidth += cellWidth;
@@ -116,6 +117,7 @@
         [_cellFrames addObject:NSStringFromCGRect(cellDestinationFrame)];
     }
     
+    NSLog(@"셀 생성 높이-2 : %f", self.frame.size.height);
     self.contentSize = CGSizeMake(contentWidth, self.frame.size.height);
     
     // add the visible cells

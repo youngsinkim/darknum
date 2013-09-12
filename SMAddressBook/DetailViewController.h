@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "MMHorizontalListView.h"
+#import "DetailToolView.h"
 
-@interface DetailViewController : UIViewController <MMHorizontalListViewDataSource, MMHorizontalListViewDelegate>
+@interface DetailViewController : BaseViewController <MMHorizontalListViewDataSource, MMHorizontalListViewDelegate, DetailToolViewDelegate, ABNewPersonViewControllerDelegate, ABPersonViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *contacts;         //< 주소록 목록
 
