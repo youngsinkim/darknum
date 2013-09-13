@@ -165,7 +165,7 @@
     else if (_memType == MemberTypeStudent)
     {
         Student *mo = _contacts[_currentIdx];
-        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo);
+        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
 
         // ( NSDictionary <- NSManagedObject )
         NSArray *keys = [[[mo entity] attributesByName] allKeys];
@@ -199,7 +199,7 @@
     if (_memType == MemberTypeStudent)
     {
         Student *mo = _contacts[_currentIdx];
-        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo);
+        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
         
         // ( NSDictionary <- NSManagedObject )
         NSArray *keys = [[[mo entity] attributesByName] allKeys];
@@ -223,12 +223,13 @@
         CFErrorRef error = NULL;
         
         // Add Person Image
-
+        DetailViewCell *cell = (DetailViewCell *)[self MMHorizontalListView:_horListView cellAtIndex:_currentIdx];
+        _horListView
 //        UIImage *image = [UIImage imageNamed:@"icon.png"];
 //        NSData *dataRef=UIImagePNGRepresentation(image);
 //        CFDataRef dr = CFDataCreate(NULL, [data bytes], [data length]);
-//        NSData *dataRef = UIImagePNGRepresentation(personImageView.image);
-//        ABPersonSetImageData(newPerson, (CFDataRef)dataRef, nil);
+        NSData *dataRef = UIImagePNGRepresentation(cell.profileImage.image);
+        ABPersonSetImageData(newPerson, (__bridge CFDataRef)dataRef, nil);
         
         // Setting basic properties
         ABRecordSetValue(newPerson, kABPersonFirstNameProperty,  (__bridge CFStringRef)info[@"name"], &error);
@@ -304,7 +305,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     if (_memType == MemberTypeStudent)
     {
         Student *mo = _contacts[_currentIdx];
-        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo);
+        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
         
         // ( NSDictionary <- NSManagedObject )
         NSArray *keys = [[[mo entity] attributesByName] allKeys];
@@ -448,8 +449,8 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)newPersonViewController:(ABNewPersonViewController *)newPersonView didCompleteWithNewPerson:(ABRecordRef)person
 {
-    [[self navigationController] popViewControllerAnimated:YES];
     [newPersonView dismissModalViewControllerAnimated:YES];
+//    [[self navigationController] popViewControllerAnimated:YES];
 }
 
 #pragma mark - MMHorizontalListViewDatasource methods
@@ -509,6 +510,10 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
             
             cell.memType = MemberTypeStudent;
             [(DetailViewCell *)cell setCellInfo:info];
+            
+            UIImage *image = [cell.profileImage image];
+            NSLog(@"상세정보 셀 : (%d), %@", index, info[@"name_en"]);
+//            NSLog(@"상세정보 이미지 : %@", image);
         }
         
     }
@@ -528,6 +533,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 {
     //do something when a cell is selected
     NSLog(@"selected cell %d", index);
+//    _currentIdx = index;
 
 }
 
@@ -535,6 +541,8 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 {
     // do something when a cell is deselected
     NSLog(@"deselected cell %d", index);
+//    _currentIdx = index;
+
 }
 
 
