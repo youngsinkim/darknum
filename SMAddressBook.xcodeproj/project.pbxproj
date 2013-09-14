@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5014294517E4034D00BA231B /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294417E4034D00BA231B /* EasyTableView.m */; };
+		5014294817E4159900BA231B /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294717E4159900BA231B /* DetailView.m */; };
+		5014294B17E4289900BA231B /* DetailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294A17E4289900BA231B /* DetailInfoViewController.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
 		5062B61B17C4C10400A2495D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
@@ -175,6 +178,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5014294317E4034D00BA231B /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
+		5014294417E4034D00BA231B /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
+		5014294617E4159900BA231B /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
+		5014294717E4159900BA231B /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
+		5014294917E4289900BA231B /* DetailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoViewController.h; sourceTree = "<group>"; };
+		5014294A17E4289900BA231B /* DetailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailInfoViewController.m; sourceTree = "<group>"; };
 		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
 		5062B61517C4C10400A2495D /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5062B61817C4C10400A2495D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -421,6 +430,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5014294217E4034D00BA231B /* EasyTableView */ = {
+			isa = PBXGroup;
+			children = (
+				5014294317E4034D00BA231B /* EasyTableView.h */,
+				5014294417E4034D00BA231B /* EasyTableView.m */,
+			);
+			path = EasyTableView;
+			sourceTree = "<group>";
+		};
 		5052624717C7580F004C4724 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,10 +730,14 @@
 				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
+				5014294917E4289900BA231B /* DetailInfoViewController.h */,
+				5014294A17E4289900BA231B /* DetailInfoViewController.m */,
 				BF3E747417E21001006AAF8D /* DetailToolView.h */,
 				BF3E747517E21001006AAF8D /* DetailToolView.m */,
 				BF57B3B617DCD09E00B39C03 /* DetailViewCell.h */,
 				BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */,
+				5014294617E4159900BA231B /* DetailView.h */,
+				5014294717E4159900BA231B /* DetailView.m */,
 				BF57B35217D38E8200B39C03 /* AddressCell.h */,
 				BF57B35317D38E8200B39C03 /* AddressCell.m */,
 				BF57B32F17D2ED6100B39C03 /* 교수진 주소록 */,
@@ -784,6 +806,7 @@
 		BF57B30717D1CC3C00B39C03 /* Extern (외부 모듈) */ = {
 			isa = PBXGroup;
 			children = (
+				5014294217E4034D00BA231B /* EasyTableView */,
 				BF57B30817D1CC3D00B39C03 /* MMHorizontalListView */,
 				BF57B30D17D1CC3D00B39C03 /* TSLanguageManager */,
 			);
@@ -1084,6 +1107,7 @@
 			files = (
 				5062B62717C4C10400A2495D /* main.m in Sources */,
 				5062B62B17C4C10400A2495D /* AppDelegate.m in Sources */,
+				5014294517E4034D00BA231B /* EasyTableView.m in Sources */,
 				5062B63417C4C10400A2495D /* SMAddressBook.xcdatamodeld in Sources */,
 				5062B64317C4CC0400A2495D /* MenuTableViewController.m in Sources */,
 				5062B64617C4CC2700A2495D /* BaseViewController.m in Sources */,
@@ -1098,6 +1122,7 @@
 				BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */,
 				BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */,
 				BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */,
+				5014294B17E4289900BA231B /* DetailInfoViewController.m in Sources */,
 				BF177E8817C9BBFF00614485 /* CourseClassViewController.m in Sources */,
 				BF177E8C17C9BC3D00614485 /* CourseTotalViewController.m in Sources */,
 				BF177E9717CA277C00614485 /* MenuCell.m in Sources */,
@@ -1124,6 +1149,7 @@
 				BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */,
 				BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */,
 				BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */,
+				5014294817E4159900BA231B /* DetailView.m in Sources */,
 				BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */,
 				BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */,
 				BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */,

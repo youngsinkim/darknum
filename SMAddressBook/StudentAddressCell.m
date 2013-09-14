@@ -26,7 +26,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+        self.backgroundColor = [UIColor whiteColor];
 //        self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
         
         // 프로필 사진
@@ -61,7 +61,7 @@
         [self.contentView addSubview:fixLabel1];
         
         
-        _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 54.0f, 145.0f, 14.0f)];
+        _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 38.0f, 145.0f, 14.0f)];
         _mobileLabel.textColor = [UIColor lightGrayColor];
         [_mobileLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
@@ -76,7 +76,7 @@
         [self.contentView addSubview:fixLabel2];
         
         
-        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 51.0f, 145.0f, 14.0f)];
+        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 54.0f, 145.0f, 14.0f)];
         _emailLabel.textColor = [UIColor lightGrayColor];
         [_emailLabel setFont:[UIFont systemFontOfSize:12.0f]];
         

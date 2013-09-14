@@ -10,6 +10,7 @@
 #import "StudentAddressCell.h"
 
 #import "DetailViewController.h"
+#import "DetailInfoViewController.h"
 #import "StudentDetailViewController.h"
 #import "Course.h"
 #import "Student.h"
@@ -288,7 +289,9 @@
     
 //    StudentDetailViewController *viewController = [[StudentDetailViewController alloc] initWithInfo:[_students mutableCopy]];
     DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
+//    DetailInfoViewController *viewController = [[DetailInfoViewController alloc] initWithType:MemberTypeStudent];
     viewController.contacts = [_students mutableCopy];
+    viewController.currentIdx = indexPath.row;
     
     [self.navigationController pushViewController:viewController animated:YES];
 

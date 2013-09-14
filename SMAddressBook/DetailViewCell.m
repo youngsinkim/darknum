@@ -11,22 +11,7 @@
 
 @interface DetailViewCell ()
 
-@property (strong, nonatomic) UILabel *nameLabel;
-@property (strong, nonatomic) UILabel *nameValueLabel;
-@property (strong, nonatomic) UILabel *classLabel;
-@property (strong, nonatomic) UILabel *classValueLabel;
-@property (strong, nonatomic) UILabel *majorLabel;
-@property (strong, nonatomic) UILabel *majorValueLabel;
-@property (strong, nonatomic) UILabel *telLabel;
-@property (strong, nonatomic) UILabel *telValueLabel;
-@property (strong, nonatomic) UILabel *mobileLabel;
-@property (strong, nonatomic) UILabel *mobileValueLabel;
-@property (strong, nonatomic) UILabel *emailLabel;
-@property (strong, nonatomic) UILabel *emailValueLabel;
-@property (strong, nonatomic) UILabel *officeLabel;
-@property (strong, nonatomic) UILabel *officeValueLabel;
-@property (strong, nonatomic) UILabel *companyLabel;
-@property (strong, nonatomic) UILabel *companyValueLabel;
+
 
 @end
 
@@ -37,7 +22,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor blueColor];
         
         _profileImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_profileImage setImage:[UIImage imageNamed:@"placeholder"]];
@@ -59,6 +44,11 @@
         [_nameValueLabel setBackgroundColor:[UIColor clearColor]];
         [_nameValueLabel setTextColor:[UIColor grayColor]];
         [_nameValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
+//        _nameValueLabel.clipsToBounds = YES;
+//        _nameValueLabel.opaque = YES;
+//        _nameValueLabel.layer.masksToBounds = NO;
+//        _nameValueLabel.layer.opaque = YES;
+
         
         [self addSubview:_nameValueLabel];
 
@@ -220,8 +210,10 @@
 - (void)setCellInfo:(NSDictionary *)cellInfo
 {
     _cellInfo = cellInfo;
-    NSLog(@"셀 정보: %@", _cellInfo);
-    
+    NSLog(@"셀 정보: %@", _cellInfo[@"name_en"]);
+ 
+    [self layoutSubviews];
+
     if (_memType == MemberTypeFaculty)
     {
         
@@ -247,7 +239,6 @@
         }
     }
     
-    [self layoutSubviews];
 }
 
 - (void)layoutSubviews

@@ -12,7 +12,7 @@
 #import "Faculty.h"
 #import "Staff.h"
 #import "Student.h"
-
+#import "DetailView.h"
 
 #define kDetailViewH    60.0f
 
@@ -20,9 +20,10 @@
 
 @property (strong, nonatomic) UIView *bgView;
 @property (strong, nonatomic) DetailToolView *toolbar;
-@property (strong, nonatomic) UITableView *contactTableView;
-@property (strong, nonatomic) MMHorizontalListView *horListView;    //< 세로 주소록 테이블 뷰
-@property (assign) NSInteger currentIdx;
+//@property (strong, nonatomic) UITableView *contactTableView;
+//@property (strong, nonatomic) MMHorizontalListView *horListView;    //< 세로 주소록 테이블 뷰
+@property (strong, nonatomic) EasyTableView *horListView;
+@property (strong, nonatomic) UIPageControl *pageControl;
 @property (assign) MemberType memType;
 @property (strong, nonatomic) UIImage *photo;
 
@@ -47,10 +48,15 @@
     self = [super init];
     if (self) {
         // Custom initialization
+//        if (!IS_LESS_THEN_IOS7) {
+//            self.edgesForExtendedLayout = UIRectEdgeNone;
+//        }
         self.view.backgroundColor = [UIColor whiteColor];
 
         _memType = type;
         _currentIdx = -1;
+//        _contacts = [[NSMutableArray alloc] initWithArray:items];
+        _contacts = [[NSMutableArray alloc] init];
     }
     return self;
     
@@ -60,14 +66,39 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor lightGrayColor];
-    if (!IS_LESS_THEN_IOS7) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//    self.navigationController.navigationBar.opaque = NO;
     
-    // 세로 테이블 뷰
-    [self setupContactTableView];
+    CGFloat height = self.view.frame.size.height - kDetailViewH;
+    NSLog(@"sub 뷰 생성 높이 : %f", height);
 
+//    // 배경 뷰
+//    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
+//    _bgView.backgroundColor = [UIColor greenColor];
+//
+//    [self.view addSubview:_bgView];
+
+
+    // 하단 툴바 뷰
+    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH)];
+    _toolbar.delegate = self;
+    
+    [self.view addSubview:_toolbar];
+    
+
+    // 세로 테이블 뷰
+    [self setupHorizontalView];
+//    [self setupContactTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+//    if ([_contacts count] > 0)
+    {
+        [_horListView reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,6 +107,44 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setupHorizontalView
+{
+    CGFloat yOffset = 0.0f;
+    CGFloat height = self.view.frame.size.height - 44.0f - kDetailViewH;
+    NSLog(@"테이블 뷰 높이 : %f", height);
+    
+    if (!IS_LESS_THEN_IOS7) {
+        yOffset = 44.0f;
+    }
+    
+//    CGRect frameRect	= CGRectMake(0, LANDSCAPE_HEIGHT - HORIZONTAL_TABLEVIEW_HEIGHT, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
+    CGRect frameRect = CGRectMake(0.0f, yOffset, 320.0f, height);
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:1 ofWidth:320];
+    
+	self.horListView = view;
+	
+	self.horListView.delegate					= self;
+	self.horListView.tableView.backgroundColor	= [UIColor whiteColor]; // 테이블 뷰 배경
+	self.horListView.tableView.allowsSelection	= NO;
+    self.horListView.tableView.separatorStyle   = UITableViewCellSeparatorStyleNone;
+//	self.horListView.tableView.separatorColor	= [UIColor darkGrayColor];
+	self.horListView.cellBackgroundColor		= [UIColor whiteColor];// [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
+	self.horListView.autoresizingMask			=  UIViewAutoresizingFlexibleTopMargin;
+    
+    self.horListView.tableView.pagingEnabled    = YES;
+	
+	[self.view addSubview:self.horListView];
+    
+    
+    //pageControl에 필요한 옵션을 적용한다.
+    _pageControl.currentPage = 0;         //현재 페이지 index는 0
+    _pageControl.numberOfPages = 3;        //페이지 갯수는 3개
+    [_pageControl addTarget:self action:@selector(pageChangeValue:) forControlEvents:UIControlEventValueChanged]; //페이지 컨트롤 값변경시 이벤트 처리 등록
+    
+    [self.view addSubview:_pageControl];
+}
+
+#if 0
 /// 주소록 테이블 뷰
 - (void)setupContactTableView
 {
@@ -86,7 +155,7 @@
     //
     //    [parentView addSubview:_contactTableView];
     
-    CGFloat height = self.view.frame.size.height - 64.0f - kDetailViewH;
+    CGFloat height = self.view.frame.size.height - 44.0f - kDetailViewH;
     NSLog(@"sub 뷰 생성 높이 : %f", height);
     
     // 툴바 뷰
@@ -134,21 +203,34 @@
     //    [label setFrame:_horListView.frame];
     //    [_horListView addSubview:label];
 }
+#endif
 
 - (void)setContacts:(NSMutableArray *)contacts
 {
     _contacts = contacts;
     
+//    _pageControl.currentPage = 0;                       //현재 페이지 index는 0
+//    _pageControl.numberOfPages = [_contacts count];     //페이지 갯수는 3개
+
     [self.horListView reloadData];
     
     // 해당 셀로 이동.
-    [self.horListView scrollToIndex:3 animated:YES];
+//    [self.horListView scrollToIndex:3 animated:YES];
 
+}
+
+- (void)setCurrentIdx:(NSInteger)currentIdx
+{
+    _currentIdx = currentIdx;
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_currentIdx inSection:0];
+    [_horListView selectCellAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - Callback 
 - (void)didSelectedToolTag:(NSNumber *)type
 {
+    
     if (_memType == MemberTypeFaculty)
     {
         switch ([type intValue])
@@ -212,7 +294,7 @@
     
     // Search for the person in the address book
 //    CFArrayRef persons = ABAddressBookCopyPeopleWithName(ab, (__bridge CFStringRef)fn);
-    NSArray *people = (NSArray *)CFBridgingRelease(ABAddressBookCopyPeopleWithName(ab, CFSTR("Appleseed")));
+    NSArray *people = (NSArray *)CFBridgingRelease(ABAddressBookCopyPeopleWithName(ab, (__bridge CFStringRef)fn));
     
     
     // Display message if person not found in the address book
@@ -223,12 +305,16 @@
         CFErrorRef error = NULL;
         
         // Add Person Image
-        DetailViewCell *cell = (DetailViewCell *)[self MMHorizontalListView:_horListView cellAtIndex:_currentIdx];
-        _horListView
+//        DetailViewCell *cell = (DetailViewCell *)[self MMHorizontalListView:_horListView cellAtIndex:_currentIdx];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_currentIdx inSection:0];
+        UITableViewCell *cell = [_horListView.tableView cellForRowAtIndexPath:indexPath];
+        DetailViewCell *detailCell = (DetailViewCell *)[cell viewWithTag:CELL_CONTENT_TAG];
+        
+
 //        UIImage *image = [UIImage imageNamed:@"icon.png"];
 //        NSData *dataRef=UIImagePNGRepresentation(image);
 //        CFDataRef dr = CFDataCreate(NULL, [data bytes], [data length]);
-        NSData *dataRef = UIImagePNGRepresentation(cell.profileImage.image);
+        NSData *dataRef = UIImagePNGRepresentation(detailCell.profileImage.image);
         ABPersonSetImageData(newPerson, (__bridge CFDataRef)dataRef, nil);
         
         // Setting basic properties
@@ -266,6 +352,7 @@
 
         UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:picker];
         [self presentViewController:navigation animated:YES completion:nil];
+        
     }
     else
     {
@@ -275,6 +362,7 @@
 		picker.displayedPerson = person;
 		// Allow users to edit the person’s information
 		picker.allowsEditing = YES;
+
         [self.navigationController pushViewController:picker animated:YES];
 
     }
@@ -477,7 +565,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         NSLog(@"셀 생성 높이 : %f", height);
         
         cell = [[DetailViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
-        cell.reusableIdentifier = @"test";  // assign the cell identifier for reusability
+//        cell.reusableIdentifier = @"test";  // assign the cell identifier for reusability
     }
 
     [cell setBackgroundColor:[UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:0.5]];
@@ -543,6 +631,130 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     NSLog(@"deselected cell %d", index);
 //    _currentIdx = index;
 
+}
+
+
+
+#pragma mark - EasyTableViewDelegate
+
+// These delegate methods support both example views - first delegate method creates the necessary views
+- (UIView *)easyTableView:(EasyTableView *)easyTableView viewForRect:(CGRect)rect
+{
+    CGFloat yOffset = 0;
+    if (!IS_LESS_THEN_IOS7) {
+        yOffset = 20.0f;
+    }
+    DetailViewCell *cellView = [[DetailViewCell alloc] initWithFrame:CGRectMake(0, yOffset, rect.size.width, rect.size.height-yOffset)];
+    return cellView;
+    
+    
+	CGRect labelRect		= CGRectMake(10, 10, rect.size.width-20, rect.size.height-20);
+	UILabel *label			= [[UILabel alloc] initWithFrame:labelRect];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
+	label.textAlignment		= UITextAlignmentCenter;
+#else
+	label.textAlignment		= NSTextAlignmentCenter;
+#endif
+	label.textColor			= [UIColor whiteColor];
+	label.font				= [UIFont boldSystemFontOfSize:60];
+	
+	// Use a different color for the two different examples
+    label.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
+	
+//	UIImageView *borderView		= [[UIImageView alloc] initWithFrame:label.bounds];
+//	borderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//	borderView.tag				= BORDER_VIEW_TAG;
+//	
+//	[label addSubview:borderView];
+    
+	return label;
+}
+
+
+// Second delegate populates the views with data from a data source
+
+- (void)easyTableView:(EasyTableView *)easyTableView setDataForView:(UIView *)view forIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"셀 표시 : %d", indexPath.row);
+    
+    if ([_contacts count] == 0) {
+        return;
+    }
+    
+    DetailViewCell *cell = (DetailViewCell *)view;
+//    UILabel *label = (UILabel *)view;
+//    DetailViewCell *cell = [[DetailViewCell alloc] init];
+//    
+//    [label addSubview:cell];
+//
+    Student *mo = _contacts[indexPath.row];
+    
+    // ( NSDictionary <- NSManagedObject )
+    NSArray *keys = [[[mo entity] attributesByName] allKeys];
+    NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+
+    [(DetailViewCell *)cell setMemType:MemberTypeStudent];
+    [(DetailViewCell *)cell setCellInfo:info];
+    
+//	UILabel *label	= (UILabel *)view;
+//	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
+	
+	// selectedIndexPath can be nil so we need to test for that condition
+//	BOOL isSelected = (easyTableView.selectedIndexPath) ? ([easyTableView.selectedIndexPath compare:indexPath] == NSOrderedSame) : NO;
+//	[self borderIsSelected:isSelected forView:view];
+}
+
+// Optional delegate to track the selection of a particular cell
+
+- (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView
+{
+    NSLog(@"셀 : (%d)", indexPath.row);
+//	[self borderIsSelected:YES forView:selectedView];
+//	
+//	if (deselectedView)
+//		[self borderIsSelected:NO forView:deselectedView];
+	
+//	UILabel *label	= (UILabel *)selectedView;
+//	bigLabel.text	= label.text;
+}
+
+- (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset
+{
+    NSLog(@"셀(스크롤) 정보 : (%f, %f)", contentOffset.x, contentOffset.y);
+    if ([_contacts count] > 0)
+    {
+        NSInteger index = (NSInteger)contentOffset.x / 320;
+        if (index < [_contacts count]) {
+            _currentIdx = index;
+        }
+    }
+}
+
+- (void)easyTableView:(EasyTableView *)easyTableView scrolledToFraction:(CGFloat)fraction
+{
+    NSLog(@"셀(scroll) 정보 : (%f)", fraction);
+}
+
+#pragma mark - EasyTableView delegate methods
+
+// Delivers the number of cells in each section, this must be implemented if numberOfSectionsInEasyTableView is implemented
+-(NSUInteger)numberOfCellsForEasyTableView:(EasyTableView *)view inSection:(NSInteger)section
+{
+    NSInteger count = ([_contacts count] > 0)? [_contacts count] : 1;
+    return count;
+}
+
+//페이지 컨트롤 값이 변경될때, 스크롤뷰 위치 설정
+- (void) pageChangeValue:(id)sender {
+    UIPageControl *pControl = (UIPageControl *) sender;
+//    [scrollView setContentOffset:CGPointMake(pControl.currentPage*320, 0) animated:YES];
+}
+
+//스크롤이 변경될때 page의 currentPage 설정
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+    UIScrollView *scrollView = sender;
+    CGFloat pageWidth = scrollView.frame.size.width;
+    _pageControl.currentPage = floor((scrollView.contentOffset.x - pageWidth / 3) / pageWidth) + 1;
 }
 
 

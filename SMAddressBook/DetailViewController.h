@@ -11,10 +11,12 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "MMHorizontalListView.h"
 #import "DetailToolView.h"
+#import "EasyTableView.h"
 
-@interface DetailViewController : BaseViewController <MMHorizontalListViewDataSource, MMHorizontalListViewDelegate, DetailToolViewDelegate, ABNewPersonViewControllerDelegate, ABPersonViewControllerDelegate>
+@interface DetailViewController : UIViewController <EasyTableViewDelegate, UITableViewDataSource, UITableViewDelegate, MMHorizontalListViewDataSource, MMHorizontalListViewDelegate, DetailToolViewDelegate, ABNewPersonViewControllerDelegate, ABPersonViewControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *contacts;         //< 주소록 목록
+@property (assign, nonatomic) NSInteger currentIdx;
 
 - (id)initWithType:(MemberType)type;
 
