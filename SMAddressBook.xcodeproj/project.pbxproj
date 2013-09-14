@@ -174,6 +174,7 @@
 		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
 		BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
+		BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -409,6 +410,8 @@
 		BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCell.m; sourceTree = "<group>"; };
 		BFCA0C4417E4BD4600E750E7 /* ToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolView.h; sourceTree = "<group>"; };
 		BFCA0C4517E4BD4600E750E7 /* ToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolView.m; sourceTree = "<group>"; };
+		BFCA0C4717E4DEFF00E750E7 /* NSString+UrlEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UrlEncoding.h"; sourceTree = "<group>"; };
+		BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UrlEncoding.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -790,6 +793,8 @@
 				BF57B30417D1CC2D00B39C03 /* UIView+Shadow.m */,
 				BF57B31317D1CE3B00B39C03 /* UIViewController+LoadingProgress.h */,
 				BF57B31417D1CE3B00B39C03 /* UIViewController+LoadingProgress.m */,
+				BFCA0C4717E4DEFF00E750E7 /* NSString+UrlEncoding.h */,
+				BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1103,6 +1108,7 @@
 				5062B64317C4CC0400A2495D /* MenuTableViewController.m in Sources */,
 				5062B64617C4CC2700A2495D /* BaseViewController.m in Sources */,
 				5062B64A17C4CCEE00A2495D /* PortraitNavigationController.m in Sources */,
+				BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */,
 				5062B64E17C4CDDC00A2495D /* UserContext.m in Sources */,
 				BF3E747617E21001006AAF8D /* DetailToolView.m in Sources */,
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,

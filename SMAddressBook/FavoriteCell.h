@@ -12,7 +12,7 @@
 @interface FavoriteCell : UITableViewCell
 
 @property (strong, nonatomic) UIImageView *photoImageView;
-@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) NSString *title;
 @property (assign, nonatomic) NSInteger count;
 
 - (void)setMemType:(NSInteger)type WidhCount:(NSInteger)count;

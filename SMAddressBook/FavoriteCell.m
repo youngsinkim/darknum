@@ -9,9 +9,11 @@
 #import "FavoriteCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import <UIImageView+AFNetworking.h>
+#import "NSString+UrlEncoding.h"
 
 @interface FavoriteCell ()
 
+@property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *countLabel;
 
 @end
@@ -36,7 +38,7 @@
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = [UIColor darkGrayColor];
         _titleLabel.font = [UIFont systemFontOfSize:16.0f];
-        _titleLabel.text = @"기수";
+        _titleLabel.text = self.title;
         
         [self.contentView addSubview:_titleLabel];
         
@@ -60,9 +62,9 @@
     // Configure the view for the selected state
 }
 
-- (void)setTitleLabel:(UILabel *)titleLabel
+- (void)setTitle:(NSString *)title
 {
-    _titleLabel.text = titleLabel.text;
+    _titleLabel.text = [title URLDecodedString];
 }
 
 - (void)setMemType:(NSInteger)type WidhCount:(NSInteger)count

@@ -27,6 +27,7 @@
 #import "FavoriteSettingViewController.h"
 #import "CourseTotalViewController.h"
 #import "HelpViewController.h"
+#import "NSString+UrlEncoding.h"
 
 
 @interface FavoriteViewController ()
@@ -1110,8 +1111,9 @@
     
     if ([_favorites count] > 0) {
         Course *course = _favorites[indexPath.row];
-        
-        cell.titleLabel.text = course.title;
+        NSLog(@"즐겨찾기 항목 제목 : %@, %@", course.title, [course.title URLDecodedString]);
+        cell.title = course.title;
+//        cell.titleLabel.text = course.title;
         [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
         //        cell.textLabel.text = course.title;
     }
