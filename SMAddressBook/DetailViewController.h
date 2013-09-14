@@ -11,7 +11,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "MMHorizontalListView.h"
 #import "DetailToolView.h"
-#import "EasyTableView.h"
+#import <EasyTableView.h>
 
 @interface DetailViewController : UIViewController <EasyTableViewDelegate, UITableViewDataSource, UITableViewDelegate, MMHorizontalListViewDataSource, MMHorizontalListViewDelegate, DetailToolViewDelegate, ABNewPersonViewControllerDelegate, ABPersonViewControllerDelegate>
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5014294517E4034D00BA231B /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294417E4034D00BA231B /* EasyTableView.m */; };
 		5014294817E4159900BA231B /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294717E4159900BA231B /* DetailView.m */; };
 		5014294B17E4289900BA231B /* DetailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294A17E4289900BA231B /* DetailInfoViewController.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
@@ -178,8 +177,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5014294317E4034D00BA231B /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
-		5014294417E4034D00BA231B /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
 		5014294617E4159900BA231B /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
 		5014294717E4159900BA231B /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
 		5014294917E4289900BA231B /* DetailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoViewController.h; sourceTree = "<group>"; };
@@ -430,15 +427,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5014294217E4034D00BA231B /* EasyTableView */ = {
-			isa = PBXGroup;
-			children = (
-				5014294317E4034D00BA231B /* EasyTableView.h */,
-				5014294417E4034D00BA231B /* EasyTableView.m */,
-			);
-			path = EasyTableView;
-			sourceTree = "<group>";
-		};
 		5052624717C7580F004C4724 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -806,7 +794,6 @@
 		BF57B30717D1CC3C00B39C03 /* Extern (외부 모듈) */ = {
 			isa = PBXGroup;
 			children = (
-				5014294217E4034D00BA231B /* EasyTableView */,
 				BF57B30817D1CC3D00B39C03 /* MMHorizontalListView */,
 				BF57B30D17D1CC3D00B39C03 /* TSLanguageManager */,
 			);
@@ -1107,7 +1094,6 @@
 			files = (
 				5062B62717C4C10400A2495D /* main.m in Sources */,
 				5062B62B17C4C10400A2495D /* AppDelegate.m in Sources */,
-				5014294517E4034D00BA231B /* EasyTableView.m in Sources */,
 				5062B63417C4C10400A2495D /* SMAddressBook.xcdatamodeld in Sources */,
 				5062B64317C4CC0400A2495D /* MenuTableViewController.m in Sources */,
 				5062B64617C4CC2700A2495D /* BaseViewController.m in Sources */,

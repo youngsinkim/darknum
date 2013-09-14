@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 2
 
+// EasyTableView
+#define COCOAPODS_POD_AVAILABLE_EasyTableView
+#define COCOAPODS_VERSION_MAJOR_EasyTableView 1
+#define COCOAPODS_VERSION_MINOR_EasyTableView 1
+#define COCOAPODS_VERSION_PATCH_EasyTableView 1
+
 // FontAwesome+iOS
 #define COCOAPODS_POD_AVAILABLE_FontAwesome_iOS
 #define COCOAPODS_VERSION_MAJOR_FontAwesome_iOS 0
@@ -41,7 +47,7 @@
 #define COCOAPODS_POD_AVAILABLE_PPiAwesomeButton
 #define COCOAPODS_VERSION_MAJOR_PPiAwesomeButton 1
 #define COCOAPODS_VERSION_MINOR_PPiAwesomeButton 2
-#define COCOAPODS_VERSION_PATCH_PPiAwesomeButton 2
+#define COCOAPODS_VERSION_PATCH_PPiAwesomeButton 8
 
 // PPiFlatSegmentedControl
 #define COCOAPODS_POD_AVAILABLE_PPiFlatSegmentedControl

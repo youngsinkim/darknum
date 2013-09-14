@@ -10,10 +10,13 @@
 
 static char buttonTextKey;
 static char buttonIconKey;
+static char buttonIconStringKey;
 static char iconPositionKey;
 static char backgroundColorsKey;
 static char textAttributesKey;
 static char isAwesomeKey;
+static char separationKey;
+
 
 @implementation UIButton (PPiAwesome)
 
@@ -41,6 +44,31 @@ static char isAwesomeKey;
     return self;
 }
 
+-(id)initWithFrame:(CGRect)frame text:(NSString*)text iconString:(NSString*)iconString textAttributes:(NSDictionary*)attributes andIconPosition:(IconPosition)position{
+    self=[super initWithFrame:frame];
+    if(self){
+        [self setIsAwesome:YES];
+        
+        [self setButtonText:text];
+        [self setButtonIconString:iconString];
+        [self setTextAttributes:attributes forUIControlState:UIControlStateNormal];
+        [self setIconPosition:position];
+    }
+    return self;
+}
++(UIButton*)buttonWithType:(UIButtonType)type text:(NSString*)text iconString:(NSString*)iconString textAttributes:(NSDictionary*)attributes andIconPosition:(IconPosition)position{
+    UIButton *button =[UIButton buttonWithType:type];
+    [button setIsAwesome:YES];
+    [button setButtonText:text];
+    [button setButtonIconString:iconString];
+    [button setTextAttributes:attributes forUIControlState:UIControlStateNormal];
+    [button setIconPosition:position];
+    [button setIsAwesome:YES];
+    
+    return button;
+
+}
+
 -(void)updateButtonFormatForUIControlState:(UIControlState)state{
     if([self isAwesome]){
         //Mutable String to set to the button
@@ -53,10 +81,13 @@ static char isAwesomeKey;
         
         //Mutable String of icon
         NSMutableAttributedString *mutableStringIcon=[[NSMutableAttributedString alloc] initWithString:@""];
-        if([self buttonIcon])
+        if([self buttonIconString]){
+            [mutableStringIcon appendAttributedString:[[NSAttributedString alloc] initWithString:[self buttonIconString]]];
+        }
+        else if([self buttonIcon]){
             [mutableStringIcon appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString fontAwesomeIconStringForIconIdentifier:[self buttonIcon]]]];
-        
-        
+        }
+    
         //Setting color
         UIColor *color=[self backgroundColors][@(state)];
         if(!color)
@@ -75,13 +106,24 @@ static char isAwesomeKey;
             [mutableStringText setAttributes:textAttributes range:NSMakeRange(0, [[self buttonText] length])];
             
             //Setting attributes to icon
-            if([self buttonIcon]){
+            if([self buttonIcon] || [self buttonIconString]){
                 UIFont *textFont=(UIFont*)textAttributes[NSFontAttributeName];
                 NSMutableDictionary *iconAttributes=[textAttributes mutableCopy];
-                // sochae - 시스템 폰트라 아니라서 임시 수정
-                iconAttributes[NSFontAttributeName] = [UIFont systemFontOfSize:textFont.pointSize];
-//                iconAttributes[NSFontAttributeName] = [UIFont fontWithName:@"fontawesome" size:textFont.pointSize];
-                [mutableStringIcon setAttributes:iconAttributes range:NSMakeRange(0, 1)];
+                if ([textAttributes objectForKey:@"IconFont"]) {
+                    iconAttributes[NSFontAttributeName] = textAttributes[@"IconFont"];
+                }else{
+                    iconAttributes[NSFontAttributeName]=[UIFont fontWithName:@"fontawesome" size:textFont.pointSize];
+                }
+                [mutableStringIcon setAttributes:iconAttributes range:NSMakeRange(0, [mutableStringIcon length])];
+            }
+        }
+        
+        //Separation
+        NSMutableString *separationString=[NSMutableString stringWithFormat:@""];
+        if([self separation]){
+            int separationInt=[[self separation] intValue];
+            for(int i=0;i<separationInt;i++){
+                [separationString appendString:@" "];
             }
         }
         
@@ -89,10 +131,12 @@ static char isAwesomeKey;
         if([self iconPosition]==IconPositionLeft){
             [mutableString appendAttributedString:mutableStringIcon];
             [mutableString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@" "]];
+            [mutableString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:separationString]];
             [mutableString appendAttributedString:mutableStringText];
         }else{
             [mutableString appendAttributedString:mutableStringText];
             [mutableString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@" "]];
+            [mutableString appendAttributedString:[[NSMutableAttributedString alloc] initWithString:separationString]];
             [mutableString appendAttributedString:mutableStringIcon];
         }
         
@@ -175,8 +219,23 @@ static char isAwesomeKey;
     objc_setAssociatedObject(self, &buttonIconKey,icon, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self updateButtonFormatForUIControlState:UIControlStateNormal];
 }
+
 - (NSString*) buttonIcon {
     return objc_getAssociatedObject(self, &buttonIconKey);
+}
+-(void)setButtonIconString:(NSString *)icon{
+    objc_setAssociatedObject(self, &buttonIconStringKey,icon, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateButtonFormatForUIControlState:UIControlStateNormal];
+}
+- (NSString*) buttonIconString {
+    return objc_getAssociatedObject(self, &buttonIconStringKey);
+}
+-(void)setSeparation:(NSUInteger)separation{
+    objc_setAssociatedObject(self, &separationKey,@(separation), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self updateButtonFormatForUIControlState:UIControlStateNormal];
+}
+- (NSNumber*) separation {
+    return objc_getAssociatedObject(self, &separationKey);
 }
 
 -(void)setIconPosition:(IconPosition)position{
@@ -194,5 +253,4 @@ static char isAwesomeKey;
 - (BOOL) isAwesome {
     return objc_getAssociatedObject(self, &isAwesomeKey)?YES:NO;
 }
-
 @end
