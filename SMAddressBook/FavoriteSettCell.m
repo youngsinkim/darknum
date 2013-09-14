@@ -36,6 +36,7 @@
         _favoriteBtn.frame = CGRectMake(rect.size.width - 60.0f, 10.0f, 21.0f, 22.0f);
         [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
         [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateHighlighted|UIControlStateDisabled];
         
         [_favoriteBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -80,6 +81,15 @@
     [self layoutSubviews];
 }
 
+- (void)setFavEnabled:(BOOL)favEnabled
+{
+    _favoriteBtn.enabled = favEnabled;
+    if (!_favoriteBtn.enabled) {
+        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateNormal];
+        _favoriteBtn.alpha = 0.5f;
+    }
+}
+
 - (void)setCellInfo:(NSDictionary *)cellInfo
 {
     _cellInfo = cellInfo;
@@ -87,9 +97,14 @@
     [self layoutSubviews];
 }
 
+- (void)setFavyn:(bool)favyn
+{
+    _favoriteBtn.selected = favyn;
+}
+
 - (void)onBtnClicked:(id)sender
 {
-    [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
+//    [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
     NSLog(@"cell selected(%d)", [sender isSelected]);
     
     if ([_delegate respondsToSelector:@selector(onFavoriteCheckTouched:)]) {

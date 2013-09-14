@@ -26,5 +26,7 @@
 @property (strong, nonatomic) UILabel *classLabel;
 @property (strong, nonatomic) NSDictionary *cellInfo;
 @property (assign, nonatomic) BOOL hidden;
+@property (assign, nonatomic) BOOL favEnabled;
+@property (assign, nonatomic) bool favyn;
 
 @end

@@ -15,7 +15,7 @@
 @property (strong, nonatomic) UITableView *fvSettTableView;
 @property (strong, nonatomic) NSMutableArray *courses;
 @property (strong, nonatomic) NSMutableArray *courseClasses;
-
+@property (strong, nonatomic) NSMutableArray *favoriteList; // courseClasses와 동일한 즐겨찾기 리스트
 @end
 
 
@@ -30,6 +30,7 @@
         
         _courses = [[NSMutableArray alloc] initWithCapacity:4];
         _courseClasses = [[NSMutableArray alloc] initWithCapacity:4];
+        _favoriteList = [[NSMutableArray alloc] initWithCapacity:4];
     }
     return self;
 }
@@ -92,6 +93,7 @@
     [_courseClasses setArray:@[tmpList]];
     [_courseClasses addObjectsFromArray:[tmpClasses mutableCopy]];
 
+    [_favoriteList setArray:_courseClasses];
 
     NSLog(@"전체 기수 목록 : %d - %d", [_courses count], [_courseClasses count]);
     
@@ -124,14 +126,16 @@
 - (void)onFavoriteCheckTouched:(id)sender
 {
     NSLog(@"즐겨찾기 체크 이벤트");
+
     if ([sender isKindOfClass:[FavoriteSettCell class]])
     {
         FavoriteSettCell *cell =  (FavoriteSettCell *)sender;
+//        UITableViewCell *cell = (UITableViewCell *)sender;
         NSIndexPath *indexPath = [_fvSettTableView indexPathForCell:cell];
     
-        NSArray *list = _courseClasses[indexPath.section];
+        NSArray *list = _favoriteList[indexPath.section];
     
-        NSLog(@"section(%d), row(%d) :\n%@", indexPath.section, indexPath.row, list);
+        NSLog(@"section(%d), row(%d)", indexPath.section, indexPath.row);
         // 주소록 셀 정보
         Course *course = [list objectAtIndex:indexPath.row];
     
@@ -140,10 +144,16 @@
         NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
 
         NSLog(@"selected Data : %@", info);
+        if ([course.favyn isEqualToString:@"y"]) {
+            course.favyn = [NSString stringWithFormat:@"n"];
+        } else {
+            course.favyn = [NSString stringWithFormat:@"y"];
+        }
     
 //        NSString *tag = [NSString stringWithFormat:@"tag%d", [type intValue]];
 //        NSString *postId = [threadData objectForKey:kDataPostId];
     }
+    [_fvSettTableView reloadData];
 }
 
 
@@ -412,7 +422,30 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+//        // title
+//        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 200.0f, 22.0f)];
+//        titleLabel.tag = 300;
+//        [titleLabel setTextColor:[UIColor darkGrayColor]];
+//        [titleLabel setBackgroundColor:[UIColor clearColor]];
+//        [titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+//        
+//        [cell.contentView addSubview:titleLabel];
+//
+//        // check box
+//        UIButton *favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        favoriteBtn.tag = 301;
+//        favoriteBtn.frame = CGRectMake(0.0f, 0.0f, 21.0f, 22.0f);
+//        [favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+//        [favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+//
+//        [favoriteBtn addTarget:self action:@selector(onFavoriteCheckTouched:) forControlEvents:UIControlEventTouchUpInside];
+//
+//        cell.accessoryView = favoriteBtn;
+
     }
+    
+
     
     if ([list count] > 0)
     {
@@ -423,19 +456,95 @@
         NSArray *keys = [[[course entity] attributesByName] allKeys];
         NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
         NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, info[@"favyn"]);
-        
+
+//        UILabel *titleLabel = (UILabel *)[cell viewWithTag:300];
+//        titleLabel.text = course.title;
+//        
+//        UIButton *favynBtn = (UIButton *)[cell viewWithTag:301];
+//        if ([course.favyn isEqualToString:@"y"] || [course.type integerValue] > 1) {
+//            favynBtn.selected = YES;
+//        } else {
+//            favynBtn.selected = NO;
+//        }
+
 //        cell.textLabel.text = course.title;
         cell.classLabel.text = course.title;
         cell.cellInfo = info;
+
+//        if ([course.favyn isEqualToString:@"y"] || [course.type integerValue] > 1) {
+//            [cell setHidden:YES];
+//        } else {
+//            [cell setHidden:NO];
+//        }
         
-        if ([course.favyn isEqualToString:@"y"] || [course.type integerValue] > 1) {
-            [cell setHidden:YES];
-        } else {
-            [cell setHidden:NO];
+//        list = _courseClasses[indexPath.section]
+        Course *courseCheck = _favoriteList[indexPath.section][indexPath.row];
+        NSLog(@"체크 정보 : %@, %@, %@", courseCheck.title, courseCheck.type, courseCheck.favyn);
+        if ([courseCheck.type integerValue] > 1)
+        {
+            cell.favyn = YES;
+            cell.favEnabled = NO;
+//            if ([courseCheck.favyn isEqualToString:@"n"]) {
+//                cell.favyn = YES;
+//            } else {
+//                cell.favyn = YES;
+//            }
         }
+        else
+        {
+            cell.favEnabled = YES;
+            cell.favyn = NO;
+            if ([courseCheck.favyn isEqualToString:@"y"]) {
+                cell.favyn = YES;
+            }
+//            cell.favEnabled = YES;
+
+//            cell.favyn = YES;
+////            cell.favEnabled = NO;
+        }
+        
+//        if ( [courseCheck.type integerValue] == 1 && [courseCheck.favyn isEqualToString:@"n"]) {
+//            cell.favyn = YES;
+//        } else {
+//            cell.favyn = NO;
+////            if ([courseCheck.type integerValue] == ) {
+////                <#statements#>
+////            }
+//        }
     }
     
     return cell;
 }
+//
+//- (void)checkButtonTapped:(id)sender event:(id)event
+//{
+//	NSSet *touches = [event allTouches];
+//	UITouch *touch = [touches anyObject];
+//	CGPoint currentTouchPosition = [touch locationInView:_fvSettTableView];
+//    
+//	NSIndexPath *indexPath = [_fvSettTableView indexPathForRowAtPoint: currentTouchPosition];
+//	if (indexPath != nil)
+//	{
+//		[self tableView:_fvSettTableView accessoryButtonTappedForRowWithIndexPath: indexPath];
+//	}
+//}
+//
+//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+//{
+//	NSMutableDictionary *item = [_courseClasses objectAtIndex:indexPath.row];
+//	
+//    Course *course = _courseClasses[indexPath.section][indexPath.row]; // objectAtIndex:indexPath.row];
+//    
+//	BOOL checked = [course.favyn boolValue];//[[item objectForKey:@"favyn"] boolValue];
+////	[item setObject:[NSNumber numberWithBool:!checked] forKey:@"checked"];
+//    course.favyn = [NSString stringWithFormat:@"%d", !checked];
+//    
+//	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath]; // [item objectForKey:@"cell"];
+//	UIButton *button = (UIButton *)cell.accessoryView;
+//	
+////    button.selected = !button.selected;
+//	UIImage *newImage = (checked) ? [UIImage imageNamed:@"join_agreebox"] : [UIImage imageNamed:@"join_agreebox_ch"];
+//	[button setBackgroundImage:newImage forState:UIControlStateNormal];
+//}
 
 @end
