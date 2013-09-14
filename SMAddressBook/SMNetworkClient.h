@@ -46,6 +46,9 @@
 // (업데이트된) 즐겨찾기 목록
 - (void)postFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
 
+// 즐겨찾기 업데이트 (추가 / 삭제)
+- (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
+
 /// 내 (프로필)정보
 - (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 

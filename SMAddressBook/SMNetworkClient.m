@@ -300,6 +300,32 @@
     
 }
 
+// 즐겨찾기 업데이트 (추가 / 삭제)
+- (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+{
+    static NSString * const kAPIFavoritesUpdate = (SERVER_URL@"/fb/updatefavorite");
+    NSLog(@"API Path(%@) param :\n%@", kAPIFavoritesUpdate, param);
+    
+    [self postPath:kAPIFavoritesUpdate
+        parameters:param
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               NSLog(@"HTTP POST API: %@", operation.request.URL);
+               
+               if (block) {
+                   NSLog(@"RESPONSE JSON: %@", JSON);
+                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+//                   block([NSMutableArray arrayWithObjects:[JSON valueForKeyPath:@"data"], nil], nil);
+               }
+               
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               if (block) {
+                   block([NSMutableDictionary dictionary], error);
+               }
+               NSLog(@"error : %@", [error description]);
+           }];
+    
+}
+
 // 내 프로필 정보
 - (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {

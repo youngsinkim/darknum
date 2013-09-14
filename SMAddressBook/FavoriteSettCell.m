@@ -85,8 +85,8 @@
 {
     _favoriteBtn.enabled = favEnabled;
     if (!_favoriteBtn.enabled) {
-        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateNormal];
-        _favoriteBtn.alpha = 0.5f;
+//        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateNormal];
+//        _favoriteBtn.alpha = 0.5f;
     }
 }
 

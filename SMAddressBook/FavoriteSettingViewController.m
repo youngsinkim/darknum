@@ -8,6 +8,7 @@
 
 #import "FavoriteSettingViewController.h"
 #import "Course.h"
+#import "NSString+MD5.h"
 
 @interface FavoriteSettingViewController ()
 
@@ -144,11 +145,29 @@
         NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
 
         NSLog(@"selected Data : %@", info);
+        NSString *mode = @"";
         if ([course.favyn isEqualToString:@"y"]) {
             course.favyn = [NSString stringWithFormat:@"n"];
+            mode = @"del";
         } else {
             course.favyn = [NSString stringWithFormat:@"y"];
+            mode = @"add";
         }
+        
+        // 서버로 즐겨찾기 설정 저장
+        NSString *mobileNo = [Util phoneNumber];
+        NSString *userId = [UserContext shared].userId;
+        NSString *certNo = [UserContext shared].certNo;
+        NSString *lastUpdate = [UserContext shared].lastUpdateDate;
+        NSString *lang = [TSLanguageManager selectedLanguage];
+        
+        if (!mobileNo || !userId | !certNo || !lastUpdate) {
+            return;
+        }
+        NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"mode":mode, @"lang":lang, @"courseclass":course.courseclass};
+
+        [self requestAPIFavoritesUpdate:param];
+        
     
 //        NSString *tag = [NSString stringWithFormat:@"tag%d", [type intValue]];
 //        NSString *postId = [threadData objectForKey:kDataPostId];
@@ -156,6 +175,48 @@
     [_fvSettTableView reloadData];
 }
 
+
+#pragma mark - Network API
+// 즐겨찾기 추가 / 삭제
+- (void)requestAPIFavoritesUpdate:(NSDictionary *)param
+{
+    NSLog(@"(/fb/updatefavorite) Request Parameter : %@", param);
+    
+//    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+    
+    // 즐겨찾기 업데이트 목록
+    [[SMNetworkClient sharedClient] postFavorites:param
+                                            block:^(NSMutableDictionary *result, NSError *error) {
+                                                
+//                                                [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
+                                                
+                                                if (error) {
+                                                    [[SMNetworkClient sharedClient] showNetworkError:error];
+                                                }
+                                                else
+                                                {
+                                                    // 즐겨찾기 업데이트 수신 후, 현재 시간을 마지막 업데이트 시간으로 저장
+//                                                    {
+//                                                        NSDate *date = [NSDate date];
+//                                                        NSString *displayString = [date string];
+//                                                        NSLog(@"즐겨찾기 업데이트 시간? %@", displayString);
+//                                                        
+//                                                        [UserContext shared].lastUpdateDate = displayString;
+//                                                        [[NSUserDefaults standardUserDefaults] setValue:displayString forKey:kLastUpdate];
+//                                                        [[NSUserDefaults standardUserDefaults] synchronize];
+//                                                    }
+//                                                    
+//                                                    // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
+//                                                    NSDictionary *favoriteInfo = [result valueForKeyPath:@"data"];
+//                                                    //                                                    NSLog(@"즐겨찾기 업데이트 목록 : %@", favoriteInfo);
+//                                                    [_updateInfo setDictionary:favoriteInfo];
+//                                                    [self performSelector:@selector(updateDBFavorites) withObject:nil];
+//
+                                                }
+                                                
+                                            }];
+
+}
 
 #pragma mark - DB methods
 
@@ -418,34 +479,10 @@
     
     if (!cell) {
         cell = [[FavoriteSettCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.delegate = self;
-        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-//        // title
-//        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 200.0f, 22.0f)];
-//        titleLabel.tag = 300;
-//        [titleLabel setTextColor:[UIColor darkGrayColor]];
-//        [titleLabel setBackgroundColor:[UIColor clearColor]];
-//        [titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
-//        
-//        [cell.contentView addSubview:titleLabel];
-//
-//        // check box
-//        UIButton *favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        favoriteBtn.tag = 301;
-//        favoriteBtn.frame = CGRectMake(0.0f, 0.0f, 21.0f, 22.0f);
-//        [favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
-//        [favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
-//
-//        [favoriteBtn addTarget:self action:@selector(onFavoriteCheckTouched:) forControlEvents:UIControlEventTouchUpInside];
-//
-//        cell.accessoryView = favoriteBtn;
 
+        cell.delegate = self;
     }
-    
-
     
     if ([list count] > 0)
     {
@@ -456,16 +493,6 @@
         NSArray *keys = [[[course entity] attributesByName] allKeys];
         NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
         NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, info[@"favyn"]);
-
-//        UILabel *titleLabel = (UILabel *)[cell viewWithTag:300];
-//        titleLabel.text = course.title;
-//        
-//        UIButton *favynBtn = (UIButton *)[cell viewWithTag:301];
-//        if ([course.favyn isEqualToString:@"y"] || [course.type integerValue] > 1) {
-//            favynBtn.selected = YES;
-//        } else {
-//            favynBtn.selected = NO;
-//        }
 
 //        cell.textLabel.text = course.title;
         cell.classLabel.text = course.title;
@@ -483,24 +510,15 @@
         if ([courseCheck.type integerValue] > 1)
         {
             cell.favyn = YES;
-            cell.favEnabled = NO;
-//            if ([courseCheck.favyn isEqualToString:@"n"]) {
-//                cell.favyn = YES;
-//            } else {
-//                cell.favyn = YES;
-//            }
+//            cell.favEnabled = NO;
         }
         else
         {
-            cell.favEnabled = YES;
+//            cell.favEnabled = YES;
             cell.favyn = NO;
             if ([courseCheck.favyn isEqualToString:@"y"]) {
                 cell.favyn = YES;
             }
-//            cell.favEnabled = YES;
-
-//            cell.favyn = YES;
-////            cell.favEnabled = NO;
         }
         
 //        if ( [courseCheck.type integerValue] == 1 && [courseCheck.favyn isEqualToString:@"n"]) {

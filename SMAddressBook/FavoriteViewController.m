@@ -861,7 +861,7 @@
 //        [_loadingIndicatorView stop];
 
 //        // 즐겨찾기 목록 로컬 DB에서 갱신.
-//        [self loadDBFavoriteCourse];
+        [self loadDBFavoriteCourse];
 /*
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
