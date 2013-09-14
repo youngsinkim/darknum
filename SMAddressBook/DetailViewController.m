@@ -212,6 +212,10 @@
 //    _pageControl.currentPage = 0;                       //현재 페이지 index는 0
 //    _pageControl.numberOfPages = [_contacts count];     //페이지 갯수는 3개
 
+    for (NSDictionary *dict in _contacts) {
+        NSLog(@"넘기는 학생 : %@", dict);
+    }
+
     [self.horListView reloadData];
     
     // 해당 셀로 이동.
@@ -246,30 +250,89 @@
     }
     else if (_memType == MemberTypeStudent)
     {
-        Student *mo = _contacts[_currentIdx];
-        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
-
-        // ( NSDictionary <- NSManagedObject )
-        NSArray *keys = [[[mo entity] attributesByName] allKeys];
-        NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
-
-        [self onSavedToAddress:info];
+//        Student *mo = _contacts[_currentIdx];
+//        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
+//
+//        // ( NSDictionary <- NSManagedObject )
+//        NSArray *keys = [[[mo entity] attributesByName] allKeys];
+//        NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+        NSDictionary *info = _contacts[_currentIdx];
+        NSLog(@"선택된 셀 정보 (%d) : %@", _currentIdx, info);
         
         switch ([type intValue])
         {
-            case 0:     break;
+            case 0: // phone call
+                [self sendPhoneCall:info];
+                break;
                 
-            default:    break;
+            case 1: // sms
+                [self sendSMS:info];
+                break;
+                
+            case 2: // email
+                [self sendEmail:info];
+                break;
+                
+            case 3: // address book
+                [self onSavedToAddress:info];
+                break;
+                
+            case 4: // kakao talk
+                [self sendKakao:info];
+                break;
+                
+            default:
+                break;
         }
     }
 }
 
+// 전화 걸기
+- (void)sendPhoneCall:(NSDictionary *)info
+{
+    if (info[@"mobile"])
+    {
+        NSString *phoneNumber = [@"tel://" stringByAppendingString:info[@"mobile"]];
+        NSLog(@"전화 걸기 ; %@", phoneNumber);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    }
+}
+
+// 문자 전송
+- (void)sendSMS:(NSDictionary *)info
+{
+    if (info[@"mobile"])
+    {
+        NSString *phoneNumber = [@"sms://" stringByAppendingString:info[@"mobile"]];
+        NSLog(@"전화 걸기 ; %@", phoneNumber);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    }
+}
+
+// 이메일 전송
+- (void)sendEmail:(NSDictionary *)info
+{
+    if (info[@"email"])
+    {
+        NSString *phoneNumber = [@"mailto://" stringByAppendingString:info[@"email"]];
+        NSLog(@"전화 걸기 ; %@", phoneNumber);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+    }
+}
+
+// 연락처 저장
 - (void)onSavedToAddress:(NSDictionary *)info
 {
     NSLog(@"연락처에 저장할 정보 : %@", info);
 
     [self showPersonViewController];
 
+}
+
+// 카카오톡 전달
+- (void)sendKakao:(NSDictionary *)info
+{
+    
 }
 
 #pragma mark -
@@ -280,12 +343,14 @@
     NSMutableDictionary *info = nil;
     if (_memType == MemberTypeStudent)
     {
-        Student *mo = _contacts[_currentIdx];
-        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
-        
-        // ( NSDictionary <- NSManagedObject )
-        NSArray *keys = [[[mo entity] attributesByName] allKeys];
-        info = [[mo dictionaryWithValuesForKeys:keys] mutableCopy];
+//        Student *mo = _contacts[_currentIdx];
+//        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
+//        
+//        // ( NSDictionary <- NSManagedObject )
+//        NSArray *keys = [[[mo entity] attributesByName] allKeys];
+//        info = [[mo dictionaryWithValuesForKeys:keys] mutableCopy];
+        NSDictionary *info = _contacts[_currentIdx];
+        NSLog(@"찾는 셀 정보: %@", info);
     }
     
     if (info == nil) {
@@ -392,12 +457,14 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     NSMutableDictionary *info = nil;
     if (_memType == MemberTypeStudent)
     {
-        Student *mo = _contacts[_currentIdx];
-        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
-        
-        // ( NSDictionary <- NSManagedObject )
-        NSArray *keys = [[[mo entity] attributesByName] allKeys];
-        info = [[mo dictionaryWithValuesForKeys:keys] mutableCopy];
+//        Student *mo = _contacts[_currentIdx];
+//        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
+//        
+//        // ( NSDictionary <- NSManagedObject )
+//        NSArray *keys = [[[mo entity] attributesByName] allKeys];
+//        info = [[mo dictionaryWithValuesForKeys:keys] mutableCopy];
+        NSDictionary *info = _contacts[_currentIdx];
+        NSLog(@"찾는 셀 정보: %@", info);
         
         fullName = info[@"name"];
     }
@@ -590,11 +657,13 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         }
         else if (_memType == MemberTypeStudent)
         {
-            Student *mo = _contacts[index];
-            
-            // ( NSDictionary <- NSManagedObject )
-            NSArray *keys = [[[mo entity] attributesByName] allKeys];
-            NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+//            Student *mo = _contacts[index];
+//            
+//            // ( NSDictionary <- NSManagedObject )
+//            NSArray *keys = [[[mo entity] attributesByName] allKeys];
+//            NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+            NSDictionary *info = _contacts[_currentIdx];
+            NSLog(@"찾는 셀 정보: %@", info);
             
             cell.memType = MemberTypeStudent;
             [(DetailViewCell *)cell setCellInfo:info];
@@ -687,11 +756,14 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 //    
 //    [label addSubview:cell];
 //
-    Student *mo = _contacts[indexPath.row];
-    
-    // ( NSDictionary <- NSManagedObject )
-    NSArray *keys = [[[mo entity] attributesByName] allKeys];
-    NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+//    Student *mo = _contacts[indexPath.row];
+//    NSLog(@"mo: %@, %@, %@", mo.name, mo.name_en, mo.mobile);
+//    
+//    // ( NSDictionary <- NSManagedObject )
+//    NSArray *keys = [[[mo entity] attributesByName] allKeys];
+//    NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+    NSDictionary *info = _contacts[_currentIdx];
+    NSLog(@"상세 정보 : %@", info);
 
     [(DetailViewCell *)cell setMemType:MemberTypeStudent];
     [(DetailViewCell *)cell setCellInfo:info];

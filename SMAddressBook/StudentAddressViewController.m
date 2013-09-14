@@ -139,6 +139,12 @@
     NSEntityDescription * entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    // * (column)
+//    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
+//    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
+//    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
+//    [fetchRequest setResultType:NSDictionaryResultType];
+
     NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass == %@", _info[@"courseclass"]];
     [fetchRequest setPredicate:predicate];
@@ -158,10 +164,36 @@
 //            NSLog(@"Zip: %@", details.zip);
 //        }
         
+//        NSLog(@"가져온 것 : %@", fetchedObjects[0]);
+//        NSDictionary *dict = fetchedObjects[0];
+//        NSLog(@"기수 학생 : %@\n%@", dict, dict[@"students"]);
+//        return dict[@"students"];
+        
         Course *class = fetchedObjects[0];
         if (class)
         {
-            NSMutableArray *classStudents = [[class.students allObjects] mutableCopy];
+//            for (NSManagedObject *info in fetchedObjects) {
+//                NSLog(@"Name: %@", [info valueForKey:@"name"]);
+//            NSDictionary *classInfo = [class valueForKey:@"student"];
+//            NSLog(@"class info : %@", classInfo);
+            
+            NSMutableArray *classStudents = [[NSMutableArray alloc] init];
+            NSArray *list = (NSArray *)class.students;
+            
+            for (Student *student in list)
+            {
+                // DB에서 읽으면 NSManagedObject
+//                Student *student = _students[indexPath.row];
+                
+                // ( NSDictionary <- NSManagedObject )
+                NSArray *keys = [[[student entity] attributesByName] allKeys];
+//                [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
+                NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[student dictionaryWithValuesForKeys:keys]];
+                NSLog(@"dict : %@", dict);
+                [classStudents addObject:dict];
+            }
+            
+//            NSMutableArray *classStudents = [[class.students allObjects] mutableCopy];
             NSLog(@"student count : %d, %d", [class.students count], [classStudents count]);
 
             return classStudents;
@@ -290,8 +322,8 @@
 //    StudentDetailViewController *viewController = [[StudentDetailViewController alloc] initWithInfo:[_students mutableCopy]];
     DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
 //    DetailInfoViewController *viewController = [[DetailInfoViewController alloc] initWithType:MemberTypeStudent];
-    viewController.contacts = [_students mutableCopy];
     viewController.currentIdx = indexPath.row;
+    viewController.contacts = [_students mutableCopy];
     
     [self.navigationController pushViewController:viewController animated:YES];
 

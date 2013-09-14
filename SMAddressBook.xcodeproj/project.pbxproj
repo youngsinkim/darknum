@@ -173,6 +173,7 @@
 		BF57B3B417DC387800B39C03 /* join_agreebox.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B017DC387800B39C03 /* join_agreebox.png */; };
 		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
+		BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -406,6 +407,8 @@
 		BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "join_agreebox@2x.png"; sourceTree = "<group>"; };
 		BF57B3B617DCD09E00B39C03 /* DetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewCell.h; sourceTree = "<group>"; };
 		BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCell.m; sourceTree = "<group>"; };
+		BFCA0C4417E4BD4600E750E7 /* ToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolView.h; sourceTree = "<group>"; };
+		BFCA0C4517E4BD4600E750E7 /* ToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,7 +499,7 @@
 				5062B65217C4D25200A2495D /* Login (로그인) */,
 				5062B64017C4CBA100A2495D /* 즐겨찾기(메인) 화면 */,
 				BF57B39217D79C9B00B39C03 /* Tool (툴바 뷰) */,
-				BF177E8917C9BC0600614485 /* CourseClass (주소록) */,
+				BF177E8917C9BC0600614485 /* DetailInfo (주소록 상세정보) */,
 				BF177E9817CA6A7B00614485 /* 전체보기 */,
 				BF57B3A017DB74EE00B39C03 /* Search (검색) */,
 				BF177E8517C9BADD00614485 /* 내 정보 설정 */,
@@ -710,7 +713,7 @@
 			name = "내 정보 설정";
 			sourceTree = "<group>";
 		};
-		BF177E8917C9BC0600614485 /* CourseClass (주소록) */ = {
+		BF177E8917C9BC0600614485 /* DetailInfo (주소록 상세정보) */ = {
 			isa = PBXGroup;
 			children = (
 				BF57B37317D6555E00B39C03 /* old */,
@@ -732,7 +735,7 @@
 				BF57B33617D2EDF200B39C03 /* 교직원 주소록 */,
 				BF57B33A17D2EE1400B39C03 /* 학생 주소록 */,
 			);
-			name = "CourseClass (주소록)";
+			name = "DetailInfo (주소록 상세정보)";
 			sourceTree = "<group>";
 		};
 		BF177E9817CA6A7B00614485 /* 전체보기 */ = {
@@ -878,6 +881,8 @@
 				BF57B39717D79D0D00B39C03 /* ToolViewController.m */,
 				BF57B39317D79CD400B39C03 /* SmsViewController.h */,
 				BF57B39417D79CD400B39C03 /* SmsViewController.m */,
+				BFCA0C4417E4BD4600E750E7 /* ToolView.h */,
+				BFCA0C4517E4BD4600E750E7 /* ToolView.m */,
 			);
 			name = "Tool (툴바 뷰)";
 			sourceTree = "<group>";
@@ -1134,6 +1139,7 @@
 				BF57B33217D2EDD700B39C03 /* FacultyMajorViewController.m in Sources */,
 				BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */,
 				BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */,
+				BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */,
 				BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */,
 				5014294817E4159900BA231B /* DetailView.m in Sources */,
 				BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */,

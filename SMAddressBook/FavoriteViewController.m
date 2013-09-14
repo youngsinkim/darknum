@@ -150,11 +150,12 @@
     
     
     // (updateCount > 0)이면, 서버 데이터 업데이트 요청
-    NSInteger updateCount = [[[UserContext shared] updateCount] integerValue];
+//    NSInteger updateCount = [[[UserContext shared] updateCount] integerValue];
+    NSInteger updateCount = [[UserContext shared].updateCount integerValue];
     NSLog(@"Login Update Count : %d", updateCount);
     
     if ((updateCount > 0) || ([self.favorites count] == 0))
-        {
+    {
         // 로딩 프로그래스 시작...
         [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
         
@@ -817,36 +818,35 @@
         
         for (NSDictionary *dict in staffs)
         {
-//            NSLog(@"교직원 정보 : %@", dict);
+            NSLog(@"교직원 정보 : %@", dict);
             NSArray *filteredObjects = [self filteredObjects:dict[@"memberidx"] memberType:MemberTypeStaff];
-            Staff *staff = nil;
+            Staff *mo = nil;
             
             if ([filteredObjects count] > 0)
             {
                 // 로컬 DB에 존재하면 업데이트
-                staff = filteredObjects[0];
+                mo = filteredObjects[0];
             }
             else
             {
                 // 로컬 DB에 없으면 추가 (INSERT)
-                staff = (Staff *)[NSEntityDescription insertNewObjectForEntityForName:@"Staff" inManagedObjectContext:self.managedObjectContext];
-                staff.memberidx = dict[@"memberidx"];
+                mo = (Staff *)[NSEntityDescription insertNewObjectForEntityForName:@"Staff" inManagedObjectContext:self.managedObjectContext];
+                mo.memberidx = dict[@"memberidx"];
             }
             
             // ( NSManagedObject <- NSDictionary )
-            [staff setValuesForKeysWithDictionary:dict];
+//            [staff setValuesForKeysWithDictionary:dict];
             
-//            NSLog(@"UPDATE 즐겨찾기 교직원 : memberIdx(%@), name(%@ = %@), name_en(%@), tel(%@)",
-//                  staff.memberidx, staff.name, staff.name_en, staff.tel);
+            mo.name     = dict[@"name"];
+            mo.name_en  = dict[@"name_en"];
+            mo.tel      = dict[@"tel"];
+            mo.mobile   = dict[@"mobile"];
+            mo.email    = dict[@"email"];
+            mo.office   = dict[@"office"];
+            mo.office_en= dict[@"office_en"];
+            mo.photourl = dict[@"photourl"];
             
-//            mo.name = staff[@"name"];
-//            mo.name_en = staff[@"name_en"];
-//            mo.tel = staff[@"tel"];
-//            mo.mobile = staff[@"mobile"];
-//            mo.email = staff[@"email"];
-//            mo.office = staff[@"office"];
-//            mo.office_en = staff[@"office_en"];
-//            mo.photourl = staff[@"photourl"];
+            NSLog(@"UPDATE 즐겨찾기 교직원 : memberIdx(%@), name(%@), name_en(%@), tel(%@)", mo.memberidx, mo.name, mo.name_en, mo.tel);
         }
     }
     
@@ -860,8 +860,9 @@
         
 //        [_loadingIndicatorView stop];
 
-//        // 즐겨찾기 목록 로컬 DB에서 갱신.
-        [self loadDBFavoriteCourse];
+        // 즐겨찾기 목록 로컬 DB에서 갱신.
+        [self.favorites setArray:[self loadDBFavoriteCourse]];
+
 /*
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         
