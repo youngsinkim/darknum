@@ -175,6 +175,8 @@
 }
 
 #pragma mark - DB methods
+
+// 전체 과정 목록 가져오기 (group by)
 - (NSArray *)loadDBCourses
 {
     if (self.managedObjectContext == nil) {

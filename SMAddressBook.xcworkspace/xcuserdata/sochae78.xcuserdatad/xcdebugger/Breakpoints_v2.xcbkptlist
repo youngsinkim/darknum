@@ -166,7 +166,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
@@ -249,12 +249,12 @@
                   symbolName = "-[FavoriteViewController onUpdateDBFavorites:]"
                   moduleName = "SMAddressBook"
                   urlString = "file://localhost/Users/sochae78/Desktop/project/snumba_0914/SMAddressBook/FavoriteViewController.m"
-                  timestampString = "400877369.686681"
+                  timestampString = "400961786.793547"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "748"
                   endingLineNumber = "748"
-                  offsetFromSymbolStart = "4592">
+                  offsetFromSymbolStart = "4459">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -263,12 +263,12 @@
                   symbolName = "-[FavoriteViewController onUpdateDBFavorites:]"
                   moduleName = "SMAddressBook"
                   urlString = "file://localhost/Users/sochae78/Desktop/project/snumba_0914/SMAddressBook/FavoriteViewController.m"
-                  timestampString = "400877369.686876"
+                  timestampString = "400961786.793742"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "748"
                   endingLineNumber = "748"
-                  offsetFromSymbolStart = "6812">
+                  offsetFromSymbolStart = "6940">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -295,12 +295,12 @@
                   symbolName = "-[FavoriteViewController onUpdateDBFavorites:]"
                   moduleName = "SMAddressBook"
                   urlString = "file://localhost/Users/sochae78/Desktop/project/snumba_0914/SMAddressBook/FavoriteViewController.m"
-                  timestampString = "400877369.687083"
+                  timestampString = "400961786.793952"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "820"
                   endingLineNumber = "820"
-                  offsetFromSymbolStart = "7142">
+                  offsetFromSymbolStart = "7318">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -309,12 +309,12 @@
                   symbolName = "-[FavoriteViewController onUpdateDBFavorites:]"
                   moduleName = "SMAddressBook"
                   urlString = "file://localhost/Users/sochae78/Desktop/project/snumba_0914/SMAddressBook/FavoriteViewController.m"
-                  timestampString = "400877369.687294"
+                  timestampString = "400961786.794144"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "820"
                   endingLineNumber = "820"
-                  offsetFromSymbolStart = "9164">
+                  offsetFromSymbolStart = "9616">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -434,7 +434,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/AppDelegate.m"
@@ -492,6 +492,38 @@
             startingLineNumber = "161"
             endingLineNumber = "161"
             landmarkName = "-viewWillAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SearchViewController.m"
+            timestampString = "400960215.744671"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SearchViewController.m"
+            timestampString = "400960217.13026"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
