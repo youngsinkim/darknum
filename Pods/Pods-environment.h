@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 2
 
+// ActionSheetPicker2
+#define COCOAPODS_POD_AVAILABLE_ActionSheetPicker2
+#define COCOAPODS_VERSION_MAJOR_ActionSheetPicker2 0
+#define COCOAPODS_VERSION_MINOR_ActionSheetPicker2 1
+#define COCOAPODS_VERSION_PATCH_ActionSheetPicker2 0
+
 // EasyTableView
 #define COCOAPODS_POD_AVAILABLE_EasyTableView
 #define COCOAPODS_VERSION_MAJOR_EasyTableView 1
