@@ -144,17 +144,16 @@
         [menu setAddrMenuList:self.favorites];
     }
     
-        [self showUpdateProgress];
-        
     
     // (updateCount > 0)이면, 서버 데이터 업데이트 요청
 //    NSInteger updateCount = [[[UserContext shared] updateCount] integerValue];
     NSInteger updateCount = [[UserContext shared].updateCount integerValue];
     NSLog(@"Login Update Count : %d", updateCount);
     
-//    if ((updateCount > 0) || ([self.favorites count] == 0))
+    if ((updateCount > 0) || ([self.favorites count] == 0))
     {
         // 로딩 프로그래스 시작...
+        [self showUpdateProgress];
 //        [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
         
         // 1. 과정 기수 목록 가져오기
