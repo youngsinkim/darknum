@@ -28,6 +28,7 @@
 #import "CourseTotalViewController.h"
 #import "HelpViewController.h"
 #import "NSString+UrlEncoding.h"
+#import "LoadingProgressView.h"
 
 
 @interface FavoriteViewController ()
@@ -42,6 +43,7 @@
 @property (strong, nonatomic) NSMutableDictionary *updateInfo;
 
 @property (strong, nonatomic) LoadingView *loadingIndicatorView;
+@property (strong, nonatomic) LoadingProgressView *progressView;
 @end
 
 
@@ -81,7 +83,8 @@
     // 즐겨찾기 화면 구성
     [self setupFavoriteUI];
 
-    
+    // 프로그래스바 구성
+    [self initUpdateProgress];
     
 //    [_favoriteTableView reloadData];
     NSLog(@"MainThread - 5");
@@ -126,14 +129,6 @@
     
     // 로그인 과정이 모두 끝난 상태.
     {
-    // loading progress bar
-    //    _loadingIndicatorView = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 416.0f)];
-    //    _loadingIndicatorView.showProgress = YES;
-    //    _loadingIndicatorView.notificationString = NSLocalizedString(@"업데이트 중입니다. ", nil);
-    //
-    //    [self.view addSubview:_loadingIndicatorView];
-    
-    
     // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
     
     [self.favorites setArray:[self loadDBFavoriteCourse]];
@@ -149,16 +144,18 @@
         [menu setAddrMenuList:self.favorites];
     }
     
+        [self showUpdateProgress];
+        
     
     // (updateCount > 0)이면, 서버 데이터 업데이트 요청
 //    NSInteger updateCount = [[[UserContext shared] updateCount] integerValue];
     NSInteger updateCount = [[UserContext shared].updateCount integerValue];
     NSLog(@"Login Update Count : %d", updateCount);
     
-    if ((updateCount > 0) || ([self.favorites count] == 0))
+//    if ((updateCount > 0) || ([self.favorites count] == 0))
     {
         // 로딩 프로그래스 시작...
-        [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+//        [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
         
         // 1. 과정 기수 목록 가져오기
         // 2. 교수 전공 목록 가져오기
@@ -199,6 +196,32 @@
 - (void)updateTable
 {
     [self.favoriteTableView reloadData];
+}
+
+- (void)initUpdateProgress
+{
+    // loading progress bar
+    //    _loadingIndicatorView = [[LoadingView alloc] initWithFrame:CGRectMake(0.0f, 100.0f, 320.0f, 416.0f)];
+    //    _loadingIndicatorView.showProgress = YES;
+    //    _loadingIndicatorView.notificationString = NSLocalizedString(@"업데이트 중입니다. ", nil);
+    //
+    //    [self.view addSubview:_loadingIndicatorView];
+    //        [_loadingIndicatorView show];
+
+    _progressView = [[LoadingProgressView alloc] initWithFrame:self.view.bounds];
+    
+    [[[UIApplication sharedApplication] keyWindow] addSubview:_progressView];
+
+}
+
+- (void)showUpdateProgress
+{
+    [_progressView start];
+}
+
+- (void)stopUpdateProgress
+{
+    [_progressView stop];
 }
 
 #pragma mark - View mothods
@@ -471,6 +494,7 @@
         NSLog(@"(%d), (%d) 즐겨찾기 목록을 저장하자........", [_courses count], [_majors count]);
         [self onUpdateDBFavorites:_updateInfo];
     }
+    
 }
 
 #pragma mark - CoreData methods
@@ -659,7 +683,7 @@
 {
     NSError *error = nil;
 
-    if (favoriteInfo[@"student"] != [NSNull null])
+    if ([favoriteInfo[@"student"] isKindOfClass:[NSDictionary class]])
     {
         // 학생 목록이 있으면 학생 테이블 추가(업데이트)
         NSArray *students = favoriteInfo[@"student"];
@@ -739,7 +763,7 @@
         }
     }
     
-    if (favoriteInfo[@"faculty"] != [NSNull null])
+    if ([favoriteInfo[@"faculty"] isKindOfClass:[NSDictionary class]])
     {
         // 교수 목록이 있으면 학생 테이블 추가(업데이트)
         NSArray *facultys = favoriteInfo[@"faculty"];
@@ -811,7 +835,7 @@
 
     }
 
-    if (favoriteInfo[@"staff"] != [NSNull null])
+    if ([favoriteInfo[@"staff"] isKindOfClass:[NSDictionary class]])
     {
         // 교직원 목록이 있으면 학생 테이블 추가(업데이트)
         NSArray *staffs = favoriteInfo[@"staff"];
@@ -857,12 +881,15 @@
     }
     else {
         NSLog(@"insert success..");
-        [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
+//        [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
         
 //        [_loadingIndicatorView stop];
 
         // 즐겨찾기 목록 로컬 DB에서 갱신.
         [self.favorites setArray:[self loadDBFavoriteCourse]];
+        
+        [self stopUpdateProgress];
+
 
 /*
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

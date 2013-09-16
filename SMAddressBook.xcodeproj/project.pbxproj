@@ -10,6 +10,7 @@
 		5014294817E4159900BA231B /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294717E4159900BA231B /* DetailView.m */; };
 		5014294B17E4289900BA231B /* DetailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294A17E4289900BA231B /* DetailInfoViewController.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
+		5052F0E217E6F1C700CB41D3 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
 		5062B61B17C4C10400A2495D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
 		5062B61D17C4C10400A2495D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61C17C4C10400A2495D /* CoreGraphics.framework */; };
@@ -184,6 +185,8 @@
 		5014294917E4289900BA231B /* DetailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoViewController.h; sourceTree = "<group>"; };
 		5014294A17E4289900BA231B /* DetailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailInfoViewController.m; sourceTree = "<group>"; };
 		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
+		5052F0E017E6F1C700CB41D3 /* LoadingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingProgressView.h; sourceTree = "<group>"; };
+		5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingProgressView.m; sourceTree = "<group>"; };
 		5062B61517C4C10400A2495D /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5062B61817C4C10400A2495D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5062B61A17C4C10400A2495D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -769,6 +772,8 @@
 				BF3B467E17C86E680069AA9A /* LoadingView.m */,
 				50C4A2D117D87B86006DEC43 /* Util.h */,
 				50C4A2D217D87B86006DEC43 /* Util.m */,
+				5052F0E017E6F1C700CB41D3 /* LoadingProgressView.h */,
+				5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */,
 			);
 			name = "Common (공통 모듈)";
 			sourceTree = "<group>";
@@ -1118,6 +1123,7 @@
 				BF3B468A17C8DE660069AA9A /* TermsViewController.m in Sources */,
 				BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */,
 				BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */,
+				5052F0E217E6F1C700CB41D3 /* LoadingProgressView.m in Sources */,
 				BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */,
 				5014294B17E4289900BA231B /* DetailInfoViewController.m in Sources */,
 				BF177E8817C9BBFF00614485 /* CourseClassViewController.m in Sources */,
