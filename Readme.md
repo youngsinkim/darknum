@@ -27,3 +27,18 @@ Depth1            | Depth2            | Depth3
     -> 로그인 시의 마지막 동기화 날짜를 넘겼을 경우, 즐겨찾기 목록이 있으면 즐겨찾기 목록을 가져와서 추가 및 업데이트 한다.
     -> 삭제된 것은 별도 remove로 내려온다. 
     -> 최초에는 동기화 날짜가 없으므로 0000-00-00 00:00 으로 넘긴다. 
+
+
+## Todo
+- NSTextAlignmentCenter 버전 분리 작업
+- Network 상태 체크 (API 사용 시)
+- url decoding 처리 
+- english 버전 테스트 처리 
+
+- photo url decoding 수정 요청 메일 
+- photo url full path 요청 
+
+
+
+
+
