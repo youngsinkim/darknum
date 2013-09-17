@@ -186,7 +186,7 @@
     
     // 즐겨찾기 업데이트 목록
     [[SMNetworkClient sharedClient] postFavorites:param
-                                            block:^(NSMutableDictionary *result, NSError *error) {
+                                            block:^(NSDictionary *result, NSError *error) {
                                                 
 //                                                [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
                                                 

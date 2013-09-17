@@ -64,7 +64,7 @@
 
 - (void)setTitle:(NSString *)title
 {
-    _titleLabel.text = [title URLDecodedString];
+    _titleLabel.text = title;
 }
 
 - (void)setMemType:(NSInteger)type WidhCount:(NSInteger)count

@@ -396,7 +396,7 @@
     
     // 로그인 요청
     [[SMNetworkClient sharedClient] postLogin:param
-                                        block:^(NSMutableDictionary *result, NSError *error) {
+                                        block:^(NSDictionary *result, NSError *error) {
 
                                             NSLog(@"API(LOGIN) Result : \n%@", result);
 //                                            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];                                            
@@ -408,7 +408,7 @@
                                             else
                                             {
                                                 // 로그인 결과 로컬(파일) 저장.
-                                                NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
+                                                NSDictionary *dict = [NSDictionary dictionaryWithDictionary:result];
                                                 if (![dict isKindOfClass:[NSNull class]])
                                                 {
                                                     [UserContext shared].certNo     = dict[kCertNo];

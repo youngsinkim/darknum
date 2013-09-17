@@ -212,10 +212,12 @@
                                              
                                               [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
         
-                                              if (error) {
+                                              if (error)
+                                              {
                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
                                               }
-                                              else {
+                                              else
+                                              {
                                                   // 전공 목록은 db 저장 없이 tableview만 업데이트
                                                   NSArray *majorList = [result mutableCopy];
                                                   [_majors setArray:majorList];

@@ -9,6 +9,7 @@
 #import "SMNetworkClient.h"
 #import <AFJSONRequestOperation.h>
 #import <JSONKit.h>
+#import "NSDictionary+UTF8.h"
 
 #define SERVER_URL          @"http://biz.snu.ac.kr"
 
@@ -99,6 +100,7 @@
          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    
     [super postPath:(NSString *)path
          parameters:(NSDictionary *)parameters
             success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -140,7 +142,7 @@
 /// Request Data : scode=5684825a51beb9d2fa05e4675d91253c&phone=01023873856&updatedate=0000-00-00 00:00:00&userid=ztest01&passwd=1111#
 /// Response Data : {"errcode":"0","certno":"m9kebjkakte1tvrqfg90i9fh84","memtype":"1","updatecount":"218"}
 /// 2. 로그인 요청
-- (void)postLogin:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+- (void)postLogin:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {
     static NSString * const kAPILogin = (SERVER_URL@"/fb/login");
     NSLog(@"API Path(%@) param :\n%@", kAPILogin, param);
@@ -159,7 +161,7 @@
 
                     if (![response isKindOfClass:[NSNull class]])
                     {
-                        block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
+                        block([NSDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
 
 //                        NSLog(@"error (%d) : %@", [response[kErrorCode] integerValue], response[kErrorMsg]);
 //                        if (![response[kErrorCode] integerValue] == 0)
@@ -181,7 +183,7 @@
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //                NSLog(@"error : %@", [error description]);
                 if (block) {
-                    block([NSMutableDictionary dictionary], error);
+                    block([NSDictionary dictionary], error);
                 }
             }];
 
@@ -193,7 +195,7 @@
 @param  scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
  */
 /// 3. 과정별 기수 목록
-- (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+- (void)postClasses:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {
     static NSString * const kAPIClasses = (SERVER_URL@"/fb/classes");
     NSLog(@"API Path(%@) param :\n%@", kAPIClasses, param);
@@ -205,14 +207,14 @@
                
                if (block) {
                    NSLog(@"RESPONSE JSON: %@", JSON);
-                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+                   block([NSDictionary dictionaryWithDictionary:JSON], nil);
 //                   block([NSMutableDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
                }
                
            }
            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                if (block) {
-                   block([NSMutableDictionary dictionary], error);
+                   block([NSDictionary dictionary], error);
                }
                NSLog(@"error : %@", [error description]);
            }];
@@ -275,7 +277,7 @@
 }
 
 // (업데이트된) 즐겨찾기 목록
-- (void)postFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+- (void)postFavorites:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {
     static NSString * const kAPIFavorites = (SERVER_URL@"/fb/updated");
     NSLog(@"API Path(%@) param :\n%@", kAPIFavorites, param);
@@ -287,13 +289,13 @@
                
                if (block) {
                    NSLog(@"RESPONSE JSON: %@", JSON);
-                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+                   block([NSDictionary dictionaryWithDictionary:JSON], nil);
 //                   block([NSMutableArray arrayWithObjects:[JSON valueForKeyPath:@"data"], nil], nil);
                }
                
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                if (block) {
-                   block([NSMutableDictionary dictionary], error);
+                   block([NSDictionary dictionary], error);
                }
                NSLog(@"error : %@", [error description]);
            }];

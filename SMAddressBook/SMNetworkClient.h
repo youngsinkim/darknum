@@ -32,10 +32,10 @@
 
 #pragma mark - Restful API
 /// 2. 로그인 요청
-- (void)postLogin:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
+- (void)postLogin:(NSDictionary *)param block:(void (^)(NSDictionary *dData, NSError *error))block;
 
 /// 3. 과정기수 목록
-- (void)postClasses:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
+- (void)postClasses:(NSDictionary *)param block:(void (^)(NSDictionary *dData, NSError *error))block;
 
 /// 4-1. 기수별 학생 목록
 - (void)postStudents:(NSDictionary *)param block:(void (^)(NSMutableArray *result, NSError *error))block;
@@ -44,7 +44,7 @@
 - (void)postMajors:(NSDictionary *)param block:(void (^)(NSMutableArray *result, NSError *error))block;
 
 // (업데이트된) 즐겨찾기 목록
-- (void)postFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
+- (void)postFavorites:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 
 // 즐겨찾기 업데이트 (추가 / 삭제)
 - (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
