@@ -110,10 +110,12 @@
 - (void)setupFavoriteSettingUI
 {
     // 과정 기수 목록 구성
-    CGRect rect = self.view.bounds;
-    rect.size.height -= 44.0f;
+    CGRect rect = self.view.frame;
+    if (IS_LESS_THEN_IOS7) {
+        rect.size.height -= 44.0f;
+    }
     
-    _fvSettTableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+    _fvSettTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height) style:UITableViewStyleGrouped];
     _fvSettTableView.dataSource = self;
     _fvSettTableView.delegate = self;
     
