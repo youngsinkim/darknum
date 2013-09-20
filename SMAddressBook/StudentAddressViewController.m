@@ -106,7 +106,11 @@
 - (void)setupStudentAddressUI
 {
     CGRect rect = self.view.bounds;
-    rect.size.height -= (44 + 60);
+    rect.size.height -= kStudentToolH;
+    
+    if (IS_LESS_THEN_IOS7) {
+        rect.size.height -= 44.0f;
+    }
     
     // 학생 테이블 뷰
     _studentTableView = [[UITableView alloc] initWithFrame:rect];
@@ -120,7 +124,7 @@
     // 툴바
     _footerToolView = [[StudentToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height, rect.size.width, kStudentToolH)];
     _footerToolView.delegate = self;
-    _footerToolView.backgroundColor = [UIColor blueColor];
+//    _footerToolView.backgroundColor = [UIColor blueColor];
     
     [self.view addSubview:_footerToolView];
 }
@@ -341,6 +345,39 @@
 }
 
 #pragma mark - Callback methods
+// 학생 주소록 하단 툴 버튼
+- (void)didSelectedToolTag:(NSNumber *)type
+{
+//        Student *mo = _contacts[_currentIdx];
+//        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
+//
+//        // ( NSDictionary <- NSManagedObject )
+//        NSArray *keys = [[[mo entity] attributesByName] allKeys];
+//        NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+    
+//    NSDictionary *info = _students[_currentIdx];
+//    NSLog(@"선택된 셀 정보 (%d) : %@", _currentIdx, info);
+    
+    switch ([type intValue])
+    {
+        case 0: // sms
+            [self onSmsViewController];
+            break;
+            
+        case 1: // email
+            [self onEmailViewController];
+            break;
+            
+        case 2: // address book
+            [self onAddressViewController];
+            break;
+            
+        default:
+            break;
+    }
+
+}
+
 /// SMS 발송 버튼
 - (void)onTouchedSmsBtn:(id)sender
 {
@@ -353,4 +390,24 @@
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
+- (void)onSmsViewController
+{
+    SmsViewController *smsVC = [[SmsViewController alloc] init];
+    smsVC.navigationItem.title = _info[@"title"];
+    smsVC.view.backgroundColor = [UIColor whiteColor];
+    [smsVC setMembers:_students];
+    
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)onEmailViewController
+{
+    
+}
+
+- (void)onAddressViewController
+{
+    
+}
 @end

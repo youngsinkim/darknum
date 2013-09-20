@@ -15,6 +15,8 @@
 
 @protocol StudentToolViewDelegate <NSObject>
 
+- (void)didSelectedToolTag:(NSNumber *)type;
+
 /// SMS 버튼
 - (void)onTouchedSmsBtn:(id)sender;
 
