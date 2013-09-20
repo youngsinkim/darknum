@@ -96,7 +96,13 @@
 
 - (void)setupTotalCourseUI:(NSArray *)tabs
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+    CGRect rect = self.view.frame;
+    CGFloat yOffset = 0.0f;
+    CGFloat yBottom = 0.0f;
+    
+    if (!IS_LESS_THEN_IOS7) {
+        yOffset += 64.0f;
+    }
     
     // 과정 탭 컨트롤
 //    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"EMBA", @"GMBA", @"SMBA"]];
@@ -120,11 +126,8 @@
         return;
     }
     
-    PPiFlatSegmentedControl *courseSegment = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 320, 30)
-                                                                                      items:items
-//                                                                                            @[@{@"text":@"EMBA"},
-//                                                                                              @{@"text":@"GMBA"},
-//                                                                                              @{@"text":@"SNUMBA"}]
+    PPiFlatSegmentedControl *courseSegment = [[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(0, yOffset, rect.size.width, 30.0f)
+                                                                                      items:items   //@[@{@"text":@"EMBA"},@{@"text":@"GMBA"},@{@"text":@"SNUMBA"}]
                                                                                iconPosition:IconPositionRight
                                                                           andSelectionBlock:^(NSUInteger segmentIndex) {
                                                                               NSLog(@"선택된 셀 : %d", segmentIndex);
@@ -142,7 +145,11 @@
     courseSegment.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
                                        NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.view addSubview:courseSegment];
+    yOffset += 30.0f;
     
+    if (IS_LESS_THEN_IOS7) {
+        yBottom = 44.0f;
+    }
     
     // 라인 (imsi)
 //    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 44.0f, rect.size.width, 1.0f)];
@@ -151,11 +158,15 @@
 //    [self.view addSubview:lineV];
     
     // 테이블 뷰
-    _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 30.0f, rect.size.width, rect.size.height - 44.0f - 30.0f) style:UITableViewStylePlain];
+    _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, yOffset, rect.size.width, rect.size.height - yOffset - yBottom) style:UITableViewStylePlain];
     _totalTableView.dataSource = self;
     _totalTableView.delegate = self;
-//    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-    
+    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _totalTableView.separatorInset = edges;
+    }
     [self.view addSubview:_totalTableView];
     
 }
