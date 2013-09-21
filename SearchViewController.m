@@ -14,16 +14,20 @@
 @interface SearchViewController ()
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSMutableArray *courses;
-@property (strong, nonatomic) NSMutableArray *classes;
-@property (retain, nonatomic) NSString *selectedText;
-@property (assign, nonatomic) NSInteger selectedTextTag;
+//@property (strong, nonatomic) NSMutableArray *courses;
+//@property (strong, nonatomic) NSMutableArray *classes;
+@property (strong, nonatomic) NSMutableArray *courseArray;
+//@property (retain, nonatomic) NSString *selectedText;
+//@property (assign, nonatomic) NSInteger selectedTextTag;
+@property (assign, nonatomic) NSInteger selectedCourseIdx;      // 선택된 과정 index
 
 @property (strong, nonatomic) UITextField *courseTextField;
 @property (strong, nonatomic) UITextField *classTextField;
-
-@property (strong, nonatomic) UIActionSheet *actionSheet;
-@property (strong, nonatomic) UIPickerView *coursePicker;
+@property (strong, nonatomic) UITextField *nameTextField;
+@property (strong, nonatomic) UIButton *optionBtn;
+@property (strong, nonatomic) UIButton *searchBtn;
+//@property (strong, nonatomic) UIActionSheet *actionSheet;
+//@property (strong, nonatomic) UIPickerView *pickerView;
 
 @end
 
@@ -36,9 +40,11 @@
         // Custom initialization
         self.navigationItem.title = @"검색";
         
-        _courses = [[NSMutableArray alloc] init];
-        _classes = [[NSMutableArray alloc] init];
-        _selectedTextTag = 0;
+//        _courses = [[NSMutableArray alloc] init];
+//        _classes = [[NSMutableArray alloc] init];
+        _courseArray = [[NSMutableArray alloc] init];
+        _selectedCourseIdx = -1;
+//        _selectedTextTag = 0;
 
     }
     return self;
@@ -58,9 +64,29 @@
     }
 
     // 과정 목록 db에서 읽어오기
-    [_courses setArray:[self loadDBCourses]];
+    NSArray *courses = [self loadDBCourses];
     
     // 기수 목록 db에서 읽어오기
+    for (NSDictionary *courseInfo in courses)
+    {
+        NSMutableDictionary *subInfo = [[NSMutableDictionary alloc] init];
+        NSMutableArray *classArray = [[NSMutableArray alloc] init];
+
+        [subInfo setValuesForKeysWithDictionary:courseInfo];
+        NSLog(@"과정 : %@", courseInfo);
+        
+        NSArray *tmpClass = [self loadDBCourseClasses:courseInfo[@"course"]];
+        for (NSDictionary *classInfo in tmpClass)
+        {
+            NSLog(@"기수 : %@", classInfo[@"courseclass"]);
+            [classArray addObject:classInfo[@"courseclass"]];
+        }
+        
+        [subInfo setValue:classArray forKey:@"sub"];
+        
+        [_courseArray addObject:subInfo];
+        NSLog(@"과정 추가 : %@", subInfo);
+    }
     
     // 과정/기수 목록으로 검색 UI 구성
     [self setupSearchUI];
@@ -90,24 +116,35 @@
     
     
     // 과정 선택
-//    UIImage *inputBoxBg = [UIImage imageNamed:@"input_text_border"];
-    _courseTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 30.0f)];
+    _courseTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 26.0f)];
     _courseTextField.tag = 300;
-    _courseTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    _courseTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
     _courseTextField.delegate = self;
     _courseTextField.placeholder = LocalizedString(@"과정을 선택하세요", @"과정을 선택하세요");
-//    _courseTextField.text = @;
+    _courseTextField.text = @"";
     [_courseTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
     [_courseTextField setTextAlignment:NSTextAlignmentCenter];
-//    [_courseTextField setReturnKeyType:UIReturnKeyNext];
-//    [_courseTextField setKeyboardType:UIKeyboardTypeDefault];
-//    [_courseTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-//    _courseTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    _courseTextField.font = [UIFont systemFontOfSize:16.0f];
+    [_courseTextField setFont:[UIFont systemFontOfSize:16.0f]];
+    [_courseTextField addTarget:self action:@selector(onCourseTextFieldTouched:) forControlEvents:UIControlEventTouchDown];
     
     [bgView addSubview:_courseTextField];
+    yOffset += 36.0f;
+
     
+    // 기수 선택
+    _classTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 26.0f)];
+    _classTextField.tag = 301;
+    _classTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
+    _classTextField.delegate = self;
+    _classTextField.placeholder = LocalizedString(@"기수을 선택하세요", @"기수을 선택하세요");
+    _classTextField.text = @"";
+    [_classTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
+    [_classTextField setTextAlignment:NSTextAlignmentCenter];
+    [_classTextField setFont:[UIFont systemFontOfSize:16.0f]];
+    [_classTextField addTarget:self action:@selector(onClassTextFieldTouched:) forControlEvents:UIControlEventTouchDown];
     
+    [bgView addSubview:_classTextField];
+    yOffset += 36.0f;
 
     
     
@@ -130,25 +167,67 @@
 //    yOffset += 40.0f;
     
     // 이름
+    _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 26.0f)];
+    _nameTextField.tag = 400;
+    _nameTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
+    _nameTextField.delegate = self;
+    _nameTextField.placeholder = LocalizedString(@"이름 검색", @"이름 검색");
+    _nameTextField.text = @"";
+    [_nameTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
+    [_nameTextField setTextAlignment:NSTextAlignmentCenter];
+    [_nameTextField setFont:[UIFont systemFontOfSize:16.0f]];
+//    [_nameTextField addTarget:self action:@selector(onClassTextFieldTouched:) forControlEvents:UIControlEventTouchDown];
+    
+    [bgView addSubview:_nameTextField];
+    yOffset += 36.0f;
     
     // 옵션 버튼
+    _optionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _optionBtn.frame = CGRectMake(xOffset, yOffset, 200.0f, 27.0f);
+    [_optionBtn setTitle:LocalizedString(@"즐겨찾기 내에서 검색", @"즐겨찾기 내에서 검색") forState:UIControlStateNormal];
+    [_optionBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_optionBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_optionBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [_optionBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
+    [_optionBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
+    [_optionBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_optionBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+    [_optionBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+
+    [_optionBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [bgView addSubview:_optionBtn];
+
     
     // 검색 버튼
-    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [searchBtn setFrame:CGRectMake((rect.size.width - 100.0f) / 2.0f, yOffset + bgView.frame.size.height + 10.0f, 100.0f, 30.0f)];
-    [searchBtn setBackgroundImage:[[UIImage imageNamed:@"btn_white"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f] forState:UIControlStateNormal];
-    [searchBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [searchBtn setTitle:@"검색" forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(onSearchBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_searchBtn setFrame:CGRectMake((rect.size.width - 100.0f) / 2.0f, yOffset + bgView.frame.size.height + 10.0f, 100.0f, 30.0f)];
+    [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"btn_white"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f] forState:UIControlStateNormal];
+    [_searchBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_searchBtn setTitle:@"검색" forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(onSearchBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:searchBtn];
+    [self.view addSubview:_searchBtn];
 }
 
 
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
 //    NSLog(@"Touched!");
-//}
+    [self.view endEditing:YES];
+//    [textField resignFirstResponder];
+}
+
+- (void)viewDidUnload
+{
+    self.courseTextField = nil;
+    self.classTextField = nil;
+    self.nameTextField = nil;
+    self.optionBtn = nil;
+    self.searchBtn = nil;
+
+    [super viewDidUnload];
+}
 
 
 #pragma mark - DB methods
@@ -184,10 +263,6 @@
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
     
-    for (NSDictionary *info in fetchedObjects) {
-        NSLog(@"title : %@", info);
-    }
-    
     if (fetchedObjects && [fetchedObjects count] > 0)
     {
         return fetchedObjects;
@@ -206,9 +281,10 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    //    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
-    //    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
-    //    [fetchRequest setResultType:NSDictionaryResultType];
+    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"courseclass"];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
+//    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
+    [fetchRequest setResultType:NSDictionaryResultType];
     
     // where
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == %@)", courseName];
@@ -222,10 +298,6 @@
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
     
-    for (Course *class in fetchedObjects) {
-        NSLog(@"title : %@", class.title);
-    }
-    
     if (fetchedObjects && [fetchedObjects count] > 0)
     {
         return fetchedObjects;
@@ -235,130 +307,262 @@
 
 #pragma mark - UI Control Events
 
+- (void)onCourseTextFieldTouched:(UITextField *)sender
+{
+    ActionStringDoneBlock done = ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        
+        if ([sender respondsToSelector:@selector(setText:)]) {
+            [sender performSelector:@selector(setText:) withObject:selectedValue];
+        }
+        NSLog(@"text field : (%d)%@", selectedIndex, _courseTextField.text);
+        _selectedCourseIdx = selectedIndex;
+        _classTextField.text = nil;
+    };
+    
+    ActionStringCancelBlock cancel = ^(ActionSheetStringPicker *picker) {
+        NSLog(@"Block Picker Canceled");
+    };
+    
+
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in _courseArray) {
+        [items addObject:dict[@"course"]];
+    }
+
+    if ([items count] > 0) {
+        [ActionSheetStringPicker showPickerWithTitle:nil rows:items initialSelection:0 doneBlock:done cancelBlock:cancel origin:sender];
+    }
+}
+
+- (void)onClassTextFieldTouched:(UITextField *)sender
+{
+    ActionStringDoneBlock done = ^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        if ([sender respondsToSelector:@selector(setText:)]) {
+            [sender performSelector:@selector(setText:) withObject:selectedValue];
+        }
+        NSLog(@"text field : %@ == %@", selectedValue, _courseTextField.text);
+    };
+    
+    ActionStringCancelBlock cancel = ^(ActionSheetStringPicker *picker) {
+        NSLog(@"Block Picker Canceled");
+    };
+    
+    
+//    NSMutableArray *items = [[NSMutableArray alloc] init];
+//    for (NSDictionary *dict in _courseArray) {
+//        [items addObject:dict[@"sub"]];
+//    }
+    if (_selectedCourseIdx < 0)
+    {
+        NSLog(@"Course Index Error !!");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"과정을 먼저 선택하시오.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+
+        [alertView show];
+        
+        return;
+    }
+    
+    NSDictionary *itemInfo = _courseArray[_selectedCourseIdx];
+    NSLog(@"기수 리스트 구성 정보 : %@", itemInfo);
+    
+    if ([itemInfo isKindOfClass:[NSDictionary class]]) {
+        [ActionSheetStringPicker showPickerWithTitle:nil rows:itemInfo[@"sub"] initialSelection:0 doneBlock:done cancelBlock:cancel origin:sender];
+    }
+}
+
+- (void)onBtnClicked:(id)sender
+{
+    [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
+    NSLog(@"cell selected(%d)", [sender isSelected]);
+    
+//    if ([_delegate respondsToSelector:@selector(onFavoriteCheckTouched:)]) {
+//        [_delegate onFavoriteCheckTouched:self];
+//    }
+}
+
 // 검색 버튼
 - (void)onSearchBtnClicked:(id)sender
 {
-    SearchResultViewController *viewController = [[SearchResultViewController alloc] init];
+    if ([_nameTextField.text length] == 0) {
+        if ([_courseTextField.text length] == 0 || [_classTextField.text length] == 0 )
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"(과정+기수) 또는 (이름)을 검색조건에\n    설정하여 주세요.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+            
+            [alertView show];
+            
+            return;
+        }
+    }
+    // 검색 조건 구성
+//    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    NSDictionary *info = @{@"course":_courseTextField.text, @"courseclass":_classTextField.text, @"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]};
+    
+    SearchResultViewController *viewController = [[SearchResultViewController alloc] initWithInfo:info];
+    
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+#pragma mark - UITextField delegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    _selectedTextTag = textField.tag;
-    NSLog(@"선택된 컨트롤 tag : %d", _selectedTextTag);
+    if (textField.tag != 400) {
+        return NO;
+    }
     
-    [self ShowPicker:textField];
+//    _selectedTextTag = textField.tag;
+//    NSLog(@"선택된 컨트롤 tag : %d", _selectedTextTag);
+//    
+//    [self ShowPicker:textField];
     
     return YES;
 }
 
-- (void)doneClicked:(id)sender
+
+/// 리턴 키를 누를 때 실행
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if ([_courseTextField isFirstResponder]) {
-        [_courseTextField resignFirstResponder];
-    } else if ([_classTextField isFirstResponder]) {
-        [_classTextField resignFirstResponder];
-    }
-//    [self dismissModalViewControllerAnimated:YES];
-    [self.actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+    // keyboard 감추기
+	[textField resignFirstResponder];
+    
+//    if (textField == _nameTextField) {
+//        // 다음(비밀번호) 컨트롤 focus
+//        [_pwdTextField becomeFirstResponder];
+//    }
+    
+	return YES;
 }
 
-- (void)ShowPicker:(UITextField *)textField
+/// textField의 내용이 변경될 때 실행
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    _actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                               delegate:nil
-                                      cancelButtonTitle:nil
-                                 destructiveButtonTitle:nil
-                                      otherButtonTitles:nil];
-	
-    [_actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    
-	// Add the picker
-    CGRect pickerFrame = CGRectMake(0, 40, 320, 60);
-	UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
-    pickerView.dataSource = self;
-	pickerView.delegate = self;
-	pickerView.showsSelectionIndicator = YES;    // note this is default to NO
-//    [pickerView selectRow:0 inComponent:0 animated:YES];
-//	[pickerView reloadComponent:0];
-	
-	[_actionSheet addSubview:pickerView];
-    
-    
-    // add done button
-    UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"확인"]];
-    closeButton.momentary = YES;
-    closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
-    closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
-    closeButton.tintColor = [UIColor blackColor];
-    [closeButton addTarget:self action:@selector(doneClicked:) forControlEvents:UIControlEventValueChanged];
-    
-    [_actionSheet addSubview:closeButton];
-    
-    
-    NSLog(@"actionSheet 뷰 위치 : %f", self.view.bounds.size.height);
-	[_actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
-	[_actionSheet setBounds:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-	
+//    NSLog(@"이름 : %@", string);
+    //    NSInteger length = [textField.text length] + string.length;
+    //
+    //    if (length > 20)
+    //    {
+    //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"long_name", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"okay", nil) otherButtonTitles:nil];
+    //
+    //        [alertView show];
+    //
+    //        return NO;
+    //    }
+    return YES;     // NO를 리턴할 경우 변경내용이 반영되지 않는다
 }
+
+/// textField의 내용이 삭제될 때 실행
+// clearButtonMode 속성값이 UITextFieldViewModeNever가 아닌 경우에만 실행
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    return YES;    // NO를 리턴할 경우 변경내용이 반영되지 않는다.
+}
+
+//- (void)doneClicked:(id)sender
+//{
+//    if ([_courseTextField isFirstResponder]) {
+//        [_courseTextField resignFirstResponder];
+//    } else if ([_classTextField isFirstResponder]) {
+//        [_classTextField resignFirstResponder];
+//    }
+////    [self dismissModalViewControllerAnimated:YES];
+//    [self.actionSheet dismissWithClickedButtonIndex:0 animated:YES];
+//}
+
+//- (void)ShowPicker:(UITextField *)textField
+//{
+//    _actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+//                                               delegate:nil
+//                                      cancelButtonTitle:nil
+//                                 destructiveButtonTitle:nil
+//                                      otherButtonTitles:nil];
+//	
+//    [_actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+//    
+//	// Add the picker
+//    CGRect pickerFrame = CGRectMake(0, 40, 320, 60);
+//	_pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
+//    _pickerView.dataSource = self;
+//	_pickerView.delegate = self;
+//	_pickerView.showsSelectionIndicator = YES;    // note this is default to NO
+//    [_pickerView selectRow:0 inComponent:0 animated:YES];
+//	[_pickerView reloadComponent:0];
+//	
+//	[_actionSheet addSubview:_pickerView];
+//    
+//    
+//    // add done button
+//    UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"확인"]];
+//    closeButton.momentary = YES;
+//    closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
+//    closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
+//    closeButton.tintColor = [UIColor blackColor];
+//    [closeButton addTarget:self action:@selector(doneClicked:) forControlEvents:UIControlEventValueChanged];
+//    
+//    [_actionSheet addSubview:closeButton];
+//    
+//    
+//    NSLog(@"actionSheet 뷰 위치 : %f", self.view.bounds.size.height);
+//	[_actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+//	[_actionSheet setBounds:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//	
+//}
 
 #pragma mark - UIActionSheet delegates
 // 프로필 사진 설정(사진 및 앨범) 메뉴
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == actionSheet.cancelButtonIndex) {
-        return;
-    }
-}
+//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == actionSheet.cancelButtonIndex) {
+//        return;
+//    }
+//}
 
 #pragma mark - UIPickerView DataSource
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
+//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+//{
+//    return 1;
+//}
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    NSInteger count = 0;
-    if (_selectedTextTag == 300) {
-        count = [_courses count];
-    } else {
-        count = [_classes count];
-    }
-    return count;
-}
+//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+//{
+//    NSInteger count = 0;
+//    if (_selectedTextTag == 300) {
+//        count = [_courses count];
+//    } else {
+//        count = [_classes count];
+//    }
+//    return count;
+//}
 
 #pragma mark - UIPickerView Delegate
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    NSString *value = nil;
-    NSLog(@"%d", row);
-    
-    if (_selectedTextTag == 300) {
-        value = _courses[row][@"course"];
-    }
-    else {
-        value = _classes[row];
-    }
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    NSString *value = nil;
+//    NSLog(@"%d", row);
+//    
+//    if (_selectedTextTag == 300) {
+//        value = _courses[row][@"course"];
+//    }
+//    else {
+//        value = _classes[row];
+//    }
+//
+//    return value;
+//}
 
-    return value;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    NSLog(@"피커 선택 : %d / %d", row, component);
-    if (_selectedTextTag == 300) {
-        _courseTextField.text = _courses[row][@"course"];
-//        _selectedText = _courseTextField.text;
-    }
-    else {
-        _classTextField.text = _courses[row];
-//        _selectedText = _courseTextField.text;
-    }
-
-}
+//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+//{
+//    NSLog(@"피커 선택 : %d / %d", row, component);
+//    if (_selectedTextTag == 300) {
+//        _courseTextField.text = _courses[row][@"course"];
+////        _selectedText = _courseTextField.text;
+//    }
+//    else {
+//        _classTextField.text = _courses[row];
+////        _selectedText = _courseTextField.text;
+//    }
+//
+//}
 
 @end

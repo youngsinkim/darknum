@@ -7,13 +7,24 @@
 //
 
 #import "SearchResultViewController.h"
+#import "StudentAddressCell.h"
+#import "Course.h"
+#import "Student.h"
+
+#import "PortraitNavigationController.h"
+#import "SmsViewController.h"
+
+#import "TSLanguageManager.h"
+#import "NSString+MD5.h"
+
 
 @interface SearchResultViewController ()
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) StudentToolView *footerToolView;
 @property (strong, nonatomic) UITableView *resultTableView;
 @property (strong, nonatomic) NSMutableArray *results;
-@property (strong, nonatomic) NSDictionary *searchInfo;
+@property (strong, nonatomic) NSDictionary *info;
 
 @end
 
@@ -37,8 +48,8 @@
     {
         self.navigationItem.title = @"검색 결과";
         
-        _searchInfo = searchInfo;
-        NSLog(@"검색 조건 : %@", _searchInfo);
+        _info = searchInfo;
+        NSLog(@"검색 조건 : %@", _info);
         
         _results = [[NSMutableArray alloc] init];
     }
@@ -62,6 +73,20 @@
     // 검색 결과 화면
     [self setupSearchResultUI];
 
+    
+    if ([_info[@"islocal"] boolValue] == YES)
+    {
+        // db에서 검색
+        [_results setArray:[self searchLocalDB]];
+        NSLog(@"가져온 것 : %@", _results);
+        
+        if ([_results count] > 0) {
+            [_resultTableView reloadData];
+        }
+    } else {
+        // 서버에서 검색
+        [self requestAPIStudents];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +99,11 @@
 - (void)setupSearchResultUI
 {
     CGRect rect = self.view.bounds;
-    rect.size.height -= (44 + 60);
+    rect.size.height -= kStudentToolH;
+    
+    if (IS_LESS_THEN_IOS7) {
+        rect.size.height -= 44.0f;
+    }
     
     // 검색결과 테이블 뷰
     _resultTableView = [[UITableView alloc] initWithFrame:rect];
@@ -83,13 +112,114 @@
     
     [self.view addSubview:_resultTableView];
     
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _resultTableView.separatorInset = edges;
+    }
+
     
     // 툴바
-//    _footerToolView = [[StudentToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height, rect.size.width, kStudentToolH)];
-//    _footerToolView.delegate = self;
-//    _footerToolView.backgroundColor = [UIColor blueColor];
-//    
-//    [self.view addSubview:_footerToolView];
+    _footerToolView = [[StudentToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height, rect.size.width, kStudentToolH)];
+    _footerToolView.delegate = self;
+    
+    [self.view addSubview:_footerToolView];
+}
+
+
+#pragma mark - DB methods
+
+/// DB에서 검색
+- (NSArray *)searchLocalDB
+{
+    if (self.managedObjectContext == nil) {
+        return nil;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Student" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // * (column)
+    //    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
+    //    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
+    //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
+    [fetchRequest setResultType:NSDictionaryResultType];
+    
+    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"class_info"]];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    
+    NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
+    NSPredicate *predicate = nil;
+    if ([_info[@"name"] length] > 0) {
+        predicate = [NSPredicate predicateWithFormat:@"class_info.courseclass == %@ AND name == %@", _info[@"courseclass"], _info[@"name"]];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"class_info.courseclass == %@", _info[@"courseclass"]];
+    }
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    if (fetchedObjects && [fetchedObjects count] > 0)
+    {
+        // 검색된 학생 목록 저장
+        return fetchedObjects;
+    }
+    return nil;
+}
+
+
+#pragma mark - Network API
+/// 해당 기수의 학생 목록 요청
+- (void)requestAPIStudents
+{
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+    
+    NSString *lang = [TSLanguageManager selectedLanguage];
+    
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang, @"course":_info[@"course"], @"courseclass":_info[@"courseclass"], @"name":_info[@"name"]};
+    NSLog(@"(/fb/students) Request Parameter : %@", param);
+    
+    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
+    
+    // 과정별 기수 목록
+    [[SMNetworkClient sharedClient] postStudents:param
+                                           block:^(NSMutableArray *result, NSError *error) {
+                                               
+                                               [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                               
+                                               NSLog(@"결과 : %@", result);
+                                               
+                                               if (error) {
+                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
+                                               }
+                                               else
+                                               {
+                                                   // 기수 학생 목록
+                                                   [_results setArray:result];
+                                                   
+                                                   NSLog(@"(%@)기수 학생 수 : %d", _info[@"courseclass"], [_results count]);
+                                                   
+                                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                                       //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                                                       [_resultTableView reloadData];
+                                                   });
+                                                   
+                                               }
+                                               
+                                           }];
 }
 
 
@@ -102,7 +232,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ([_results count] > 0)? 50.0f : self.view.frame.size.height;
+    return ([_results count] > 0)? kStudAddressCellH : self.view.frame.size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,11 +250,11 @@
     }
     
     static NSString *identifier = @"ResultCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    StudentAddressCell *cell = (StudentAddressCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[StudentAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     if ([_results count] > 0)
@@ -145,9 +275,9 @@
 //            NSArray *keys = [[[student entity] attributesByName] allKeys];
 //            [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
 //        }
-//        NSLog(@"학생 목록 셀 정보 : %@", dict);
-//        
-//        [cell setCellInfo:dict];
+        NSLog(@"학생 목록 셀 정보 : %@", _results[indexPath.row]);
+        
+        [cell setCellInfo:_results[indexPath.row]];
         
     }
     
@@ -178,5 +308,50 @@
     }
 }
 
+
+#pragma mark - Callback methods
+// 학생 주소록 하단 툴 버튼
+- (void)didSelectedToolTag:(NSNumber *)type
+{
+    switch ([type intValue])
+    {
+        case 0: // sms
+            [self onSmsViewController];
+            break;
+            
+        case 1: // email
+            [self onEmailViewController];
+            break;
+            
+        case 2: // address book
+            [self onAddressViewController];
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+- (void)onSmsViewController
+{
+    SmsViewController *smsVC = [[SmsViewController alloc] init];
+    smsVC.navigationItem.title = _info[@"title"];
+    smsVC.view.backgroundColor = [UIColor whiteColor];
+    [smsVC setMembers:_results];
+    
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)onEmailViewController
+{
+    
+}
+
+- (void)onAddressViewController
+{
+    
+}
 
 @end

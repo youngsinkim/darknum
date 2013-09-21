@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StudentToolView.h"
 
-@interface SearchResultViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SearchResultViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, StudentToolViewDelegate>
+
+//@property (strong, nonatomic) NSDictionary *info;
+
+- (id)initWithInfo:(NSDictionary *)searchInfo;
 
 @end
