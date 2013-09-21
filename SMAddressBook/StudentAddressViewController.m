@@ -119,6 +119,12 @@
     _studentTableView.delegate = self;
     
     [self.view addSubview:_studentTableView];
+    
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _studentTableView.separatorInset = edges;
+    }
 
     
     // 툴바

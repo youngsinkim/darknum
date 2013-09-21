@@ -230,7 +230,7 @@
     if (cell == nil) {
         cell = [[MenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.separatorColor = [UIColor colorWithRed:56.0f/255.0f green:60.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
     }
     
