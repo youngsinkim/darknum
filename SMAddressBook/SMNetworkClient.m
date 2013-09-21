@@ -67,9 +67,14 @@
 {
     NSLog(@"error ---- %@", [error localizedDescription]);
     NSDictionary *info = [NSDictionary dictionaryWithDictionary:[error userInfo]];
-    if (![info isKindOfClass:[NSNull class]]) {
-        [[[UIAlertView alloc] initWithTitle:nil //NSLocalizedString(@"Error", nil)
-                                    message:info[kErrorMsg]
+    NSLog(@"error UserInfo : %@", info);
+    if (![info isEqual:[NSNull null]]) {
+        NSString *message = info[kErrorMsg];
+        if (message.length == 0) {
+            message = NSLocalizedString(info[@"NSLocalizedDescription"], nil);
+        }
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
+                                    message:message
                                    delegate:nil
                           cancelButtonTitle:nil
                           otherButtonTitles:NSLocalizedString(@"OK", nil), nil]
@@ -235,7 +240,12 @@
                if (block) {
                    NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
 //                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
-                   block([NSMutableArray arrayWithArray:[JSON valueForKeyPath:@"data"]], nil);
+                   NSMutableArray *array = [[NSMutableArray alloc] init];
+                   if ([NSJSONSerialization isValidJSONObject:[JSON valueForKeyPath:@"data"]]) {
+                       [array setArray:[JSON valueForKeyPath:@"data"]];
+                   }
+
+                   block([NSMutableArray arrayWithArray:array], nil);
                }
                
            }
