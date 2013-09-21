@@ -235,6 +235,11 @@
     
     [self.view addSubview:_favoriteTableView];
     
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _favoriteTableView.separatorInset = edges;
+    }
     
     // 하단 버튼 툴바
     _favoriteToolbar = [[FavoriteToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - sizeY, 320, kFvToolH)];
