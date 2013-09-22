@@ -420,12 +420,14 @@
 - (void)onFindIdClicked
 {
     // TODO: 아이디 찾기 웹 페이지로 이동
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.naver.com"]];
 }
 
 /// 비밀번호 찾기
 - (void)onFindPasswdClicked
 {
     // TODO: 비밀번호 찾기 웹 페이지로 이동
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.naver.com"]];
 }
 
 #pragma mark - Network methods
