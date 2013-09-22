@@ -14,7 +14,7 @@
 @property (strong, nonatomic) UITableView *smsTableView;
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) UISearchDisplayController *searchDisplay;
-
+@property (strong, nonatomic) NSMutableArray *filteredSmsArray;
 @end
 
 @implementation SmsViewController

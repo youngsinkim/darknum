@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ToolViewCell.h"
 
-@interface ToolViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+typedef enum {
+    ToolViewTypeSms,
+    ToolViewTypeEmail,
+    ToolViewTypeUnknown
+} ToolViewType;
+
+@interface ToolViewController : UIViewController <UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ToolViewCellDelegate>
+
+- (id)initWithInfo:(NSMutableArray *)items viewType:(ToolViewType)type;
 
 @end

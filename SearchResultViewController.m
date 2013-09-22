@@ -12,6 +12,7 @@
 #import "Student.h"
 
 #import "PortraitNavigationController.h"
+#import "ToolViewController.h"
 #import "SmsViewController.h"
 
 #import "TSLanguageManager.h"
@@ -335,18 +336,29 @@
 
 - (void)onSmsViewController
 {
-    SmsViewController *smsVC = [[SmsViewController alloc] init];
-    smsVC.navigationItem.title = _info[@"title"];
-    smsVC.view.backgroundColor = [UIColor whiteColor];
-    [smsVC setMembers:_results];
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_results viewType:ToolViewTypeSms];
+    toolVC.navigationItem.title = self.navigationItem.title;
     
-    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];
+    
     [self.navigationController presentViewController:nav animated:YES completion:nil];
+
+//    SmsViewController *smsVC = [[SmsViewController alloc] init];
+//    smsVC.navigationItem.title = _info[@"title"];
+//    smsVC.view.backgroundColor = [UIColor whiteColor];
+//    [smsVC setMembers:_results];
+//    
+//    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+//    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)onEmailViewController
 {
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_results viewType:ToolViewTypeEmail];
+    toolVC.navigationItem.title = self.navigationItem.title;
     
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)onAddressViewController

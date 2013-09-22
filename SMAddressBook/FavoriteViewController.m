@@ -7,7 +7,6 @@
 //
 
 #import "FavoriteViewController.h"
-//#import "FavoriteToolViewController.h"
 #import "MenuTableViewController.h"
 #import "NSString+MD5.h"
 #import "Course.h"

@@ -56,7 +56,7 @@
     NSArray *buttonList = [NSArray arrayWithObjects:
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
-                           [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+//                           [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            nil];
     
     CGFloat width = 300.0f / [buttonList count];

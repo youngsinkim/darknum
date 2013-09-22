@@ -17,6 +17,7 @@
 
 #import "PortraitNavigationController.h"
 #import "SmsViewController.h"
+#import "ToolViewController.h"
 
 #import "TSLanguageManager.h"
 #import "NSString+MD5.h"
@@ -374,9 +375,9 @@
             [self onEmailViewController];
             break;
             
-        case 2: // address book
-            [self onAddressViewController];
-            break;
+//        case 2: // address book
+//            [self onAddressViewController];
+//            break;
             
         default:
             break;
@@ -398,18 +399,35 @@
 
 - (void)onSmsViewController
 {
-    SmsViewController *smsVC = [[SmsViewController alloc] init];
-    smsVC.navigationItem.title = _info[@"title"];
-    smsVC.view.backgroundColor = [UIColor whiteColor];
-    [smsVC setMembers:_students];
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_students viewType:ToolViewTypeSms];
+    toolVC.navigationItem.title = self.navigationItem.title;
     
-    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];
+    
     [self.navigationController presentViewController:nav animated:YES completion:nil];
+
+//    SmsViewController *smsVC = [[SmsViewController alloc] init];
+//    smsVC.navigationItem.title = _info[@"title"];
+//    smsVC.view.backgroundColor = [UIColor whiteColor];
+//    [smsVC setMembers:_students];
+//    
+//    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:smsVC];
+//    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)onEmailViewController
 {
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_students viewType:ToolViewTypeEmail];
+    toolVC.navigationItem.title = self.navigationItem.title;
     
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];
+
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)onNaviBarBtnClose
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)onAddressViewController
