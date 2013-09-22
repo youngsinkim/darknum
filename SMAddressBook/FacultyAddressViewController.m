@@ -37,7 +37,7 @@
     self = [super init];
     if (self) {
         
-        self.navigationItem.title = LocalizedString(@"faculty_text", @"교수진");
+//        self.navigationItem.title = LocalizedString(@"faculty_text", @"교수진");
 
         _majorInfo = [NSDictionary dictionaryWithDictionary:info];
         NSLog(@"교수의 전공 정보 : %@", _majorInfo);
@@ -93,10 +93,15 @@
     _addressTableView.dataSource = self;
     _addressTableView.delegate = self;
     //    _addressTableView = UITableViewCellSeparatorStyleNone;
-    _addressTableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+//    _addressTableView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
     
     [self.view addSubview:_addressTableView];
     
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _addressTableView.separatorInset = edges;
+    }
 }
 
 #pragma mark - DB methods
@@ -109,10 +114,14 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Faculty" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major == %@)", _majorInfo[@"major"]];
+    [fetchRequest setResultType:NSDictionaryResultType];
+    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"major"]];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", _majorInfo[@"major"]];
     [fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
@@ -121,14 +130,16 @@
 
     if ([fetchedObjects count] > 0)
     {
-        Major *major = fetchedObjects[0];
-        if (major)
-        {
-            NSArray *faculties = [NSArray arrayWithArray:[major.facultys allObjects]];
-            NSLog(@"faculty count : %d, %d", [major.facultys count], [faculties count]);
-            
-            return faculties;
-        }
+        NSLog(@"(%@)전공 교수 목록 : %@", _majorInfo[@"major"], fetchedObjects);
+        return fetchedObjects;
+//        Major *major = fetchedObjects[0];
+//        if (major)
+//        {
+//            NSArray *faculties = [NSArray arrayWithArray:[major.facultys allObjects]];
+//            NSLog(@"faculty count : %d, %d", [major.facultys count], [faculties count]);
+//            
+//            return faculties;
+//        }
     }
 
     return nil;
@@ -174,8 +185,11 @@
     
     if ([_faculties count] > 0)
     {
-        Faculty *faculty = _faculties[indexPath.row];
-        NSDictionary *info = @{@"photourl":faculty.photourl, @"name":faculty.name, @"email":faculty.email};
+//        Faculty *faculty = _faculties[indexPath.row];
+//        NSDictionary *info = @{@"photourl":faculty.photourl, @"name":faculty.name, @"email":faculty.email};
+        NSDictionary *info = _faculties[indexPath.row];
+        NSLog(@"교수 : %@", info);
+        
         [cell setCellInfo:info];
     }
     
@@ -187,21 +201,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
     
-    //    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
-    
-    /* 연락처 상세 보기 */
-    //    [self showContact];
-    
-    //    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
-    
-    // 세로형 뷰로 넘어갈 때 타입도 넘겨야 함.
-    DetailViewController *detailViewController = [[DetailViewController alloc] init];
-    detailViewController.contacts = _faculties;
-    //    [detailViewController.contacts setArray:_contacts];
-    
     self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
-
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    
+    DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeFaculty];
+    viewController.currentIdx = indexPath.row;
+    viewController.contacts = [_faculties mutableCopy];
+    
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

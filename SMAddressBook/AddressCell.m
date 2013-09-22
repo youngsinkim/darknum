@@ -24,7 +24,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+//        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
         //        self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
         
         // 프로필 사진
@@ -75,7 +75,8 @@
     NSLog(@"주소록 셀 정보 : %@", _cellInfo);
     
     if (_cellInfo[@"photourl"]) {
-        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]]]
+//        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]]]
+        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"photourl"]]]
                           placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
     

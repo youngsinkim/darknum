@@ -29,7 +29,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"staff_text", @"교직원");
+//        self.navigationItem.title = LocalizedString(@"staff_text", @"교직원");
         
         _staffs = [[NSMutableArray alloc] init];
 
@@ -76,6 +76,11 @@
     
     [self.view addSubview:_staffTableView];
     
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _staffTableView.separatorInset = edges;
+    }
 }
 
 
@@ -92,6 +97,8 @@
     NSEntityDescription * entity = [NSEntityDescription entityForName:@"Staff" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    [fetchRequest setResultType:NSDictionaryResultType];
+
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
@@ -143,8 +150,10 @@
     
     if ([_staffs count] > 0)
     {
-        Staff *staff = _staffs[indexPath.row];
-        NSDictionary *info = @{@"photourl":staff.photourl, @"name":staff.name, @"email":staff.email};
+//        Staff *staff = _staffs[indexPath.row];
+//        NSDictionary *info = @{@"photourl":staff.photourl, @"name":staff.name, @"email":staff.email};
+        NSDictionary *info = _staffs[indexPath.row];
+        NSLog(@"교직원 : %@", info);
     
         [cell setCellInfo:info];
     }
@@ -157,15 +166,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
     
-    Staff *staff = _staffs[indexPath.row];
-    if (staff)
-    {
-        DetailViewController *detailViewController = [[DetailViewController alloc] init];
-        detailViewController.contacts = _staffs;
-        //    [detailViewController.contacts setArray:_contacts];
-        
-        [self.navigationController pushViewController:detailViewController animated:YES];
-    }
+    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
+    
+    DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStaff];
+    viewController.currentIdx = indexPath.row;
+    viewController.contacts = [_staffs mutableCopy];
+    
+    [self.navigationController pushViewController:viewController animated:YES];
+
 }
 
 @end

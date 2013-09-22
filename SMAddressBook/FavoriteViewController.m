@@ -1154,6 +1154,7 @@
             case MemberTypeFaculty: // 교수진
                 {
                     FacultyMajorViewController *facultyMajorVC = [[FacultyMajorViewController alloc] init];
+                    facultyMajorVC.navigationItem.title = courseClass.title;
                     [self.navigationController pushViewController:facultyMajorVC animated:YES];
                 }
                 break;
@@ -1161,6 +1162,7 @@
             case MemberTypeStaff:   // 교직원
                 {
                     StaffAddressViewController *staffAddressVc = [[StaffAddressViewController alloc] init];
+                    staffAddressVc.navigationItem.title = courseClass.title;
                     [self.navigationController pushViewController:staffAddressVc animated:YES];
                 }
                 break;

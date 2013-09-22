@@ -212,7 +212,8 @@
     _cellInfo = cellInfo;
     NSLog(@"셀 정보: %@", _cellInfo[@"name_en"]);
  
-    [self layoutSubviews];
+//    [self layoutSubviews];
+
 
     if (_memType == MemberTypeFaculty)
     {
@@ -224,21 +225,32 @@
     }
     else if (_memType == MemberTypeStudent)
     {
-        if (_cellInfo[@"photourl"]) {
-            NSLog(@"프로필 이미지 : http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]);
-            [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]]]
-                          placeholderImage:[UIImage imageNamed:@"placeholder"]];
-        }
-        
-        if (_cellInfo[@"name"]) {
-            _nameValueLabel.text = _cellInfo[@"name"];
-        }
+//        if (_cellInfo[@"photourl"]) {
+//            NSLog(@"프로필 이미지 : %@", _cellInfo[@"photourl"]);
+//            [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"photourl"]]]
+//                          placeholderImage:[UIImage imageNamed:@"placeholder"]];
+//        }
+//        
+//        if (_cellInfo[@"name"]) {
+//            _nameValueLabel.text = _cellInfo[@"name"];
+//        }
         
         if (_cellInfo[@"email"]) {
             _emailLabel.text = _cellInfo[@"email"];
         }
     }
     
+    if (_cellInfo[@"photourl"]) {
+        NSLog(@"프로필 이미지 : %@", _cellInfo[@"photourl"]);
+        [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"photourl"]]]
+                      placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    }
+    
+    if (_cellInfo[@"name"]) {
+        _nameValueLabel.text = _cellInfo[@"name"];
+    }
+    
+    [self setNeedsDisplay];
 }
 
 - (void)layoutSubviews
@@ -252,7 +264,9 @@
     
     if (_memType == MemberTypeFaculty)
     {
+        _profileImage.frame = CGRectMake(0.0f, 50.0f, 320.0f, 150.0f);
         _nameLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+        _nameValueLabel.frame = CGRectMake(100.0f, yOffset, 80.0f, 20.0f);
         yOffset += 24.0f;
         _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
         yOffset += 24.0f;
@@ -267,7 +281,10 @@
     }
     else if (_memType == MemberTypeStaff)
     {
-        
+        _profileImage.frame = CGRectMake(0.0f, 50.0f, 320.0f, 150.0f);
+        _nameLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+        _nameValueLabel.frame = CGRectMake(100.0f, yOffset, 80.0f, 20.0f);
+        yOffset += 24.0f;
     }
     else if (_memType == MemberTypeStudent)
     {

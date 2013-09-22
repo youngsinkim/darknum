@@ -52,7 +52,7 @@
     // 교수진 전공 화면 구성
     [self setupMajorUI];
 
-#if (1)
+#if (0)
     // 교수진 전공 목록 서버에서 가져오기
     [self requestAPIMajors];
 #else
@@ -78,6 +78,11 @@
     
     [self.view addSubview:_majorTableView];
     
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _majorTableView.separatorInset = edges;
+    }
 }
 
 
@@ -96,20 +101,23 @@
     NSEntityDescription * entity = [NSEntityDescription entityForName:@"Major" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", majorValue];
-    //    [fetchRequest setPredicate:predicate];
-    
-    //    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
-    //    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    [fetchRequest setResultType:NSDictionaryResultType];
+
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", majorValue];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title != ''"];
+    [fetchRequest setPredicate:predicate];
+
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
     
-    if (fetchedObjects && [fetchedObjects count] > 0)
-        {
+//    if (fetchedObjects && [fetchedObjects count] > 0)
+//    {
         return fetchedObjects;
-        }
-    return nil;
+//    }
+//    return nil;
 }
 
 
@@ -182,6 +190,7 @@
         
         FacultyAddressViewController *viewController = [[FacultyAddressViewController alloc] initWithInfo:majorInfo];
 //        AddressViewController *viewController = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
+        viewController.navigationItem.title = majorInfo[@"title"];
     
         [self.navigationController pushViewController:viewController animated:YES];
     }

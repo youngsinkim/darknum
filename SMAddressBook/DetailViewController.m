@@ -762,10 +762,18 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 //    // ( NSDictionary <- NSManagedObject )
 //    NSArray *keys = [[[mo entity] attributesByName] allKeys];
 //    NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
-    NSDictionary *info = _contacts[_currentIdx];
+    NSDictionary *info = _contacts[indexPath.row];
     NSLog(@"상세 정보 : %@", info);
 
-    [(DetailViewCell *)cell setMemType:MemberTypeStudent];
+    if (_memType == MemberTypeFaculty) {
+        [(DetailViewCell *)cell setMemType:MemberTypeFaculty];
+    } else if (_memType == MemberTypeStaff) {
+        [(DetailViewCell *)cell setMemType:MemberTypeStaff];
+    } else if (_memType == MemberTypeStudent) {
+        [(DetailViewCell *)cell setMemType:MemberTypeStudent];
+    } else {
+        return;
+    }
     [(DetailViewCell *)cell setCellInfo:info];
     
 //	UILabel *label	= (UILabel *)view;
@@ -798,6 +806,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         NSInteger index = (NSInteger)contentOffset.x / 320;
         if (index < [_contacts count]) {
             _currentIdx = index;
+            NSLog(@"셀 index : %d", _currentIdx);
         }
     }
 }

@@ -340,7 +340,7 @@
 
 //    NSDictionary *majorInfo = [_students[indexPath.row] mutableCopy];
 //    if ([majorInfo isKindOfClass:[NSDictionary class]])
-    {
+//    {
 //        NSLog(@"선택된 셀 정보 : %@", majorInfo);
         
         // 전공에 해당하는 교수 목록 화면으로, (type = faculty, dict = 전공 정보)
@@ -348,7 +348,7 @@
         //        FacultyAddressViewController *facultyAddressVC = [[FacultyAddressViewController alloc] init];
 //        AddressViewController *addressVC = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
 //        [self.navigationController pushViewController:addressVC animated:YES];
-    }
+//    }
 }
 
 #pragma mark - Callback methods
