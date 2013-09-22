@@ -69,35 +69,41 @@
 //    if ([[UIScreen mainScreen] bounds].size.height == 568)
     
     // 배경 스크롤 뷰
-//    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height - 44.0f)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height - 44.0f)];
 //    _scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
-//    _scrollView.contentSize = CGSizeMake(300.0f, 396.0f+200.0f);
-//    
-//    [self.view addSubview:_scrollView];
+    _scrollView.backgroundColor = [UIColor yellowColor];
+    _scrollView.contentSize = CGSizeMake(rect.size.width, rect.size.height - 60.0f);
+
+    [self.view addSubview:_scrollView];
     
-    CGFloat sizeHeight = (rect.size.height - 44.0f - 160) / 2;
+    CGFloat sizeHeight = (rect.size.height - 44.0f - 170) / 2;
     CGFloat yOffset = 10.0f;
+    
+//    if (!IS_LESS_THEN_IOS7) {
+//        yOffset += 64.0f;
+//    }
     
     // 서비스 약관
     _webView1 = [[UIWebView alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, sizeHeight)];
+    _webView1.backgroundColor = [UIColor clearColor];
     [[_webView1 layer] setCornerRadius:10];
     [_webView1 setClipsToBounds:YES];
     
     [[_webView1 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView1 layer] setBorderWidth:2.0f];
     
-    NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
-    NSData *htmlData = [NSData dataWithContentsOfFile:htmlFile];
-    [_webView1 loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:@""]];
+    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
+    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
+    [_webView1 loadData:htmlData3 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
     
-    [self.view addSubview:_webView1];
+    [_scrollView addSubview:_webView1];
     yOffset += (sizeHeight + 5);
     
     
     // 서비스 약관동의 버튼
     _acceptBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     _acceptBtn1.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
-    [_acceptBtn1 setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
+    [_acceptBtn1 setTitle:LocalizedString(@"동의합니다.", @"동의함") forState:UIControlStateNormal];
     [_acceptBtn1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_acceptBtn1 setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [_acceptBtn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
@@ -109,12 +115,13 @@
     [_acceptBtn1 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [_acceptBtn1 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:_acceptBtn1];
-    yOffset += (30.0f + 10);
+    [_scrollView addSubview:_acceptBtn1];
+    yOffset += (30.0f + 5.0f);
 
 
     // 개인보호
     _webView2 = [[UIWebView alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, sizeHeight)];
+    _webView2.backgroundColor = [UIColor clearColor];
     [[_webView2 layer] setCornerRadius:10];
     [_webView2 setClipsToBounds:YES];
     
@@ -125,14 +132,14 @@
     NSData *htmlData2 = [NSData dataWithContentsOfFile:htmlFile2];
     [_webView2 loadData:htmlData2 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:@""]];
     
-    [self.view addSubview:_webView2];
+    [_scrollView addSubview:_webView2];
     yOffset += (sizeHeight + 5);
     
     
     // 개인보호 정책동의 버튼
     _acceptBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
     _acceptBtn2.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
-    [_acceptBtn2 setTitle:LocalizedString(@"accept_btn_text", @"동의함") forState:UIControlStateNormal];
+    [_acceptBtn2 setTitle:LocalizedString(@"동의합니다.", @"동의함") forState:UIControlStateNormal];
     [_acceptBtn2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
@@ -144,16 +151,16 @@
     [_acceptBtn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [_acceptBtn2 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:_acceptBtn2];
+    [_scrollView addSubview:_acceptBtn2];
     yOffset += (30.0f + 10.0f);
 
     
     // 약관동의 버튼
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _nextBtn.frame = CGRectMake((320 - 70) / 2, yOffset, 70.0f, 30.0f);
+    _nextBtn.frame = CGRectMake((rect.size.width - 70.0f) / 2, rect.size.height - 45.0f, 70.0f, 30.0f);
 //    _nextBtn.center = CGPointMake(300.0f / 2, 566.0f);
     [_nextBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-    [_nextBtn setTitle:LocalizedString(@"Ok", @"Ok") forState:UIControlStateNormal];
+    [_nextBtn setTitle:LocalizedString(@"다음", @"다음") forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     _nextBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -173,12 +180,13 @@
 // 약관 동의 버튼
 - (void)onAcceptBtnClicked
 {
-    if (!_acceptBtn1.selected || !_acceptBtn2.selected) {
+    if (_acceptBtn1.selected == NO || _acceptBtn2.selected == NO) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
                                                             message:@"모두 동의해 주셔야 서비스를 이용하실 수 있습니다."
                                                            delegate:self cancelButtonTitle:LocalizedString(@"Cancel", @"Cancel")
                                                   otherButtonTitles:nil];
         [alertView show];
+        return;
     }
     
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

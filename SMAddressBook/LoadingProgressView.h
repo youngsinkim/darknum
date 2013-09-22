@@ -10,7 +10,7 @@
 
 @interface LoadingProgressView : UIView
 
-
+@property (assign, nonatomic) CGFloat progress;
 //@property (nonatomic, retain) NSString *notificationString;
 //@property (nonatomic, assign) BOOL showProgress;
 
@@ -18,5 +18,6 @@
 //- (void)setBackgroundSize:(NSString *)message;
 - (void)start;
 - (void)stop;
+//- (void)setProgress:(CGFloat)pos;
 
 @end

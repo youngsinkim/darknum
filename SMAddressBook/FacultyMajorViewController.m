@@ -208,7 +208,7 @@
     
     // 과정별 기수 목록
     [[SMNetworkClient sharedClient] postMajors:param
-                                         block:^(NSMutableArray *result, NSError *error) {
+                                         block:^(NSArray *result, NSError *error) {
                                              
                                               [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
         
@@ -219,9 +219,10 @@
                                               else
                                               {
                                                   // 전공 목록은 db 저장 없이 tableview만 업데이트
-                                                  NSArray *majorList = [result mutableCopy];
-                                                  [_majors setArray:majorList];
-                                                  NSLog(@"전공 개수 : %d, %@", [_majors count], majorList);
+//                                                  NSArray *majorList = [result mutableCopy];
+//                                                  [_majors setArray:majorList];
+                                                  [_majors setArray:result];
+                                                  NSLog(@"전공 목록 (%d) : %@", [_majors count], _majors);
                                                   
                                                   dispatch_async(dispatch_get_main_queue(), ^{
 //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
@@ -229,7 +230,6 @@
                                                   });
                                                   
                                               }
-                                             
                                           }];
 }
 

@@ -24,6 +24,7 @@
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *msgLabel;
 @property (strong, nonatomic) UIProgressView *progressView;
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -37,6 +38,9 @@
         // Initialization code
         self.hidden = YES;
         self.userInteractionEnabled = YES;
+        
+        self.timer = nil;
+        self.progress = 0.0f;
         
         // 배경 (dimmed) 뷰
         _bgView = [[UIView alloc] initWithFrame:self.bounds];
@@ -99,6 +103,10 @@
 
 - (void)start
 {
+//    [NSThread detachNewThreadSelector:@selector(workerProgress) toTarget:self withObject:nil];
+//    if (_timer == nil) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector: @selector(updateProgress) userInfo:nil repeats:YES];
+//    }
     self.hidden = NO;
 }
 
@@ -107,4 +115,47 @@
     self.hidden = YES;
 }
 
+- (void)workerProgress
+{
+    @autoreleasepool
+    {
+        float pos = 0.0f;
+//        for (float i = 0; i<1; i+= 0.1)
+        while (pos < 1.0f)
+        {
+            [self performSelectorInBackground:@selector(updateProgress:) withObject:[NSNumber numberWithFloat:pos]];
+            pos += 0.1f;
+            sleep(500);
+        }
+    }
+}
+
+- (void)updateProgress:(NSNumber*)number
+{
+    NSLog("Progress is now: %@", number);
+//    [progressView setProgress:[number floatValue]];
+    [self setProgress:[number floatValue]];
+}
+
+- (void)updateProgress
+{
+    @autoreleasepool
+    {
+        _progressView.progress += 0.1f;
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)setProgress:(CGFloat)progress
+{
+    
+	if (progress > 1.0f)
+		progress = 1.0f ;
+	if (progress < 0.0f)
+		progress = 0.0f ;
+    
+	_progressView.progress = progress;
+    
+	[self setNeedsDisplay];
+}
 @end
