@@ -68,10 +68,13 @@
     NSLog(@"error ---- %@", [error localizedDescription]);
     NSDictionary *info = [NSDictionary dictionaryWithDictionary:[error userInfo]];
     NSLog(@"error UserInfo : %@", info);
-    if (![info isEqual:[NSNull null]]) {
-        NSString *message = info[kErrorMsg];
+    
+    if ([info isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *decodeInfo = [info dictionaryByUTF8Decode];
+        NSString *message = decodeInfo[kErrorMsg];
         if (message.length == 0) {
-            message = NSLocalizedString(info[@"NSLocalizedDescription"], nil);
+            message = NSLocalizedString(decodeInfo[@"NSLocalizedDescription"], nil);
         }
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
                                     message:message
