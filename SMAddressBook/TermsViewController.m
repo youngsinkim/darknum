@@ -13,7 +13,7 @@
 
 @interface TermsViewController ()
 
-@property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UIView *scrollView;
 @property (strong, nonatomic) UIWebView *webView1;
 @property (strong, nonatomic) UIWebView *webView2;
 @property (strong, nonatomic) UIButton *acceptBtn1;
@@ -45,15 +45,35 @@
     NSLog(@"%@", self.navigationController.viewControllers);
     NSLog(@"modal : %d",     self.navigationController.modalInPopover);
     
-//    if (self.navigationController.viewControllers[0] != self)
-    if (self.isByMenu == NO)
+//    if (!IS_LESS_THEN_IOS7) {
+//        self.edgesForExtendedLayout = UIRectEdgeBottom;
+//        self.navigationController.navigationBar.translucent = NO;
+//    }
+
+    [self setupTermsViewUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.isByMenu)
     {
+        _acceptBtn1.hidden = YES;
+        _acceptBtn2.hidden = YES;
+        _nextBtn.hidden = YES;
+    }
+    else
+    {
+        _acceptBtn1.hidden = NO;
+        _acceptBtn2.hidden = NO;
+        _nextBtn.hidden = NO;
+        
         self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.hidesBackButton = YES;      // 기본 네비게이션 back 버튼 노출되지 않도록 처리 
+        self.navigationItem.hidesBackButton = YES;      // 기본 네비게이션 back 버튼 노출되지 않도록 처리
         self.navigationItem.rightBarButtonItem = nil;
     }
 
-    [self setupTermsViewUI];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,27 +84,27 @@
 
 - (void)setupTermsViewUI
 {
-//    CGRect rect = [[UIScreen mainScreen] applicationFrame];
     CGRect rect = self.view.bounds;
-//    if ([[UIScreen mainScreen] bounds].size.height == 568)
     
     // 배경 스크롤 뷰
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height - 44.0f)];
+//    _scrollView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, viewOffset, rect.size.width, rect.size.height - 44.0f)];
 //    _scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
-    _scrollView.backgroundColor = [UIColor yellowColor];
-    _scrollView.contentSize = CGSizeMake(rect.size.width, rect.size.height - 60.0f);
+//    _scrollView.backgroundColor = [UIColor yellowColor];
+//    _scrollView.contentSize = CGSizeMake(rect.size.width, rect.size.height - 60.0f);
 
-    [self.view addSubview:_scrollView];
+//    [self.view addSubview:_scrollView];
     
     CGFloat sizeHeight = (rect.size.height - 44.0f - 170) / 2;
-    CGFloat yOffset = 10.0f;
+    CGFloat yOffset = 0.0f;
     
-//    if (!IS_LESS_THEN_IOS7) {
-//        yOffset += 64.0f;
-//    }
+    if (!IS_LESS_THEN_IOS7) {
+        yOffset += 64.0f;
+    }
     
-    // 서비스 약관
-    _webView1 = [[UIWebView alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, sizeHeight)];
+//    // 서비스 약관
+    _webView1 = [[UIWebView alloc] init];
+    _webView1.frame = CGRectMake(10.0f, yOffset+5.0f, rect.size.width - 20.0f, sizeHeight);
+    _webView1.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _webView1.backgroundColor = [UIColor clearColor];
     [[_webView1 layer] setCornerRadius:10];
     [_webView1 setClipsToBounds:YES];
@@ -92,12 +112,13 @@
     [[_webView1 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView1 layer] setBorderWidth:2.0f];
     
-    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
-    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
-    [_webView1 loadData:htmlData3 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
+//    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
+//    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
+    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/terms-of-use"]];
+    [_webView1 loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
     
-    [_scrollView addSubview:_webView1];
-    yOffset += (sizeHeight + 5);
+    [self.view addSubview:_webView1];
+    yOffset += (sizeHeight + 10.0f);
     
     
     // 서비스 약관동의 버튼
@@ -115,25 +136,28 @@
     [_acceptBtn1 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [_acceptBtn1 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [_scrollView addSubview:_acceptBtn1];
-    yOffset += (30.0f + 5.0f);
+    [self.view addSubview:_acceptBtn1];
+    yOffset += 30.0f;
 
 
     // 개인보호
-    _webView2 = [[UIWebView alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, sizeHeight)];
+    _webView2 = [[UIWebView alloc] init];
+    _webView2.frame = CGRectMake(10.0f, yOffset+5.0f, rect.size.width - 20.0f, sizeHeight);
+//    _webView2.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _webView2.backgroundColor = [UIColor clearColor];
     [[_webView2 layer] setCornerRadius:10];
     [_webView2 setClipsToBounds:YES];
     
-    [[_webView2 layer]setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
+    [[_webView2 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView2 layer] setBorderWidth:2.0f];
     
-    NSString *htmlFile2 = [[NSBundle mainBundle] pathForResource:@"personTerms" ofType:@"html"];
-    NSData *htmlData2 = [NSData dataWithContentsOfFile:htmlFile2];
-    [_webView2 loadData:htmlData2 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:@""]];
+//    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
+//    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
+    NSData *htmlData2 = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/privacy-policy"]];
+    [_webView2 loadData:htmlData2 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
     
-    [_scrollView addSubview:_webView2];
-    yOffset += (sizeHeight + 5);
+    [self.view addSubview:_webView2];
+    yOffset += (sizeHeight + 10.0f);
     
     
     // 개인보호 정책동의 버튼
@@ -151,20 +175,26 @@
     [_acceptBtn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [_acceptBtn2 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [_scrollView addSubview:_acceptBtn2];
+    [self.view addSubview:_acceptBtn2];
     yOffset += (30.0f + 10.0f);
 
     
     // 약관동의 버튼
+    CGFloat bottomOffset = 50.0f;
+    if (IS_LESS_THEN_IOS7) {
+        bottomOffset += 64.0f;
+    }
     _nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _nextBtn.frame = CGRectMake((rect.size.width - 70.0f) / 2, rect.size.height - 45.0f, 70.0f, 30.0f);
+    _nextBtn.frame = CGRectMake((rect.size.width - 70.0f) / 2, rect.size.height - bottomOffset, 70.0f, 30.0f);
 //    _nextBtn.center = CGPointMake(300.0f / 2, 566.0f);
     [_nextBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
     [_nextBtn setTitle:LocalizedString(@"다음", @"다음") forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [_nextBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     _nextBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_nextBtn addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    _nextBtn.enabled = NO;
     
     [self.view addSubview:_nextBtn];
     
@@ -175,6 +205,12 @@
 - (void)onAcceptClicked:(id)sender
 {
     [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
+    
+    if (_acceptBtn1.selected && _acceptBtn2.selected) {
+        _nextBtn.enabled = YES;
+    } else {
+        _nextBtn.enabled = NO;
+    }
 }
 
 // 약관 동의 버튼
