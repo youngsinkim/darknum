@@ -473,8 +473,8 @@
     {
         NSLog(@"(%d), (%d) 즐겨찾기 목록을 저장하자........", [_courses count], [_majors count]);
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [NSThread detachNewThreadSelector:@selector(onUpdateDBFavorites:) toTarget:self withObject:_updateInfo];
-//            [self onUpdateDBFavorites:_updateInfo];
+//        [NSThread detachNewThreadSelector:@selector(onUpdateDBFavorites:) toTarget:self withObject:_updateInfo];
+            [self onUpdateDBFavorites:_updateInfo];
 //        });
     }
     
