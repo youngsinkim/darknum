@@ -10,6 +10,7 @@
 #import "NSString+MD5.h"
 #import "StudentProfileViewController.h"
 #import "StaffProfileViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MyInfoViewController ()
 
@@ -30,32 +31,31 @@
 @property (strong, nonatomic) UILabel *nameValueLabel;
 @property (strong, nonatomic) UILabel *mobileValueLabel;
 @property (strong, nonatomic) UITextField *emailTextField;
-@property (strong, nonatomic) UITextField *workKoTextField;
-@property (strong, nonatomic) UITextField *departmentKoTextField;
-@property (strong, nonatomic) UITextField *positionKoTextField;
+@property (strong, nonatomic) UITextField *workKoTextField;         // 직장명
 @property (strong, nonatomic) UITextField *workEnTextField;
+@property (strong, nonatomic) UITextField *departmentKoTextField;   // 부서명
 @property (strong, nonatomic) UITextField *departmentEnTextField;
+@property (strong, nonatomic) UITextField *positionKoTextField;     // 직위
 @property (strong, nonatomic) UITextField *positionEnTextField;
 @property (strong, nonatomic) UIButton *shareMobileBtn;
 @property (strong, nonatomic) UIButton *shareEmailBtn;
 @property (strong, nonatomic) UIButton *shareOfficeBtn;
-
+@property (strong, nonatomic) UILabel *telLabel;
+@property (strong, nonatomic) UITextField *telTextField;
 
 @property (strong, nonatomic) UILabel *otherInfoLabel;
 
 @property (strong, nonatomic) UILabel *loginLabel;
 @property (strong, nonatomic) UILabel *languageLabel;
-
-//@property (strong, nonatomic) UILabel *idLabel;
-//@property (strong, nonatomic) UILabel *idLabel;
-//@property (strong, nonatomic) UILabel *idLabel;
-
 @property (strong, nonatomic) UIButton *chIdSaveBtn;
 @property (strong, nonatomic) UIButton *chAutoLoginBtn;
-@property (strong, nonatomic) UIButton *langKoBtn;
-@property (strong, nonatomic) UIButton *langEnBtn;
+//@property (strong, nonatomic) UIButton *langKoBtn;
+//@property (strong, nonatomic) UIButton *langEnBtn;
+
+@property (strong, nonatomic) UIButton *saveBtn;
 
 @end
+
 
 @implementation MyInfoViewController
 
@@ -64,8 +64,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.mType = MemberTypeStudent;
-        self.myInfo = [NSMutableDictionary dictionaryWithCapacity:10];
+        self.navigationItem.title = @"내 정보 설정";
+        
+        _memType = MemberTypeUnknown;
+        _myInfo = [NSMutableDictionary dictionaryWithCapacity:10];
     }
     return self;
 }
@@ -75,6 +77,7 @@
 //    self = [super init];
 //    if (self) {
 //        self.mType = type;
+//        self.myInfo = [[NSMutableDictionary alloc] init];
 //    }
 //    return self;
 //}
@@ -83,9 +86,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+//    if (!IS_LESS_THEN_IOS7) {
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//        self.navigationController.navigationBar.translucent = NO;
+//    }
 
-    NSInteger memType = [[[UserContext shared] memberType] integerValue];
-    NSLog(@"내 멤버 타입 : %d", memType);
+    _memType = (MemberType)[[[UserContext shared] memberType] integerValue];
+    NSLog(@"내 멤버 타입 : %d", _memType);
     
 //    if (memType == MemberTypeStudent)
 //    {
@@ -110,11 +117,22 @@
     // 내 정보 화면 구성
     [self setupMyInfoUI];
     
-    // 로컬에서(DB) 데이터 가져오기
-    [_myInfo setDictionary:[self loadMyInfo]];
+    if (_memType != MemberTypeStudent) {
+        _telLabel.hidden = NO;
+        _telTextField.hidden = NO;
+        
+        _shareMobileBtn.hidden = YES;
+        _shareEmailBtn.hidden = YES;
+        _shareOfficeBtn.hidden = YES;
+    }
     
-    // 서버로 내 정보 요청 
-    [self requestAPIMyInfo];
+//    // 로컬에서(DB) 데이터 가져오기
+//    [_myInfo setDictionary:[self loadMyInfo]];
+//    NSLog(@"로컬 저장된 내 정보 : %@", _myInfo);
+//    [self updateMyInfo];
+//    
+//    // 서버로 내 정보 요청 
+//    [self requestAPIMyInfo];
 
     
     // MARK: 프로필 유무 설정하여 최초 실행 이후에 프로필 화면으로 이동하지 않도록 처리.
@@ -134,232 +152,438 @@
 /// 내 정보 화면 구성
 - (void)setupMyInfoUI
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
-//    if ([[UIScreen mainScreen] bounds].size.height == 568)
+    CGRect viewFrame = self.view.bounds;
+    CGFloat yOffset = 0.0f;
+    CGFloat scrolViewHeight = viewFrame.size.height;
+    
+    if (IS_LESS_THEN_IOS7) {
+    }
     
     // 배경 스크롤 뷰
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, rect.size.height - 44.0f - 0.0f)];
-    scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1f];
-    scrollView.contentSize = CGSizeMake(300.0f, 396.0f + 400.0f);
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10.0f, yOffset, viewFrame.size.width - 20.0f, scrolViewHeight)];
+    //    scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1f];
+    //    scrollView.backgroundColor = [UIColor yellowColor];
+    //    scrollView.contentSize = CGSizeMake(viewFrame.size.width - 20.0f, scrolViewHeight);
+    if (_memType == MemberTypeStudent) {
+        scrolViewHeight += 100.0f;
+        scrollView.contentSize = CGSizeMake(viewFrame.size.width - 20.0f, scrolViewHeight);
+    } else {
+        scrolViewHeight -= 64.0f;
+    }
     
     [self.view addSubview:scrollView];
-
+    
+    
+    // 배경 이미지 뷰
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, scrollView.frame.size.width, scrolViewHeight - 20.0f)];
+    bgView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f]; //[UIColor greenColor];
+    
+    [scrollView addSubview:bgView];
+    
     
     // 프로필 사진
     self.profileImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"placeholder"]];
-    self.profileImageView.frame = CGRectMake(90.0f, 0.0f, 128.0f, 128.0f);
+    self.profileImageView.frame = CGRectMake(0.0f, 5.0f, 120.0f, 120.0f);
+    self.profileImageView.center = CGPointMake(viewFrame.size.width / 2, 65.0f);
     self.profileImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
     self.profileImageView.userInteractionEnabled = YES;
     
-    [scrollView addSubview:self.profileImageView];
+    [bgView addSubview:self.profileImageView];
 
-    //
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
-    [scrollView addGestureRecognizer:singleTap];
-    [scrollView setMultipleTouchEnabled:YES];
-    [scrollView setUserInteractionEnabled:YES];
-    [self.view addSubview:scrollView];
-    self.view.userInteractionEnabled=YES;
+    // 프로필 사진 이벤트
+    {
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureCaptured:)];
+        [bgView addGestureRecognizer:singleTap];
+//        [scrollView setMultipleTouchEnabled:YES];
+//        [bgView setUserInteractionEnabled:YES];
+//        [self.view addSubview:scrollView];
+//        self.view.userInteractionEnabled=YES;
+    }
     
-    CGFloat xOffset = 1.0f;
-    CGFloat yOffset = 5.0f;
+    CGFloat xOffset = 5.0f;
+    yOffset = 140.0f;
 
-    // 개인 프로필 뷰
-    self.personalInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 140.0f, 90.0f, 14.0f)];
+    // 개인정보 텍스트
+    self.personalInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 60.0f, 16.0f)];
     [self.personalInfoLabel setTextColor:[UIColor blackColor]];
-    [self.personalInfoLabel setBackgroundColor:[UIColor clearColor]];
-    [self.personalInfoLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [self.personalInfoLabel setBackgroundColor:[UIColor lightGrayColor]];
+    [self.personalInfoLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [self.personalInfoLabel setTextAlignment:NSTextAlignmentLeft];
     [self.personalInfoLabel setText:@"개인정보"];
     
-    [scrollView addSubview:self.personalInfoLabel];
+    [bgView addSubview:self.personalInfoLabel];
+    yOffset += 18.0f;
     
-    // 학생 배경 뷰
-    UIView *studentView = [[UIView alloc] initWithFrame:CGRectMake(5.0f, 160.0f, 310.0f, 327.0f)];
-    studentView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
-
-    [scrollView addSubview:studentView];
-    
-
-    yOffset = 1.0f;
+//    // 학생 배경 뷰
+//    UIView *studentView = [[UIView alloc] initWithFrame:CGRectMake(5.0f, 160.0f, 310.0f, 327.0f)];
+//    studentView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
+//
+//    [scrollView addSubview:studentView];
+//    
+//
+//    yOffset = 1.0f;
     {
-        // 아이디 text 
-        self.idLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 20.0f)];
+        // 아이디 text
+        self.idLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 18.0f)];
         [self.idLabel setTextColor:[UIColor blackColor]];
         [self.idLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
         [self.idLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.idLabel setTextAlignment:NSTextAlignmentCenter];
         [self.idLabel setText:@"아이디"];
         
-        [studentView addSubview:self.idLabel];
-        
-        
+        [bgView addSubview:self.idLabel];
+
         // 아이디 value
-        self.idValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        self.idValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 200.0f, 18.0f)];
         [self.idValueLabel setTextColor:[UIColor darkGrayColor]];
-//        [self.idValueLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
+        [self.idValueLabel setBackgroundColor:[UIColor whiteColor]];
         [self.idValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
-//        [self.idValueLabel setText:@"아이디"];
+        [self.idValueLabel setText:@"테스트 아이디"];
         
-        [studentView addSubview:self.idValueLabel];
-        yOffset += 21.0f;
+        [bgView addSubview:self.idValueLabel];
+        yOffset += 22.0f;
         
-    
+
         // 이름 text
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 20.0f)];
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 18.0f)];
         [self.nameLabel setTextColor:[UIColor blackColor]];
         [self.nameLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
         [self.nameLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.nameLabel setTextAlignment:NSTextAlignmentCenter];
         [self.nameLabel setText:@"이름"];
         
-        [studentView addSubview:self.nameLabel];
+        [bgView addSubview:self.nameLabel];
         
         
         // 이름 value
-        self.nameValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        self.nameValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+850, yOffset, 200.0f, 18.0f)];
         [self.nameValueLabel setTextColor:[UIColor darkGrayColor]];
+        [self.nameValueLabel setBackgroundColor:[UIColor whiteColor]];
         [self.nameValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
         
-        [studentView addSubview:self.nameValueLabel];
-        yOffset += 21.0f;
+        [bgView addSubview:self.nameValueLabel];
+        yOffset += 22.0f;
         
         
         // Mobile text
-        self.mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 20.0f)];
+        self.mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 22.0f)];
         [self.mobileLabel setTextColor:[UIColor blackColor]];
         [self.mobileLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
         [self.mobileLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.mobileLabel setTextAlignment:NSTextAlignmentCenter];
         [self.mobileLabel setText:@"Mobile"];
         
-        [studentView addSubview:self.mobileLabel];
+        [bgView addSubview:self.mobileLabel];
+        
         
         // Mobile value
-        self.mobileValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        self.mobileValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 150.0f, 22.0f)];
         [self.mobileValueLabel setTextColor:[UIColor darkGrayColor]];
-        [self.mobileValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.mobileValueLabel setBackgroundColor:[UIColor whiteColor]];
+        [self.mobileValueLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
-        [studentView addSubview:self.mobileValueLabel];
-        yOffset += 21.0f;
+        [bgView addSubview:self.mobileValueLabel];
 
         
+        // mobile check button
+        _shareMobileBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareMobileBtn setFrame:CGRectMake(xOffset+240.0f, yOffset, 60.0f, 22.0f)];
+        [_shareMobileBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"공개", @"공개 여부")] forState:UIControlStateNormal];
+        [_shareMobileBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_shareMobileBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [_shareMobileBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_shareMobileBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+        [_shareMobileBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_shareMobileBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_shareMobileBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+        [_shareMobileBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_shareMobileBtn addTarget:self action:@selector(onSharedMobileBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [bgView addSubview:_shareMobileBtn];
+        yOffset += 24.0f;
+
+        
+        // Tel text
+        self.telLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 22.0f)];
+        [self.telLabel setTextColor:[UIColor blackColor]];
+        [self.telLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
+        [self.telLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.telLabel setTextAlignment:NSTextAlignmentCenter];
+        [self.telLabel setText:@"Tel."];
+        
+        [bgView addSubview:self.telLabel];
+        self.telLabel.hidden = YES;
+        
+        
+        // Tel value
+        self.telTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 150.0f, 22.0f)];
+        self.telTextField.delegate = self;
+        [self.telTextField setTextColor:[UIColor darkGrayColor]];
+        [self.telTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.telTextField setFont:[UIFont systemFontOfSize:12.0f]];
+        [self.telTextField setReturnKeyType:UIReturnKeyDone];
+        [self.telTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.telTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.telTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [bgView addSubview:self.telTextField];
+        self.telTextField.hidden = YES;
+//        yOffset = 24.0f;
+
+
         // Email text
-        self.emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 20.0f)];
+        self.emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 22.0f)];
         [self.emailLabel setTextColor:[UIColor blackColor]];
         [self.emailLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
         [self.emailLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.emailLabel setTextAlignment:NSTextAlignmentCenter];
         [self.emailLabel setText:@"Email"];
         
-        [studentView addSubview:self.emailLabel];
+        [bgView addSubview:self.emailLabel];
         
         
         // Email value
-        self.emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
+        self.emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 150.0f, 22.0f)];
         self.emailTextField.delegate = self;
         [self.emailTextField setTextColor:[UIColor darkGrayColor]];
-        [self.emailTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.emailTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.emailTextField setFont:[UIFont systemFontOfSize:12.0f]];
         [self.emailTextField setReturnKeyType:UIReturnKeyDone];
         [self.emailTextField setKeyboardType:UIKeyboardTypeDefault];
         [self.emailTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
-        [studentView addSubview:self.mobileValueLabel];
-        yOffset += 21.0f;
-
+        [bgView addSubview:self.emailTextField];
         
+        
+        // Email check button
+        _shareEmailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareEmailBtn setFrame:CGRectMake(xOffset+240.0f, yOffset, 60.0f, 22.0f)];
+        [_shareEmailBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"공개", @"공개 여부")] forState:UIControlStateNormal];
+        [_shareEmailBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_shareEmailBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [_shareEmailBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_shareEmailBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+        [_shareEmailBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_shareEmailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_shareEmailBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+        [_shareEmailBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_shareEmailBtn addTarget:self action:@selector(onSharedEmailBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [bgView addSubview:_shareEmailBtn];
+        yOffset += 24.0f;
+
+
         // 직장(국문) text
-        self.officeKoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 120.0f)];
+        self.officeKoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 100.0f)];
         [self.officeKoLabel setTextColor:[UIColor blackColor]];
         [self.officeKoLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
         [self.officeKoLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.officeKoLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.officeKoLabel setText:@"직장 (국문)"];
+        [self.officeKoLabel setNumberOfLines:2];
+        [self.officeKoLabel setText:@"직장\n(국문)"];
         
-        [studentView addSubview:self.officeKoLabel];
+        [bgView addSubview:self.officeKoLabel];
+        yOffset += 2.0f;
         
-        {
-            // Email value
-//            self.emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+100, yOffset, 200.0f, 20.0f)];
-//            self.emailTextField.delegate = self;
-//            [self.emailTextField setTextColor:[UIColor darkGrayColor]];
-//            [self.emailTextField setFont:[UIFont systemFontOfSize:14.0f]];
-//            [self.emailTextField setReturnKeyType:UIReturnKeyDone];
-//            [self.emailTextField setKeyboardType:UIKeyboardTypeDefault];
-//            [self.emailTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-//            self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//            
-//            [studentView addSubview:self.mobileValueLabel];
+        // 직장명 value
+        self.workKoTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 160.0f, 18.0f)];
+        self.workKoTextField.delegate = self;
+        [self.workKoTextField setTextColor:[UIColor darkGrayColor]];
+        [self.workKoTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.workKoTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.workKoTextField setReturnKeyType:UIReturnKeyDone];
+        [self.workKoTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.workKoTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.workKoTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [bgView addSubview:self.workKoTextField];
+        yOffset += 24.0f;
 
-        }
-        yOffset += 121.0f;
+        
+        // 부서명 value
+        self.departmentKoTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 160.0f, 18.0f)];
+        self.departmentKoTextField.delegate = self;
+        [self.departmentKoTextField setTextColor:[UIColor darkGrayColor]];
+        [self.departmentKoTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.departmentKoTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.departmentKoTextField setReturnKeyType:UIReturnKeyDone];
+        [self.departmentKoTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.departmentKoTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.departmentKoTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [bgView addSubview:self.departmentKoTextField];
+        yOffset += 24.0f;
 
+        
+        // 소속 value
+        self.positionKoTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 160.0f, 18.0f)];
+        self.positionKoTextField.delegate = self;
+        [self.positionKoTextField setTextColor:[UIColor darkGrayColor]];
+        [self.positionKoTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.positionKoTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.positionKoTextField setReturnKeyType:UIReturnKeyDone];
+        [self.positionKoTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.positionKoTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.positionKoTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [bgView addSubview:self.positionKoTextField];
+        yOffset += 24.0f;
+        
+        
+        // 직장 공개 check button
+        _shareOfficeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareOfficeBtn setFrame:CGRectMake(xOffset + 85.0f, yOffset, 60.0f, 22.0f)];
+        [_shareOfficeBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"공개", @"공개 여부")] forState:UIControlStateNormal];
+        [_shareOfficeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_shareOfficeBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [_shareOfficeBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_shareOfficeBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+        [_shareOfficeBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_shareOfficeBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_shareOfficeBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+        [_shareOfficeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_shareOfficeBtn addTarget:self action:@selector(onSharedOfficeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [bgView addSubview:_shareOfficeBtn];
+        yOffset += 28.0f;
+        
         
         // 직장(영문) text
-        self.officeEnLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 120.0f)];
+        self.officeEnLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 80.0f)];
         [self.officeEnLabel setTextColor:[UIColor blackColor]];
         [self.officeEnLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
         [self.officeEnLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.officeEnLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.officeEnLabel setText:@"직장(영문)"];
+        [self.officeEnLabel setNumberOfLines:2];
+        [self.officeEnLabel setText:@"직장\n(영문)"];
         
-        [studentView addSubview:self.officeEnLabel];
-        yOffset += 131.0f;
+        [bgView addSubview:self.officeEnLabel];
+        yOffset += 2.0f;
+        
+        
+        // 직장명 value
+        self.workEnTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 160.0f, 18.0f)];
+        self.workEnTextField.delegate = self;
+        [self.workEnTextField setTextColor:[UIColor darkGrayColor]];
+        [self.workEnTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.workEnTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.workEnTextField setReturnKeyType:UIReturnKeyDone];
+        [self.workEnTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.workEnTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.workEnTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [bgView addSubview:self.workEnTextField];
+        yOffset += 24.0f;
+        
+        
+        // 부서명 value
+        self.departmentEnTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 160.0f, 18.0f)];
+        self.departmentEnTextField.delegate = self;
+        [self.departmentEnTextField setTextColor:[UIColor darkGrayColor]];
+        [self.departmentEnTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.departmentEnTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.departmentEnTextField setReturnKeyType:UIReturnKeyDone];
+        [self.departmentEnTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.departmentEnTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.departmentEnTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [bgView addSubview:self.departmentEnTextField];
+        yOffset += 24.0f;
+        
+        
+        // 소속 value
+        self.positionEnTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 160.0f, 18.0f)];
+        self.positionEnTextField.delegate = self;
+        [self.positionEnTextField setTextColor:[UIColor darkGrayColor]];
+        [self.positionEnTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.positionEnTextField setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.positionEnTextField setReturnKeyType:UIReturnKeyDone];
+        [self.positionEnTextField setKeyboardType:UIKeyboardTypeDefault];
+        [self.positionEnTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.positionEnTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        
+        [bgView addSubview:self.positionEnTextField];
+        yOffset += 24.0f;
         
     }
+    yOffset += 30.0f;
+    
+    
+    // 기타설정 텍스트
+    self.otherInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 60.0f, 16.0f)];
+    [self.otherInfoLabel setTextColor:[UIColor blackColor]];
+    [self.otherInfoLabel setBackgroundColor:[UIColor lightGrayColor]];
+    [self.otherInfoLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [self.otherInfoLabel setTextAlignment:NSTextAlignmentLeft];
+    [self.otherInfoLabel setText:@"기타정보"];
+    
+    [bgView addSubview:self.otherInfoLabel];
+    yOffset += 18.0f;
 
-//
-//    // 라인
-//    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 65 - 1, self.contentView.frame.size.width, 1.0f)];
-//    line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-
-    
-    // 기타설정 뷰
-    self.personalInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, studentView.frame.origin.y + studentView.frame.size.height + 10, 90.0f, 14.0f)];
-    [self.personalInfoLabel setTextColor:[UIColor blackColor]];
-    [self.personalInfoLabel setBackgroundColor:[UIColor clearColor]];
-    [self.personalInfoLabel setFont:[UIFont systemFontOfSize:13.0f]];
-    [self.personalInfoLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.personalInfoLabel setText:@"기타설정"];
-    
-    [scrollView addSubview:self.personalInfoLabel];
-
-    
-    // 기타설정 배경 뷰
-    UIView *otherView = [[UIView alloc] initWithFrame:CGRectMake(5.0f, studentView.frame.origin.y + studentView.frame.size.height + 30, 310.0f, 50.0f)];
-    otherView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
-    
-    [scrollView addSubview:otherView];
-    
-    
-    yOffset = 1.0f;
     {
         // 로그인 text
-        self.loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 20.0f)];
+        self.loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 22.0f)];
         [self.loginLabel setTextColor:[UIColor blackColor]];
         [self.loginLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
         [self.loginLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.loginLabel setTextAlignment:NSTextAlignmentCenter];
         [self.loginLabel setText:@"로그인"];
         
-        [otherView addSubview:self.loginLabel];
-        yOffset += 21.0f;
+        [bgView addSubview:self.loginLabel];
         
-        
-        // 언어설정 text
-        self.languageLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 90.0f, 20.0f)];
-        [self.languageLabel setTextColor:[UIColor blackColor]];
-        [self.languageLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
-        [self.languageLabel setFont:[UIFont systemFontOfSize:14.0f]];
-        [self.languageLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.languageLabel setText:@"언어설정"];
-        
-        [otherView addSubview:self.languageLabel];
-        yOffset += 21.0f;
 
+        // 아이디 저장 check button
+        _chIdSaveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_chIdSaveBtn setFrame:CGRectMake(xOffset + 85.0f, yOffset, 100.0f, 22.0f)];
+        [_chIdSaveBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"아이디 저장", @"아이디 저장")] forState:UIControlStateNormal];
+        [_chIdSaveBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_chIdSaveBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [_chIdSaveBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_chIdSaveBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+        [_chIdSaveBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_chIdSaveBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_chIdSaveBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+        [_chIdSaveBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_chIdSaveBtn addTarget:self action:@selector(onIdSavedBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [bgView addSubview:_chIdSaveBtn];
+        
+        
+        // 자동 로그인 check button
+        _chAutoLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_chAutoLoginBtn setFrame:CGRectMake(xOffset + 185.0f, yOffset, 100.0f, 22.0f)];
+        [_chAutoLoginBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"자동로그인", @"자동로그인")] forState:UIControlStateNormal];
+        [_chAutoLoginBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_chAutoLoginBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [_chAutoLoginBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_chAutoLoginBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+        [_chAutoLoginBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_chAutoLoginBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [_chAutoLoginBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+        [_chAutoLoginBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+        [_chAutoLoginBtn addTarget:self action:@selector(onAutoLoginBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [bgView addSubview:_chAutoLoginBtn];
+        yOffset += 28.0f;
     }
+    yOffset += 20.0f;
 
+    // 저장 버튼
+    _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_saveBtn setFrame:CGRectMake(xOffset + 185.0f, yOffset, 100.0f, 22.0f)];
+    [_saveBtn setCenter:CGPointMake(viewFrame.size.width / 2, yOffset + 10)];
+    [_saveBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"저장", @"저장")] forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+    [_saveBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_saveBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
+    [_saveBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+//    [_saveBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_saveBtn addTarget:self action:@selector(onSaveBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [bgView addSubview:_saveBtn];
+    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -390,6 +614,8 @@
     }
 }
 
+#pragma mark - UI Control Events
+
 // 프로필 사진 선택 시 (사진 찍기 메뉴 표시)
 - (void)onProfileImageClicked
 {
@@ -403,6 +629,36 @@
     
 }
 
+- (void)onSharedMobileBtnClicked:(UIButton *)sender
+{
+    [sender setSelected:![sender isSelected]];
+}
+
+- (void)onSharedEmailBtnClicked:(UIButton *)sender
+{
+    [sender setSelected:![sender isSelected]];
+}
+
+- (void)onSharedOfficeBtnClicked:(UIButton *)sender
+{
+    [sender setSelected:![sender isSelected]];
+}
+
+- (void)onIdSavedBtnClicked:(UIButton *)sender
+{
+    [sender setSelected:![sender isSelected]];
+}
+
+- (void)onAutoLoginBtnClicked:(UIButton *)sender
+{
+    [sender setSelected:![sender isSelected]];
+}
+
+/// 프로필 저장 버튼
+- (void)onSaveBtnClicked
+{
+    
+}
 
 #pragma mark - UIActionSheet delegates
 // 프로필 사진 설정(사진 및 앨범) 메뉴
