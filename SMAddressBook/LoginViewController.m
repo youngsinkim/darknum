@@ -415,6 +415,9 @@
 - (void)onLoginSaveChecked:(id)sender
 {
     [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
+    if ([sender isSelected] == YES) {
+        _idSaveCheckBtn.selected = YES;
+    }
 }
 
 /// 아이디 찾기
