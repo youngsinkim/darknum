@@ -115,7 +115,7 @@
         _idTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
         _idTextField.delegate = self;
         _idTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
-        _idTextField.text = @"ztest01";
+//        _idTextField.text = @"ztest01";
 //        [_idTextField setBorderStyle:UITextBorderStyleLine];
 //        [_idTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
         [_idTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
@@ -148,7 +148,7 @@
         _pwdTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
         _pwdTextField.delegate = self;
         _pwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
-        _pwdTextField.text = @"1111#";
+//        _pwdTextField.text = @"1111#";
 //        [_pwdTextField setBorderStyle:UITextBorderStyleLine];
 //        [_pwdTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
         [_pwdTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
@@ -156,6 +156,7 @@
         [_pwdTextField setReturnKeyType:UIReturnKeyDone];
         [_pwdTextField setKeyboardType:UIKeyboardTypeDefault];
         [_pwdTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        [_pwdTextField setSecureTextEntry:YES];
         _pwdTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _pwdTextField.font = [UIFont systemFontOfSize:16.0f];
         
