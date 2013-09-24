@@ -41,4 +41,7 @@ typedef enum {
 /// 네비게이션 뷰 컨트롤러
 - (UINavigationController *)menuNavigationController:(MenuViewType)menuType withMenuInfo:(NSDictionary *)info;
 
+/// 메뉴 테이블 헤더 정보 업데이트
+- (void)updateHeaderInfo;
+
 @end

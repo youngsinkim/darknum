@@ -12,6 +12,7 @@
 #import "StaffProfileViewController.h"
 #import <UIImageView+AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
+#import "MenuTableViewController.h"
 
 @interface MyInfoViewController ()
 
@@ -1153,7 +1154,12 @@
         _telTextField.text = _myInfo[@"tel"];
     }
 
-//    [self.view setNeedsDisplay];
+    // 업데이트된 내 정보 왼쪽 메뉴에도 적용
+//    MenuTableViewController *leftMenuViewController = (MenuTableViewController *)self.container.leftMenuViewController;
+//    [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
+
+    MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    [menu updateHeaderInfo];
 }
 
 /// myInfo DB 추가 및 업데이트

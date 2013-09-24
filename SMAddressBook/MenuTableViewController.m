@@ -34,6 +34,10 @@
 
 @interface MenuTableViewController ()
 
+@property (strong, nonatomic) UIImageView *profileImgView;
+@property (strong, nonatomic) UILabel *nameLabel;
+@property (strong, nonatomic) UILabel *classLabel;
+
 @end
 
 @implementation MenuTableViewController
@@ -101,28 +105,28 @@
 
     {
         // 내 프로필 사진
-        UIImageView *profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, yOffset + 5.0f, 50.0f, 50.0f)];
-        [profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
+        _profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, yOffset + 5.0f, 50.0f, 50.0f)];
+        [_profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
         
-        [headerView addSubview:profileImgView];
+        [headerView addSubview:_profileImgView];
         
         // 내 이름
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset +7.0f, 150.0f, 16.0f)];
-        nameLabel.text = profileDict[@"name"];
-        nameLabel.textColor = [UIColor whiteColor];
-        [nameLabel setFont:[UIFont systemFontOfSize:15.0f]];
-        nameLabel.backgroundColor = [UIColor clearColor];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset +7.0f, 150.0f, 16.0f)];
+        _nameLabel.text = profileDict[@"name"];
+        _nameLabel.textColor = [UIColor whiteColor];
+        [_nameLabel setFont:[UIFont systemFontOfSize:15.0f]];
+        _nameLabel.backgroundColor = [UIColor clearColor];
         
-        [headerView addSubview:nameLabel];
+        [headerView addSubview:_nameLabel];
         
         // 내 기수
-        UILabel *classLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset + 25.0f, 150.0f, 14.0f)];
-        classLabel.text = profileDict[@"class"];
-        classLabel.textColor = [UIColor colorWithRed:170.0f/255.0f green:102.0f/255.0f blue:204.0f/255.0f alpha:1.0f];
-        [classLabel setFont:[UIFont systemFontOfSize:11.0f]];
-        classLabel.backgroundColor = [UIColor clearColor];
+        _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset + 25.0f, 150.0f, 14.0f)];
+        _classLabel.text = profileDict[@"class"];
+        _classLabel.textColor = [UIColor colorWithRed:170.0f/255.0f green:102.0f/255.0f blue:204.0f/255.0f alpha:1.0f];
+        [_classLabel setFont:[UIFont systemFontOfSize:11.0f]];
+        _classLabel.backgroundColor = [UIColor clearColor];
         
-        [headerView addSubview:classLabel];
+        [headerView addSubview:_classLabel];
         
         UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         settingBtn.frame = CGRectMake(headerView.frame.size.width - 105.0f, yOffset + 3.0f, 47.0f, 47.0f);
@@ -182,10 +186,30 @@
 }
 
 
+/// 메뉴 테이블 헤더 정보 업데이트
+- (void)updateHeaderInfo
+{
+    NSDictionary *myInfo = [[UserContext shared] profileInfo];
+    if ([myInfo[@"photourl"] length] > 0) {
+        [_profileImgView setImageWithURL:[NSURL URLWithString:myInfo[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
+    }
+    
+    if ([myInfo[@"name"] length] > 0) {
+        _nameLabel.text = myInfo[@"name"];
+    }
+    
+    if ([myInfo[@"courseclass"] length] > 0) {
+        _classLabel.text = myInfo[@"courseclass"];
+    }
+
+}
+
 #pragma mark - UI Control Callbacks
+
+/// 메뉴 설정 버튼 (내 정보 설정 화면)
 - (void)onMyInfoSettingClicked
 {
-    
+    [self menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
 }
 
 #pragma mark - Table view data source

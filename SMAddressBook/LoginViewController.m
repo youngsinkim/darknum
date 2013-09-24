@@ -62,6 +62,8 @@
 
     // 로그인 화면 구성
     [self setupLoginUI];
+    
+    [_idTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
