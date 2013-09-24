@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kStudAddressCellH   84.0f
+#define kStudAddressCellH   75.0f
 
 @interface StudentAddressCell : UITableViewCell
 

@@ -64,6 +64,7 @@
 {
     [super viewDidLoad];
     
+//    self.view.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -93,6 +94,7 @@
     }
     
     self.tableView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
+    self.tableView.backgroundColor = [UIColor yellowColor];
     
     // TODO: 내 프로필 정보에서 헤더 구성 데이터 가져오기
     NSDictionary *profileDict = @{@"name":@"홍길동", @"class":@"GMBA 5기", @"photourl":@""};

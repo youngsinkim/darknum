@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+#define ToolViewCellH   56.0f
 
 @class ToolViewCell;
 

@@ -601,7 +601,7 @@
     
     if (tableView != _searchDisplay.searchResultsTableView) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableFrame.size.width, kTableHeaderH)];
-        headerView.backgroundColor = [UIColor whiteColor];
+        headerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
         [headerView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.3f].CGColor];
         [headerView.layer setBorderWidth:1.0f];
         
@@ -660,7 +660,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ([_members count] > 0)? 50.0f : self.view.frame.size.height;
+    return ([_members count] > 0)? ToolViewCellH : self.view.frame.size.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -779,6 +779,20 @@
     
 }
 
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    // 각 세션의 헤더가 스크롤시 고정되있는 현상을 수정하기 위해 위치를 재조정하는 코드 추가
+//    CGFloat sectionHeaderHeight = kTableHeaderH;// _memberTableView.sectionHeaderHeight;
+//    
+//    if (scrollView.contentOffset.y <= sectionHeaderHeight && scrollView.contentOffset.y >= 0)
+//    {
+//        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+//    }
+//    else if (scrollView.contentOffset.y >= sectionHeaderHeight)
+//    {
+//        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+//    }
+//}
 
 #pragma mark - UITapGestureRecognizer
 

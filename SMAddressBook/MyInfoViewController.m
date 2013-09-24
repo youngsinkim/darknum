@@ -862,14 +862,13 @@
 }
 
 /// 프로필 저장 버튼
-- (void)onSaveBtnClicked
+- (void)onSaveBtnClicked:(id)sender
 {
     // 수정된 항목 즉 화면의 내용을 저장
 //    [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _myInfo[@"photourl"]]]
 //                      placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
 //    _myInfo[@"id"] = _idValueLabel.text;
-    _myInfo[@"name"] = _nameValueLabel.text;
     _myInfo[@"mobile"] = _mobileValueLabel.text;
     _myInfo[@"email"] = _emailTextField.text;
     

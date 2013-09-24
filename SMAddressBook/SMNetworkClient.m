@@ -380,4 +380,30 @@
     
 }
 
+/// 8. 내 정보 저장(학생)
+- (void)updateMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
+{
+    static NSString * const kAPIUpdateMyInfo = (SERVER_URL@"/fb/updatemyinfo");
+    NSLog(@"API Path(%@) param :\n%@", kAPIUpdateMyInfo, param);
+    
+    [self postPath:kAPIUpdateMyInfo
+        parameters:param
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               NSLog(@"HTTP POST API: %@", operation.request.URL);
+               
+               if (block)
+               {
+                   NSLog(@"RESPONSE JSON: %@", JSON);
+                   
+                   block([NSDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
+               }
+               
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+               if (block) {
+                   block([NSMutableDictionary dictionary], error);
+               }
+               NSLog(@"error : %@", [error description]);
+           }];
+}
+
 @end

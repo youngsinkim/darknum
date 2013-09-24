@@ -49,8 +49,11 @@
 // 즐겨찾기 업데이트 (추가 / 삭제)
 - (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
 
-/// 7.내 정보 조회(학생)
+/// 7.내 정보 조회(학생) / 9-1. 내 정보 조회(교수) / 9-2. 내 정보 조회(교직원)
 - (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
+
+/// 8. 내 정보 저장(학생)
+- (void)updateMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 
 /// otn test API
 - (void)getVodTotalList:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;

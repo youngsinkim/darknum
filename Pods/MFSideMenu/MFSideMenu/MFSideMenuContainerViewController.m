@@ -9,6 +9,10 @@
 #import "MFSideMenuContainerViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
+// iOS 7 지원
+#define IS_LESS_THEN_IOS7 (DeviceSystemMajorVersion() < 7)
+
+
 NSString * const MFSideMenuStateNotificationEvent = @"MFSideMenuStateNotificationEvent";
 
 typedef enum {
@@ -394,6 +398,9 @@ typedef enum {
     leftFrame.size.width = self.leftMenuWidth;
     leftFrame.origin.x = (self.menuSlideAnimationEnabled) ? -1*leftFrame.size.width / self.menuSlideAnimationFactor : 0;
     leftFrame.origin.y = 0;
+    if (!IS_LESS_THEN_IOS7) {
+        leftFrame.size.height = self.view.bounds.size.height;   // ios 7 적용
+    }
     [self.leftMenuViewController view].frame = leftFrame;
     [self.leftMenuViewController view].autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleHeight;
 }

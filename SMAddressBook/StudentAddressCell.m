@@ -29,54 +29,63 @@
         self.backgroundColor = [UIColor whiteColor];
 //        self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
         
+        CGFloat xOffset = 5.0f;
+        CGFloat yOffset = 5.0f;
+        
         // 프로필 사진
-        _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, 50.0f, 50.0f)];
+        _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset, yOffset, 65.0f, 65.0f)];
         _profileImageView.image = [UIImage imageNamed:@"placeholder"];
         
         [self.contentView addSubview:_profileImageView];
+        xOffset += (_profileImageView.frame.size.width + 5.0f);
         
         
         // 이름
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 5.0f, 200.0f, 15.0f)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 16.0f)];
         _nameLabel.textColor = [UIColor darkGrayColor];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [_nameLabel setFont:[UIFont systemFontOfSize:14.0f]];
         
         [self.contentView addSubview:_nameLabel];
+        yOffset += 18.0f;
         
         
         // 소속
-        _memberLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 22.0f, 200.0f, 14.0f)];
+        _memberLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 14.0f)];
         _memberLabel.textColor = [UIColor lightGrayColor];
         _memberLabel.backgroundColor = [UIColor clearColor];
         [_memberLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
         [self.contentView addSubview:_memberLabel];
+        yOffset += 16.0f;
         
         // 모바일
-        UILabel *fixLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 38.0f, 50.f, 14.0f)];
+        UILabel *fixLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
         fixLabel1.textColor = [UIColor grayColor];
         [fixLabel1 setFont:[UIFont systemFontOfSize:12.0f]];
+        fixLabel1.text = @"Mobile";
         
         [self.contentView addSubview:fixLabel1];
         
         
-        _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 38.0f, 145.0f, 14.0f)];
+        _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + 40.0f, yOffset, 150.0f, 14.0f)];
         _mobileLabel.textColor = [UIColor lightGrayColor];
         [_mobileLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
         [self.contentView addSubview:_mobileLabel];
+        yOffset += 16.0f;
         
         
         // 이메일
-        UILabel *fixLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 70.0f, 50.f, 14.0f)];
+        UILabel *fixLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
         fixLabel2.textColor = [UIColor grayColor];
         [fixLabel2 setFont:[UIFont systemFontOfSize:12.0f]];
+        fixLabel2.text = @"Email";
         
         [self.contentView addSubview:fixLabel2];
         
         
-        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 54.0f, 145.0f, 14.0f)];
+        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + 40.0f, yOffset, 150.0f, 14.0f)];
         _emailLabel.textColor = [UIColor lightGrayColor];
         [_emailLabel setFont:[UIFont systemFontOfSize:12.0f]];
         

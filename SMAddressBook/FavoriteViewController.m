@@ -731,6 +731,8 @@
             //[student setValuesForKeysWithDictionary:dict];
             student.name = decodeInfo[@"name"];
             student.name_en = decodeInfo[@"name_en"];
+            student.classtitle = decodeInfo[@"classtitle"];
+            student.classtitle_en = decodeInfo[@"classtitle_en"];
             student.mobile = decodeInfo[@"mobile"];
             student.email = decodeInfo[@"email"];
             student.company = decodeInfo[@"company"];
@@ -745,6 +747,7 @@
             student.share_email = decodeInfo[@"share_email"];
             student.share_mobile = decodeInfo[@"share_mobile"];
             student.photourl = decodeInfo[@"photourl"];
+            student.viewphotourl = decodeInfo[@"viewphotourl"];
 
             [course addStudentsObject:student];
             
@@ -818,6 +821,7 @@
             faculty.office = dict[@"office"];
             faculty.office_en = dict[@"office_en"];
             faculty.photourl = dict[@"photourl"];
+            faculty.viewphotourl = dict[@"viewphotourl"];
 
             [major addFacultysObject:faculty];
             
@@ -865,6 +869,7 @@
             mo.office   = dict[@"office"];
             mo.office_en= dict[@"office_en"];
             mo.photourl = dict[@"photourl"];
+            mo.viewphotourl = dict[@"viewphotourl"];
             
             NSLog(@"UPDATE 즐겨찾기 교직원 : memberIdx(%@), name(%@), name_en(%@), tel(%@)", mo.memberidx, mo.name, mo.name_en, mo.tel);
         }
