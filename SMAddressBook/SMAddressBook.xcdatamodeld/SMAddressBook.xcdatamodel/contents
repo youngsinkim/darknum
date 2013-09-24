@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Course" representedClassName="Course" syncable="YES">
         <attribute name="count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course" optional="YES" attributeType="String" syncable="YES"/>
@@ -21,6 +21,7 @@
         <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewphotourl" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="major" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Major" inverseName="facultys" inverseEntity="Major" syncable="YES"/>
     </entity>
     <entity name="Major" representedClassName="Major" syncable="YES">
@@ -40,8 +41,11 @@
         <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewphotourl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Student" representedClassName="Student" syncable="YES">
+        <attribute name="classtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="classtitle_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="company_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="department" optional="YES" attributeType="String" syncable="YES"/>
@@ -60,13 +64,14 @@
         <attribute name="studcode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewphotourl" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="class_info" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="students" inverseEntity="Course" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Course" positionX="-5769" positionY="-9" width="128" height="163"/>
-        <element name="Faculty" positionX="-5438" positionY="-73" width="128" height="208"/>
-        <element name="Major" positionX="-5258" positionY="32" width="128" height="103"/>
-        <element name="Staff" positionX="-5258" positionY="-184" width="128" height="193"/>
-        <element name="Student" positionX="-5598" positionY="-189" width="128" height="328"/>
+        <element name="Course" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Faculty" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Major" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Staff" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Student" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
