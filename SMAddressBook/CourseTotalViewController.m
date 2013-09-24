@@ -135,11 +135,11 @@
 //                                                                              [self onSegmentChangedValue:segmentIndex];
                                                                           }];
     
-//    courseSegment.color = [UIColor colorWithRed:88.0f/255.0 green:88.0f/255.0 blue:88.0f/255.0 alpha:1];
-    courseSegment.color = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2];
+    courseSegment.color = [UIColor colorWithRed:88.0f/255.0 green:88.0f/255.0 blue:88.0f/255.0 alpha:0.6];
+//    courseSegment.color = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2];
     courseSegment.borderWidth = 0.5;
-    courseSegment.borderColor = [UIColor lightGrayColor];
-    courseSegment.selectedColor = [UIColor lightGrayColor];//[UIColor colorWithRed:0.0f/255.0 green:141.0f/255.0 blue:147.0f/255.0 alpha:1];
+    courseSegment.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5f];
+    courseSegment.selectedColor = [UIColor colorWithRed:200.0f/255.0 green:200.0f/255.0 blue:200.0f/255.0 alpha:1];
     courseSegment.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:13],
                                NSForegroundColorAttributeName:[UIColor grayColor]};
     courseSegment.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
@@ -161,7 +161,8 @@
     _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, yOffset, rect.size.width, rect.size.height - yOffset - yBottom) style:UITableViewStylePlain];
     _totalTableView.dataSource = self;
     _totalTableView.delegate = self;
-    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+//    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+    _totalTableView.backgroundColor = [UIColor clearColor];
     if (!IS_LESS_THEN_IOS7) {
         UIEdgeInsets edges;
         edges.left = 0;
