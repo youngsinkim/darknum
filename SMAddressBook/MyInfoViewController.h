@@ -15,7 +15,7 @@
 //    MemberTypeUnknown
 //} MemberType;
 
-@interface MyInfoViewController : BaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
+@interface MyInfoViewController : BaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, assign) MemberType memType; // 멤버 타입 ( 타입별로 화면 구성 변경 )
 

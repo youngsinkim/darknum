@@ -49,7 +49,7 @@
 // 즐겨찾기 업데이트 (추가 / 삭제)
 - (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
 
-/// 내 (프로필)정보
+/// 7.내 정보 조회(학생)
 - (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 
 /// otn test API

@@ -352,7 +352,7 @@
     
 }
 
-// 내 프로필 정보
+/// 7.내 정보 조회(학생)
 - (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {
     static NSString * const kAPIMyInfo = (SERVER_URL@"/fb/myinfo");
@@ -363,8 +363,10 @@
            success:^(AFHTTPRequestOperation *operation, id JSON) {
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
-               if (block) {
+               if (block)
+               {
                    NSLog(@"RESPONSE JSON: %@", JSON);
+                   
 //                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
                    block([NSDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
                }
