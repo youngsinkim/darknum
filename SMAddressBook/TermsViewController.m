@@ -114,7 +114,7 @@
     
 //    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
 //    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
-    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/terms-of-use"]];
+    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/fb/html/terms-of-use"]];
     [_webView1 loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
     
     [self.view addSubview:_webView1];
@@ -153,7 +153,7 @@
     
 //    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
 //    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
-    NSData *htmlData2 = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/privacy-policy"]];
+    NSData *htmlData2 = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/fb/html/privacy-policy"]];
     [_webView2 loadData:htmlData2 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
     
     [self.view addSubview:_webView2];
