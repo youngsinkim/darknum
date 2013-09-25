@@ -9,6 +9,7 @@
 #import "FavoriteSettingViewController.h"
 #import "Course.h"
 #import "NSString+MD5.h"
+#import "MenuTableViewController.h"
 
 @interface FavoriteSettingViewController ()
 
@@ -182,21 +183,30 @@
 // 즐겨찾기 추가 / 삭제
 - (void)requestAPIFavoritesUpdate:(NSDictionary *)param
 {
-    NSLog(@"(/fb/updatefavorite) Request Parameter : %@", param);
-    
-//    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     
     // 즐겨찾기 업데이트 목록
     [[SMNetworkClient sharedClient] postFavorites:param
                                             block:^(NSDictionary *result, NSError *error) {
                                                 
-//                                                [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
+                                                [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
                                                 
                                                 if (error) {
                                                     [[SMNetworkClient sharedClient] showNetworkError:error];
                                                 }
                                                 else
                                                 {
+                                                    // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
+                                                    NSArray *favorites = [self loadDBFavoriteCourse];
+                                                    
+                                                    if ([favorites count] > 0)
+                                                    {
+                                                        // 즐겨찾기 목록 메뉴 적용
+                                                        MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+                                                        [menu setAddrMenuList:favorites];
+                                                    }
+
+                                                    
                                                     // 즐겨찾기 업데이트 수신 후, 현재 시간을 마지막 업데이트 시간으로 저장
 //                                                    {
 //                                                        NSDate *date = [NSDate date];
@@ -427,7 +437,41 @@
 }
 
 
+/// 즐겨찾기 DB 목록 불러오기
+- (NSArray *)loadDBFavoriteCourse
+{
+    if (self.managedObjectContext == nil) {
+        return nil;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // where ((ZCOURSE="FACULTY" OR ZCOURSE="STAFF") OR ZFAVYN="y")
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == 'FACULTY') OR (course == 'STAFF') OR (favyn == 'y')"];
+    [fetchRequest setPredicate:predicate];
+    
+    // order by (ZCOURSECLASS, ZCOURSE)
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, sortDescriptor1, nil]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"fetched Course DB count : %d", [fetchedObjects count]);
+    
+    //    for (Course *class in fetchedObjects) {
+    //        NSLog(@"title : %@", class.title);
+    //    }
+    
+    return fetchedObjects;
+}
+
+
 #pragma mark - UITableView DataSources
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return ([_courses count] > 0)? [_courses count] : 1;   // 교수,교직 / EMBA / GMBA / SMBA;

@@ -210,9 +210,6 @@
     }
 
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
-    NSLog(@"(/fb/majors) Request Parameter : %@", param);
-
-    // background Dimmed
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     
     // 과정별 기수 목록

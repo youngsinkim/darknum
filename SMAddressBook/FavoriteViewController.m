@@ -312,7 +312,6 @@
     }
     
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
-    NSLog(@"(/fb/courseclass) Request Parameter : %@", param);
     NSLog(@"Thread1 - 1");
 
     // 과정별 기수 목록
@@ -363,7 +362,6 @@
     }
 
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
-    NSLog(@"(/fb/majors) Request Parameter : %@", param);
     NSLog(@"Thread2 - 1");
 
     // 과정별 기수 목록
@@ -416,7 +414,6 @@
     }
 
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"updatedate":lastUpdate};
-    NSLog(@"(/fb/updated) Request Parameter : %@", param);
     NSLog(@"... 즐겨찾기 목록 서버 요청");
 //    [self performSelectorOnMainThread:@selector(startDimLoading) withObject:nil waitUntilDone:NO];
 
