@@ -22,5 +22,10 @@ NSUInteger DeviceSystemMajorVersion();
 /// 단말 전화 번호
 + (NSString *)phoneNumber;
 
+#pragma mark - UIImage related Method
+
++ (UIImage *)resizeAndCropImage:(UIImage *)origianlImage size:(CGFloat)size;
++ (UIImage *)resizeImage:(UIImage *)origianlImage size:(CGFloat)size;
+
 @end
 

@@ -13,6 +13,7 @@
 #import <UIImageView+AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
 #import "MenuTableViewController.h"
+#import "SMNetworkClient.h"
 
 @interface MyInfoViewController ()
 
@@ -64,6 +65,8 @@
 @property (assign) CGFloat focusY;
 @property (assign) CGRect prevRect;
 
+@property (strong, nonatomic) NSString *photoFilename;
+@property (strong, nonatomic) NSData *photoData;
 @end
 
 
@@ -79,6 +82,8 @@
         _memType = MemberTypeUnknown;
         _myInfo = [NSMutableDictionary dictionaryWithCapacity:10];
         _focusY = 0.0f;
+        _photoFilename = @"";
+        _photoData = [[NSData alloc] init];
     }
     return self;
 }
@@ -838,17 +843,17 @@
 
 - (void)onSharedMobileBtnClicked:(UIButton *)sender
 {
-    [sender setSelected:![sender isSelected]];
+    [_shareMobileBtn setSelected:![sender isSelected]];
 }
 
 - (void)onSharedEmailBtnClicked:(UIButton *)sender
 {
-    [sender setSelected:![sender isSelected]];
+    [_shareEmailBtn setSelected:![sender isSelected]];
 }
 
 - (void)onSharedOfficeBtnClicked:(UIButton *)sender
 {
-    [sender setSelected:![sender isSelected]];
+    [_shareOfficeBtn setSelected:![sender isSelected]];
 }
 
 - (void)onIdSavedBtnClicked:(UIButton *)sender
@@ -881,19 +886,19 @@
         _myInfo[@"title"] = _titleKoTextField.text;
         _myInfo[@"title_en"] = _titleEnTextField.text;
         
-        if (_shareEmailBtn.isSelected == YES) {
+        if ([_shareEmailBtn isSelected]) {
             _myInfo[@"share_email"] = @"y";
         } else {
             _myInfo[@"share_email"] = @"n";
         }
 
-        if (_shareMobileBtn.isSelected == YES) {
+        if ([_shareMobileBtn isSelected]) {
             _myInfo[@"share_mobile"] = @"y";
         } else {
             _myInfo[@"share_mobile"] = @"n";
         }
 
-        if (_shareOfficeBtn.isSelected == YES) {
+        if ([_shareOfficeBtn isSelected]) {
             _myInfo[@"share_company"] = @"y";
         } else {
             _myInfo[@"share_company"] = @"n";
@@ -906,6 +911,7 @@
     
     
     // 변경된 프로필 서버로 저장
+    [self requestAPIMyInfoUpdate];
     
 //    [[UserContext shared] setProfileInfo:_myInfo];
 //    [[NSUserDefaults standardUserDefaults] setObject:_myInfo forKey:kProfileInfo];
@@ -1004,28 +1010,42 @@
     NSLog(@"info : %@", info);
     [self dismissViewControllerAnimated:YES completion:NULL];
     
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    if (image == nil) {
-        image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    }
+//    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+//    if (image == nil) {
+//        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//    }
     
     // Do something with the image
-    
     if ([info objectForKey:UIImagePickerControllerEditedImage])
     {
+        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+        UIImage *resizedImage = [Util resizeImage:image size:400.0f];
         
+        NSData *imageData = UIImageJPEGRepresentation(resizedImage, 1.0);
+
         NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *filename = @"user_profile.jpg";
-//        UIImage *resizedImage = [SnapStyleCommon resizeImage:[info objectForKey:UIImagePickerControllerEditedImage] size:460.0f];
-//        [[NSFileManager defaultManager] createFileAtPath:[cachesPath stringByAppendingPathComponent:filename] contents:UIImageJPEGRepresentation(resizedImage, 1.0f) attributes:nil];
-    
+        NSString *filename = @"photo.jpg";
+        NSString *filePath = [cachesPath stringByAppendingPathComponent:filename];
+
+        BOOL isCreated = [[NSFileManager defaultManager] createFileAtPath:filePath contents:imageData attributes:nil];
+
+        if (isCreated)
+        {
+            // 프로필 화면 업데이트
+            _profileImageView.image = resizedImage;
+            
+            // 서버로 올리기 위한 cache 저장
+            _photoFilename = filename;
+            _photoData = imageData;
+            
+            NSLog(@"이미지 저장 경로 : %@", _photoFilename);
+        }
 //        _imageView.image = resizedImage;
     
 //        [self uploadProfile:filename];
     }
     
 }
-
 
 
 #pragma mark - Assets
@@ -1054,8 +1074,68 @@
     return myInfoDict;
 }
 
+
+/// myInfo 화면 업데이트
+- (void)updateMyInfo
+{
+    if ([_myInfo count] == 0) {
+        return;
+    }
+    NSLog(@"MY INFO : %@", _myInfo);
+    
+    NSLog(@"photo : %@", [NSString stringWithFormat:@"%@", _myInfo[@"photourl"]]);
+    [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _myInfo[@"photourl"]]]
+                      placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    
+    _idValueLabel.text = _myInfo[@"id"];
+    _nameValueLabel.text = _myInfo[@"name"];
+    _mobileValueLabel.text = _myInfo[@"mobile"];
+    _emailTextField.text = _myInfo[@"email"];
+    
+    if (_memType == MemberTypeStudent)
+    {
+        _companyKoTextField.text = _myInfo[@"company"];
+        _companyEnTextField.text = _myInfo[@"company_en"];
+        _departmentKoTextField.text = _myInfo[@"department"];
+        _departmentEnTextField.text = _myInfo[@"department_en"];
+        _titleKoTextField.text = _myInfo[@"title"];
+        _titleEnTextField.text = _myInfo[@"title_en"];
+        
+        if ([_myInfo[@"share_mobile"] isEqualToString:@"y"]) {
+            _shareMobileBtn.selected = YES;
+        } else {
+            _shareMobileBtn.selected = NO;
+        }
+        
+        if ([_myInfo[@"share_email"] isEqualToString:@"y"]) {
+            _shareEmailBtn.selected = YES;
+        } else {
+            _shareEmailBtn.selected = NO;
+        }
+        
+        if ([_myInfo[@"share_company"] isEqualToString:@"y"]) {
+            _shareOfficeBtn.selected = YES;
+        } else {
+            _shareOfficeBtn.selected = NO;
+        }
+    }
+    else
+    {
+        _telTextField.text = _myInfo[@"tel"];
+    }
+    
+    // 업데이트된 내 정보 왼쪽 메뉴에도 적용
+    //    MenuTableViewController *leftMenuViewController = (MenuTableViewController *)self.container.leftMenuViewController;
+    //    [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
+    
+    MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    [menu updateHeaderInfo];
+}
+
+
 #pragma mark - Network API
 
+// 내 정보 조회
 - (void)requestAPIMyInfo
 {
     NSString *mobileNo = [Util phoneNumber];
@@ -1110,129 +1190,60 @@
                                           }];
 }
 
-/// myInfo 화면 업데이트
-- (void)updateMyInfo
+/// 내 정보 업데이트
+- (void)requestAPIMyInfoUpdate
 {
-    if ([_myInfo count] == 0) {
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    NSString *lang = [TSLanguageManager selectedLanguage];
+    NSString *photoFileName = @"avatar.jpg";
+//    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:photoFileName], 0.5);
+    
+    if (!mobileNo || !userId | !certNo) {
         return;
     }
-    NSLog(@"MY INFO : %@", _myInfo);
-
-    NSLog(@"photo : %@", [NSString stringWithFormat:@"%@", _myInfo[@"photourl"]]);
-    [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _myInfo[@"photourl"]]]
-                      placeholderImage:[UIImage imageNamed:@"placeholder"]];
-
-    _idValueLabel.text = _myInfo[@"id"];
-    _nameValueLabel.text = _myInfo[@"name"];
-    _mobileValueLabel.text = _myInfo[@"mobile"];
-    _emailTextField.text = _myInfo[@"email"];
     
-    if (_memType == MemberTypeStudent)
-    {
-        _companyKoTextField.text = _myInfo[@"company"];
-        _companyEnTextField.text = _myInfo[@"company_en"];
-        _departmentKoTextField.text = _myInfo[@"department"];
-        _departmentEnTextField.text = _myInfo[@"department_en"];
-        _titleKoTextField.text = _myInfo[@"title"];
-        _titleEnTextField.text = _myInfo[@"title_en"];
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo,
+                            @"lang":lang, @"email":_myInfo[@"email"],
+                            @"company":_myInfo[@"company"], @"department":_myInfo[@"department"], @"title":_myInfo[@"title"],
+                            @"company_en":_myInfo[@"company_en"], @"department_en":_myInfo[@"department_en"], @"title_en":_myInfo[@"title_en"],
+//                            @"photo":photoFileName, @"photoData":imageData,
+                            @"share_email":_myInfo[@"share_email"], @"share_mobile":_myInfo[@"share_mobile"], @"share_company":_myInfo[@"share_company"]};
+    
+//    NSLog(@"MyInfo Request Parameter : %@", param);
+    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
+    
+    static NSString * const kAPIUpdateMyInfo = (SERVER_URL@"/fb/updatemyinfo");
+    NSLog(@"API Path(%@) param :\n%@", kAPIUpdateMyInfo, param);
+    
+    NSMutableURLRequest *request =
+    [[SMNetworkClient sharedClient] multipartFormRequestWithMethod:@"POST"
+                                                              path:kAPIUpdateMyInfo
+                                                        parameters:param
+                                         constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+                                             if (_photoFilename.length > 0 && _photoData) {
+                                                 [formData appendPartWithFileData:_photoData name:@"photo" fileName:_photoFilename mimeType:@"image/jpeg"];
+                                             }
+                                         }];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         
-        if ([_myInfo[@"share_mobile"] isEqualToString:@"y"]) {
-            _shareMobileBtn.selected = YES;
+        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+        [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+
+        if (_photoData) {
+            // 왼쪽 메뉴 사진 정보 업데이트
+            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+            
+            UIImage *image = [[UIImage alloc] initWithData:_photoData];
+            [menu updateHeaderImage:image];
         }
-
-        if ([_myInfo[@"share_email"] isEqualToString:@"y"]) {
-            _shareEmailBtn.selected = YES;
-        }
-
-        if ([_myInfo[@"share_company"] isEqualToString:@"y"]) {
-            _shareOfficeBtn.selected = YES;
-        }
-    }
-    else
-    {
-        _telTextField.text = _myInfo[@"tel"];
-    }
-
-    // 업데이트된 내 정보 왼쪽 메뉴에도 적용
-//    MenuTableViewController *leftMenuViewController = (MenuTableViewController *)self.container.leftMenuViewController;
-//    [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
-
-    MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-    [menu updateHeaderInfo];
+    }];
+    
+    [operation start];
+    
 }
-
-/// myInfo DB 추가 및 업데이트
-//- (void)onDBUpdate:(NSDictionary *)myInfo
-//{
-//    // 컨텍스트 지정
-//    if (self.managedObjectContext == nil) {
-////        self.managedObjectContext = [(AppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
-////        NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
-//        return;
-//    }
-//    
-//    NSError *error;
-//    BOOL isSaved = NO;
-//    
-//    // DB에 없는 항목은 추가하기
-////    for (NSDictionary *dict in classList)
-//    {
-//        BOOL isExistDB = YES;
-//        NSLog(@"class info : %@", dict);
-//        
-//        // 기존 DB에 저장된 데이터 읽어오기
-//        if ([dict[@"course"] isEqualToString:@"FACULTY"] || [dict[@"course"] isEqualToString:@"STAFF"]) {
-//            isExistDB = [self isFetchCourse:dict[@"course"]];
-//        } else {
-//            isExistDB = [self isFetchCourse:dict[@"courseclass"]];
-//        }
-//        
-//        // 기존 DB에 없으면 추가
-//        if (isExistDB == NO)
-//        {
-//            Course *class = (Course *)[NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
-//            NSLog(@"class info : %@", dict);
-//            
-//            class.course = dict[@"course"];
-//            class.courseclass = dict[@"courseclass"];
-//            class.title = dict[@"title"];
-//            class.title_en = dict[@"title_en"];
-//            
-//            isSaved = YES;
-//        }
-//    }
-//    
-//    if (isSaved == YES)
-//    {
-//        if (![self.managedObjectContext save:&error]) {
-//            NSLog(@"error : %@", [error localizedDescription]);
-//        }
-//        else    {
-//            NSLog(@"insert success..");
-//            
-//            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//            
-//            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
-//            [fetchRequest setEntity:entity];
-//            
-//            // order by
-//            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
-//            [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-//            
-//            NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-//            NSLog(@"DB data count : %d", [fetchedObjects count]);
-//            for (NSManagedObject *info in fetchedObjects)
-//            {
-//                NSLog(@"DB Dict : %@", [info valueForKey:@"title"]);
-//                //            NSLog(@"Name: %@", [info valueForKey:@"name"]);
-//                //            NSManagedObject *details = [info valueForKey:@"details"];
-//                //            NSLog(@"Zip: %@", [details valueForKey:@"zip"]);
-//            }
-//            
-//            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-//            menu.addrMenuList = [fetchedObjects mutableCopy];            
-//        }
-//    }
-//}
 
 @end

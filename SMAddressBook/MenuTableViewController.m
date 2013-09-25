@@ -94,7 +94,7 @@
     }
     
     self.tableView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
-    self.tableView.backgroundColor = [UIColor yellowColor];
+//    self.tableView.backgroundColor = [UIColor yellowColor];
     
     // TODO: 내 프로필 정보에서 헤더 구성 데이터 가져오기
     NSDictionary *profileDict = @{@"name":@"홍길동", @"class":@"GMBA 5기", @"photourl":@""};
@@ -204,6 +204,15 @@
         _classLabel.text = myInfo[@"courseclass"];
     }
 
+}
+
+- (void)updateHeaderImage:(UIImage *)image
+{
+    _profileImgView.image = image;
+//    NSDictionary *myInfo = [[UserContext shared] profileInfo];
+//    if ([myInfo[@"photourl"] length] > 0) {
+//        [_profileImgView setImageWithURL:[NSURL URLWithString:myInfo[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
+//    }
 }
 
 #pragma mark - UI Control Callbacks

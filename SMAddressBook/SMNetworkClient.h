@@ -8,6 +8,8 @@
 
 #import "AFHTTPClient.h"
 
+#define SERVER_URL          @"http://biz.snu.ac.kr"
+
 /// response JSON key codes
 #define kErrorCode      @"errcode"
 #define kErrorMsg       @"errmsg"

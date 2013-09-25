@@ -11,7 +11,6 @@
 #import <JSONKit.h>
 #import "NSDictionary+UTF8.h"
 
-#define SERVER_URL          @"http://biz.snu.ac.kr"
 
 //@interface SMNetworkClient : AFHTTPClient
 //@end
@@ -108,7 +107,6 @@
          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    
     [super postPath:(NSString *)path
          parameters:(NSDictionary *)parameters
             success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -385,6 +383,16 @@
 {
     static NSString * const kAPIUpdateMyInfo = (SERVER_URL@"/fb/updatemyinfo");
     NSLog(@"API Path(%@) param :\n%@", kAPIUpdateMyInfo, param);
+    
+//    NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST"
+//                                                                   path:kAPIUpdateMyInfo
+//                                                             parameters:param
+//                                              constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+//                                                                 [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
+//                                                             }];
+
+    return;
+    
     
     [self postPath:kAPIUpdateMyInfo
         parameters:param

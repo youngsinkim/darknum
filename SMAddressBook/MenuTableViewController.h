@@ -43,5 +43,6 @@ typedef enum {
 
 /// 메뉴 테이블 헤더 정보 업데이트
 - (void)updateHeaderInfo;
+- (void)updateHeaderImage:(UIImage *)image;
 
 @end

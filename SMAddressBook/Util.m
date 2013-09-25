@@ -41,4 +41,37 @@ extern NSString* CTSettingCopyMyPhoneNumber();
     return phone;
 }
 
+
+#pragma mark - UIImage related Method
+
++ (UIImage *)resizeAndCropImage:(UIImage *)origianlImage size:(CGFloat)size
+{
+    CGRect resizeRect = CGRectMake(0.0f, 0.0f, 480.0f, 640.0f);
+    
+    UIGraphicsBeginImageContext(resizeRect.size);
+    [origianlImage drawInRect:resizeRect];
+    
+    UIImage *thumb = UIGraphicsGetImageFromCurrentImageContext();
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect([thumb CGImage], CGRectMake(25.0f, 25.0f, size, size));
+    UIImage *thumbed = [UIImage imageWithCGImage:imageRef];
+    
+    CGImageRelease(imageRef);
+    
+    return thumbed;
+}
+
+
++ (UIImage *)resizeImage:(UIImage *)origianlImage size:(CGFloat)size
+{
+    CGRect resizeRect = CGRectMake(0.0f, 0.0f, size, size);
+    
+    UIGraphicsBeginImageContext(resizeRect.size);
+    [origianlImage drawInRect:resizeRect];
+    
+    UIImage *thumb = UIGraphicsGetImageFromCurrentImageContext();
+    
+    return thumb;
+}
+
 @end
