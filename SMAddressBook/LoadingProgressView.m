@@ -25,6 +25,7 @@
 @property (strong, nonatomic) UILabel *msgLabel;
 @property (strong, nonatomic) UIProgressView *progressView;
 @property (strong, nonatomic) NSTimer *timer;
+@property (assign) CGFloat currentPos;
 
 @end
 
@@ -103,16 +104,33 @@
 
 - (void)start
 {
+    NSLog(@"프로그래스 표시 시작");
 //    [NSThread detachNewThreadSelector:@selector(workerProgress) toTarget:self withObject:nil];
 //    if (_timer == nil) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector: @selector(updateProgress) userInfo:nil repeats:YES];
+
+    NSNumber *expired = @0.2f;
+    _currentPos = 0.0f;
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector: @selector(updateProgress) userInfo:expired repeats:YES];
 //    }
     self.hidden = NO;
 }
 
 - (void)stop
 {
-    self.hidden = YES;
+    NSLog(@"프로그래스 숨김");
+
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         
+                         _currentPos = 1.0f;
+                         NSLog(@"프로그래스 숨김 : %f", _currentPos);
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         self.hidden = YES;
+                         NSLog(@"프로그래스 숨김 완료");
+                         
+                     }];
 }
 
 - (void)workerProgress
@@ -132,9 +150,10 @@
 
 - (void)updateProgress:(NSNumber*)number
 {
-    NSLog("Progress is now: %@", number);
+    _currentPos += 0.1;
+    NSLog("프로그래스 업데이트 ( %f / %f 까지 )", _currentPos, [number floatValue]);
 //    [progressView setProgress:[number floatValue]];
-    [self setProgress:[number floatValue]];
+//    [self setProgress:[number floatValue]];
 }
 
 - (void)updateProgress
