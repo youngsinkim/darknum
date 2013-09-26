@@ -10,6 +10,10 @@
 
 #define SERVER_URL          @"http://biz.snu.ac.kr"
 
+#define apiClassesKey       @"http://biz.snu.ac.kr/fb/classes"
+#define apiMajorKey         @"http://biz.snu.ac.kr/fb/majors"
+#define apiFavoriteKey      @"http://biz.snu.ac.kr/fb/updated"
+
 /// response JSON key codes
 #define kErrorCode      @"errcode"
 #define kErrorMsg       @"errmsg"

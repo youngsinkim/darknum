@@ -106,12 +106,14 @@
 {
     NSLog(@"프로그래스 표시 시작");
 //    [NSThread detachNewThreadSelector:@selector(workerProgress) toTarget:self withObject:nil];
-//    if (_timer == nil) {
+    if (_timer == nil) {
 
     NSNumber *expired = @0.2f;
+    NSDictionary *info = @{@"expired":expired};
+    
     _currentPos = 0.0f;
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector: @selector(updateProgress) userInfo:expired repeats:YES];
-//    }
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector: @selector(updateProgress:) userInfo:info repeats:YES];
+    }
     self.hidden = NO;
 }
 
@@ -141,19 +143,27 @@
 //        for (float i = 0; i<1; i+= 0.1)
         while (pos < 1.0f)
         {
-            [self performSelectorInBackground:@selector(updateProgress:) withObject:[NSNumber numberWithFloat:pos]];
+            [self performSelectorInBackground:@selector(updateProgress) withObject:[NSNumber numberWithFloat:pos]];
             pos += 0.1f;
             sleep(500);
         }
     }
 }
 
-- (void)updateProgress:(NSNumber*)number
+- (void)updateProgress:(NSTimer *)timer
 {
-    _currentPos += 0.1;
-    NSLog("프로그래스 업데이트 ( %f / %f 까지 )", _currentPos, [number floatValue]);
+    NSDictionary *dict = [timer userInfo];
+    CGFloat expired = [dict[@"expired"] floatValue];
+
+    _currentPos += 0.01;
+    NSLog("프로그래스 업데이트 ( %f / %f 까지 )", _currentPos, expired);
+    [self setProgress:_currentPos];
+
+    if (_currentPos >= expired) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 //    [progressView setProgress:[number floatValue]];
-//    [self setProgress:[number floatValue]];
 }
 
 - (void)updateProgress

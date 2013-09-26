@@ -79,7 +79,7 @@ static UserContext *_sharedUserContext = nil;
     {
 //        [_profileInfo setDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"profile"]];
         [_profileInfo setDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:kProfileInfo]];
-        NSLog(@"previous ProfileInfo : %@", [_profileInfo description]);
+//        NSLog(@"previous ProfileInfo : %@", [_profileInfo description]);
     }
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kLastUpdate]) {
