@@ -39,7 +39,7 @@
 //    _webView2.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _helpWebView.backgroundColor = [UIColor clearColor];
     
-    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/fb/html/user-guide"]];
+    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/user-guide"]];
     [_helpWebView loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
     
     [self.view addSubview:_helpWebView];

@@ -463,7 +463,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 //        // ( NSDictionary <- NSManagedObject )
 //        NSArray *keys = [[[mo entity] attributesByName] allKeys];
 //        info = [[mo dictionaryWithValuesForKeys:keys] mutableCopy];
-        NSDictionary *info = _contacts[_currentIdx];
+        info = _contacts[_currentIdx];
         NSLog(@"찾는 셀 정보: %@", info);
         
         fullName = info[@"name"];
