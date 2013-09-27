@@ -94,6 +94,9 @@
 		5062B6DB17C4D72F00A2495D /* tit_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69517C4D72F00A2495D /* tit_bar@2x.png */; };
 		5062B6DE17C4D72F00A2495D /* white_btn_bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69817C4D72F00A2495D /* white_btn_bg2.png */; };
 		5062B6DF17C4D72F00A2495D /* white_btn_bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5062B69917C4D72F00A2495D /* white_btn_bg2@2x.png */; };
+		50B14EF917F517F200FCC662 /* ModelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EF817F517F200FCC662 /* ModelUtil.m */; };
+		50B14EFF17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */; };
+		50B14F0217F522B600FCC662 /* Major+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14F0117F522B600FCC662 /* Major+Methods.m */; };
 		50C4A2D317D87B86006DEC43 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C4A2D217D87B86006DEC43 /* Util.m */; };
 		50C4A2D617D87BD9006DEC43 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */; };
 		BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
@@ -281,6 +284,12 @@
 		5062B69517C4D72F00A2495D /* tit_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tit_bar@2x.png"; sourceTree = "<group>"; };
 		5062B69817C4D72F00A2495D /* white_btn_bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_btn_bg2.png; sourceTree = "<group>"; };
 		5062B69917C4D72F00A2495D /* white_btn_bg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white_btn_bg2@2x.png"; sourceTree = "<group>"; };
+		50B14EF717F517F200FCC662 /* ModelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelUtil.h; path = Models/ModelUtil.h; sourceTree = "<group>"; };
+		50B14EF817F517F200FCC662 /* ModelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelUtil.m; path = Models/ModelUtil.m; sourceTree = "<group>"; };
+		50B14EFD17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+AsyncFetch.h"; sourceTree = "<group>"; };
+		50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+AsyncFetch.m"; sourceTree = "<group>"; };
+		50B14F0017F522B600FCC662 /* Major+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Major+Methods.h"; path = "Models/Major+Methods.h"; sourceTree = "<group>"; };
+		50B14F0117F522B600FCC662 /* Major+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Major+Methods.m"; path = "Models/Major+Methods.m"; sourceTree = "<group>"; };
 		50C4A2D117D87B86006DEC43 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		50C4A2D217D87B86006DEC43 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -456,6 +465,10 @@
 				BF57B31D17D20ABC00B39C03 /* Course.m */,
 				BF57B2EA17CFA40F00B39C03 /* Major.h */,
 				BF57B2EB17CFA40F00B39C03 /* Major.m */,
+				50B14F0017F522B600FCC662 /* Major+Methods.h */,
+				50B14F0117F522B600FCC662 /* Major+Methods.m */,
+				50B14EF717F517F200FCC662 /* ModelUtil.h */,
+				50B14EF817F517F200FCC662 /* ModelUtil.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -808,6 +821,8 @@
 				BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */,
 				BFFB2BC617E8AFD600721ACE /* NSDictionary+UTF8.h */,
 				BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */,
+				50B14EFD17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.h */,
+				50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1125,6 +1140,7 @@
 				5062B64A17C4CCEE00A2495D /* PortraitNavigationController.m in Sources */,
 				BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */,
 				5062B64E17C4CDDC00A2495D /* UserContext.m in Sources */,
+				50B14F0217F522B600FCC662 /* Major+Methods.m in Sources */,
 				BF3E747617E21001006AAF8D /* DetailToolView.m in Sources */,
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
@@ -1170,6 +1186,7 @@
 				BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */,
 				BF57B38B17D78C2000B39C03 /* StudentDetailViewController.m in Sources */,
 				BF57B38E17D7928400B39C03 /* StudentDetailToolView.m in Sources */,
+				50B14EF917F517F200FCC662 /* ModelUtil.m in Sources */,
 				BFEB885617F1BD350045CA75 /* Student.m in Sources */,
 				BF57B39117D7996500B39C03 /* StudentToolView.m in Sources */,
 				BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */,
@@ -1177,6 +1194,7 @@
 				50C4A2D317D87B86006DEC43 /* Util.m in Sources */,
 				BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */,
 				BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */,
+				50B14EFF17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m in Sources */,
 				BF57B3AA17DB7A4200B39C03 /* SearchResultViewController.m in Sources */,
 				BF57B3AD17DC28A800B39C03 /* FavoriteSettCell.m in Sources */,
 				BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */,

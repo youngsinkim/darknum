@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "FavoriteToolView.h"
+#import "LoadingProgressView.h"
 
-@interface FavoriteViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, FavoriteToolViewDelegate>
+@interface FavoriteViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, FavoriteToolViewDelegate, LoadingProgressViewDelegate>
 
 @end

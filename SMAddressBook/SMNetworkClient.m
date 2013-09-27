@@ -212,7 +212,7 @@
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
                if (block) {
-                   NSLog(@"RESPONSE JSON: %@", JSON);
+//                   NSLog(@"RESPONSE JSON: %@", JSON);
                    
                    if ([NSJSONSerialization isValidJSONObject:[JSON valueForKeyPath:@"data"]]) {
                        block([NSArray arrayWithArray:[JSON valueForKeyPath:@"data"]], nil);
@@ -242,7 +242,7 @@
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
                if (block) {
-                   NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
+//                   NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
 //                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
                    NSMutableArray *array = [[NSMutableArray alloc] init];
                    if ([NSJSONSerialization isValidJSONObject:[JSON valueForKeyPath:@"data"]]) {
@@ -306,7 +306,7 @@
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
                if (block) {
-                   NSLog(@"RESPONSE JSON: %@", JSON);
+//                   NSLog(@"RESPONSE JSON: %@", JSON);
                    
                    if ([NSJSONSerialization isValidJSONObject:[JSON valueForKeyPath:@"data"]]) {
                        block([NSDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
@@ -336,7 +336,7 @@
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
                if (block) {
-                   NSLog(@"RESPONSE JSON: %@", JSON);
+//                   NSLog(@"RESPONSE JSON: %@", JSON);
                    block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
 //                   block([NSMutableArray arrayWithObjects:[JSON valueForKeyPath:@"data"], nil], nil);
                }
@@ -363,7 +363,7 @@
                
                if (block)
                {
-                   NSLog(@"RESPONSE JSON: %@", JSON);
+//                   NSLog(@"RESPONSE JSON: %@", JSON);
                    
 //                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
                    block([NSDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
@@ -401,7 +401,7 @@
                
                if (block)
                {
-                   NSLog(@"RESPONSE JSON: %@", JSON);
+//                   NSLog(@"RESPONSE JSON: %@", JSON);
                    
                    block([NSDictionary dictionaryWithDictionary:[JSON valueForKeyPath:@"data"]], nil);
                }

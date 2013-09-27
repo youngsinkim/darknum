@@ -43,8 +43,7 @@
     
     // CoreData 컨텍스트 지정
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (self.managedObjectContext == nil)
-    {
+    if (self.managedObjectContext == nil) {
         self.managedObjectContext = [appDelegate managedObjectContext];
         NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
     }
