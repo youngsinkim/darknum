@@ -23,11 +23,12 @@
 @property (strong, nonatomic) UIView *boxView;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *msgLabel;
-@property (strong, nonatomic) UILabel *percentLabel;
 @property (strong, nonatomic) UIProgressView *progressView;
 @property (strong, nonatomic) MBProgressHUD *hud;
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign) CGFloat currentPos;
+
+
 
 @end
 
@@ -39,11 +40,10 @@
     if (self)
     {
         // Initialization code
-        self.hidden = YES;
-        self.userInteractionEnabled = YES;
-        
         self.timer = nil;
         self.progress = 0.0f;
+        self.maxValue = 0;
+        self.curValue = 0;
         
         // 배경 (dimmed) 뷰
         _bgView = [[UIView alloc] initWithFrame:self.bounds];
@@ -58,6 +58,7 @@
         _boxView.backgroundColor = [UIColor whiteColor];
         
         [_bgView addSubview:_boxView];
+//        _boxView.hidden = YES;
         
         CGRect boxFrame = _boxView.frame;
         CGFloat yOffset = 0.0f;
@@ -74,7 +75,7 @@
         
 
         // 메시지
-        _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 60.0f)];
+        _msgLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _msgLabel.backgroundColor = [UIColor clearColor];
         _msgLabel.textColor = [UIColor darkGrayColor];
         _msgLabel.textAlignment = NSTextAlignmentCenter;
@@ -89,7 +90,7 @@
         // 프로그래스 바
         NSLog(@"%f, %f, %f, %f", boxFrame.origin.x, boxFrame.origin.y, boxFrame.size.width, boxFrame.size.height);
         _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-        _progressView.frame =  CGRectMake(20.0f, yOffset, 240.0f, 10.0f);
+//        _progressView.frame =  CGRectMake(20.0f, yOffset, 240.0f, 10.0f);
 //        _progressView.center = CGPointMake(_bgView.frame.size.width / 2, _bgView.frame.size.height / 3);
         
         [_boxView addSubview:_progressView];
@@ -97,17 +98,16 @@
        
 
         // 메시지
-        _percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 20.0f)];
+//        _percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 20.0f)];
+        _percentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _percentLabel.backgroundColor = [UIColor clearColor];
         _percentLabel.textColor = [UIColor darkGrayColor];
         _percentLabel.textAlignment = NSTextAlignmentCenter;
         _percentLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _percentLabel.font = [UIFont systemFontOfSize:12.0f];
-        _percentLabel.text = @"Downloading (0 / 0)";
+//        _percentLabel.text = @"Downloading (0 / 0)";
         
         [_boxView addSubview:_percentLabel];
-
-        
         
         
         
@@ -119,6 +119,9 @@
 //
 //        [_boxView addSubview:_hud];
 //        [_hud hide:YES];
+
+        self.hidden = YES;
+//        self.userInteractionEnabled = YES;
 
     }
     return self;
@@ -133,6 +136,22 @@
 }
 */
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGRect boxFrame = _boxView.frame;
+    CGFloat yOffset = 0.0f;
+
+    yOffset += 30.0f;
+    _msgLabel.frame = CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 60.0f);
+    yOffset += 70.0f;
+    _progressView.frame =  CGRectMake(20.0f, yOffset, 240.0f, 10.0f);
+
+    yOffset += 10.0f;
+    _percentLabel.frame = CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 20.0f);
+}
+
 - (void)setPercent:(NSString *)percent
 {
     _percent = percent;
@@ -140,8 +159,14 @@
 //    [self setNeedsDisplay];
 }
 
-- (void)start{
-    NSLog(@"loading progress start...... ");
+- (void)start:(NSInteger)cur total:(NSInteger)tot
+{
+    _curValue = cur;
+    _maxValue = tot;
+//    _progressView.progress = 0;
+    
+    NSLog(@"loading progress start...... ( %d / %d )", _curValue, _maxValue);
+    
 ////    [NSThread detachNewThreadSelector:@selector(workerProgress:) toTarget:self withObject:[NSNumber numberWithFloat:max]];
 ////    if ([_delegate respondsToSelector:@selector(myProgressTask:)]) {
 ////        [_delegate myProgressTask:info];
@@ -168,13 +193,17 @@
 //    _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector: @selector(updateProgress:) userInfo:info repeats:YES];
 //    }
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(updateUI:) userInfo:nil repeats:YES];
+    if (self.timer == nil) {
+        if (_maxValue == 0) {
+            NSLog(@"---------- progress max = 0 ----------");
+        }
+        self.myTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateUI:) userInfo:nil repeats:YES];
 //    [NSThread detachNewThreadSelector:@selector(updateUI) toTarget:_delegate withObject:self];
-    self.hidden = NO;
-        
-//    });
-
+    
+        self.hidden = NO;
+    } else  {
+        NSLog(@"---------- progress timer error !!! ----------");
+    }
 }
 
 - (void)stop
@@ -184,63 +213,68 @@
     [UIView animateWithDuration:0.3f
                      animations:^{
                          
-                         _currentPos = 1.0f;
+//                         _currentPos = 1.0f;
 //                         count = 10;
-//                         self.percentLabel.text = [NSString stringWithFormat:@"%d %%",count*10];
+//                         self.percentLabel.text = [NSString stringWithFormat:@"100 / 100"];
 //                         self.progressView.progress = (float)count/10.0f;
 
-                         NSLog(@"프로그래스 숨김 : %f", _currentPos);
+//                         NSLog(@"프로그래스 숨김 : %f", _currentPos);
                      }
                      completion:^(BOOL finished) {
 
-                         [self.myTimer invalidate];
-                         self.myTimer = nil;
-
                          self.hidden = YES;
-                         _currentPos = 0;
+//                         _progressView.progress = 0;
+
+//                         _currentPos = 0;
 //                         _progressView.progress = 0;
                          NSLog(@"프로그래스 숨김 완료");
                          
                      }];
 }
 
-
-//- (void)setPos:(CGFloat)pos withIndex:(CGFloat)idx max:(CGFloat)max
-//{
-////    dispatch_async(dispatch_get_main_queue(), ^{
-//
-//    _pos = pos;
-////    count = _pos;
-//    
-////    count = ((pos * 10) / max);
-//    NSLog(@"progressBar position : %f", _pos);
-//    
-////    self.percentLabel.text = [NSString stringWithFormat:@"Download %d / %d ",count*10];
-//    self.percentLabel.text = [NSString stringWithFormat:@"Download %f / %f", idx, max];
-//    self.progressView.progress = (float)count / 10.0f;
-//    
-//    NSLog(@"프로그래스 임의 세팅 : %f", self.progressView.progress);
-//    [_progressView setNeedsDisplay];
-////    });
-//}
+- (void)setPos:(NSInteger)pos
+{
+    _curValue = pos;
+//    CGFloat position = (float)(((float)_curValue / (float)_maxValue) * 10.0f);
+//    if (count < position)
+//    {
+//        count = position;
+//    }
+//    NSLog(@"===== progress set pos : %d", _curValue);
+//    NSString *countStr = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
+//    self.percentLabel.text = countStr;
+//    if (_curValue > 0 && _maxValue > 0) {
+    if (_curValue <= _maxValue) {
+        self.percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
+    }
+//    [self setNeedsDisplay];
+}
 
 
 - (void)updateUI:(NSTimer *)timer
 {
 //    dispatch_async(dispatch_get_main_queue(), ^{
-    static int count = 0;
+    static CGFloat count = 0.0f;
     count++;
 
-    if (count <= 10) {
-        self.percentLabel.text = [NSString stringWithFormat:@"%d %%",count*10];
-        self.progressView.progress = (float)count/10.0f;
+    if (count <= 10)
+    {
+        NSLog(@"프로그래스 설정 값 : %d / %d", _curValue, _maxValue);
+//        self.percentLabel.text = [NSString stringWithFormat:@"Download %d %%",count*10];
+        self.percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
+        
+        self.progressView.progress = (float)count / 10.0f;
         NSLog(@"프로그래스 값 : %f", self.progressView.progress);
 //        NSLog(@"..... progress() .....");//, self.progressView.progress);
     }
     else {
-        self.hidden = YES;
+//        self.hidden = YES;
         [self.myTimer invalidate];
         self.myTimer = nil;
+
+        if ([_delegate respondsToSelector:@selector(myProgressTask:)]) {
+            [_delegate myProgressTask:nil];
+        }
     }
 //    });
 }
@@ -304,22 +338,22 @@
 //        }
 //    }
 }
-
-- (void)updateProgress:(NSTimer *)timer
-{
-    NSDictionary *dict = [timer userInfo];
-    CGFloat expired = [dict[@"expired"] floatValue];
-
-    _currentPos += 0.01;
-    NSLog("프로그래스 업데이트 ( %f / %f 까지 )", _currentPos, expired);
-    [self setProgress:_currentPos];
-
-    if (_currentPos >= expired) {
-        [self.timer invalidate];
-        self.timer = nil;
-    }
-//    [progressView setProgress:[number floatValue]];
-}
+//
+//- (void)updateProgress:(NSTimer *)timer
+//{
+//    NSDictionary *dict = [timer userInfo];
+//    CGFloat expired = [dict[@"expired"] floatValue];
+//
+//    _currentPos += 0.01;
+//    NSLog("프로그래스 업데이트 ( %f / %f 까지 )", _currentPos, expired);
+//    [self setProgress:_currentPos];
+//
+//    if (_currentPos >= expired) {
+//        [self.timer invalidate];
+//        self.timer = nil;
+//    }
+////    [progressView setProgress:[number floatValue]];
+//}
 
 - (void)updateProgress
 {
@@ -344,4 +378,5 @@
 	[self setNeedsDisplay];
 
 }
+
 @end

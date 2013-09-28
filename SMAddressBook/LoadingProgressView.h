@@ -20,14 +20,18 @@
 
 @property id<LoadingProgressViewDelegate> delegate;
 @property (assign, nonatomic) CGFloat progress;
-@property (assign, nonatomic) CGFloat pos;
+@property (assign, nonatomic) NSInteger pos;
 @property (strong, nonatomic) NSString *percent;
 //@property (nonatomic, retain) NSString *notificationString;
 //@property (nonatomic, assign) BOOL showProgress;
 @property (nonatomic, strong) NSTimer *myTimer;
+@property (strong, nonatomic) UILabel *percentLabel;
+@property (assign) NSInteger curValue;
+@property (assign) NSInteger maxValue;
 
 //- (void)setBackgroundSize:(NSString *)message;
-- (void)start;
+//- (void)start;
+- (void)start:(NSInteger)cur total:(NSInteger)tot;
 - (void)stop;
 //- (void)setProgress:(CGFloat)pos;
 

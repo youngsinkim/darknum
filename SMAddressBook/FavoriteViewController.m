@@ -46,8 +46,8 @@
 
 @property (strong, nonatomic) LoadingView *loadingIndicatorView;
 @property (strong, nonatomic) LoadingProgressView *progressView;
-@property (assign) CGFloat tot;
-@property (assign) CGFloat cur;
+@property (assign) NSInteger tot;
+@property (assign) NSInteger cur;
 @end
 
 
@@ -67,6 +67,9 @@
         _courses = [[NSMutableArray alloc] init];
         _majors = [[NSMutableArray alloc] init];
         _updateInfo = [[NSMutableDictionary alloc] initWithCapacity:3];
+        
+        _tot = [[UserContext shared].updateCount floatValue];
+        _cur = 0;
     }
     return self;
 }
@@ -95,27 +98,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     NSLog(@"---------- START ----------");
-    // 로딩 프로그래스 시작...
-    [_progressView setHidden:NO];   // 우선 화면만 노출 시킴
-//    [_progressView start];
-
-//    [self showUpdateProgress];
-//    [self performSelector:@selector( showUpdateProgress) withObject:nil];
-//    [NSThread detachNewThreadSelector:@selector(showUpdateProgress) toTarget:self withObject:nil];
-
     
     // 로그인 여부 확인
     NSLog(@"로그인 했나? ( %d )", [UserContext shared].isLogined);
+    
     if ([[UserContext shared] isLogined])
     {
-        // 약관동의 여부 확인
         if (![[UserContext shared] isAcceptTerms]) {
             NSLog(@"약관 동의 전입니다.");
             return;
         }
-        // 프로필 설정 여부 확인
+        
         if (![[UserContext shared] isExistProfile]) {
             NSLog(@"프로필 설정 전입니다.");
             return;
@@ -142,21 +136,37 @@
         }
 #endif
 
-        NSLog(@".......... REQUEST Majors .........");
-        [self requestAPIMajors];
+//        dispatch_queue_t queue = dispatch_queue_create("dbqueue", NULL);
+//        dispatch_async(queue, ^{
         
-        NSLog(@".......... REQUEST CourseClass .........");
-        [self requestAPIClasses];
+            NSLog(@".......... REQUEST Majors .........");
+            [self requestAPIMajors];
+            
+            NSLog(@".......... REQUEST CourseClass .........");
+            [self requestAPIClasses];
+//        });
 
         
         // (updateCount > 0) 서버 업데이트 존재함
         NSInteger updateCount = [[UserContext shared].updateCount integerValue];
-        NSLog(@"updateCount (%d)", updateCount);
+        NSLog(@".......... updateCount (%d)", updateCount);
 
-//        if (updateCount > 0)
+        if (updateCount > 0)
         {
-            NSLog(@".......... REQUEST Update Favorites .........");
-            [self requestAPIFavorites];
+            // 업데이트가 있을때만, 로딩 프로그래스 시작...
+            NSLog(@"---------- Progress Show ----------");
+            //    [_progressView setHidden:NO];   // 우선 화면만 노출 시킴
+            [self showUpdateProgress];
+            //    [self performSelector:@selector( showUpdateProgress) withObject:nil];
+
+
+//            dispatch_queue_t queue2 = dispatch_queue_create("dbqueue2", NULL);
+//            dispatch_async(queue2, ^{
+
+                NSLog(@".......... REQUEST Update Favorites .........");
+                [self requestAPIFavorites];
+                
+//            });
             
 //            NSLog(@"과정별 기수 목록 요청");
 //            // 과정별 기수 목록
@@ -180,12 +190,13 @@
     }
 //    NSLog(@"hide progress..");
 //    [self hideUpdateProgress];
-    NSLog(@"---------- END ----------");
+    NSLog(@"---------- will END ----------");
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    _cur = 0;
     
     MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
     [menu updateHeaderInfo];
@@ -217,53 +228,34 @@
 //    [self.view addSubview:_loadingIndicatorView];
 //        [_loadingIndicatorView show];
 
-
-    _progressView = [[LoadingProgressView alloc] initWithFrame:self.view.bounds];
-    _progressView.delegate = self;
-    [[[UIApplication sharedApplication] keyWindow] addSubview:_progressView];
-
-}
-
-- (void)workerBee
-{
-    dispatch_queue_t myQueue = dispatch_queue_create("dbQueue", NULL);
-    dispatch_async(myQueue, ^{
-
-//    @autoreleasepool
-    {
-        for (float i = 0; i < 1; i += 0.1)
-        {
-//            dispatch_queue_t myQueue = dispatch_queue_create("dbQueue", NULL);
-//            dispatch_async(myQueue, ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self updateProgress:[NSNumber numberWithFloat:i]];
-//                [self performSelectorInBackground:@selector(updateProgress:) withObject:[NSNumber numberWithFloat:i]];
-
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [_progressView setNeedsDisplay];
-//                });
-                usleep(10);
-            });
-        }
+    if (!_progressView) {
+        _progressView = [[LoadingProgressView alloc] initWithFrame:self.view.bounds];
+        _progressView.delegate = self;
+        [[[UIApplication sharedApplication] keyWindow] addSubview:_progressView];
+//        [self.view addSubview:_progressView];
     }
-    });
 }
 
-- (void)updateProgress:(NSNumber*)number
+- (void)setUpdateProgress:(NSInteger)progress
 {
-    NSLog("Progress is now: %@", number);
-    [_progressView setProgress:[number floatValue]];
+    NSLog("Progress is now: %d", _cur);
+    [_progressView setPos:_cur];
+    
+//    _progressView.curValue = _cur;
+//    _progressView.percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _cur, _tot];
 }
 
 
 - (void)showUpdateProgress
 {
-//    NSNumber *expired = [NSNumber numberWithFloat:pos];
-//    NSDictionary *info = @{@"expired":expired};
+    _tot = [[UserContext shared].updateCount floatValue];
+    _cur = 0;
+    
+//    if (_tot > 0) {
+//        _progressView.hidden = NO;
+//    }
+    [_progressView start:_cur total:_tot];
 
-    _tot = 307.0f;
-    _cur = 0.0f;
-    [_progressView start];
 }
 
 - (void)hideUpdateProgress
@@ -490,7 +482,6 @@
     NSString *userId = [UserContext shared].userId;
     NSString *certNo = [UserContext shared].certNo;
     NSString *lastUpdate = [UserContext shared].lastUpdateDate;
-    lastUpdate = @"0000-00-00 00:00:00";
     
     if (!mobileNo || !userId | !certNo || !lastUpdate) {
         return;
@@ -508,15 +499,16 @@
                                                 else
                                                 {
                                                     // 즐겨찾기 업데이트 수신 후, 현재 시간을 마지막 업데이트 시간으로 저장
-                                                    {
-                                                        NSDate *date = [NSDate date];
-                                                        NSString *displayString = [date string];
-                                                        NSLog(@"즐겨찾기 업데이트 시간? %@", displayString);
-                                                    
-                                                        [UserContext shared].lastUpdateDate = displayString;
-                                                        [[NSUserDefaults standardUserDefaults] setValue:displayString forKey:kLastUpdate];
-                                                        [[NSUserDefaults standardUserDefaults] synchronize];
-                                                    }
+                                                    // sochae - imsi
+//                                                    {
+//                                                        NSDate *date = [NSDate date];
+//                                                        NSString *displayString = [date string];
+//                                                        NSLog(@"즐겨찾기 업데이트 시간? %@", displayString);
+//                                                    
+//                                                        [UserContext shared].lastUpdateDate = displayString;
+//                                                        [[NSUserDefaults standardUserDefaults] setValue:displayString forKey:kLastUpdate];
+//                                                        [[NSUserDefaults standardUserDefaults] synchronize];
+//                                                    }
                                                     NSLog(@"... 즐겨찾기 목록 수신 후 업데이트 시간 저장 : %@", [UserContext shared].lastUpdateDate);
                                                     
                                                     [_updateInfo setDictionary:result];
@@ -545,19 +537,22 @@
 #pragma mark - Callback methods
 - (void)myProgressTask:(id)sender
 {
-    NSLog(@"progress callback...");
+    NSLog(@"----- progress callback (stop) -----");
+
+    [self hideUpdateProgress];
     
-    if ([sender isKindOfClass:[UIProgressView class]]) {
-        UIProgressView *progressBar = (UIProgressView *)sender;
-        
-        float progress = 0.0f;
-        while (progress < 1.0f) {
-            progress += 0.01f;
-            progressBar.progress = progress;
-            NSLog(@"progress : %f", progressBar.progress);
-            usleep(1000);
-        }
-    }
+    
+//    if ([sender isKindOfClass:[UIProgressView class]]) {
+//        UIProgressView *progressBar = (UIProgressView *)sender;
+//        
+//        float progress = 0.0f;
+//        while (progress < 1.0f) {
+//            progress += 0.01f;
+//            progressBar.progress = progress;
+//            NSLog(@"progress : %f", progressBar.progress);
+//            usleep(1000);
+//        }
+//    }
 //    MBProgressHUD *hud = (MBProgressHUD *)[self.navigationController.view viewWithTag:77777];
 //    if (hud != nil)
 //    {
@@ -571,44 +566,13 @@
 //    }
 }
 
-- (void)updateUI
-{
-    NSLog(@"updateUI callback...");
-
-    static int count = 0;
-    
-    while (count <= 10) {
-//    if (count <= 10) {
-//        count++;
-
-        _progressView.percent = [NSString stringWithFormat:@"Download %f / %f", _cur, _tot];
-//        self.percentLabel.text = [NSString stringWithFormat:@"%d %%",count*10];
-        NSLog(@"persent str : %@", _progressView.percent);
-
-//        _progressView.progress = (float)count/10.0f;
-        _progressView.progress = (float)((_cur * 10) / _tot);
-        NSLog(@"프로그래스 값 : %f", self.progressView.progress);
-        //        NSLog(@"..... progress() .....");//, self.progressView.progress);
-        usleep(3000);
-    }
-//    else {
-//        self.hidden = YES;
-//        [self.myTimer invalidate];
-//        self.myTimer = nil;
-//    }
-    [_progressView stop];
-}
-
 - (void)saveDBFavoriteUpdates
 {
     NSLog(@"---------- START ----------");
     NSLog(@"교수전공 (%d), 기수 (%d), 즐겨찾기 업데이트 (%d)", [_majors count], [_courses count], [_updateInfo count]);
-    if ([_updateInfo count] > 0)
+    if ([_courses count] > 0 && [_updateInfo count] > 0)
     {
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [NSThread detachNewThreadSelector:@selector(onUpdateDBFavorites:) toTarget:self withObject:_updateInfo];
-            [self saveDBFavorite:_updateInfo];
-//        });
+        [self saveDBFavorite:_updateInfo];
     }
     NSLog(@"---------- END ----------");
 }
@@ -1359,27 +1323,28 @@
     });
 }
 
+#pragma mark 즐겨찾기 업데이트 목록 저장
 /// course classes DB 추가 및 업데이트
 - (void)saveDBFavorite:(NSDictionary *)updateInfo
 {
     NSLog(@"----------- START ----------");
-//    [self performSelectorInBackground:@selector(showUpdateProgress) withObject:nil];
-//    [_progressView start];
-//    [_progressView setPos:1];
-    [self showUpdateProgress];
+//    [self showUpdateProgress];
+
+//    dispatch_queue_t queue3 = dispatch_queue_create("dbqueue3", NULL);
+//    dispatch_async(queue3, ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     
     NSError *error = nil;
 
-//    static CGFloat count = 0;
-//    static CGFloat maxItem = 307.0f;
-//    maxItem = [[UserContext shared].updateCount intValue];
-    
     NSLog("... 학생 목록 저장");
     if ([updateInfo[@"student"] isKindOfClass:[NSArray class]])
     {
         NSArray *students = updateInfo[@"student"];
         NSLog(@"즐겨찾기 업데이트 학생 수 [%d]", [students count]);
         
+        [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
+
         for (NSDictionary *dict in students)
         {
             // DB에 현재 학생의 기수가 존재하면 해당 기수에 학생을 추가하도록 함. (relationship 연결 처리)
@@ -1408,13 +1373,11 @@
             NSArray *filteredObjects = [self filteredObjects:dict[@"studcode"] memberType:MemberTypeStudent];
             Student *student = nil;
             
-            if ([filteredObjects count] > 0)
-            {
+            if ([filteredObjects count] > 0) {
                 // 로컬 DB에 존재하면 업데이트
                 student = filteredObjects[0];
             }
-            else
-            {
+            else {
                 // 로컬 DB에 없으면 추가 (INSERT)
                 student = (Student *)[NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:self.moc];
                 student.studcode = dict[@"studcode"];
@@ -1450,14 +1413,17 @@
 //            mo.class_info.courseclass = student[@"courseclass"];
 //            mo.class_info.title = student[@"classtitle"];
 //            mo.class_info.title_en = student[@"classtitle_en"];
-//
-            NSLog(@" count ==== %f", ++_cur);
-            
-            NSLog(@"학생 프로그래스 세팅 : %f", (_cur * 10) / _tot);
-//            [_progressView setPos:((count * 10) / maxItem)];
-//            [_progressView setPos:((count * 10) / maxItem) withIndex:count max:maxItem];
 
+            ++_cur;
+            NSLog(@"학생 프로그래스 세팅(%d) : %f", _cur, (CGFloat)((_cur * 10) / _tot));
+//                [_progressView setPos:_cur];
         }
+        
+        [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
+
+//        [self.moc save:&error];
+//            NSLog(@"학생 업데이트 목록 저장 완료!");
+
     }
 
 
@@ -1529,12 +1495,19 @@
             
 //            mo.major.major = faculty[@"major"];
             
-            NSLog(@" count ==== %f", ++_cur);
-//            NSLog(@"교수 프로그래스 세팅 : %f", (CGFloat)((count  * 10) / maxItem));
+                ++_cur;
+                NSLog(@"교수 프로그래스 세팅(%d) : %f", _cur, (CGFloat)((_cur * 10) / _tot));
+//            [self performSelectorInBackground:@selector(updateProgress:) withObject:nil];
+//                [self updateProgress:_cur];
+//            [_progressView setPos:_cur];
 //            [_progressView setPos:((count * 10) / maxItem)];
-//            [_progressView setPos:((count * 10) / maxItem) withIndex:count max:maxItem];
 
         }
+        
+        [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
+//        [self.moc save:&error];
+//            NSLog(@"교수 업데이트 목록 저장 완료!");
+
     }
 
     NSLog("... 교직원 목록 저장");
@@ -1576,12 +1549,18 @@
             mo.viewphotourl = dict[@"viewphotourl"];
             
             NSLog(@"UPDATE 즐겨찾기 교직원 : memberIdx(%@), name(%@), name_en(%@), tel(%@)", mo.memberidx, mo.name, mo.name_en, mo.tel);
-            NSLog(@" count ==== %f", ++_cur);
-//            NSLog(@"교직원 프로그래스 세팅 : %f", (CGFloat)((count * 10) / maxItem));
+            
+            ++_cur;
+            NSLog(@"교직원 프로그래스 세팅(%d) : %f", _cur, (CGFloat)((_cur * 10) / _tot));
+//            [self performSelectorInBackground:@selector(updateProgress:) withObject:nil];
+//            [self updateProgress:_cur];
 //            [_progressView setPos:((count * 10) / maxItem)];
-//            [_progressView setPos:((count * 10) / maxItem) withIndex:count max:maxItem];
-
         }
+        
+        [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
+//        [self.moc save:&error];
+//        NSLog(@"교직원 업데이트 목록 저장 완료!");
+
     }
     
 //    NSLog(@"프로그래스 세팅 : 10");
@@ -1593,22 +1572,17 @@
     }
     else {
         NSLog(@"즐겨찾기 업데이트 목록 전체 저장 성공!");
-//        [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
-        
-//        [_loadingIndicatorView stop];
 
-        // 즐겨찾기 목록 로컬 DB에서 갱신.
-//        [self.favorites setArray:[self loadDBFavoriteCourse]];
-        
-//        [self performSelectorOnMainThread:@selector(hideUpdateProgress) withObject:nil waitUntilDone:YES];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self hideUpdateProgress];
-//        });
+//        [self performSelector:@selector(hideUpdateProgress) withObject:nil];
 
+////        [self performSelectorOnMainThread:@selector(stopDimLoading) withObject:nil waitUntilDone:NO];
+////        [_loadingIndicatorView stop];
+//        // 즐겨찾기 목록 로컬 DB에서 갱신.
+////        [self.favorites setArray:[self loadDBFavoriteCourse]];
     }
-
 //    });// dispatch
-//    [_progressView stop];
+    
+    
     NSLog(@"----------- END ----------");
 }
 
@@ -1662,26 +1636,33 @@
 }
 
 
+#pragma mark 기수 찾기
 /// 조건에 맞는 기수 검색
 - (NSArray *)findCourses:(NSDictionary *)info
 {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    // select Table
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.moc];
-    [fetchRequest setEntity:entity];
+//    NSManagedObjectContext *backMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//    [backMoc setParentContext:_moc];
+//    
+//    [backgroundMOC performBlock:^{
+//        NSLog(@" backgroundMOC performBlock:");
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course == %@ AND courseclass == %@", info[@"course"], info[@"courseclass"]];
-    [fetchRequest setPredicate:predicate];
-    
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
-    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, sortDescriptor1, nil]];
-    
-    NSError *error = nil;
-    NSArray *filtered = [self.moc executeFetchRequest:fetchRequest error:&error];
-    NSLog(@"찾은 기수 개수 : %d", [filtered count]);
-    
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        
+        // select Table
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:_moc];
+        [fetchRequest setEntity:entity];
+
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course == %@ AND courseclass == %@", info[@"course"], info[@"courseclass"]];
+        [fetchRequest setPredicate:predicate];
+        
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+        NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, sortDescriptor1, nil]];
+        
+        NSError *error = nil;
+        NSArray *filtered = [_moc executeFetchRequest:fetchRequest error:&error];
+        NSLog(@"찾은 기수 개수 : %d", [filtered count]);
+//    }];
     return filtered;
 }
 
@@ -1831,7 +1812,9 @@
         
     }
     
-    if ([_favorites count] > 0) {
+    if ([_favorites count] > 0)
+    {
+        
         Course *course = _favorites[indexPath.row];
         NSLog(@"즐겨찾기 항목 제목 : %@", course.title);
         cell.title = course.title;
