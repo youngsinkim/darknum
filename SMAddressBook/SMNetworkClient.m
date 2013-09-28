@@ -112,7 +112,7 @@
             success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 
                 NSDictionary *response = [NSMutableDictionary dictionaryWithDictionary:responseObject];
-                NSLog(@"response : %@", responseObject);
+//                NSLog(@"response : %@", responseObject);
 
                 if (![responseObject isKindOfClass:[NSNull class]])
                 {
@@ -276,7 +276,7 @@
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
                if (block) {
-                   NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
+//                   NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
                    
                    if ([NSJSONSerialization isValidJSONObject:[JSON valueForKeyPath:@"data"]]) {
                        block([NSArray arrayWithArray:[JSON valueForKeyPath:@"data"]], nil);
