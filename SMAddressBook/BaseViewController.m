@@ -262,7 +262,14 @@
 /// 네비게이션 [홈] 버튼 선택
 - (void)onHomeButtonClicked:(id)sender
 {
-//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UINavigationController *nav = self.menuContainerViewController.centerViewController;
+    UIViewController *vc = nav.viewControllers[0];
+    
+    if ([vc isKindOfClass:[FavoriteViewController class]]) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        NSLog(@"centerViewController : %@", vc);
+        return;
+    }
     FavoriteViewController *favoriteViewController = [[FavoriteViewController alloc] init];
 
     MenuTableViewController *leftMenu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
