@@ -167,7 +167,7 @@
         if (!mobileNo || !userId | !certNo || !lastUpdate) {
             return;
         }
-        NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"mode":mode, @"lang":lang, @"courseclass":course.courseclass};
+        NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"mode":mode, @"courseclass":course.courseclass};
 
         [self requestAPIFavoritesUpdate:param];
         
@@ -186,25 +186,26 @@
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     
     // 즐겨찾기 업데이트 목록
-    [[SMNetworkClient sharedClient] postFavorites:param
-                                            block:^(NSDictionary *result, NSError *error) {
+    [[SMNetworkClient sharedClient] updateFavorites:param
+                                              block:^(NSDictionary *result, NSError *error) {
+                                                  NSLog(@"즐겨찾기 설정 결과 ? %@", result);
                                                 
-                                                [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                                  [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
                                                 
-                                                if (error) {
-                                                    [[SMNetworkClient sharedClient] showNetworkError:error];
-                                                }
-                                                else
-                                                {
-                                                    // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
-                                                    NSArray *favorites = [self loadDBFavoriteCourse];
+                                                  if (error) {
+                                                      [[SMNetworkClient sharedClient] showNetworkError:error];
+                                                  }
+                                                  else
+                                                  {
+                                                      // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
+                                                      NSArray *favorites = [self loadDBFavoriteCourse];
                                                     
-                                                    if ([favorites count] > 0)
-                                                    {
-                                                        // 즐겨찾기 목록 메뉴 적용
-                                                        MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-                                                        [menu setAddrMenuList:favorites];
-                                                    }
+                                                      if ([favorites count] > 0)
+                                                      {
+                                                          // 즐겨찾기 목록 메뉴 적용
+                                                          MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+                                                          [menu setAddrMenuList:favorites];
+                                                      }
 
                                                     
                                                     // 즐겨찾기 업데이트 수신 후, 현재 시간을 마지막 업데이트 시간으로 저장
@@ -224,9 +225,9 @@
 //                                                    [_updateInfo setDictionary:favoriteInfo];
 //                                                    [self performSelector:@selector(updateDBFavorites) withObject:nil];
 //
-                                                }
+                                                  }
                                                 
-                                            }];
+                                              }];
 
 }
 

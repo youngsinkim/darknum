@@ -325,7 +325,7 @@
 }
 
 // 즐겨찾기 업데이트 (추가 / 삭제)
-- (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block
+- (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
 {
     static NSString * const kAPIFavoritesUpdate = (SERVER_URL@"/fb/updatefavorite");
     NSLog(@"API Path(%@) param :\n%@", kAPIFavoritesUpdate, param);
@@ -337,13 +337,13 @@
                
                if (block) {
 //                   NSLog(@"RESPONSE JSON: %@", JSON);
-                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
+                   block([NSDictionary dictionaryWithDictionary:JSON], nil);
 //                   block([NSMutableArray arrayWithObjects:[JSON valueForKeyPath:@"data"], nil], nil);
                }
                
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                if (block) {
-                   block([NSMutableDictionary dictionary], error);
+                   block([NSDictionary dictionary], error);
                }
                NSLog(@"error : %@", [error description]);
            }];

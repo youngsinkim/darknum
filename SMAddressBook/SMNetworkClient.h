@@ -53,7 +53,7 @@
 - (void)postFavorites:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 
 // 즐겨찾기 업데이트 (추가 / 삭제)
-- (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSMutableDictionary *result, NSError *error))block;
+- (void)updateFavorites:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 
 /// 7. 내 정보 조회(학생) / 9-1. 내 정보 조회(교수) / 9-2. 내 정보 조회(교직원)
 - (void)postMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
