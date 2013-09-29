@@ -59,4 +59,40 @@
     
 }
 
+
+- (void)saveDataInContext:(void(^)(NSManagedObjectContext *context))saveBlock
+{
+    NSManagedObjectContext *childContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [childContext setParentContext:self];
+    //	NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];			//step 1
+    //	[context setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];				//step 2
+    //	[context setMergePolicy:NSMergeObjectByPropertyStoreTrumpMergePolicy];
+    //	[context observeContext:moc];						//step 3
+    
+	saveBlock(childContext);										//step 4
+    
+	if ([self hasChanges])								//step 5
+	{
+		[self save:nil];
+	}
+}
+
+- (void)saveDataInBackgroundWithContext:(void(^)(NSManagedObjectContext *context))saveBlock
+{
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		[self saveDataInContext:saveBlock];
+	});
+}
+
+- (void)saveDataInBackgroundWithContext:(void(^)(NSManagedObjectContext *context))saveBlock completion:(void(^)(void))completion
+{
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		[self saveDataInContext:saveBlock];
+        
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			completion();
+		});
+	});
+}
+
 @end

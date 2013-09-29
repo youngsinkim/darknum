@@ -75,7 +75,7 @@
         
 
         // 메시지
-        _msgLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 60.0f)];
         _msgLabel.backgroundColor = [UIColor clearColor];
         _msgLabel.textColor = [UIColor darkGrayColor];
         _msgLabel.textAlignment = NSTextAlignmentCenter;
@@ -90,7 +90,7 @@
         // 프로그래스 바
         NSLog(@"%f, %f, %f, %f", boxFrame.origin.x, boxFrame.origin.y, boxFrame.size.width, boxFrame.size.height);
         _progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-//        _progressView.frame =  CGRectMake(20.0f, yOffset, 240.0f, 10.0f);
+        _progressView.frame =  CGRectMake(20.0f, yOffset, 240.0f, 10.0f);
 //        _progressView.center = CGPointMake(_bgView.frame.size.width / 2, _bgView.frame.size.height / 3);
         
         [_boxView addSubview:_progressView];
@@ -98,8 +98,7 @@
        
 
         // 메시지
-//        _percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 20.0f)];
-        _percentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 20.0f)];
         _percentLabel.backgroundColor = [UIColor clearColor];
         _percentLabel.textColor = [UIColor darkGrayColor];
         _percentLabel.textAlignment = NSTextAlignmentCenter;
@@ -135,23 +134,23 @@
     // Drawing code
 }
 */
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-    CGRect boxFrame = _boxView.frame;
-    CGFloat yOffset = 0.0f;
-
-    yOffset += 30.0f;
-    _msgLabel.frame = CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 60.0f);
-    yOffset += 70.0f;
-    _progressView.frame =  CGRectMake(20.0f, yOffset, 240.0f, 10.0f);
-
-    yOffset += 10.0f;
-    _percentLabel.frame = CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 20.0f);
-}
-
+//
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    
+//    CGRect boxFrame = _boxView.frame;
+//    CGFloat yOffset = 0.0f;
+//
+//    yOffset += 30.0f;
+//    _msgLabel.frame = CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 60.0f);
+//    yOffset += 70.0f;
+//    _progressView.frame =  CGRectMake(20.0f, yOffset, 240.0f, 10.0f);
+//
+//    yOffset += 10.0f;
+//    _percentLabel.frame = CGRectMake(10.0f, yOffset, boxFrame.size.width - 20.0f, 20.0f);
+//}
+//
 - (void)setPercent:(NSString *)percent
 {
     _percent = percent;
@@ -197,7 +196,7 @@
         if (_maxValue == 0) {
             NSLog(@"---------- progress max = 0 ----------");
         }
-        self.myTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateUI:) userInfo:nil repeats:YES];
+        self.myTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(updateUI:) userInfo:nil repeats:YES];
 //    [NSThread detachNewThreadSelector:@selector(updateUI) toTarget:_delegate withObject:self];
     
         self.hidden = NO;
@@ -243,24 +242,31 @@
 //    NSLog(@"===== progress set pos : %d", _curValue);
 //    NSString *countStr = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
 //    self.percentLabel.text = countStr;
-//    if (_curValue > 0 && _maxValue > 0) {
-    if (_curValue <= _maxValue) {
-        self.percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
+
+//    if (_curValue <= _maxValue)
+    {
+//        count = _curValue;
+        _percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
     }
-//    [self setNeedsDisplay];
+    [self layoutSubviews];
 }
 
+static CGFloat count = 0.0f;
 
 - (void)updateUI:(NSTimer *)timer
 {
 //    dispatch_async(dispatch_get_main_queue(), ^{
-    static CGFloat count = 0.0f;
     count++;
 
     if (count <= 10)
     {
         NSLog(@"프로그래스 설정 값 : %d / %d", _curValue, _maxValue);
 //        self.percentLabel.text = [NSString stringWithFormat:@"Download %d %%",count*10];
+//        self.percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
+        NSInteger cnt = (NSInteger)count;
+        if (cnt >= _maxValue) {
+            cnt = _maxValue;
+        }
         self.percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
         
         self.progressView.progress = (float)count / 10.0f;

@@ -12,4 +12,8 @@
 
 - (void)executeFetchRequest:(NSFetchRequest *)request completion:(void (^)(NSArray *objects, NSError *error))completion;
 
+- (void)saveDataInContext:(void(^)(NSManagedObjectContext *context))saveBlock;
+- (void)saveDataInBackgroundWithContext:(void(^)(NSManagedObjectContext *context))saveBlock;
+- (void)saveDataInBackgroundWithContext:(void(^)(NSManagedObjectContext *context))saveBlock completion:(void(^)(void))completion;
+
 @end

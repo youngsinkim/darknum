@@ -143,7 +143,6 @@
 		BF57B31217D1CC3D00B39C03 /* TSLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30F17D1CC3D00B39C03 /* TSLanguageManager.m */; };
 		BF57B31517D1CE3B00B39C03 /* UIViewController+LoadingProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31417D1CE3B00B39C03 /* UIViewController+LoadingProgress.m */; };
 		BF57B31717D1F5FD00B39C03 /* profile_default_img.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B31617D1F5FD00B39C03 /* profile_default_img.png */; };
-		BF57B31E17D20ABC00B39C03 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31D17D20ABC00B39C03 /* Course.m */; };
 		BF57B32217D210E300B39C03 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = BF57B32117D210E200B39C03 /* Readme.md */; };
 		BF57B32517D24DDA00B39C03 /* FavoriteToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32417D24DD900B39C03 /* FavoriteToolView.m */; };
 		BF57B32817D2E6E800B39C03 /* StudentProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */; };
@@ -175,9 +174,10 @@
 		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
+		BFABB01C17F75AE50018D236 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
+		BFABB01F17F761EA0018D236 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01E17F761EA0018D236 /* Student.m */; };
 		BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
 		BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
-		BFEB885617F1BD350045CA75 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885517F1BD350045CA75 /* Student.m */; };
 		BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885E17F1BDBD0045CA75 /* Faculty.m */; };
 		BFEB886217F1BDD20045CA75 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB886117F1BDD20045CA75 /* Staff.m */; };
 		BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
@@ -363,8 +363,6 @@
 		BF57B31317D1CE3B00B39C03 /* UIViewController+LoadingProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+LoadingProgress.h"; sourceTree = "<group>"; };
 		BF57B31417D1CE3B00B39C03 /* UIViewController+LoadingProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+LoadingProgress.m"; sourceTree = "<group>"; };
 		BF57B31617D1F5FD00B39C03 /* profile_default_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_default_img.png; sourceTree = "<group>"; };
-		BF57B31C17D20ABC00B39C03 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
-		BF57B31D17D20ABC00B39C03 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		BF57B32117D210E200B39C03 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
 		BF57B32317D24DD900B39C03 /* FavoriteToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteToolView.h; sourceTree = "<group>"; };
 		BF57B32417D24DD900B39C03 /* FavoriteToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteToolView.m; sourceTree = "<group>"; };
@@ -418,12 +416,14 @@
 		BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCell.m; sourceTree = "<group>"; };
 		BF9CC1AF17EE2396000862F0 /* ToolViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewCell.h; sourceTree = "<group>"; };
 		BF9CC1B017EE2396000862F0 /* ToolViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewCell.m; sourceTree = "<group>"; };
+		BFABB01A17F75AE50018D236 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		BFABB01B17F75AE50018D236 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		BFABB01D17F761EA0018D236 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		BFABB01E17F761EA0018D236 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		BFCA0C4417E4BD4600E750E7 /* ToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolView.h; sourceTree = "<group>"; };
 		BFCA0C4517E4BD4600E750E7 /* ToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolView.m; sourceTree = "<group>"; };
 		BFCA0C4717E4DEFF00E750E7 /* NSString+UrlEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UrlEncoding.h"; sourceTree = "<group>"; };
 		BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UrlEncoding.m"; sourceTree = "<group>"; };
-		BFEB885417F1BD350045CA75 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
-		BFEB885517F1BD350045CA75 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		BFEB885D17F1BDBD0045CA75 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
 		BFEB885E17F1BDBD0045CA75 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
 		BFEB886017F1BDD20045CA75 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
@@ -454,15 +454,15 @@
 		5052624717C7580F004C4724 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BFABB01A17F75AE50018D236 /* Course.h */,
+				BFABB01B17F75AE50018D236 /* Course.m */,
 				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
+				BFABB01D17F761EA0018D236 /* Student.h */,
+				BFABB01E17F761EA0018D236 /* Student.m */,
 				BFEB886017F1BDD20045CA75 /* Staff.h */,
 				BFEB886117F1BDD20045CA75 /* Staff.m */,
 				BFEB885D17F1BDBD0045CA75 /* Faculty.h */,
 				BFEB885E17F1BDBD0045CA75 /* Faculty.m */,
-				BFEB885417F1BD350045CA75 /* Student.h */,
-				BFEB885517F1BD350045CA75 /* Student.m */,
-				BF57B31C17D20ABC00B39C03 /* Course.h */,
-				BF57B31D17D20ABC00B39C03 /* Course.m */,
 				BF57B2EA17CFA40F00B39C03 /* Major.h */,
 				BF57B2EB17CFA40F00B39C03 /* Major.m */,
 				50B14F0017F522B600FCC662 /* Major+Methods.h */,
@@ -1143,6 +1143,7 @@
 				50B14F0217F522B600FCC662 /* Major+Methods.m in Sources */,
 				BF3E747617E21001006AAF8D /* DetailToolView.m in Sources */,
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
+				BFABB01F17F761EA0018D236 /* Student.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
 				BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */,
@@ -1168,7 +1169,6 @@
 				BF57B31117D1CC3D00B39C03 /* MMHorizontalListViewCell.m in Sources */,
 				BF57B31217D1CC3D00B39C03 /* TSLanguageManager.m in Sources */,
 				BF57B31517D1CE3B00B39C03 /* UIViewController+LoadingProgress.m in Sources */,
-				BF57B31E17D20ABC00B39C03 /* Course.m in Sources */,
 				BF57B32517D24DDA00B39C03 /* FavoriteToolView.m in Sources */,
 				BF57B32817D2E6E800B39C03 /* StudentProfileViewController.m in Sources */,
 				BF57B32B17D2E77400B39C03 /* StaffProfileViewController.m in Sources */,
@@ -1187,10 +1187,10 @@
 				BF57B38B17D78C2000B39C03 /* StudentDetailViewController.m in Sources */,
 				BF57B38E17D7928400B39C03 /* StudentDetailToolView.m in Sources */,
 				50B14EF917F517F200FCC662 /* ModelUtil.m in Sources */,
-				BFEB885617F1BD350045CA75 /* Student.m in Sources */,
 				BF57B39117D7996500B39C03 /* StudentToolView.m in Sources */,
 				BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */,
 				BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */,
+				BFABB01C17F75AE50018D236 /* Course.m in Sources */,
 				50C4A2D317D87B86006DEC43 /* Util.m in Sources */,
 				BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */,
 				BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */,
