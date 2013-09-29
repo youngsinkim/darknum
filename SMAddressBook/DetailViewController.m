@@ -349,7 +349,7 @@
 //        // ( NSDictionary <- NSManagedObject )
 //        NSArray *keys = [[[mo entity] attributesByName] allKeys];
 //        info = [[mo dictionaryWithValuesForKeys:keys] mutableCopy];
-        NSDictionary *info = _contacts[_currentIdx];
+        info = [_contacts[_currentIdx] mutableCopy];
         NSLog(@"찾는 셀 정보: %@", info);
     }
     
@@ -450,6 +450,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     return &ABAddressBookCreateWithOptions != NULL;
 }
 
+#pragma mark 연락처 저장 화면
 -(void)showPersonViewController
 {
     // Fetch the address book
