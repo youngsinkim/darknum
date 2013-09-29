@@ -27,8 +27,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
         _memType = MemberTypeUnknown;
+        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
         
         [self setupToolbarUI];
     }
@@ -40,9 +40,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
         _memType = type;
-        
+        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
         [self setupToolbarUI];
     }
     return self;
@@ -80,7 +79,7 @@
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
-                           [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+                           [NSArray arrayWithObjects:@"btn_small_01_ios.png", @"btn_small_01_ios.png", nil],
                            nil];
     } else {
         buttonList = [NSArray arrayWithObjects:

@@ -32,15 +32,15 @@
 
 @implementation DetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        self.view.backgroundColor = [UIColor whiteColor];
-    }
-    return self;
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // Custom initialization
+//        self.view.backgroundColor = [UIColor whiteColor];
+//    }
+//    return self;
+//}
 
 // 상세정보 생성 타입별 구분
 - (id)initWithType:(MemberType)type
@@ -51,9 +51,9 @@
 //        if (!IS_LESS_THEN_IOS7) {
 //            self.edgesForExtendedLayout = UIRectEdgeNone;
 //        }
+        _memType = type;
         self.view.backgroundColor = [UIColor whiteColor];
 
-        _memType = type;
         _currentIdx = -1;
 //        _contacts = [[NSMutableArray alloc] initWithArray:items];
         _contacts = [[NSMutableArray alloc] init];
@@ -71,16 +71,18 @@
     
     CGFloat height = self.view.frame.size.height - kDetailViewH;
     NSLog(@"sub 뷰 생성 높이 : %f", height);
+    if (IS_LESS_THEN_IOS7) {
+        height -= 44.0f;
+    }
 
 //    // 배경 뷰
 //    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
 //    _bgView.backgroundColor = [UIColor greenColor];
-//
 //    [self.view addSubview:_bgView];
 
 
     // 하단 툴바 뷰
-    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH)];
+    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH) type:_memType];
     _toolbar.delegate = self;
     
     [self.view addSubview:_toolbar];
@@ -109,12 +111,12 @@
 
 - (void)setupHorizontalView
 {
-    CGFloat yOffset = 0.0f;
+    CGFloat yOffset = 44.0f;
     CGFloat height = self.view.frame.size.height - 44.0f - kDetailViewH;
     NSLog(@"테이블 뷰 높이 : %f", height);
     
     if (!IS_LESS_THEN_IOS7) {
-        yOffset = 44.0f;
+//        yOffset += 44.0f;
     }
     
 //    CGRect frameRect	= CGRectMake(0, LANDSCAPE_HEIGHT - HORIZONTAL_TABLEVIEW_HEIGHT, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
@@ -294,12 +296,47 @@
 // 전화 걸기
 - (void)sendPhoneCall:(NSDictionary *)info
 {
-    if (info[@"mobile"])
+    NSString *phoneNumber;
+    NSString *mobile = info[@"mobile"];
+    NSString *tel = info[@"tel"];
+    
+    if (_memType == MemberTypeStudent)
     {
-        NSString *phoneNumber = [@"tel://" stringByAppendingString:info[@"mobile"]];
-        NSLog(@"전화 걸기 ; %@", phoneNumber);
+        if (mobile && mobile.length > 0) {
+            [self sendCall:mobile];
+        }
+    }
+    else
+    {
+        if (mobile.length > 0 && tel.length > 0) {
+            // 번호가 둘다 있으면 팝업 띄움
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                     delegate:self
+                                                            cancelButtonTitle:LocalizedString(@"Cancel", @"취소")
+                                                       destructiveButtonTitle:nil
+                                                            otherButtonTitles:LocalizedString(mobile, nil), LocalizedString(tel, nil),
+                                          nil];
+            
+            [actionSheet showInView:self.view];
+
+        } else if (mobile.length > 0) {
+            [self sendCall:mobile];
+        } else if (tel.length > 0) {
+            [self sendCall:tel];
+        }
+    }
+    
+    if (phoneNumber && phoneNumber.length > 0) {
+        NSLog(@"전화 걸기 : %@", phoneNumber);
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
     }
+}
+
+- (void)sendCall:(NSString *)number
+{
+    NSLog(@"전화 걸기 : %@", number);
+    NSString *phoneNumber = [NSString stringWithFormat:@"tel://%@", number];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }
 
 // 문자 전송
@@ -337,6 +374,25 @@
 - (void)sendKakao:(NSDictionary *)info
 {
     
+}
+
+#pragma mark - UIActionSheet delegates
+// 전화번호 선택
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
+
+    NSDictionary *info = _contacts[_currentIdx];
+    NSLog(@"전화걸 셀 정보 (%d) : %@", _currentIdx, info);
+
+    if (buttonIndex == 0)
+    {
+        [self sendCall:info[@"mobile"]];
+    } else {
+        [self sendCall:info[@"tel"]];
+    }
 }
 
 #pragma mark -
@@ -794,6 +850,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 - (void)easyTableView:(EasyTableView *)easyTableView selectedView:(UIView *)selectedView atIndexPath:(NSIndexPath *)indexPath deselectedView:(UIView *)deselectedView
 {
     NSLog(@"셀 : (%d)", indexPath.row);
+
 //	[self borderIsSelected:YES forView:selectedView];
 //	
 //	if (deselectedView)
@@ -812,6 +869,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         if (index < [_contacts count]) {
             _currentIdx = index;
             NSLog(@"셀 index : %d", _currentIdx);
+            NSLog(@"셀 정보 : %@", _contacts[_currentIdx]);
         }
     }
 }

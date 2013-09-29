@@ -46,7 +46,7 @@
         self.curValue = 0;
         
         // 배경 (dimmed) 뷰
-        _bgView = [[UIView alloc] initWithFrame:self.bounds];
+        _bgView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
         _bgView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
 
         [self addSubview:_bgView];
@@ -68,7 +68,7 @@
         _titleLabel.backgroundColor = [UIColor blackColor];
         _titleLabel.textColor = [UIColor lightGrayColor];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.text = @"즐겨찾기 업데이트";
+        _titleLabel.text = LocalizedString(@"update download title", @"업데이트 다운로드");
         
         [_boxView addSubview:_titleLabel];
         yOffset += 30.0f;
@@ -82,7 +82,7 @@
         _msgLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _msgLabel.font = [UIFont systemFontOfSize:12.0f];
         _msgLabel.numberOfLines = 4;
-        _msgLabel.text = @"변경된 즐겨찾기 목록을 업데이트 받고 있습니다.\ndjdfefiefefefef\nsdfsfsf\nfsdfsf";
+        _msgLabel.text = LocalizedString(@"update download msg", @"업데이트 메시지");
         
         [_boxView addSubview:_msgLabel];
         yOffset += 70.0f;

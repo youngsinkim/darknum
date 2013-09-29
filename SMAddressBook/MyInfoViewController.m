@@ -84,6 +84,8 @@
         _focusY = 0.0f;
         _photoFilename = @"";
         _photoData = [[NSData alloc] init];
+        
+
     }
     return self;
 }
@@ -144,6 +146,23 @@
     [self requestAPIMyInfo];
     
     
+    // 아이디 저장 여부
+    if ([[UserContext shared] isSavedID]) {
+        _chIdSaveBtn.selected = YES;
+    } else {
+        _chIdSaveBtn.selected = NO;
+    }
+    
+    // 자동 로그인
+//    NSString *lang = [TSLanguageManager selectedLanguage];
+//    [UserContext shared].userId     = [self.idTextField text];
+    if ([[UserContext shared] isAutoLogin]) {
+        _chAutoLoginBtn.selected = YES;
+    } else {
+        _chAutoLoginBtn.selected = NO;
+    }
+
+
     // MARK: 프로필 유무 설정하여 최초 실행 이후에 프로필 화면으로 이동하지 않도록 처리.
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -225,20 +244,24 @@
 {
     CGRect viewFrame = self.view.bounds;
     CGFloat yOffset = 0.0f;
+    CGFloat bottomOffset = 20.0f;
     CGFloat scrolViewHeight = viewFrame.size.height;
     
-    if (IS_LESS_THEN_IOS7) {
-    }
-    
     // 배경 스크롤 뷰
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10.0f, yOffset, viewFrame.size.width - 20.0f, scrolViewHeight)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, yOffset, viewFrame.size.width, scrolViewHeight)];
     //    scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1f];
     //    scrollView.backgroundColor = [UIColor yellowColor];
     //    scrollView.contentSize = CGSizeMake(viewFrame.size.width - 20.0f, scrolViewHeight);
-    if (_memType == MemberTypeStudent) {
+    if (_memType == MemberTypeStudent)
+    {
+        if (IS_LESS_THEN_IOS7) {
+            scrolViewHeight += 70.0f;
+            bottomOffset += 44.0f;
+        }
         scrolViewHeight += 10.0f;
         _scrollView.contentSize = CGSizeMake(viewFrame.size.width - 20.0f, scrolViewHeight);
-    } else {
+    }
+    else {
         scrolViewHeight -= 64.0f;
     }
     
@@ -246,8 +269,8 @@
     
     
     // 배경 이미지 뷰
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, _scrollView.frame.size.width, scrolViewHeight - 20.0f)];
-    bgView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f]; //[UIColor greenColor];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, _scrollView.frame.size.width - 20.0f, scrolViewHeight - bottomOffset)];
+    bgView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
     
     [_scrollView addSubview:bgView];
     
@@ -858,7 +881,7 @@
 
 - (void)onIdSavedBtnClicked:(UIButton *)sender
 {
-    [sender setSelected:![sender isSelected]];
+    [sender setSelected:![sender isSelected]];    
 }
 
 - (void)onAutoLoginBtnClicked:(UIButton *)sender

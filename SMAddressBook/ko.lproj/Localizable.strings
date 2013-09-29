@@ -72,6 +72,9 @@
 /* Button Cancel */
 "Cancel" = "취소";
 
+/* Next */
+"Next" = "다음";
+
 /* Alert Id Empty Text */
 "alert_id_empty_text" = "아이디를 입력하세요.";
 
@@ -98,3 +101,13 @@
 
 /* from Library */
 "Photo of Library" = "앨범에서 가져오기";
+
+/* update download title */
+"update download title" = "업데이트 다운로드";
+
+/* update download msg */
+"update download msg" = "즐겨찾기에 등록된 주소록의 업데이트 내역이 있습니다.\n업데이트 자료를 다운로드 합니다. 잠시만 기다려주세요.";
+
+/* accept */
+"accept" = "동의합니다.";
+

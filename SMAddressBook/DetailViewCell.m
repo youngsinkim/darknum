@@ -234,15 +234,7 @@
     }
 
 
-    if (_memType == MemberTypeFaculty)
-    {
-        
-    }
-    else if (_memType == MemberTypeStaff)
-    {
-        
-    }
-    else if (_memType == MemberTypeStudent)
+    if (_memType == MemberTypeStudent)
     {
 //        if (_cellInfo[@"status"]) {
         _statusLabel.text = _cellInfo[@"status"];
@@ -263,6 +255,17 @@
 //            _nameValueLabel.text = _cellInfo[@"name"];
 //        }
     }
+    else
+    {
+        if (_memType == MemberTypeFaculty) {
+            _majorValueLabel.text = _cellInfo[@"major"];
+        }
+
+        _telValueLabel.text = _cellInfo[@"tel"];
+        _mobileValueLabel.text = _cellInfo[@"mobile"];
+        _emailValueLabel.text = _cellInfo[@"email"];
+        _officeValueLabel.text = _cellInfo[@"office"];
+    }
     
     [self setNeedsDisplay];
 //    [self layoutSubviews];
@@ -280,40 +283,20 @@
     CGFloat yOffset = 10.0f;
     CGFloat xOffset = (viewFrame.size.width - width) / 2;
 
-//    int tag = 500;
-//    CGFloat yy = yOffset;// 100.0f + (20.0f * idx);
-    
-    if (_memType == MemberTypeFaculty)
+    // 프로필 사진
+    _profileImage.frame = CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f);
+    yOffset += (_profileImage.frame.size.height + 30);
+
+    // 이름
+    _nameLabel.frame = CGRectMake(xOffset, yOffset, width, 24.0f);
+    yOffset += 26.0f;
+
+    if (_memType == MemberTypeStudent)
     {
-        _profileImage.frame = CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f);
-//        _nameLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        _nameLabel.frame = CGRectMake(100.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 24.0f;
-        _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 24.0f;
-        _telLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 24.0f;
-        _mobileLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 24.0f;
-        _emailLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 24.0f;
-        _officeLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        
-    }
-    else if (_memType == MemberTypeStaff)
-    {
-        _profileImage.frame = CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f);
-//        _nameLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-        _nameLabel.frame = CGRectMake(100.0f, yOffset, 80.0f, 20.0f);
-        yOffset += 24.0f;
-    }
-    else if (_memType == MemberTypeStudent)
-    {
-        _profileImage.frame = CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f);
-        yOffset += (_profileImage.frame.size.height + 30);
-        
-        _nameLabel.frame = CGRectMake(xOffset, yOffset, width, 24.0f);
-        yOffset += 26.0f;
+//        _profileImage.frame = CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f);
+//        yOffset += (_profileImage.frame.size.height + 30);
+//        _nameLabel.frame = CGRectMake(xOffset, yOffset, width, 24.0f);
+//        yOffset += 26.0f;
         
         _statusLabel.frame = CGRectMake(xOffset, yOffset, 40.0f, 20.0f);
         _classTitleLabel.frame = CGRectMake(xOffset + 45.0f, yOffset, 150.0f, 20.0f);
@@ -328,12 +311,30 @@
         yOffset += 16.0f;
         _emailValueLabel.frame = CGRectMake(xOffset, yOffset, width, 16.0f);
         yOffset += (18.0f + 10.0f);
-
-//        _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-//        yOffset += 23.0f;
-//        _telLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
-//        yOffset += 23.0f;
-//        _officeLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+        
+        //        _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+        //        yOffset += 23.0f;
+        //        _telLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
+        //        yOffset += 23.0f;
+        //        _officeLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
     }
+    else
+    {
+        if (_memType == MemberTypeFaculty) {
+            _majorValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
+            yOffset += 24.0f;
+        }
+
+        _telValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
+        yOffset += 24.0f;
+        _mobileValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
+        yOffset += 24.0f;
+        _emailValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
+        yOffset += 24.0f;
+        _officeValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
+        yOffset += 24.0f;
+
+    }
+    
 }
 @end

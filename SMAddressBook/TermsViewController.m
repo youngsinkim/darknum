@@ -124,7 +124,7 @@
     // 서비스 약관동의 버튼
     _acceptBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     _acceptBtn1.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
-    [_acceptBtn1 setTitle:LocalizedString(@"동의합니다.", @"동의함") forState:UIControlStateNormal];
+    [_acceptBtn1 setTitle:LocalizedString(@"Accept", @"동의함") forState:UIControlStateNormal];
     [_acceptBtn1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_acceptBtn1 setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [_acceptBtn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
@@ -163,7 +163,7 @@
     // 개인보호 정책동의 버튼
     _acceptBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
     _acceptBtn2.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
-    [_acceptBtn2 setTitle:LocalizedString(@"동의합니다.", @"동의함") forState:UIControlStateNormal];
+    [_acceptBtn2 setTitle:LocalizedString(@"Accept", @"동의함") forState:UIControlStateNormal];
     [_acceptBtn2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
@@ -188,7 +188,7 @@
     _nextBtn.frame = CGRectMake((rect.size.width - 70.0f) / 2, rect.size.height - bottomOffset, 70.0f, 30.0f);
 //    _nextBtn.center = CGPointMake(300.0f / 2, 566.0f);
     [_nextBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-    [_nextBtn setTitle:LocalizedString(@"다음", @"다음") forState:UIControlStateNormal];
+    [_nextBtn setTitle:LocalizedString(@"Next", @"다음") forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
