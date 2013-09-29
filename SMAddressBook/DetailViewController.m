@@ -159,7 +159,7 @@
     NSLog(@"sub 뷰 생성 높이 : %f", height);
     
     // 툴바 뷰
-    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH)];
+    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH) type:_memType];
     _toolbar.delegate = self;
     
     [self.view addSubview:_toolbar];
@@ -232,30 +232,11 @@
 }
 
 #pragma mark - Callback 
+#pragma mark 툴바 버튼 이벤트 처리
 - (void)didSelectedToolTag:(NSNumber *)type
 {
-    
-    if (_memType == MemberTypeFaculty)
+    if (_memType == MemberTypeStudent)
     {
-        switch ([type intValue])
-        {
-            case 0:     break;
-                
-            default:    break;
-        }
-    }
-    else if (_memType == MemberTypeStaff)
-    {
-        
-    }
-    else if (_memType == MemberTypeStudent)
-    {
-//        Student *mo = _contacts[_currentIdx];
-//        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
-//
-//        // ( NSDictionary <- NSManagedObject )
-//        NSArray *keys = [[[mo entity] attributesByName] allKeys];
-//        NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
         NSDictionary *info = _contacts[_currentIdx];
         NSLog(@"선택된 셀 정보 (%d) : %@", _currentIdx, info);
         
@@ -279,6 +260,29 @@
                 
             case 4: // kakao talk
                 [self sendKakao:info];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    else
+    {
+        NSDictionary *info = _contacts[_currentIdx];
+        NSLog(@"선택된 셀 정보 (%d) : %@", _currentIdx, info);
+        
+        switch ([type intValue])
+        {
+            case 0: // phone call
+                [self sendPhoneCall:info];
+                break;
+                
+            case 1: // email
+                [self sendEmail:info];
+                break;
+                
+            case 2: // address book
+                [self onSavedToAddress:info];
                 break;
                 
             default:
@@ -341,7 +345,7 @@
                             withName:(NSString *)fn
 {
     NSMutableDictionary *info = nil;
-    if (_memType == MemberTypeStudent)
+//    if (_memType == MemberTypeStudent)
     {
 //        Student *mo = _contacts[_currentIdx];
 //        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);
@@ -456,7 +460,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     // Fetch the address book
     NSString *fullName = @"";
     NSMutableDictionary *info = nil;
-    if (_memType == MemberTypeStudent)
+//    if (_memType == MemberTypeStudent)
     {
 //        Student *mo = _contacts[_currentIdx];
 //        NSLog(@"선택된 셀 : %d, %@", _currentIdx, mo.name_en);

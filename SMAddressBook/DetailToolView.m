@@ -10,13 +10,15 @@
 
 @interface DetailToolView ()
 
-@property (strong, nonatomic) UIButton *telBtn;
-@property (strong, nonatomic) UIButton *smsBtn;
-@property (strong, nonatomic) UIButton *emailBtn;
-@property (strong, nonatomic) UIButton *kakaoBtn;
-@property (strong, nonatomic) UIButton *addressBtn;
+//@property (strong, nonatomic) UIButton *telBtn;
+//@property (strong, nonatomic) UIButton *smsBtn;
+//@property (strong, nonatomic) UIButton *emailBtn;
+//@property (strong, nonatomic) UIButton *kakaoBtn;
+//@property (strong, nonatomic) UIButton *addressBtn;
+@property (assign) MemberType memType;
 
 @end
+
 
 @implementation DetailToolView
 
@@ -26,6 +28,20 @@
     if (self) {
         // Initialization code
         self.backgroundColor = UIColorFromRGB(0xFBFAF3);
+        _memType = MemberTypeUnknown;
+        
+        [self setupToolbarUI];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame type:(MemberType)type
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
+        _memType = type;
         
         [self setupToolbarUI];
     }
@@ -57,13 +73,22 @@
     
     // 툴 버튼
     NSInteger tag = 500;
-    NSArray *buttonList = [NSArray arrayWithObjects:
+    NSArray *buttonList = nil;
+    if (_memType == MemberTypeStudent) {
+        buttonList = [NSArray arrayWithObjects:
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            nil];
+    } else {
+        buttonList = [NSArray arrayWithObjects:
+                      [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+                      [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+                      [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+                      nil];
+    }
     
     CGFloat width = 300.0f / [buttonList count];
     CGPoint point = CGPointMake(10.0f, 10.0f);

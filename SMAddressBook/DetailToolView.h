@@ -21,4 +21,6 @@
 
 @property (weak) id<DetailToolViewDelegate> delegate;
 
+- (id)initWithFrame:(CGRect)frame type:(MemberType)type;
+
 @end
