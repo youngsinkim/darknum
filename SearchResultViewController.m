@@ -147,16 +147,15 @@
     //    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
     //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
     [fetchRequest setResultType:NSDictionaryResultType];
-    
-    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"class_info"]];
+    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"course"]];
     [fetchRequest setReturnsObjectsAsFaults:NO];
     
     NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
     NSPredicate *predicate = nil;
     if ([_info[@"name"] length] > 0) {
-        predicate = [NSPredicate predicateWithFormat:@"class_info.courseclass == %@ AND name == %@", _info[@"courseclass"], _info[@"name"]];
+        predicate = [NSPredicate predicateWithFormat:@"course.courseclass == %@ AND name == %@", _info[@"courseclass"], _info[@"name"]];
     } else {
-        predicate = [NSPredicate predicateWithFormat:@"class_info.courseclass == %@", _info[@"courseclass"]];
+        predicate = [NSPredicate predicateWithFormat:@"course.courseclass == %@", _info[@"courseclass"]];
     }
     [fetchRequest setPredicate:predicate];
     
