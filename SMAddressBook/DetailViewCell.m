@@ -229,10 +229,15 @@
                       placeholderImage:[UIImage imageNamed:@"placeholder"]];
 //    }
     
-    if (_cellInfo[@"name"]) {
-        _nameLabel.text = _cellInfo[@"name"];
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if (_cellInfo[@"name"]) {
+            _nameLabel.text = _cellInfo[@"name"];
+        }
+    } else {
+        if (_cellInfo[@"name_en"]) {
+            _nameLabel.text = _cellInfo[@"name_en"];
+        }
     }
-
 
     if (_memType == MemberTypeStudent)
     {
@@ -288,8 +293,12 @@
     else
     {
         if (_memType == MemberTypeFaculty) {
-            NSLog(@"%@", _cellInfo[@"major.title"]);
-            _majorValueLabel.text = _cellInfo[@"major.title"];
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                NSLog(@"%@", _cellInfo[@"major.title"]);
+                _majorValueLabel.text = _cellInfo[@"major.title"];
+            } else {
+                _majorValueLabel.text = _cellInfo[@"major.title"];
+            }
         }
 
         _telValueLabel.text = _cellInfo[@"tel"];

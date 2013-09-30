@@ -101,6 +101,7 @@
 		50C4A2D617D87BD9006DEC43 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */; };
 		50D134D017F97A1200F27231 /* NSURLRequest+SSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */; };
 		50D134D317F9800C00F27231 /* SSLWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134D217F9800C00F27231 /* SSLWebView.m */; };
+		50D134D517F9967A00F27231 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D134D417F9967A00F27231 /* MessageUI.framework */; };
 		BF16C5ED17F88DD000C308DD /* btn_small_01_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = BF16C5EB17F88DD000C308DD /* btn_small_01_ios.png */; };
 		BF16C5EE17F88DD000C308DD /* btn_small_01_ios@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF16C5EC17F88DD000C308DD /* btn_small_01_ios@2x.png */; };
 		BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
@@ -301,6 +302,7 @@
 		50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+SSL.m"; sourceTree = "<group>"; };
 		50D134D117F9800C00F27231 /* SSLWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLWebView.h; sourceTree = "<group>"; };
 		50D134D217F9800C00F27231 /* SSLWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLWebView.m; sourceTree = "<group>"; };
+		50D134D417F9967A00F27231 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9B3EE368BB1647438F672678 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BF16C5EB17F88DD000C308DD /* btn_small_01_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_small_01_ios.png; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50D134D517F9967A00F27231 /* MessageUI.framework in Frameworks */,
 				BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */,
 				BF3E747C17E21F0D006AAF8D /* AddressBookUI.framework in Frameworks */,
 				50C4A2D617D87BD9006DEC43 /* CoreTelephony.framework in Frameworks */,
@@ -506,6 +509,7 @@
 		5062B61717C4C10400A2495D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50D134D417F9967A00F27231 /* MessageUI.framework */,
 				BF3E747D17E2223F006AAF8D /* AddressBook.framework */,
 				BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */,
 				5062B61817C4C10400A2495D /* UIKit.framework */,
@@ -534,7 +538,7 @@
 				5062B65217C4D25200A2495D /* Login (로그인) */,
 				5062B64017C4CBA100A2495D /* 즐겨찾기(메인) 화면 */,
 				BF57B39217D79C9B00B39C03 /* Tool (툴바 뷰) */,
-				BF177E8917C9BC0600614485 /* 주소록 상세정보 */,
+				BF177E8917C9BC0600614485 /* 주소록 목록 화면 */,
 				BF177E9817CA6A7B00614485 /* 전체보기 */,
 				BF57B3A017DB74EE00B39C03 /* Search (검색) */,
 				BF177E8517C9BADD00614485 /* 내 정보 설정 */,
@@ -758,7 +762,7 @@
 			name = "내 정보 설정";
 			sourceTree = "<group>";
 		};
-		BF177E8917C9BC0600614485 /* 주소록 상세정보 */ = {
+		BF177E8917C9BC0600614485 /* 주소록 목록 화면 */ = {
 			isa = PBXGroup;
 			children = (
 				BF57B37317D6555E00B39C03 /* old */,
@@ -780,7 +784,7 @@
 				BF57B33617D2EDF200B39C03 /* 교직원 주소록 */,
 				BF57B33A17D2EE1400B39C03 /* 학생 주소록 */,
 			);
-			name = "주소록 상세정보";
+			name = "주소록 목록 화면";
 			sourceTree = "<group>";
 		};
 		BF177E9817CA6A7B00614485 /* 전체보기 */ = {

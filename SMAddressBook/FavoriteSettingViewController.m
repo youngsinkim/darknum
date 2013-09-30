@@ -162,7 +162,7 @@
         NSString *userId = [UserContext shared].userId;
         NSString *certNo = [UserContext shared].certNo;
         NSString *lastUpdate = [UserContext shared].lastUpdateDate;
-        NSString *lang = [TSLanguageManager selectedLanguage];
+        NSString *lang = [UserContext shared].language;
         
         if (!mobileNo || !userId | !certNo || !lastUpdate) {
             return;

@@ -119,14 +119,25 @@
                           placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
     
-    if (cellInfo[@"name"]) {
-        _nameLabel.text = cellInfo[@"name"];
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if (cellInfo[@"name"]) {
+            _nameLabel.text = cellInfo[@"name"];
+        }
+        if (cellInfo[@"status"]) {
+            NSString *description = [NSString stringWithFormat:@"[%@] %@ | %@", cellInfo[@"status"], cellInfo[@"company"], cellInfo[@"department"]];
+            _memberLabel.text = description;// cellInfo[@"desc"];
+        }
+    }
+    else {
+        if (cellInfo[@"name_en"]) {
+            _nameLabel.text = cellInfo[@"name_en"];
+        }
+        if (cellInfo[@"status_en"]) {
+            NSString *description = [NSString stringWithFormat:@"[%@] %@ | %@", cellInfo[@"status_en"], cellInfo[@"company_en"], cellInfo[@"department_en"]];
+            _memberLabel.text = description;// cellInfo[@"desc"];
+        }
     }
     
-    if (cellInfo[@"status"]) {
-        NSString *description = [NSString stringWithFormat:@"[%@] %@ | %@", cellInfo[@"status"], cellInfo[@"company"], cellInfo[@"department"]];
-        _memberLabel.text = description;// cellInfo[@"desc"];
-    }
     
     if (cellInfo[@"mobile"]) {
         _mobileLabel.text = cellInfo[@"mobile"];

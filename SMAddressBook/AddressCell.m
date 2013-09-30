@@ -80,8 +80,14 @@
                           placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
     
-    if (_cellInfo[@"name"]) {
-        _nameLabel.text = _cellInfo[@"name"];
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if (_cellInfo[@"name"]) {
+            _nameLabel.text = _cellInfo[@"name"];
+        }
+    } else {
+        if (_cellInfo[@"name_en"]) {
+            _nameLabel.text = _cellInfo[@"name_en"];
+        }
     }
     
     if (_cellInfo[@"email"]) {

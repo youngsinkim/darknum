@@ -2070,6 +2070,8 @@
         NSArray *students = updateInfo[@"student"];
         NSLog(@".......... 학생 저장 [%d] ..........", [students count]);
         [self saveDBFavoriteStudent:students];
+    } else {
+        _studentSaveDone = YES;
     }
 
     if ([updateInfo[@"faculty"] isKindOfClass:[NSArray class]])
@@ -2077,6 +2079,8 @@
         NSArray *students = updateInfo[@"faculty"];
         NSLog(@".......... 교수 저장 [%d] ..........", [students count]);
         [self saveDBFavoriteFaculty:students];
+    } else {
+        _facultySaveDone = YES;
     }
     
     if ([updateInfo[@"staff"] isKindOfClass:[NSArray class]])
@@ -2084,9 +2088,11 @@
         NSArray *students = updateInfo[@"staff"];
         NSLog(@".......... 교직원 저장 [%d] ..........", [students count]);
         [self saveDBFavoriteStaff:students];
+    } else {
+        _staffSaveDone = YES;
     }
     
-    NSLog(@"----------- END ----------");
+    NSLog(@"----------- saveDBFavorite END ----------");
     return;
     
 //    [self showUpdateProgress];
@@ -2575,7 +2581,12 @@
         
         Course *course = _favorites[indexPath.row];
         NSLog(@"즐겨찾기 항목 제목 : %@", course.title);
-        cell.title = course.title;
+        
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            cell.title = course.title;
+        } else {
+            cell.title = course.title_en;
+        }
 //        cell.titleLabel.text = course.title;
         [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
         //        cell.textLabel.text = course.title;
@@ -2601,7 +2612,11 @@
                 case MemberTypeFaculty: // 교수진
                     {
                         FacultyMajorViewController *facultyMajorVC = [[FacultyMajorViewController alloc] init];
-                        facultyMajorVC.navigationItem.title = courseClass.title;
+                        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                            facultyMajorVC.navigationItem.title = courseClass.title;
+                        } else {
+                            facultyMajorVC.navigationItem.title = courseClass.title_en;
+                        }
                         [self.navigationController pushViewController:facultyMajorVC animated:YES];
                     }
                     break;
@@ -2609,7 +2624,11 @@
                 case MemberTypeStaff:   // 교직원
                     {
                         StaffAddressViewController *staffAddressVc = [[StaffAddressViewController alloc] init];
-                        staffAddressVc.navigationItem.title = courseClass.title;
+                        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                            staffAddressVc.navigationItem.title = courseClass.title;
+                        } else {
+                            staffAddressVc.navigationItem.title = courseClass.title_en;
+                        }
                         [self.navigationController pushViewController:staffAddressVc animated:YES];
                     }
                     break;

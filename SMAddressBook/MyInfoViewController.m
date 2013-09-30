@@ -154,7 +154,6 @@
     }
     
     // 자동 로그인
-//    NSString *lang = [TSLanguageManager selectedLanguage];
 //    [UserContext shared].userId     = [self.idTextField text];
     if ([[UserContext shared] isAutoLogin]) {
         _chAutoLoginBtn.selected = YES;
@@ -881,12 +880,35 @@
 
 - (void)onIdSavedBtnClicked:(UIButton *)sender
 {
-    [sender setSelected:![sender isSelected]];    
+    [sender setSelected:![sender isSelected]];
+    
+    BOOL isSavedId = [sender isSelected];
+    NSLog(@"아이디 저장? %d", isSavedId);
+    
+    [[NSUserDefaults standardUserDefaults] setBool:isSavedId forKey:kSavedId];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserContext shared].isSavedID = isSavedId;
+
 }
 
 - (void)onAutoLoginBtnClicked:(UIButton *)sender
 {
     [sender setSelected:![sender isSelected]];
+    
+    BOOL isAutoLogin = [sender isSelected];
+    NSLog(@"로그인 유지 ? %d", isAutoLogin);
+
+    if (isAutoLogin == YES) {
+        NSLog(@"아이디도 저장함");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
+        [UserContext shared].isSavedID = YES;
+        
+        _chIdSaveBtn.selected = YES;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserContext shared].isAutoLogin = isAutoLogin;
 }
 
 /// 프로필 저장 버튼
@@ -1219,7 +1241,7 @@
     NSString *mobileNo = [Util phoneNumber];
     NSString *userId = [UserContext shared].userId;
     NSString *certNo = [UserContext shared].certNo;
-    NSString *lang = [TSLanguageManager selectedLanguage];
+    NSString *lang = [UserContext shared].language;
     NSString *photoFileName = @"avatar.jpg";
 //    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:photoFileName], 0.5);
     

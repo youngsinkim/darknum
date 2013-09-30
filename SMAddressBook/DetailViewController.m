@@ -344,7 +344,7 @@
 {
     if (info[@"mobile"])
     {
-        NSString *phoneNumber = [@"sms://" stringByAppendingString:info[@"mobile"]];
+        NSString *phoneNumber = [@"sms:" stringByAppendingString:info[@"mobile"]];
         NSLog(@"전화 걸기 ; %@", phoneNumber);
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
     }
@@ -356,7 +356,7 @@
     if (info[@"email"])
     {
         NSString *phoneNumber = [@"mailto://" stringByAppendingString:info[@"email"]];
-        NSLog(@"전화 걸기 ; %@", phoneNumber);
+        NSLog(@"이메일 전송 : %@", phoneNumber);
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
     }
 }

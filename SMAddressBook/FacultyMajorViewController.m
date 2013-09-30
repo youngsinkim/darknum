@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) UITableView *majorTableView;  // 전공 테이블
 @property (strong, nonatomic) NSMutableArray *majors;       // 전공 목록
-
 @end
 
 
@@ -48,6 +47,7 @@
         NSLog(@"After managedObjectContext: %@",  self.managedObjectContext);
     }
 
+    
     // 교수진 전공 화면 구성
     [self setupMajorUI];
 
@@ -161,9 +161,11 @@
 #if (1)
         NSDictionary *majorInfo = _majors[indexPath.row];
 
-//        cell.titleLabel.text = major.title;
-//        [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
-        cell.textLabel.text = majorInfo[@"title"];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            cell.textLabel.text = majorInfo[@"title"];
+        } else {
+            cell.textLabel.text = majorInfo[@"title_en"];
+        }
 #else
         // db에서 가져오면 managedObject로 받음
         Major *major = _majors[indexPath.row];
@@ -189,7 +191,11 @@
         
         FacultyAddressViewController *viewController = [[FacultyAddressViewController alloc] initWithInfo:majorInfo];
 //        AddressViewController *viewController = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
-        viewController.navigationItem.title = majorInfo[@"title"];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            viewController.navigationItem.title = majorInfo[@"title"];
+        } else {
+            viewController.navigationItem.title = majorInfo[@"title_en"];
+        }
     
         [self.navigationController pushViewController:viewController animated:YES];
     }

@@ -222,12 +222,11 @@
     NSString *mobileNo = [Util phoneNumber];
     NSString *userId = [UserContext shared].userId;
     NSString *certNo = [UserContext shared].certNo;
+    NSString *lang = [UserContext shared].language;
     
     if (!mobileNo || !userId | !certNo) {
         return;
     }
-    
-    NSString *lang = [TSLanguageManager selectedLanguage];
     
     NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang, @"courseclass":_info[@"courseclass"]};
     NSLog(@"(/fb/students) Request Parameter : %@", param);

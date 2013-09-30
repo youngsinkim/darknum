@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ToolViewCell.h"
+#import <MessageUI/MessageUI.h>
 
 typedef enum {
     ToolViewTypeSms,
@@ -15,7 +16,7 @@ typedef enum {
     ToolViewTypeUnknown
 } ToolViewType;
 
-@interface ToolViewController : UIViewController <UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ToolViewCellDelegate>
+@interface ToolViewController : UIViewController <UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ToolViewCellDelegate, MFMessageComposeViewControllerDelegate>
 
 - (id)initWithInfo:(NSMutableArray *)items viewType:(ToolViewType)type;
 

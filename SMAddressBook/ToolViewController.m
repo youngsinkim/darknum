@@ -184,6 +184,35 @@
 
 - (void)sendSms
 {
+    if (![MFMessageComposeViewController canSendText]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+
+//    NSString *recipients = [NSString stringWithFormat:@""];
+//    NSInteger index = 0;
+//    
+//    for (NSDictionary *info in _selectArray) {
+//        recipients = [recipients stringByAppendingString:info[@"mobile"]];
+//        index++;
+//        
+//        if (index < [_selectArray count]) {
+//            recipients = [recipients stringByAppendingString:@","];
+//        }
+//    }
+
+//    NSLog(@"SMS 발송 : %@", recipients);
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:recipients]];
+    
+
+    MFMessageComposeViewController *messageComposer = [[MFMessageComposeViewController alloc] init];
+    messageComposer.messageComposeDelegate = self;
+    messageComposer.recipients = _selectArray;
+    NSString *message = @"";
+    [messageComposer setBody:message];
+    [self presentViewController:messageComposer animated:YES completion:nil];
+    
 }
 
 - (void)sendEmail
@@ -874,6 +903,31 @@
 //        [_memberTableView reloadData];
     //    });
     
+}
+
+#pragma mark MFMessageComposeViewControllerDelegate
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:LocalizedString(@"Ok:", @"확인") otherButtonTitles:nil];
+            [warningAlert show];
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

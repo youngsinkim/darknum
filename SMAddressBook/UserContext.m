@@ -50,6 +50,8 @@ static UserContext *_sharedUserContext = nil;
         _sharedUserContext.isExistProfile = NO; //< 프로필 설정 여부
         _sharedUserContext.isSavedID = NO;
 
+        _sharedUserContext.language = [TSLanguageManager selectedLanguage];
+
         return _sharedUserContext;
 	}
     
@@ -122,6 +124,7 @@ static UserContext *_sharedUserContext = nil;
         _isSavedID = [[NSUserDefaults standardUserDefaults] boolForKey:kSavedId];
     }
 
+    _language = [TSLanguageManager selectedLanguage];
     
     NSLog(@"previous AppInfo : \nautoLogin(%d), acceptTerms(%d), isProfile(%d), certno(%@), memtype(%@), updatecnt(%@), updateTime:%@, userID(%@), passWD(%@)",
           _isAutoLogin, _isAcceptTerms, _isExistProfile, _certNo, _memberType, _updateCount, _lastUpdateDate, _userId, _userPwd);
