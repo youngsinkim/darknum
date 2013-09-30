@@ -148,7 +148,7 @@
         [_majorValueLabel setTextColor:[UIColor grayColor]];
         [_majorValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
         
-        [self addSubview:_majorLabel];
+        [self addSubview:_majorValueLabel];
 
         
         _telLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -236,12 +236,42 @@
 
     if (_memType == MemberTypeStudent)
     {
-//        if (_cellInfo[@"status"]) {
-        _statusLabel.text = _cellInfo[@"status"];
-        _classTitleLabel.text = _cellInfo[@"classtitle"];
-        _companyLabel.text = [NSString stringWithFormat:@"%@ %@ %@", _cellInfo[@"company"], _cellInfo[@"department"], _cellInfo[@"title"]];
-        _mobileValueLabel.text = _cellInfo[@"mobile"];
-        _emailValueLabel.text = _cellInfo[@"email"];
+        if (_cellInfo[@"status"]) {
+            _statusLabel.text = _cellInfo[@"status"];
+        }
+        
+        if (_cellInfo[@"classtitle"]) {
+            _classTitleLabel.text = _cellInfo[@"classtitle"];
+        }
+        
+        NSMutableString *descString = [NSMutableString stringWithFormat:@""];
+        if (_cellInfo[@"company"]) {
+            [descString appendString:_cellInfo[@"company"]];
+        }
+        
+        if (_cellInfo[@"department"]) {
+            if (descString.length > 0) {
+                [descString appendFormat:@" "];
+            }
+            [descString appendString:_cellInfo[@"department"]];
+        }
+        
+        if (_cellInfo[@"title"]) {
+            if (descString.length > 0) {
+                [descString appendFormat:@" "];
+            }
+            [descString appendString:_cellInfo[@"title"]];
+        }
+        _companyLabel.text = descString;
+        
+        
+        if (_cellInfo[@"status"]) {
+            _mobileValueLabel.text = _cellInfo[@"mobile"];
+        }
+        
+        if (_cellInfo[@"status"]) {
+            _emailValueLabel.text = _cellInfo[@"email"];
+        }
         
 //        }
 
@@ -258,7 +288,8 @@
     else
     {
         if (_memType == MemberTypeFaculty) {
-            _majorValueLabel.text = _cellInfo[@"major"];
+            NSLog(@"%@", _cellInfo[@"major.title"]);
+            _majorValueLabel.text = _cellInfo[@"major.title"];
         }
 
         _telValueLabel.text = _cellInfo[@"tel"];
