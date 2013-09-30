@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TermsViewController : BaseViewController
+@interface TermsViewController : BaseViewController <UIWebViewDelegate, NSURLConnectionDelegate>
 
 @property (assign, nonatomic) BOOL isByMenu;   // 왼쪽 메뉴 선택으로 뷰를 띄우는지 확인
 //@property (assign) BOOL isHideAcceptBtn;

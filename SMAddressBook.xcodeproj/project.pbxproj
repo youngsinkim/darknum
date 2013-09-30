@@ -99,6 +99,8 @@
 		50B14F0217F522B600FCC662 /* Major+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14F0117F522B600FCC662 /* Major+Methods.m */; };
 		50C4A2D317D87B86006DEC43 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C4A2D217D87B86006DEC43 /* Util.m */; };
 		50C4A2D617D87BD9006DEC43 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */; };
+		50D134D017F97A1200F27231 /* NSURLRequest+SSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */; };
+		50D134D317F9800C00F27231 /* SSLWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134D217F9800C00F27231 /* SSLWebView.m */; };
 		BF16C5ED17F88DD000C308DD /* btn_small_01_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = BF16C5EB17F88DD000C308DD /* btn_small_01_ios.png */; };
 		BF16C5EE17F88DD000C308DD /* btn_small_01_ios@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF16C5EC17F88DD000C308DD /* btn_small_01_ios@2x.png */; };
 		BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
@@ -295,6 +297,10 @@
 		50C4A2D117D87B86006DEC43 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		50C4A2D217D87B86006DEC43 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		50D134CE17F97A1200F27231 /* NSURLRequest+SSL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+SSL.h"; sourceTree = "<group>"; };
+		50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+SSL.m"; sourceTree = "<group>"; };
+		50D134D117F9800C00F27231 /* SSLWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLWebView.h; sourceTree = "<group>"; };
+		50D134D217F9800C00F27231 /* SSLWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLWebView.m; sourceTree = "<group>"; };
 		9B3EE368BB1647438F672678 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		BF16C5EB17F88DD000C308DD /* btn_small_01_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_small_01_ios.png; sourceTree = "<group>"; };
@@ -807,6 +813,8 @@
 				50C4A2D217D87B86006DEC43 /* Util.m */,
 				5052F0E017E6F1C700CB41D3 /* LoadingProgressView.h */,
 				5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */,
+				50D134D117F9800C00F27231 /* SSLWebView.h */,
+				50D134D217F9800C00F27231 /* SSLWebView.m */,
 			);
 			name = "Common (공통 모듈)";
 			sourceTree = "<group>";
@@ -837,6 +845,8 @@
 				BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */,
 				50B14EFD17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.h */,
 				50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */,
+				50D134CE17F97A1200F27231 /* NSURLRequest+SSL.h */,
+				50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1159,6 +1169,7 @@
 				50B14F0217F522B600FCC662 /* Major+Methods.m in Sources */,
 				BF3E747617E21001006AAF8D /* DetailToolView.m in Sources */,
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
+				50D134D017F97A1200F27231 /* NSURLRequest+SSL.m in Sources */,
 				BFABB01F17F761EA0018D236 /* Student.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
@@ -1193,6 +1204,7 @@
 				BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */,
 				BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */,
 				BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */,
+				50D134D317F9800C00F27231 /* SSLWebView.m in Sources */,
 				BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */,
 				BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */,
 				BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */,

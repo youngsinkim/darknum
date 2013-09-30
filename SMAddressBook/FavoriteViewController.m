@@ -261,17 +261,26 @@
 {
     if (_studentSaveDone && _facultySaveDone && _staffSaveDone) {
         NSLog(@"\n........................\n..... progress done .....\n.........................");
-        [self.savedTimer invalidate];
-        self.savedTimer = nil;
-
 //    [_progressView setHidden:YES];   // sun
-        [_progressView stop];
         
         // 즐겨찾기 업데이트 목록 저장이 끝나면, 업데이트 카운트 리셋
         [UserContext shared].updateCount = @"0";
         [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:kUpdateCount];
         [[NSUserDefaults standardUserDefaults] synchronize];
 
+        [UIView animateWithDuration:1.0f
+                              delay:0.0f
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                            [_progressView setPos:_cur];
+                         } completion:^(BOOL finished) {
+                             
+                             [_progressView stop];
+                             [self.savedTimer invalidate];
+                             self.savedTimer = nil;
+
+                         }];
+        
     }
 }
 
@@ -1894,7 +1903,7 @@
         
         done = YES;
         _facultySaveDone = YES;
-        NSLog(@"..... student done .....");
+        NSLog(@"..... faculty done .....");
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             
@@ -2054,7 +2063,7 @@
 - (void)saveDBFavorite:(NSDictionary *)updateInfo
 {
     NSLog(@"----------- saveDBFavorite START ----------");
-    self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(setUpdateProgress:) userInfo:nil repeats:YES];
+    self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(setUpdateProgress:) userInfo:nil repeats:YES];
 
     if ([updateInfo[@"student"] isKindOfClass:[NSArray class]])
     {

@@ -209,23 +209,24 @@
 {
     NSLog(@"프로그래스 stop");
     
+//    if (self.myTimer != nil) {
+//        _percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
+//        return;
+//    }
     [UIView animateWithDuration:0.3f
                      animations:^{
-                         
 //                         _currentPos = 1.0f;
 //                         count = 10;
-//                         self.percentLabel.text = [NSString stringWithFormat:@"100 / 100"];
-//                         self.progressView.progress = (float)count/10.0f;
-
 //                         NSLog(@"프로그래스 숨김 : %f", _currentPos);
+                         _percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
+
                      }
                      completion:^(BOOL finished) {
 
                          self.hidden = YES;
 //                         _progressView.progress = 0;
-
 //                         _currentPos = 0;
-//                         _progressView.progress = 0;
+                         
                          NSLog(@"프로그래스 숨김 완료");
                          
                      }];
@@ -279,6 +280,7 @@ static CGFloat count = 0.0f;
         self.myTimer = nil;
 
         if ([_delegate respondsToSelector:@selector(myProgressTask:)]) {
+            _percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _curValue, _maxValue];
             [_delegate myProgressTask:nil];
         }
     }

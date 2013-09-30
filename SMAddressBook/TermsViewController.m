@@ -10,6 +10,10 @@
 #import "MenuTableViewController.h"
 #import "MyInfoViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSURLRequest+SSL.h"
+
+#define kTermsUrl   @"https://biz.snu.ac.kr/fb/html/terms-of-use"
+#define kPolicyUrl  @"https://biz.snu.ac.kr/fb/html/privacy-policy"
 
 @interface TermsViewController ()
 
@@ -112,10 +116,9 @@
     [[_webView1 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView1 layer] setBorderWidth:2.0f];
     
-//    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
-//    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
-    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/terms-of-use"]];
-    [_webView1 loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
+    NSURLRequest *termsUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kTermsUrl]];
+    [_webView1 loadRequest:termsUrl];
+    _webView1.delegate = self;
     
     [self.view addSubview:_webView1];
     yOffset += (sizeHeight + 10.0f);
@@ -151,10 +154,10 @@
     [[_webView2 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView2 layer] setBorderWidth:2.0f];
     
-//    NSString *htmlFile3 = [[NSBundle mainBundle] pathForResource:@"serviceTerms" ofType:@"html"];
-//    NSData *htmlData3 = [NSData dataWithContentsOfFile:htmlFile3];
-    NSData *htmlData2 = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/privacy-policy"]];
-    [_webView2 loadData:htmlData2 MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
+    NSURLRequest *policyUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kPolicyUrl]];
+    [_webView2 loadRequest:policyUrl];
+    _webView2.delegate = self;
+
     
     [self.view addSubview:_webView2];
     yOffset += (sizeHeight + 10.0f);
