@@ -94,7 +94,6 @@
     }
     
     self.tableView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
-//    self.tableView.backgroundColor = [UIColor yellowColor];
     
     // TODO: 내 프로필 정보에서 헤더 구성 데이터 가져오기
     NSDictionary *profileDict = @{@"name":@"홍길동", @"class":@"GMBA 5기", @"photourl":@""};
@@ -266,8 +265,8 @@
     if (cell == nil) {
         cell = [[MenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        self.tableView.separatorColor = [UIColor colorWithRed:56.0f/255.0f green:60.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        self.tableView.separatorColor = [UIColor colorWithRed:56.0f/255.0f green:60.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
     }
     
 //    cell.textLabel.text = [NSString stringWithFormat:@"Item %d", indexPath.row];

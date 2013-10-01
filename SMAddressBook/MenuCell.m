@@ -42,12 +42,14 @@
         self.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
         
         // 섹션 라인 (imsi)
-//        UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.contentView.frame.size.height - 1.0f, self.contentView.frame.size.width, 1.0f)];
-//        [lineV.layer setCornerRadius:2.0f];
+        NSLog(@"세션 높이 : %f", self.contentView.frame.size.height);
+        UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.contentView.frame.size.height - 5.0f, self.contentView.frame.size.width, 0.5f)];
+        lineV.backgroundColor = [UIColor colorWithRed:56.0f/255.0f green:60.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
+//        [lineV.layer setCornerRadius:1.0f];
 //        [lineV.layer setBorderColor:[UIColor colorWithRed:30.0f/255.0f green:32.0f/255.0f blue:34.0f/255.0f alpha:1.0f].CGColor];
 //        [lineV.layer setBorderWidth:1.0f];
-//        
-//        [self.contentView addSubview:lineV];
+
+        [self.contentView addSubview:lineV];
 
     }
     return self;
