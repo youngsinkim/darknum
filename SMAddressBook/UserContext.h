@@ -23,6 +23,7 @@
 #define kCertNo         @"certno"
 #define kMemType        @"memtype"
 #define kUpdateCount    @"updatecount"
+#define kMyClass        @"myclass"
 
 #define kUserId         @"userId"
 #define kUserPwd        @"userPwd"
@@ -41,7 +42,7 @@
 @property (strong, nonatomic) NSString *updateCount;            //< 업데이트 카운트
                                                                 /* (이 값이 0보다 크면 업데이트 항목이 있는 것으로 판단하여,
                                                                     과정별 기수 목록 / 교수 전공 목록 / 즐겨찾기 업데이트 목록을 서버에서 받아온다.) */
-
+@property (strong, nonatomic) NSString *myClass;                //< 내 기수 정보
 @property (strong, nonatomic) NSString *language;       // 설정 언어 정보
 
 @property (assign, nonatomic) BOOL isAutoLogin;         //< 자동 로그인 설정 값 (이 값에 따라 로그인 창을 띄울지 말지를 결정한다.)

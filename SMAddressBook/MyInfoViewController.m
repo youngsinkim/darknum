@@ -821,8 +821,8 @@
             _scrollView.contentInset = contentInsets;
             _scrollView.scrollIndicatorInsets = contentInsets;
             
-            _scrollView.frame = CGRectMake(10.0f, 0.0f, viewFrame.size.width - 20.0f, viewFrame.size.height - bottomOffset);
-            [_scrollView scrollRectToVisible:CGRectMake(0.0f, 0.0f, viewFrame.size.width - 20.0f, viewFrame.size.height - bottomOffset) animated:YES];
+            _scrollView.frame = CGRectMake(0.0f, 0.0f, viewFrame.size.width - 0.0f, viewFrame.size.height - bottomOffset);
+            [_scrollView scrollRectToVisible:CGRectMake(0.0f, 0.0f, viewFrame.size.width, viewFrame.size.height - bottomOffset) animated:YES];
             NSLog(@"스크롤 %f, %f", keyboardSize.height, viewFrame.size.height - bottomOffset);
         }];
         
@@ -842,7 +842,7 @@
         _scrollView.contentInset = contentInsets;
         _scrollView.scrollIndicatorInsets = contentInsets;
 
-        _scrollView.frame = CGRectMake(10.0f, 0.0f, viewFrame.size.width - 20.0f, viewFrame.size.height);
+        _scrollView.frame = CGRectMake(0.0f, 0.0f, viewFrame.size.width - 0.0f, viewFrame.size.height);
 //        _scrollView.scrollsToTop = YES;
     }];
 

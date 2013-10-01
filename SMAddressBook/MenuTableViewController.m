@@ -199,10 +199,13 @@
         _nameLabel.text = myInfo[@"name"];
     }
     
-    if ([myInfo[@"courseclass"] length] > 0) {
-        _classLabel.text = myInfo[@"courseclass"];
+//    if ([myInfo[@"courseclass"] length] > 0) {
+//        _classLabel.text = myInfo[@"courseclass"];
+//    }
+    NSString *class = [UserContext shared].myClass;
+    if ([class length] > 0) {
+        _classLabel.text = class;
     }
-
 }
 
 - (void)updateHeaderImage:(UIImage *)image

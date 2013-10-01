@@ -474,10 +474,12 @@
                                                     [UserContext shared].memberType = dict[kMemType];
                                                     [UserContext shared].updateCount= dict[kUpdateCount];
                                                     [UserContext shared].userId     = [self.idTextField text];
+                                                    [UserContext shared].myClass    = dict[kMyClass];
                                                 
                                                     [[NSUserDefaults standardUserDefaults] setValue:dict[kCertNo] forKey:kCertNo];
                                                     [[NSUserDefaults standardUserDefaults] setValue:dict[kMemType] forKey:kMemType];
                                                     [[NSUserDefaults standardUserDefaults] setValue:dict[kUpdateCount] forKey:kUpdateCount];
+                                                    [[NSUserDefaults standardUserDefaults] setValue: dict[kMyClass] forKey:kMyClass];
                                                     [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
                                                 
                                                     // 아이디 저장 체크되어 있으면 아이디 저장
