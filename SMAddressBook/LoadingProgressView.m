@@ -450,8 +450,11 @@ static float progCnt = 0.0f;
 	if (position < 0.0f)
 		position = 0.0f;
     
+    if (position > progCnt) {
+        progCnt = position;
+    }
 	_progressView.progress = progCnt;
-    progCnt += 0.01;
+    progCnt += 0.05;
     _percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", current, total];
     
 	[self setNeedsDisplay];

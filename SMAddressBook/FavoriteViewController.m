@@ -2805,7 +2805,7 @@
 //    self.progressView.percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", _cur, _tot];
 //    self.progressView.progress = (float)(_cur / _tot);
 
-    [UIView animateWithDuration:0.5f
+    [UIView animateWithDuration:0.2f
 //                          delay:0.0f
 //                        options:UIViewAnimationOptionTransitionNone
                      animations:^{
@@ -2817,7 +2817,7 @@
                          [self.progressTimer invalidate];
                          self.progressTimer = nil;
                          
-                         [self performSelector:@selector(hideProgressView) withObject:nil afterDelay:0.5];
+                         [self performSelector:@selector(hideProgressView) withObject:nil afterDelay:0.3];
 //                         [self.progressView onStop];
                      }];
 }
