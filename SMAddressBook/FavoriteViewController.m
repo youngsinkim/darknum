@@ -54,6 +54,7 @@
 @property (assign) BOOL facultySaveDone;
 @property (assign) BOOL staffSaveDone;
 @property (strong, nonatomic) NSTimer *savedTimer;
+@property (strong, nonatomic) NSTimer *progressTimer;
 @end
 
 
@@ -156,6 +157,8 @@
         {
 //            [_progressView setHidden:NO];   // test
 //    [self performSelector:@selector( showUpdateProgress) withObject:nil];
+            // 1. 프로그래스 일단 노출
+            [self.progressView onStart:updateCount];
 
             NSLog(@".......... REQUEST Update Favorites .........");
             [self requestAPIFavorites];
@@ -235,13 +238,20 @@
     }
 }
 
-- (void)setUpdateProgress:(NSInteger)progress
+- (void)setUpdateProgress:(NSTimer *)timer
 {
-    NSLog("Progress is now: %d", _cur);
-    [_progressView setPos:_cur];
+    if ([timer.userInfo isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *info = timer.userInfo;
+        NSLog(@"..... setUpdateProgress info : %@", info);
+//    NSDictionary *timerInfo = info;
+    CGFloat endFloat = (CGFloat)[info[@"end"] floatValue];
+    NSLog("Progress is now: %d, (end : %f)", _cur, endFloat);
+    [_progressView setPos:endFloat withValue:_cur];
+//    [_progressView setPos:_cur];
     
 //    _progressView.curValue = _cur;
 //    _progressView.percentLabel.text = [NSString stringWithFormat:@"Download (%d / %d)", _cur, _tot];
+    }
 }
 
 
@@ -272,7 +282,8 @@
                               delay:0.0f
                             options:UIViewAnimationOptionCurveEaseOut
                          animations:^{
-                            [_progressView setPos:_cur];
+//                            [_progressView setPos:_cur];
+                             [_progressView setPos:1.0f withValue:_tot];
                          } completion:^(BOOL finished) {
                              
                              [_progressView stop];
@@ -515,8 +526,8 @@
     _cur = 0;
     
     // 업데이트가 있을때만, 로딩 프로그래스 시작...
-    NSLog(@"---------- Progress Show ----------");
-    [self showUpdateProgress];
+//    NSLog(@"---------- Progress Show ----------");
+//    [self showUpdateProgress];
     
     // 즐겨찾기 업데이트 목록
     [[SMNetworkClient sharedClient] postFavorites:param
@@ -568,6 +579,9 @@
 {
     NSLog(@"----- progress callback (stop) -----");
 
+    [self.savedTimer invalidate];
+    self.savedTimer = nil;
+    
     [self hideUpdateProgress];
     
     
@@ -1466,9 +1480,29 @@
 }
 
 #pragma mark 업데이트 (학생) 목록 저장
-- (void)saveDBFavoriteStudent:(NSArray *)students
+//- (void)saveDBFavoriteStudent:(NSArray *)students
+- (void)saveDBFavoriteStudent:(NSDictionary *)updateInfo
 {
     NSLog(@"----- 학생목록 저장 시작 -----");
+    NSDictionary *userInfo = @{@"end":@"1"};
+//    NSLog(@".......... 학생 프로그래스 시작 정보 : %@", userInfo);
+//    self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(setUpdateProgress:) userInfo:userInfo repeats:YES];
+    [self startRepeatingTimer:userInfo];
+
+    if (![updateInfo[@"student"] isKindOfClass:[NSArray class]]) {
+        _studentSaveDone = YES;
+        NSLog(@"업데이트된 학생이 없으므로 학생은 pass!");
+        
+        NSLog(@".......... 다음 교수 저장 하자.");
+        [self saveDBFavoriteFaculty:updateInfo];
+
+        return;
+    }
+    
+    NSArray *students = [updateInfo[@"student"] mutableCopy];
+    NSLog(@".......... 학생 저장 [%d] ..........", [students count]);
+//    [self saveDBFavoriteStudent:students];
+    
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 //    NSManagedObjectContext *writeMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
 //    [writeMoc setPersistentStoreCoordinator:appDelegate.persistentStoreCoordinator];
@@ -1483,23 +1517,24 @@
     NSManagedObjectContext *findContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [findContext setParentContext:parentContext];
 
-    NSEntityDescription *courseEntity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:parentContext];
+//    NSEntityDescription *courseEntity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:parentContext];
 //    NSLog(@"parent: %@,   child : %@,    find: %@,  main : %@", parentContext, childContext, findContext, appDelegate.managedObjectContext);
     __block BOOL done = NO;
     
     [childContext performBlock:^{
         
-        for (NSDictionary *info in students)
+        for (NSDictionary *dict in students)
         {
-            NSLog(@"학생(%@) 저장", info[@"name"]);
+            NSLog(@"학생(%@) 저장", dict[@"name"]);
             
             Course *course = nil;
-            Student *student = nil;
+//            Student *student = nil;
             __block NSArray *findCourses = nil;
+            __block NSDictionary *info = [NSDictionary dictionaryWithDictionary:dict];
 
-            NSFetchRequest *courseFr = [[NSFetchRequest alloc] init];
 
             [childContext performBlockAndWait:^{
+                NSFetchRequest *courseFr = [[NSFetchRequest alloc] init];
                 NSLog(@"(%@)학생의 과정(%@) 조회", info[@"name"], info[@"courseclass"]);
                 
                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:parentContext];
@@ -1669,8 +1704,21 @@
             
             NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
             NSLog(@"Done(학생): %d objects written", [[parentContext executeFetchRequest:request error:nil] count]);
+            
+//            NSDictionary *userInfo = @{@"end":@"4"};
+//            NSLog(@".......... 학생 프로그래스 시작 정보 : %@", userInfo);
+//            if (self.savedTimer) {
+//                [self.savedTimer invalidate];
+//                self.savedTimer = nil;
+//            }
+//            self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(setUpdateProgress:) userInfo:userInfo repeats:YES];
+            
+
+            NSLog(@"학생 저장 끝났으니 교수 저장 하자.");
+            [self saveDBFavoriteFaculty:updateInfo];
+            
 //            [_progressView setHidden:YES];   // test
-            [self hideUpdateProgress];
+//            [self hideUpdateProgress];
         });
 
     }]; // childContext
@@ -1765,9 +1813,31 @@
 }
 
 #pragma mark 업데이트 (교수) 목록 저장
-- (void)saveDBFavoriteFaculty:(NSArray *)objects
+//- (void)saveDBFavoriteFaculty:(NSArray *)objects
+- (void)saveDBFavoriteFaculty:(NSDictionary *)updateInfo
 {
     NSLog(@"----- 교수 목록 저장 시작 -----");
+    
+//    NSDictionary *userInfo = @{@"end":@"5"};
+//    NSLog(@".......... 교수 프로그래스 시작 정보 : %@", userInfo);
+//    if (self.savedTimer) {
+//        [self.savedTimer invalidate];
+//        self.savedTimer = nil;
+//    }
+//    self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.4f target:self selector:@selector(setUpdateProgress:) userInfo:userInfo repeats:YES];
+
+    if (![updateInfo[@"faculty"] isKindOfClass:[NSArray class]]) {
+        _facultySaveDone = YES;
+        NSLog(@"업데이트된 교수가 없으므로 학생은 pass!");
+        NSLog(@".......... 다음 교직원 저장 하자.");
+        [self saveDBFavoriteStaff:updateInfo];
+        return;
+    }
+    
+    NSArray *objects = updateInfo[@"faculty"];
+    NSLog(@".......... 교수 저장 [%d] ..........", [objects count]);
+//    [self saveDBFavoriteFaculty:students];
+    
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     NSManagedObjectContext *parentContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
@@ -1912,7 +1982,18 @@
             
             NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:@"Faculty"];
             NSLog(@"Done(교수): %d objects written", [[parentContext executeFetchRequest:fr error:nil] count]);
-            [self hideUpdateProgress];
+            
+//            NSDictionary *userInfo = @{@"end":@"7"};
+//            NSLog(@".......... 프로그래스 시작 정보 : %@", userInfo);
+//            if (self.savedTimer) {
+//                [self.savedTimer invalidate];
+//                self.savedTimer = nil;
+//            }
+//            self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(setUpdateProgress:) userInfo:userInfo repeats:YES];
+
+            NSLog(@"교수 저장 끝났으니 교직원 저장 하자.");
+            [self saveDBFavoriteStaff:updateInfo];
+//            [self hideUpdateProgress];
             
         });
         
@@ -1936,9 +2017,30 @@
 }
 
 #pragma mark 업데이트 (교직원) 목록 저장
-- (void)saveDBFavoriteStaff:(NSArray *)objects
+- (void)saveDBFavoriteStaff:(NSDictionary *)updateInfo
 {
     NSLog(@"----- 교직원 목록 저장 시작 -----");
+    
+//    NSDictionary *userInfo = @{@"end":@"8"};
+//    NSLog(@".......... 교직원 프로그래스 시작 정보 : %@", userInfo);
+//    if (self.savedTimer) {
+//        [self.savedTimer invalidate];
+//        self.savedTimer = nil;
+//    }
+//    self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(setUpdateProgress:) userInfo:userInfo repeats:YES];
+    
+    if (![updateInfo[@"staff"] isKindOfClass:[NSArray class]]) {
+        _staffSaveDone = YES;
+        NSLog(@"업데이트된 교수가 없으므로 학생은 pass!");
+        [self stopRepeatingTimer];
+        return;
+    }
+    
+    NSArray *objects = updateInfo[@"staff"];
+    NSLog(@".......... 교직원 저장 [%d] ..........", [objects count]);
+//    [self saveDBFavoriteStaff];
+    
+    
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     NSManagedObjectContext *parentContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
@@ -2036,8 +2138,24 @@
             
             NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:@"Staff"];
             NSLog(@"Done(Staff): %d objects written", [[parentContext executeFetchRequest:fr error:nil] count]);
-            [self hideUpdateProgress];
             
+//            NSDictionary *userInfo = @{@"end":@"10"};
+//            NSLog(@".......... 프로그래스 시작 정보 : %@", userInfo);
+//            if (self.savedTimer) {
+//                [self.savedTimer invalidate];
+//                self.savedTimer = nil;
+//            }
+//            self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(setUpdateProgress:) userInfo:userInfo repeats:YES];
+
+            
+//            if (self.savedTimer) {
+//                [self.savedTimer invalidate];
+//                self.savedTimer = nil;
+//            }
+//            self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(hideUpdateProgress) userInfo:nil repeats:NO];
+//            [self hideUpdateProgress];
+
+            [self stopRepeatingTimer];
         });
         
     }]; // childContext
@@ -2063,34 +2181,34 @@
 - (void)saveDBFavorite:(NSDictionary *)updateInfo
 {
     NSLog(@"----------- saveDBFavorite START ----------");
-    self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(setUpdateProgress:) userInfo:nil repeats:YES];
-
-    if ([updateInfo[@"student"] isKindOfClass:[NSArray class]])
-    {
-        NSArray *students = updateInfo[@"student"];
-        NSLog(@".......... 학생 저장 [%d] ..........", [students count]);
-        [self saveDBFavoriteStudent:students];
-    } else {
-        _studentSaveDone = YES;
-    }
-
-    if ([updateInfo[@"faculty"] isKindOfClass:[NSArray class]])
-    {
-        NSArray *students = updateInfo[@"faculty"];
-        NSLog(@".......... 교수 저장 [%d] ..........", [students count]);
-        [self saveDBFavoriteFaculty:students];
-    } else {
-        _facultySaveDone = YES;
-    }
-    
-    if ([updateInfo[@"staff"] isKindOfClass:[NSArray class]])
-    {
-        NSArray *students = updateInfo[@"staff"];
-        NSLog(@".......... 교직원 저장 [%d] ..........", [students count]);
-        [self saveDBFavoriteStaff:students];
-    } else {
-        _staffSaveDone = YES;
-    }
+    NSDictionary *info = [NSDictionary dictionaryWithDictionary:updateInfo];
+    [self saveDBFavoriteStudent:info];
+//    if ([updateInfo[@"student"] isKindOfClass:[NSArray class]])
+//    {
+//        NSArray *students = updateInfo[@"student"];
+//        NSLog(@".......... 학생 저장 [%d] ..........", [students count]);
+//        [self saveDBFavoriteStudent:students];
+//    } else {
+//        _studentSaveDone = YES;
+//    }
+//
+//    if ([updateInfo[@"faculty"] isKindOfClass:[NSArray class]])
+//    {
+//        NSArray *students = updateInfo[@"faculty"];
+//        NSLog(@".......... 교수 저장 [%d] ..........", [students count]);
+//        [self saveDBFavoriteFaculty:students];
+//    } else {
+//        _facultySaveDone = YES;
+//    }
+//    
+//    if ([updateInfo[@"staff"] isKindOfClass:[NSArray class]])
+//    {
+//        NSArray *students = updateInfo[@"staff"];
+//        NSLog(@".......... 교직원 저장 [%d] ..........", [students count]);
+//        [self saveDBFavoriteStaff:students];
+//    } else {
+//        _staffSaveDone = YES;
+//    }
     
     NSLog(@"----------- saveDBFavorite END ----------");
     return;
@@ -2110,7 +2228,7 @@
         NSArray *students = updateInfo[@"student"];
         NSLog(@"즐겨찾기 업데이트 학생 수 [%d]", [students count]);
         
-        [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
+//        [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
 
         for (NSDictionary *dict in students)
         {
@@ -2183,9 +2301,9 @@
 
             ++_cur;
             NSLog(@"학생 프로그래스 세팅(%d) : %f", _cur, (CGFloat)((_cur * 10) / _tot));
-            if ((_cur % 10) == 0) {
+//            if ((_cur % 10) == 0) {
 //                [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
-            }
+//            }
         }
 //        [self.moc save:&error];
 //            NSLog(@"학생 업데이트 목록 저장 완료!");
@@ -2312,9 +2430,9 @@
             
             ++_cur;
             NSLog(@"교직원 프로그래스 세팅(%d) : %f", _cur, (CGFloat)((_cur * 10) / _tot));
-            if ((_cur % 10) == 0) {
+//            if ((_cur % 10) == 0) {
 //                [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
-            }
+//            }
 
 //            [self performSelectorInBackground:@selector(setUpdateProgress:) withObject:nil];
 //            [self updateProgress:_cur];
@@ -2653,5 +2771,64 @@
     }
 }
 
+#pragma mark - Timer
+- (void)startRepeatingTimer:(NSDictionary *)info {
+    NSLog(@".......... startRepeatingTimer (info : %@)", info);
 
+    _tot = [[UserContext shared].updateCount floatValue];
+    _cur = 0;
+
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.3
+                                                      target:self
+                                                    selector:@selector(timerFired:)
+                                                    userInfo:info
+                                                     repeats:YES];
+    
+    self.progressTimer = timer;
+}
+
+- (void)timerFired:(NSTimer *)timer
+{
+    NSDictionary *info = [timer userInfo];
+//    NSLog(@".......... timerFired (info : %@)", info);
+    NSLog(@".......... timerFired ( %d / %d ) ..........", _cur, _tot);
+    [self.progressView onProgress:_cur total:_tot];
+//    self.progressView.percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", _cur, _tot];
+//    self.progressView.progress = (float)(_cur / _tot);
+}
+
+- (void)stopRepeatingTimer
+{
+    NSLog(@".......... stopRepeatingTimer");
+
+    [self.progressView onProgress:_cur total:_tot];
+//    self.progressView.percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", _cur, _tot];
+//    self.progressView.progress = (float)(_cur / _tot);
+
+    [UIView animateWithDuration:0.5f
+//                          delay:0.0f
+//                        options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         [self.progressView onProgress:_tot total:_tot];
+
+//                         self.progressView.percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", _tot, _tot];
+//                         self.progressView.progress = (float)(_tot / _tot);
+                     } completion:^(BOOL finished) {
+                         [self.progressTimer invalidate];
+                         self.progressTimer = nil;
+                         
+                         [self performSelector:@selector(hideProgressView) withObject:nil afterDelay:0.5];
+//                         [self.progressView onStop];
+                     }];
+}
+
+- (void)hideProgressView
+{
+    [self.progressView onStop];
+    
+    // TODO: 업데이트 카운트 한 번만 쓰고 0으로 초기화. (다음 로그인 시에 다시 세팅)
+    [UserContext shared].updateCount = 0;
+
+}
 @end
+

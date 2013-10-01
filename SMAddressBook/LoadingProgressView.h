@@ -35,5 +35,10 @@
 - (void)stop;
 //- (void)setProgress:(CGFloat)pos;
 
-//- (void)setPos:(CGFloat)pos withIndex:(CGFloat)idx max:(CGFloat)max;
+- (void)setPos:(CGFloat)pos withValue:(NSInteger)value;
+
+- (void)onStart:(NSInteger)position;
+- (void)onProgress:(NSInteger)current total:(NSInteger)total;
+- (void)onStop;
+
 @end
