@@ -46,7 +46,7 @@
         self.curValue = 0;
         
         // 배경 (dimmed) 뷰
-        _bgView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+        _bgView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _bgView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
 
         [self addSubview:_bgView];
