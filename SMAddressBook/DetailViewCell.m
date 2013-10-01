@@ -269,12 +269,11 @@
         }
         _companyLabel.text = descString;
         
-        
-        if (_cellInfo[@"status"]) {
+        if (_cellInfo[@"mobile"]) {
             _mobileValueLabel.text = _cellInfo[@"mobile"];
         }
         
-        if (_cellInfo[@"status"]) {
+        if (_cellInfo[@"email"]) {
             _emailValueLabel.text = _cellInfo[@"email"];
         }
         
@@ -299,10 +298,16 @@
             } else {
                 _majorValueLabel.text = _cellInfo[@"major.title"];
             }
+            
+            MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+            if (myType != MemberTypeStudent) {
+                _mobileValueLabel.text = _cellInfo[@"mobile"];
+            }
+        } else {
+            _mobileValueLabel.text = _cellInfo[@"mobile"];
         }
 
         _telValueLabel.text = _cellInfo[@"tel"];
-        _mobileValueLabel.text = _cellInfo[@"mobile"];
         _emailValueLabel.text = _cellInfo[@"email"];
         _officeValueLabel.text = _cellInfo[@"office"];
     }

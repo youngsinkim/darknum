@@ -361,11 +361,11 @@
     }
 }
 
-// 연락처 저장
+#pragma mark 연락처로 저장
+/// 연락처 저장
 - (void)onSavedToAddress:(NSDictionary *)info
 {
     NSLog(@"연락처에 저장할 정보 : %@", info);
-
     [self showPersonViewController];
 
 }
@@ -397,6 +397,7 @@
 
 #pragma mark -
 #pragma mark Address Book Access
+// 연락처에서 해당 사용자 찾기 (이름 기준)
 - (void)searchForPersonInAddressBook:(ABAddressBookRef )ab
                             withName:(NSString *)fn
 {
@@ -451,7 +452,25 @@
         
         // Adding phone numbers
         ABMutableMultiValueRef multiPhone = ABMultiValueCreateMutable(kABMultiStringPropertyType);
-        ABMultiValueAddValueAndLabel(multiPhone, (__bridge CFStringRef)info[@"mobile"], kABPersonPhoneMobileLabel, NULL);
+        
+        NSLog(@"나의 타입 (%@), 대상자 타입(%d)", [[UserContext shared] memberType], _memType);
+        BOOL isPossibleSave = YES;
+        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+        
+        // 로그인 사용자가 학생인 경우, 교수의 휴대전화를 저장 불가능.
+        if (myType == MemberTypeStudent) {
+            if (_memType == MemberTypeFaculty) {
+                isPossibleSave = NO;
+            }
+        }
+        
+        if (isPossibleSave) {
+            ABMultiValueAddValueAndLabel(multiPhone, (__bridge CFStringRef)info[@"mobile"], kABPersonPhoneMobileLabel, NULL);
+        }
+        
+        if (info[@"tel"]) {
+            ABMultiValueAddValueAndLabel(multiPhone, (__bridge CFStringRef)info[@"tel"], kABPersonPhoneMainLabel, NULL);
+        }
 //        ABMultiValueAddValueAndLabel(multiPhone,@"02-9809878", kABWorkLabel, NULL);
         ABRecordSetValue(newPerson, kABPersonPhoneProperty, multiPhone,nil);
         
