@@ -50,9 +50,11 @@
 @property (assign) NSInteger tot;
 @property (assign) NSInteger cur;
 
-@property (assign) BOOL studentSaveDone;
-@property (assign) BOOL facultySaveDone;
-@property (assign) BOOL staffSaveDone;
+@property (assign) BOOL isMajorSaveDone;    // 교수 전공 DB 저장 완료 여부
+@property (assign) BOOL isCourseSaveDone;   // 기수 목록 DB 저장 완료 여부
+@property (assign) BOOL studentSaveDone;    // 학생 업데이트 목록 DB 저장 여부
+@property (assign) BOOL facultySaveDone;    // 교수 업데이트 목록 DB 저장 여부
+@property (assign) BOOL staffSaveDone;      // 교직원 업데이트 목록 DB 저장 여부
 @property (strong, nonatomic) NSTimer *savedTimer;
 @property (strong, nonatomic) NSTimer *progressTimer;
 @end
@@ -77,6 +79,12 @@
         
         _tot = [[UserContext shared].updateCount floatValue];
         _cur = 0;
+        
+        _isMajorSaveDone = NO;
+        _isCourseSaveDone = NO;
+        _studentSaveDone = NO;
+        _facultySaveDone = NO;
+        _staffSaveDone = NO;
     }
     return self;
 }
@@ -122,13 +130,10 @@
             return;
         }
         
-#if (0)
-        NSLog(@".......... GET DB Majors .........");
-        [self getLocalMajors:@"1"];
-        NSLog(@".......... GET DB Courses ..........");
-        [self getLocalFavoriteClasses:@"1"];
-        //    NSLog(@"즐겨찾기 업데이트 개수 : (%d)", [_favorites count]);
-#else
+//        NSLog(@".......... GET DB Majors .........");
+//        [self getLocalMajors:@"1"];
+//        NSLog(@".......... GET DB Courses ..........");
+//        [self getLocalFavoriteClasses:@"1"];
         
         // 즐겨찾기 목록 구성
         NSLog(@".......... GET DB Favorite Courses ..........");
@@ -141,13 +146,7 @@
             MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
             [menu setAddrMenuList:self.favorites];
         }
-#endif
 
-        NSLog(@".......... REQUEST Majors .........");
-        [self requestAPIMajors];
-        
-        NSLog(@".......... REQUEST CourseClass .........");
-        [self requestAPIClasses];
         
         // (updateCount > 0) 서버 업데이트 존재함
         NSInteger updateCount = [[UserContext shared].updateCount integerValue];
@@ -160,8 +159,15 @@
             // 1. 프로그래스 일단 노출
             [self.progressView onStart:updateCount];
 
+            NSLog(@".......... REQUEST 교수 전공(Majors) 목록 서버 요청 .........");
+            [self requestAPIMajors];
+            
+            NSLog(@".......... REQUEST 전체 기수(CourseClass) 목록 서버 요청 .........");
+            [self requestAPIClasses];
+
             NSLog(@".......... REQUEST Update Favorites .........");
             [self requestAPIFavorites];
+
             
 //            NSLog(@"과정별 기수 목록 요청");
 //            NSLog(@".......... requestAPIFavorites ..........");
@@ -411,12 +417,13 @@
          // 교수 전공 목록
          parsedObject2 = [NSJSONSerialization JSONObjectWithData:[[operations objectAtIndex:1] responseData] options:NSJSONReadingMutableContainers|NSJSONReadingAllowFragments error:&thisError];
 //         NSLog(@"Completion2: %@", parsedObject2 );
-         
-         [_majors setArray:parsedObject2[@"data"]];
-         NSLog(@"전공 목록 (%d) : %@", [_majors count], _majors);
+
+         NSArray *majorArray = parsedObject2[@"data"];
+//         [_majors setArray:parsedObject2[@"data"]];
+         NSLog(@"전공 목록 (%d) : %@", [majorArray count], _majors);
          
          // 전공목록 DB 저장.
-         [self setLocalMajors:_majors];
+         [self setLocalMajors:majorArray];
 //         [self saveDBMajors:_majors];
 
     }];
@@ -452,10 +459,15 @@
                                                   [self performSelector:@selector(setLocalCourseClasses:) withObject:result];
 //                                                  [self setLocalCourseClasses];
 #else
-                                                  // DB 저장 (과정 기수 목록)
-                                                  [self saveDBCourseClasses:result];
+                                                  if ([result count] > 0) {
+                                                      // DB 저장 (과정 기수 목록)
+                                                      [self saveDBCourseClasses:result];
+                                                  } else {
+                                                      NSLog(@"---------- 업데이트된 기수 목록이 없으므로 완료 처리 ----------");
+                                                      _isCourseSaveDone = YES;
+                                                  }
                                                   NSLog(@".......... updateDBFavorites .........");
-                                                  [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+//                                                  [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
 #endif
                                               }
                                           }];
@@ -492,9 +504,15 @@
                                                  [self performSelector:@selector(setLocalMajors:) withObject:result];
 //                                                 [self setLocalMajors:result];
 #else
-                                                 // 전공목록 DB 저장.
-                                                 [self saveDBMajors:result];
-                                                 
+                                                 if ([result count] > 0)
+                                                 {
+                                                     // 전공목록 DB 저장.
+                                                     [self saveDBMajors:result];
+                                                 }
+                                                 else {
+                                                     NSLog(@"---------- 변경된 교수 전공이 없어 완료 처리 ----------")
+                                                     _isMajorSaveDone = YES;
+                                                 }
 //                                                 NSLog(@".......... SET DB MAJORS .........");
 //                                                 [self performSelector:@selector(updateDBFavorites) withObject:nil];
 #endif
@@ -613,7 +631,7 @@
 {
     NSLog(@"---------- START ----------");
     NSLog(@"교수전공 (%d), 기수 (%d), 즐겨찾기 업데이트 (%d)", [_majors count], [_courses count], [_updateInfo count]);
-    if ([_courses count] > 0 && [_updateInfo count] > 0)
+    if (_isCourseSaveDone && _isMajorSaveDone && [_updateInfo count] > 0)
     {
         [self saveDBFavorite:_updateInfo];
     }
@@ -1221,7 +1239,8 @@
         } // for
         
         done = YES;
-        NSLog(@"..... course done .....");
+        _isCourseSaveDone = YES;
+        NSLog(@"..... CourseClass done .....");
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             NSLog(@"Saving parent");
@@ -1338,6 +1357,7 @@
         }
         
         done = YES;
+        _isMajorSaveDone = YES;
         NSLog(@"..... major done .....");
         
         
@@ -1349,6 +1369,7 @@
             NSArray *objects = [parentContext executeFetchRequest:request error:nil];
             NSLog(@"Done(Major): %d objects written \nobjects: %@", [objects count], objects);
             
+            // log
             for (Major *tmp in objects) {
                 NSLog(@"old Objects : %@, %@", tmp.major, tmp.title);
             }
