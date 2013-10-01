@@ -28,7 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = @"즐겨찾기 설정";
+        self.navigationItem.title = LocalizedString(@"favorite setting", @"즐겨찾기 설정");
         
         _courses = [[NSMutableArray alloc] initWithCapacity:4];
         _courseClasses = [[NSMutableArray alloc] initWithCapacity:4];
@@ -124,6 +124,19 @@
 
 }
 
+#pragma mark 즐겨찾기 설정 메뉴 업데이트
+- (void)updateFavoriteData
+{
+    // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
+    NSArray *favorites = [self loadDBFavoriteCourse];
+    
+    if ([favorites count] > 0)
+    {
+        // 즐겨찾기 목록 메뉴 적용
+        MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+        [menu setAddrMenuList:(NSMutableArray *)favorites];
+    }
+}
 
 #pragma mark - FavoriteSettCell delegate
 
@@ -169,7 +182,7 @@
         }
         NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"mode":mode, @"courseclass":course.courseclass};
 
-        [self requestAPIFavoritesUpdate:param];
+        [self requestAPIFavoritesUpdate:param updateMode:mode];
         
     
 //        NSString *tag = [NSString stringWithFormat:@"tag%d", [type intValue]];
@@ -181,7 +194,7 @@
 
 #pragma mark - Network API
 // 즐겨찾기 추가 / 삭제
-- (void)requestAPIFavoritesUpdate:(NSDictionary *)param
+- (void)requestAPIFavoritesUpdate:(NSDictionary *)param updateMode:(NSString *)mode
 {
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     
@@ -197,15 +210,16 @@
                                                   }
                                                   else
                                                   {
+                                                      
                                                       // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
-                                                      NSArray *favorites = [self loadDBFavoriteCourse];
-                                                    
-                                                      if ([favorites count] > 0)
-                                                      {
-                                                          // 즐겨찾기 목록 메뉴 적용
-                                                          MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-                                                          [menu setAddrMenuList:favorites];
-                                                      }
+                                                      [self performSelector:@selector(updateFavoriteData) withObject:nil];
+//                                                      NSArray *favorites = [self loadDBFavoriteCourse];
+//                                                      if ([favorites count] > 0)
+//                                                      {
+//                                                          // 즐겨찾기 목록 메뉴 적용
+//                                                          MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+//                                                          [menu setAddrMenuList:favorites];
+//                                                      }
 
                                                     
                                                     // 즐겨찾기 업데이트 수신 후, 현재 시간을 마지막 업데이트 시간으로 저장
@@ -230,6 +244,7 @@
                                               }];
 
 }
+
 
 #pragma mark - DB methods
 
