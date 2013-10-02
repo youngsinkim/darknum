@@ -148,6 +148,10 @@
         }
 
         
+        NSLog(@".......... REQUEST 전체 기수(CourseClass) 목록 서버 요청 .........");
+        [self requestAPIClasses];
+        
+
         // (updateCount > 0) 서버 업데이트 존재함
         NSInteger updateCount = [[UserContext shared].updateCount integerValue];
         NSLog(@".......... updateCount (%d)", updateCount);
@@ -162,9 +166,6 @@
             NSLog(@".......... REQUEST 교수 전공(Majors) 목록 서버 요청 .........");
             [self requestAPIMajors];
             
-            NSLog(@".......... REQUEST 전체 기수(CourseClass) 목록 서버 요청 .........");
-            [self requestAPIClasses];
-
             NSLog(@".......... REQUEST Update Favorites .........");
             [self requestAPIFavorites];
 

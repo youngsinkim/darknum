@@ -10,6 +10,8 @@
 #import "Course.h"
 #import "NSString+MD5.h"
 #import "MenuTableViewController.h"
+#import "LoadingProgressView.h"
+#import "Student.h"
 
 @interface FavoriteSettingViewController ()
 
@@ -18,6 +20,14 @@
 @property (strong, nonatomic) NSMutableArray *courses;
 @property (strong, nonatomic) NSMutableArray *courseClasses;
 @property (strong, nonatomic) NSMutableArray *favoriteList; // courseClasses와 동일한 즐겨찾기 리스트
+
+@property (strong, nonatomic) LoadingProgressView *progressView;
+@property (assign) NSInteger tot;       // 전체 목록
+@property (assign) NSInteger cur;       // DB 저장 count
+
+@property (assign) BOOL isStudentSaveDone;    // 학생 업데이트 목록 DB 저장 여부
+@property (strong, nonatomic) NSTimer *progressTimer;
+
 @end
 
 
@@ -33,6 +43,11 @@
         _courses = [[NSMutableArray alloc] initWithCapacity:4];
         _courseClasses = [[NSMutableArray alloc] initWithCapacity:4];
         _favoriteList = [[NSMutableArray alloc] initWithCapacity:4];
+        
+        _tot = 0;
+        _cur = 0;
+        _isStudentSaveDone = NO;
+        
     }
     return self;
 }
@@ -51,6 +66,10 @@
     
     // 즐겨찾기 화면 구성
     [self setupFavoriteSettingUI];
+    
+    // 프로그래스바 구성
+    [self initUpdateProgress];
+
     
     // DB 과정 목록
 //    _courses = [@[@{@"course":@"교수진/교직원"}] mutableCopy];
@@ -122,6 +141,18 @@
 
 }
 
+- (void)initUpdateProgress
+{
+    if (!_progressView)
+    {
+        _progressView = [[LoadingProgressView alloc] initWithFrame:self.view.bounds];
+        _progressView.delegate = self;
+        [[[UIApplication sharedApplication] keyWindow] addSubview:_progressView];
+        //        [self.view addSubview:_progressView];
+    }
+}
+
+
 #pragma mark 즐겨찾기 설정 메뉴 업데이트
 - (void)updateFavoriteData
 {
@@ -166,6 +197,11 @@
         } else {
             course.favyn = [NSString stringWithFormat:@"y"];
             mode = @"add";
+            
+            // 1. 프로그래스 일단 노출
+            NSLog(@".......... progressbar onStart ..........");
+            [self.progressView onStart:[course.count integerValue]];
+
         }
         
         // 서버로 즐겨찾기 설정 저장
@@ -203,7 +239,11 @@
                                                 
                                                   [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
                                                 
-                                                  if (error) {
+                                                  if (error)
+                                                  {
+                                                      // 서버 오류가 있는 경우 프로그래스바 종료.
+                                                      [self stopRepeatingTimer];
+
                                                       [[SMNetworkClient sharedClient] showNetworkError:error];
                                                   }
                                                   else
@@ -213,9 +253,15 @@
                                                       NSString *courseClass = param[@"courseclass"];
                                                       NSLog(@"업데이트 성공 결과 (mode : %@), course : %@", updateMode, courseClass);
                                                       
+                                                      if ([updateMode isEqualToString:@"add"]) {
+                                                          [self requestAPIStudents:param];
+//                                                          [self performSelector:@selector(requestAPIStudents:) withObject:param];
+                                                      }
                                                       
                                                       // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
-                                                      [self performSelector:@selector(updateFavoriteData) withObject:nil];
+//                                                      [self performSelector:@selector(updateFavoriteData) withObject:nil];
+                                                      
+                                                      
 //                                                      NSArray *favorites = [self loadDBFavoriteCourse];
 //                                                      if ([favorites count] > 0)
 //                                                      {
@@ -246,6 +292,58 @@
                                                 
                                               }];
 
+}
+
+/// 해당 기수의 학생 목록 요청
+- (void)requestAPIStudents:(NSDictionary *)info
+{
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    NSString *lang = [UserContext shared].language;
+    NSString *courseClass = info[@"courseclass"];
+    
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+    
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang, @"courseclass":info[@"courseclass"]};
+    NSLog(@"(/fb/students) Request Parameter : %@", param);
+    
+//    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
+    
+    // 과정별 기수 목록
+    [[SMNetworkClient sharedClient] postStudents:param
+                                           block:^(NSMutableArray *result, NSError *error) {
+                                               
+//                                               [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                               
+                                               if (error)
+                                               {
+                                                   // 서버 오류가 있는 경우 프로그래스바 종료.
+                                                   [self hideProgressView];
+
+                                                   [[SMNetworkClient sharedClient] showNetworkError:error];
+                                               }
+                                               else
+                                               {
+                                                   _tot = [result count];
+                                                   NSLog(@"즐겨찾기 추가 수신 학생 목록 (%d) : %@", _tot, result);
+                                                   [self saveDBFavoriteStudent:result];
+//                                                   [self performSelector:@selector(saveDBFavoriteStudent:) withObject:result];
+                                                   
+//                                                   // 기수 학생 목록
+//                                                   [_students setArray:[result mutableCopy]];
+//                                                   NSLog(@"(%@)기수 학생 수 : %d", _info[@"courseclass"], [_students count]);
+//                                                   
+//                                                   dispatch_async(dispatch_get_main_queue(), ^{
+//                                                       //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+//                                                       [_studentTableView reloadData];
+//                                                   });
+                                                   
+                                               }
+                                               
+                                           }];
 }
 
 
@@ -489,6 +587,246 @@
 }
 
 
+
+#pragma mark 업데이트 (학생) 목록 저장
+- (void)saveDBFavoriteStudent:(NSArray *)students
+{
+    NSLog(@"----- 학생목록 저장 시작 -----");
+    NSDictionary *userInfo = @{@"end":@"1"};
+//    NSLog(@".......... 학생 프로그래스 시작 정보 : %@", userInfo);
+//    self.savedTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(setUpdateProgress:) userInfo:userInfo repeats:YES];
+    [self startRepeatingTimer:userInfo];
+    
+//    if (![updateInfo[@"student"] isKindOfClass:[NSArray class]])
+//    {
+//        NSLog(@"학생 목록 없으므로 학생은 pass!");
+//        
+//        _isStudentSaveDone = YES;
+//        return;
+//    }
+//    
+//    NSArray *students = [updateInfo[@"student"] mutableCopy];
+    NSLog(@".......... 학생 저장 [%d] ..........", [students count]);
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    NSManagedObjectContext *parentContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [parentContext setPersistentStoreCoordinator:appDelegate.persistentStoreCoordinator];
+    //    [mainMoc setParentContext:writeMoc];
+    
+    NSManagedObjectContext *childContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [childContext setParentContext:parentContext];
+    
+    NSManagedObjectContext *findContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [findContext setParentContext:parentContext];
+    
+    //    NSEntityDescription *courseEntity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:parentContext];
+    //    NSLog(@"parent: %@,   child : %@,    find: %@,  main : %@", parentContext, childContext, findContext, appDelegate.managedObjectContext);
+    __block BOOL done = NO;
+    
+    [childContext performBlock:^{
+        
+        for (NSDictionary *dict in students)
+        {
+            NSLog(@"학생(%@) 저장", dict[@"name"]);
+            
+            Course *course = nil;
+            //            Student *student = nil;
+            __block NSArray *findCourses = nil;
+            __block NSDictionary *info = [NSDictionary dictionaryWithDictionary:dict];
+            
+            
+            [childContext performBlockAndWait:^{
+                NSFetchRequest *courseFr = [[NSFetchRequest alloc] init];
+                NSLog(@"(%@)학생의 과정(%@) 조회", info[@"name"], info[@"courseclass"]);
+                
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:parentContext];
+                [courseFr setEntity:entity];
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course == %@ AND courseclass == %@", info[@"course"], info[@"courseclass"]];
+                [courseFr setPredicate:predicate];
+                
+                NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+                NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+                [courseFr setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, sortDescriptor1, nil]];
+                
+                findCourses = [childContext executeFetchRequest:courseFr error:nil];
+                NSLog(@"(%@)학생의 과정 찾았나? %d", info[@"name"], [findCourses count]);
+            }];
+            
+            
+            if ([findCourses count] > 0)
+            {
+                course = findCourses[0];
+                
+                NSArray *courseStudents = [course.students allObjects];
+                NSLog(@"(%@ : %@)학생의 (%@)과정이 이미 존재함 : %d", info[@"name"], info[@"studcode"], course.courseclass, [courseStudents count]);
+                
+                //                for (Student *item in courseStudents) {
+                //                    NSLog(@"(%@)과정의 학생 이름:%@, 아이디:%@", course.courseclass, item.name, item.studcode);
+                //                }
+                
+                // 해당 과정에 이미 존재하는 학생인지 조사
+                NSArray *existArray = [courseStudents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"studcode == %@", info[@"studcode"]]];
+                NSLog(@"이미 해당 과정에 학생이 존재하나? %d", [existArray count]);
+                
+                if ([existArray count] > 0)
+                {
+                    Student *student = existArray[0];
+                    
+                    if ([info[@"remove"] isEqualToString:@"y"])
+                    {
+                        NSLog(@"(%@)학생 삭제", student.name);
+                        [course removeStudentsObject:student];
+                        [childContext deleteObject:student];
+                    }
+                    else
+                    {
+                        // 등록된 사용자이므로 정보만 업데이트
+                        NSLog(@"업데이트 학생(%@) : %@", student.name, student.studcode);
+                        
+                        // ( NSManagedObject <- NSDictionary )
+                        student.classtitle = info[@"classtitle"];
+                        student.classtitle_en = info[@"classtitle_en"];
+                        student.company = info[@"company"];
+                        student.company_en = info[@"company_en"];
+                        student.department = info[@"department"];
+                        student.department_en = info[@"department_en"];
+                        student.email = info[@"email"];
+                        student.mobile = info[@"mobile"];
+                        student.name = info[@"name"];
+                        student.name_en = info[@"name_en"];
+                        student.photourl = info[@"photourl"];
+                        student.share_company = info[@"share_company"];
+                        student.share_email = info[@"share_email"];
+                        student.share_mobile = info[@"share_mobile"];
+                        student.status = info[@"status"];
+                        student.status_en = info[@"status_en"];
+                        student.studcode = info[@"studcode"];
+                        student.title = info[@"title"];
+                        student.title_en = info[@"title_en"];
+                        student.viewphotourl = info[@"viewphotourl"];
+                        //                        student.course;
+                    }
+                }
+                else
+                {
+                    __block NSMutableArray *anotherArray = nil;
+                    //                    NSLog(@"학생의 과정이 변경되었거나, 추가된 경우");
+                    
+                    [childContext performBlockAndWait:^{
+                        NSLog(@"학생의 과정이 변경되었는지 조회");
+                        NSFetchRequest *fetchedRequest = [[NSFetchRequest alloc] init];
+                        
+                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Student" inManagedObjectContext:parentContext];
+                        [fetchedRequest setEntity:entity];
+                        
+                        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"studcode == %@", info[@"studcode"]];
+                        [fetchedRequest setPredicate:predicate];
+                        
+                        NSArray *array = [childContext executeFetchRequest:fetchedRequest error:nil];
+                        anotherArray = [array mutableCopy];
+                        NSLog(@"다른 과정에 학생이 존재하나? %d", [anotherArray count]);
+                    }];
+                    
+                    if ([anotherArray count] > 0)
+                    {
+                        Student *std = anotherArray[0];
+                        
+                        NSLog(@"학생(%@)의 과정이 달라져서 이전 과정 삭제. (%@ -> %@)", std.name, std.course.courseclass, info[@"courseclass"]);
+                        [std.course removeStudentsObject:std];
+                    }
+                    
+                    NSLog(@"해당 (%@)과정에 (%@)학생 추가", course.courseclass, info[@"name"]);
+                    NSManagedObjectContext *context = [course managedObjectContext];
+                    Student *newStudent = [NSEntityDescription insertNewObjectForEntityForName:@"Student" inManagedObjectContext:context];
+                    
+                    newStudent.studcode = info[@"studcode"];
+                    NSLog(@"추가 Student : %@", newStudent.studcode);
+                    
+                    // ( NSManagedObject <- NSDictionary )
+                    newStudent.classtitle = info[@"classtitle"];
+                    newStudent.classtitle_en = info[@"classtitle_en"];
+                    newStudent.company = info[@"company"];
+                    newStudent.company_en = info[@"company_en"];
+                    newStudent.department = info[@"department"];
+                    newStudent.department_en = info[@"department_en"];
+                    newStudent.email = info[@"email"];
+                    newStudent.mobile = info[@"mobile"];
+                    newStudent.name = info[@"name"];
+                    newStudent.name_en = info[@"name_en"];
+                    newStudent.photourl = info[@"photourl"];
+                    newStudent.share_company = info[@"share_company"];
+                    newStudent.share_email = info[@"share_email"];
+                    newStudent.share_mobile = info[@"share_mobile"];
+                    newStudent.status = info[@"status"];
+                    newStudent.status_en = info[@"status_en"];
+                    newStudent.studcode = info[@"studcode"];
+                    newStudent.title = info[@"title"];
+                    newStudent.title_en = info[@"title_en"];
+                    newStudent.viewphotourl = info[@"viewphotourl"];
+                    
+                    newStudent.course = course;
+                    //                        [newStudent setCourse:course];
+                    
+                    NSLog(@"과정의 컨텍스트로 (%@)학생 저장 (%@ === %@)", newStudent.name, context, childContext);
+                    [context save:nil];
+                    
+                }
+                
+            }
+            else {
+                NSLog(@"해당 과정이 없으면 오류!!!!!!!!!!!!!");
+            }
+            
+            ++_cur;
+            NSLog(@"..... 학생 저장 중 (%d)", _cur);
+            [childContext save:nil];
+            
+        } // for
+        
+        done = YES;
+        _isStudentSaveDone = YES;
+        NSLog(@"..... student done .....");
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            NSLog(@"Saving parent");
+            [parentContext save:nil];
+            
+            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
+            NSLog(@"Done(학생): %d objects written", [[parentContext executeFetchRequest:request error:nil] count]);
+           
+            NSLog(@".......... ProgressBar Stop ..........");
+            [self stopRepeatingTimer];
+            
+            // 업데이트 항목이 바뀌면 왼쪽 메뉴도 갱신한다.
+            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+            [menu updateHeaderInfo];
+
+        });
+        
+    }]; // childContext
+    
+    // execute a read request after 0.5 second
+    double delayInSeconds = 0.01;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Student"];
+        [parentContext performBlockAndWait:^{
+            
+            NSArray *objects = [parentContext executeFetchRequest:request error:nil];
+            NSLog(@"In between read: (학생) %d objects", [objects count]);
+            //            NSLog(@"object : %@", object);
+            
+        }];
+    });
+    
+    
+    NSLog(@"----- 학생목록 저장 종료 -----");
+}
+
+
 #pragma mark - UITableView DataSources
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -629,5 +967,54 @@
 //	UIImage *newImage = (checked) ? [UIImage imageNamed:@"join_agreebox"] : [UIImage imageNamed:@"join_agreebox_ch"];
 //	[button setBackgroundImage:newImage forState:UIControlStateNormal];
 //}
+
+#pragma mark - Timer
+- (void)startRepeatingTimer:(NSDictionary *)info {
+    NSLog(@".......... startRepeatingTimer (info : %@)", info);
+    
+//    _tot = [[UserContext shared].updateCount floatValue];
+    _cur = 0;
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2
+                                                      target:self
+                                                    selector:@selector(timerFired:)
+                                                    userInfo:info
+                                                     repeats:YES];
+    
+    self.progressTimer = timer;
+}
+
+- (void)timerFired:(NSTimer *)timer
+{
+    NSDictionary *info = [timer userInfo];
+
+    NSLog(@".......... timerFired ( %d / %d ) ..........", _cur, _tot);
+    [self.progressView onProgress:_cur total:_tot];
+}
+
+- (void)stopRepeatingTimer
+{
+    NSLog(@".......... stopRepeatingTimer");
+    
+    [self.progressView onProgress:_cur total:_tot];
+    
+    [UIView animateWithDuration:0.2f
+                     animations:^{
+                         
+                         [self.progressView onProgress:_tot total:_tot];
+                     }
+                     completion:^(BOOL finished) {
+                         [self.progressTimer invalidate];
+                         self.progressTimer = nil;
+                         
+                         [self performSelector:@selector(hideProgressView) withObject:nil afterDelay:0.3];
+                     }];
+}
+
+- (void)hideProgressView
+{
+    [self.progressView onStop];
+    self.progressView.progress = 0.0f;
+}
 
 @end

@@ -129,6 +129,7 @@ static UserContext *_sharedUserContext = nil;
     }
 
     _language = [TSLanguageManager selectedLanguage];
+    NSLog(@"현재 언어 : %@", _language);
     
     NSLog(@"previous AppInfo : \nautoLogin(%d), acceptTerms(%d), isProfile(%d), certno(%@), memtype(%@), updatecnt(%@), updateTime:%@, userID(%@), passWD(%@)",
           _isAutoLogin, _isAcceptTerms, _isExistProfile, _certNo, _memberType, _updateCount, _lastUpdateDate, _userId, _userPwd);

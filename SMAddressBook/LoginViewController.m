@@ -396,15 +396,15 @@
 /// Korean
 - (void)onKoreanLanguageClicked
 {
-    [TSLanguageManager setSelectedLanguage:kLMKorean];
-    [self updateControls];
+//    [TSLanguageManager setSelectedLanguage:kLMKorean];
+//    [self updateControls];
 }
 
 /// English
 - (void)onEnglishLanguageClicked
 {
-    [TSLanguageManager setSelectedLanguage:kLMEnglish];
-    [self updateControls];
+//    [TSLanguageManager setSelectedLanguage:kLMEnglish];
+//    [self updateControls];
 }
 
 /// 아이디 저장

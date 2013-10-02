@@ -72,7 +72,8 @@
 +(NSString*) selectedLanguage {
     // Get selected language from user defaults.
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *selectedLanguage = [userDefaults stringForKey:kLMSelectedLanguageKey];
+    // sochae - 언어 설정 임의로 하지 않도록 수정
+    NSString *selectedLanguage = nil;// [userDefaults stringForKey:kLMSelectedLanguageKey];
     
     // if the language is not defined in user defaults yet...
     if (selectedLanguage == nil) {

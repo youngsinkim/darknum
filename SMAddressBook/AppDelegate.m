@@ -384,6 +384,7 @@
 
     NSString *crytoMobileNo = [Util phoneNumber];
     NSString *lastUpdate = [[UserContext shared] lastUpdateDate];
+    NSLog(@".......... 마지막 업데이트 시간 : %@ ..........", lastUpdate);
     
     // TODO: 업데이트 시간 최초 이회에 마지막 시간 값으로 세팅되도록 수정 필요
     NSDictionary *param = @{@"scode":[crytoMobileNo MD5],

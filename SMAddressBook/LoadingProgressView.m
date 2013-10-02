@@ -442,22 +442,25 @@ static CGFloat count = 0.0f;
 static float progCnt = 0.0f;
 - (void)onProgress:(NSInteger)current total:(NSInteger)total
 {
-    float position = (float)(current / total);
-    NSLog(@"---------- onProgress ( %f ) ----------", position);
-    
-	if (position > 1.0f)
-		position = 1.0f;
-	if (position < 0.0f)
-		position = 0.0f;
-    
-    if (position > progCnt) {
-        progCnt = position;
+    if (current > 0 && total > 0)
+    {
+        float position = (float)(current / total);
+        NSLog(@"---------- onProgress ( %f ) ----------", position);
+        
+        if (position > 1.0f)
+            position = 1.0f;
+        if (position < 0.0f)
+            position = 0.0f;
+        
+        if (position > progCnt) {
+            progCnt = position;
+        }
+        _progressView.progress = progCnt;
+        progCnt += 0.05;
+        _percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", current, total];
+        
+        [self setNeedsDisplay];
     }
-	_progressView.progress = progCnt;
-    progCnt += 0.05;
-    _percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", current, total];
-    
-	[self setNeedsDisplay];
 }
 
 - (void)onStop
