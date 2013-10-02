@@ -208,6 +208,11 @@
                                                   }
                                                   else
                                                   {
+                                                      // 즐겨찾기 추가인 경우, 성공하면 해당 기수의 목록 서버로 요청
+                                                      NSString *updateMode = param[@"mode"];
+                                                      NSString *courseClass = param[@"courseclass"];
+                                                      NSLog(@"업데이트 성공 결과 (mode : %@), course : %@", updateMode, courseClass);
+                                                      
                                                       
                                                       // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
                                                       [self performSelector:@selector(updateFavoriteData) withObject:nil];
