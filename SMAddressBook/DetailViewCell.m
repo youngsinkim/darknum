@@ -69,6 +69,7 @@
         [_statusLabel setTextAlignment:NSTextAlignmentCenter];
         
         [self addSubview:_statusLabel];
+        _statusLabel.hidden = YES;
         
         
         // 기수
@@ -223,12 +224,14 @@
     _cellInfo = cellInfo;
     NSLog(@"셀 정보: %@", _cellInfo[@"name_en"]);
  
-//    if (_cellInfo[@"photourl"]) {
-        NSLog(@"프로필 이미지 : %@", _cellInfo[@"photourl"]);
-        [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"photourl"]]]
+    // 프로필 사진
+    if (_cellInfo[@"viewphotourl"]) {
+        NSLog(@"프로필 이미지 : %@", _cellInfo[@"viewphotourl"]);
+        [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"viewphotourl"]]]
                       placeholderImage:[UIImage imageNamed:@"placeholder"]];
-//    }
+    }
     
+    // 이름 표시 (국문 / 영문)
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {
         if (_cellInfo[@"name"]) {
             _nameLabel.text = _cellInfo[@"name"];
@@ -237,6 +240,11 @@
         if (_cellInfo[@"name_en"]) {
             _nameLabel.text = _cellInfo[@"name_en"];
         }
+    }
+
+    // 이메일 표시
+    if (_cellInfo[@"email"]) {
+        _emailValueLabel.text = _cellInfo[@"email"];
     }
 
     if (_memType == MemberTypeStudent)
@@ -268,15 +276,34 @@
             [descString appendString:_cellInfo[@"title"]];
         }
         _companyLabel.text = descString;
+        if ([_cellInfo[@"share_company"] isEqualToString:@"y"]) {
+            _companyLabel.hidden = NO;
+        } else {
+            _companyLabel.hidden = YES;
+        }
         
         if (_cellInfo[@"mobile"]) {
             _mobileValueLabel.text = _cellInfo[@"mobile"];
         }
         
-        if (_cellInfo[@"email"]) {
-            _emailValueLabel.text = _cellInfo[@"email"];
+        // 모바일 번호 표시
+        if ([_cellInfo[@"share_mobile"] isEqualToString:@"y"]) {
+            _mobileLabel.hidden = NO;
+            _mobileValueLabel.hidden = NO;
+        } else {
+            _mobileLabel.hidden = YES;
+            _mobileValueLabel.hidden = YES;
         }
         
+        if ([_cellInfo[@"share_email"] isEqualToString:@"y"]) {
+            _emailLabel.hidden = NO;
+            _emailValueLabel.hidden = NO;
+        } else {
+            _emailLabel.hidden = YES;
+            _emailValueLabel.hidden = YES;
+        }
+        
+
 //        }
 
 //        if (_cellInfo[@"photourl"]) {
@@ -308,7 +335,7 @@
         }
 
         _telValueLabel.text = _cellInfo[@"tel"];
-        _emailValueLabel.text = _cellInfo[@"email"];
+//        _emailValueLabel.text = _cellInfo[@"email"];
         _officeValueLabel.text = _cellInfo[@"office"];
     }
     
@@ -345,6 +372,9 @@
         
         _statusLabel.frame = CGRectMake(xOffset, yOffset, 40.0f, 20.0f);
         _classTitleLabel.frame = CGRectMake(xOffset + 45.0f, yOffset, 150.0f, 20.0f);
+        if (_statusLabel.hidden) {
+            _classTitleLabel.frame = CGRectMake(xOffset, yOffset, 150.0f, 20.0f);
+        }
         yOffset += 22.0f;
         _companyLabel.frame = CGRectMake(xOffset, yOffset, width, 16.0f);
         yOffset += (18.0f + 10.0f);

@@ -14,7 +14,9 @@
 @property (strong, nonatomic) UIImageView *profileImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *memberLabel;
+@property (strong, nonatomic) UILabel *mobileStLabel;
 @property (strong, nonatomic) UILabel *mobileLabel;
+@property (strong, nonatomic) UILabel *emailStLabel;
 @property (strong, nonatomic) UILabel *emailLabel;
 
 @end
@@ -60,12 +62,12 @@
         yOffset += 16.0f;
         
         // 모바일
-        UILabel *fixLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
-        fixLabel1.textColor = [UIColor grayColor];
-        [fixLabel1 setFont:[UIFont systemFontOfSize:12.0f]];
-        fixLabel1.text = @"Mobile";
+        _mobileStLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
+        _mobileStLabel.textColor = [UIColor grayColor];
+        [_mobileStLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        _mobileStLabel.text = @"Mobile";
         
-        [self.contentView addSubview:fixLabel1];
+        [self.contentView addSubview:_mobileStLabel];
         
         
         _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + 40.0f, yOffset, 150.0f, 14.0f)];
@@ -77,12 +79,12 @@
         
         
         // 이메일
-        UILabel *fixLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
-        fixLabel2.textColor = [UIColor grayColor];
-        [fixLabel2 setFont:[UIFont systemFontOfSize:12.0f]];
-        fixLabel2.text = @"Email";
+        _emailStLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
+        _emailStLabel.textColor = [UIColor grayColor];
+        [_emailStLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        _emailStLabel.text = @"Email";
         
-        [self.contentView addSubview:fixLabel2];
+        [self.contentView addSubview:_emailStLabel];
         
         
         _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + 40.0f, yOffset, 150.0f, 14.0f)];
@@ -123,8 +125,8 @@
         if (cellInfo[@"name"]) {
             _nameLabel.text = cellInfo[@"name"];
         }
-        if (cellInfo[@"status"]) {
-            NSString *description = [NSString stringWithFormat:@"[%@] %@ | %@", cellInfo[@"status"], cellInfo[@"company"], cellInfo[@"department"]];
+        if ([cellInfo[@"company"] length] > 0 && [cellInfo[@"department"] length] > 0) {
+            NSString *description = [NSString stringWithFormat:@"%@ | %@", cellInfo[@"company"], cellInfo[@"department"]];
             _memberLabel.text = description;// cellInfo[@"desc"];
         }
     }
@@ -132,8 +134,8 @@
         if (cellInfo[@"name_en"]) {
             _nameLabel.text = cellInfo[@"name_en"];
         }
-        if (cellInfo[@"status_en"]) {
-            NSString *description = [NSString stringWithFormat:@"[%@] %@ | %@", cellInfo[@"status_en"], cellInfo[@"company_en"], cellInfo[@"department_en"]];
+        if ([cellInfo[@"company_en"] length] > 0 && [cellInfo[@"department_en"] length] > 0) {
+            NSString *description = [NSString stringWithFormat:@" %@ | %@", cellInfo[@"company_en"], cellInfo[@"department_en"]];
             _memberLabel.text = description;// cellInfo[@"desc"];
         }
     }
@@ -142,9 +144,23 @@
     if (cellInfo[@"mobile"]) {
         _mobileLabel.text = cellInfo[@"mobile"];
     }
+    if ([cellInfo[@"share_mobile"] isEqualToString:@"y"]) {
+        _mobileLabel.hidden = NO;
+        _mobileStLabel.hidden = NO;
+    } else {
+        _mobileLabel.hidden = YES;
+        _mobileStLabel.hidden = YES;
+    }
     
     if (cellInfo[@"email"]) {
         _emailLabel.text = cellInfo[@"email"];
+    }
+    if ([cellInfo[@"share_email"] isEqualToString:@"y"]) {
+        _emailLabel.hidden = NO;
+        _emailStLabel.hidden = NO;
+    } else {
+        _emailLabel.hidden = YES;
+        _emailStLabel.hidden = YES;
     }
 //
 //    [self setNeedsDisplay];
