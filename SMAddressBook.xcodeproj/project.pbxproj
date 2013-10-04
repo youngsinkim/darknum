@@ -185,6 +185,8 @@
 		BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
 		BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885E17F1BDBD0045CA75 /* Faculty.m */; };
 		BFEB886217F1BDD20045CA75 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB886117F1BDD20045CA75 /* Staff.m */; };
+		BFFAC40B17FF0EBD00EA3364 /* emailicon_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAC40917FF0EBD00EA3364 /* emailicon_btn.png */; };
+		BFFAC40C17FF0EBD00EA3364 /* emailicon_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAC40A17FF0EBD00EA3364 /* emailicon_btn@2x.png */; };
 		BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -440,6 +442,8 @@
 		BFEB885E17F1BDBD0045CA75 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
 		BFEB886017F1BDD20045CA75 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
 		BFEB886117F1BDD20045CA75 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
+		BFFAC40917FF0EBD00EA3364 /* emailicon_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emailicon_btn.png; sourceTree = "<group>"; };
+		BFFAC40A17FF0EBD00EA3364 /* emailicon_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emailicon_btn@2x.png"; sourceTree = "<group>"; };
 		BFFB2BC617E8AFD600721ACE /* NSDictionary+UTF8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+UTF8.h"; sourceTree = "<group>"; };
 		BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+UTF8.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -625,6 +629,8 @@
 		5062B65317C4D72F00A2495D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				BFFAC40917FF0EBD00EA3364 /* emailicon_btn.png */,
+				BFFAC40A17FF0EBD00EA3364 /* emailicon_btn@2x.png */,
 				BF3E747717E217F2006AAF8D /* recommend_icon_adress.png */,
 				BF3E747817E217F2006AAF8D /* recommend_icon_adress@2x.png */,
 				BF57B3AE17DC387800B39C03 /* join_agreebox_ch.png */,
@@ -1072,6 +1078,7 @@
 				BF3E747917E217F2006AAF8D /* recommend_icon_adress.png in Resources */,
 				5062B6CA17C4D72F00A2495D /* profile_iconbtn_5.png in Resources */,
 				5062B6CB17C4D72F00A2495D /* profile_iconbtn_5@2x.png in Resources */,
+				BFFAC40B17FF0EBD00EA3364 /* emailicon_btn.png in Resources */,
 				5062B6CC17C4D72F00A2495D /* profile_iconbtn_6.png in Resources */,
 				5062B6CD17C4D72F00A2495D /* profile_iconbtn_6@2x.png in Resources */,
 				5062B6CE17C4D72F00A2495D /* profile_iconbtn_9.png in Resources */,
@@ -1111,6 +1118,7 @@
 				BF57B2F717D0C6E700B39C03 /* list_photo_on@2x.png in Resources */,
 				BF57B31717D1F5FD00B39C03 /* profile_default_img.png in Resources */,
 				BF57B32217D210E300B39C03 /* Readme.md in Resources */,
+				BFFAC40C17FF0EBD00EA3364 /* emailicon_btn@2x.png in Resources */,
 				BF57B39E17D8F72B00B39C03 /* serviceTerms.html in Resources */,
 				BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */,
 				BF57B3A617DB785D00B39C03 /* btn_white.png in Resources */,

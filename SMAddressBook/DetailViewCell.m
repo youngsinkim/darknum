@@ -247,6 +247,12 @@
         _emailValueLabel.text = _cellInfo[@"email"];
     }
 
+    // 모바일 표시
+    if (_cellInfo[@"mobile"]) {
+        _mobileValueLabel.text = _cellInfo[@"mobile"];
+    }
+    
+
     if (_memType == MemberTypeStudent)
     {
         if (_cellInfo[@"status"]) {
@@ -282,10 +288,6 @@
             _companyLabel.hidden = YES;
         }
         
-        if (_cellInfo[@"mobile"]) {
-            _mobileValueLabel.text = _cellInfo[@"mobile"];
-        }
-        
         // 모바일 번호 표시
         if ([_cellInfo[@"share_mobile"] isEqualToString:@"y"]) {
             _mobileLabel.hidden = NO;
@@ -303,8 +305,6 @@
             _emailValueLabel.hidden = YES;
         }
         
-
-//        }
 
 //        if (_cellInfo[@"photourl"]) {
 //            NSLog(@"프로필 이미지 : %@", _cellInfo[@"photourl"]);
@@ -326,12 +326,15 @@
                 _majorValueLabel.text = _cellInfo[@"major.title"];
             }
             
-            MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
-            if (myType != MemberTypeStudent) {
-                _mobileValueLabel.text = _cellInfo[@"mobile"];
-            }
+        }
+        
+        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+        if (myType == MemberTypeStudent) {
+            _mobileLabel.hidden = YES;
+            _mobileValueLabel.hidden = YES;
         } else {
-            _mobileValueLabel.text = _cellInfo[@"mobile"];
+            _mobileLabel.hidden = NO;
+            _mobileValueLabel.hidden = NO;
         }
 
         _telValueLabel.text = _cellInfo[@"tel"];
