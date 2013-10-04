@@ -34,9 +34,9 @@
         _favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _favoriteBtn.tag = 300;
         _favoriteBtn.frame = CGRectMake(rect.size.width - 60.0f, 10.0f, 21.0f, 22.0f);
-        [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
-        [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
-        [_favoriteBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateHighlighted|UIControlStateDisabled];
+        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_favoriteBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateSelected|UIControlStateDisabled];
         
         [_favoriteBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -58,13 +58,20 @@
     
 //    UIButton *button = (UIButton *)[self viewWithTag:300];
     
-    if (_hidden) {
-        _favoriteBtn.hidden = YES;
-    }
-    else {
-        _favoriteBtn.hidden = NO;
-    }
+//    if (_hidden) {
+//        _favoriteBtn.hidden = YES;
+//    }
+//    else {
+//        _favoriteBtn.hidden = NO;
+//    }
     
+//    if ([_cellInfo[@"type"] integerValue] > 1) {
+//        _favoriteBtn.enabled = NO;
+//        _favoriteBtn.highlighted = YES;
+//        _favoriteBtn.selected = YES;
+//    } else {
+//        _favoriteBtn.enabled = YES;
+//    }
 }
 
 - (void)setClassLabel:(UILabel *)classLabel
@@ -81,15 +88,6 @@
     [self layoutSubviews];
 }
 
-- (void)setFavEnabled:(BOOL)favEnabled
-{
-    _favoriteBtn.enabled = favEnabled;
-    if (!_favoriteBtn.enabled) {
-//        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateNormal];
-//        _favoriteBtn.alpha = 0.5f;
-    }
-}
-
 - (void)setCellInfo:(NSDictionary *)cellInfo
 {
     _cellInfo = cellInfo;
@@ -100,6 +98,18 @@
 - (void)setFavyn:(bool)favyn
 {
     _favoriteBtn.selected = favyn;
+    
+//    Course *courseCheck = _cellInfo[indexPath.section][indexPath.row];
+//    NSLog(@"체크 정보 : %@, %@, %@", courseCheck.title, courseCheck.type, courseCheck.favyn);
+//    if ([courseCheck.type integerValue] > 1)
+    [self layoutSubviews];
+}
+
+- (void)setFavEnabled:(BOOL)favEnabled
+{
+    _favoriteBtn.enabled = favEnabled;
+    
+    [self layoutSubviews];
 }
 
 - (void)onBtnClicked:(id)sender

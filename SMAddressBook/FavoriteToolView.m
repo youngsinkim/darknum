@@ -72,6 +72,7 @@
 //    [_favoriteSettBtn setBackgroundColor:[UIColor blueColor]];
     [_favoriteSettBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [_favoriteSettBtn setImage:[UIImage imageNamed:@"list_photo_on"] forState:UIControlStateNormal];
+//    [_favoriteSettBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateDisabled];
     [_favoriteSettBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [_favoriteSettBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
     [_favoriteSettBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
@@ -79,6 +80,7 @@
     [_favoriteSettBtn addTarget:self action:@selector(onFavoriteSetBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [bgView addSubview:_favoriteSettBtn];
+//    _favoriteSettBtn.enabled = NO;
     xStart += 125;
     
     

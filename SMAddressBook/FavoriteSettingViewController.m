@@ -909,18 +909,20 @@
         
 //        list = _courseClasses[indexPath.section]
         Course *courseCheck = _favoriteList[indexPath.section][indexPath.row];
-        NSLog(@"체크 정보 : %@, %@, %@", courseCheck.title, courseCheck.type, courseCheck.favyn);
-        if ([courseCheck.type integerValue] > 1)
+        NSString *myClass = [UserContext shared].myClass;
+        NSLog(@"체크 정보 : %@, %@, %@ (my %@ == %@)", courseCheck.title, courseCheck.type, courseCheck.favyn, myClass, courseCheck.courseclass);
+        if ([courseCheck.type integerValue] > 1 || [myClass isEqualToString:courseCheck.courseclass])
         {
             cell.favyn = YES;
-//            cell.favEnabled = NO;
+            cell.favEnabled = NO;
         }
         else
         {
-//            cell.favEnabled = YES;
-            cell.favyn = NO;
+            cell.favEnabled = YES;
             if ([courseCheck.favyn isEqualToString:@"y"]) {
                 cell.favyn = YES;
+            } else {
+                cell.favyn = NO;
             }
         }
         
