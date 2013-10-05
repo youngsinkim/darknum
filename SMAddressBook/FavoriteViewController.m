@@ -467,8 +467,8 @@
                                                       NSLog(@"---------- 업데이트된 기수 목록이 없으므로 완료 처리 ----------");
                                                       _isCourseSaveDone = YES;
                                                   }
-                                                  NSLog(@".......... updateDBFavorites .........");
-//                                                  [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+                                                  NSLog(@".......... saveDBFavoriteUpdates .........");
+                                                  [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
 #endif
                                               }
                                           }];
@@ -631,9 +631,10 @@
 - (void)saveDBFavoriteUpdates
 {
     NSLog(@"---------- START ----------");
-    NSLog(@"교수전공 (%d), 기수 (%d), 즐겨찾기 업데이트 (%d)", [_majors count], [_courses count], [_updateInfo count]);
+    NSLog(@"기수(%d) - 완료(%d), 전공 (%d) - 완료 (%d), 즐겨찾기 업데이트 (%d)", [_courses count], _isCourseSaveDone, [_majors count], _isMajorSaveDone, [_updateInfo count]);
     if (_isCourseSaveDone && _isMajorSaveDone && [_updateInfo count] > 0)
     {
+        NSLog(@"~~~~~~~~~~~~~~~~ 업데이트 된 것 저장하자 ~~~~~~~~~~~");
         [self saveDBFavorite:_updateInfo];
     }
     NSLog(@"---------- END ----------");

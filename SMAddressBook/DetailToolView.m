@@ -10,11 +10,11 @@
 
 @interface DetailToolView ()
 
-//@property (strong, nonatomic) UIButton *telBtn;
-//@property (strong, nonatomic) UIButton *smsBtn;
-//@property (strong, nonatomic) UIButton *emailBtn;
-//@property (strong, nonatomic) UIButton *kakaoBtn;
-//@property (strong, nonatomic) UIButton *addressBtn;
+@property (strong, nonatomic) UIButton *telBtn;
+@property (strong, nonatomic) UIButton *smsBtn;
+@property (strong, nonatomic) UIButton *emailBtn;
+@property (strong, nonatomic) UIButton *addressBtn;
+@property (strong, nonatomic) UIButton *kakaoBtn;
 @property (assign) MemberType memType;
 
 @end
@@ -69,6 +69,15 @@
     
     [self addSubview:bgView];
     
+#if (0)
+    if (_memType == MemberTypeStudent) {
+        _telBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _telBtn.frame = CGRectZero;
+        [_telBtn setImage:[UIImage imageNamed:@"emailicon_btn"] forState:UIControlStateNormal];
+    } else {
+        
+    }
+#endif
     
     // 툴 버튼
     NSInteger tag = 500;
@@ -77,7 +86,7 @@
         buttonList = [NSArray arrayWithObjects:
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
-                           [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+                           [NSArray arrayWithObjects:@"emailicon_btn", @"emailicon_btn", nil],
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            [NSArray arrayWithObjects:@"btn_small_01_ios.png", @"btn_small_01_ios.png", nil],
                            nil];
@@ -85,7 +94,7 @@
         buttonList = [NSArray arrayWithObjects:
                       [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                       [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
-                      [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+                      [NSArray arrayWithObjects:@"emailicon_btn", @"emailicon_btn", nil],
                       nil];
     }
     
