@@ -15,6 +15,9 @@
 #import "MenuTableViewController.h"
 #import "SMNetworkClient.h"
 
+#define kScreenY    64.0f
+#define kOFFSET_FOR_KEYBOARD 216.0f
+
 @interface MyInfoViewController ()
 
 @property (strong, nonatomic) NSMutableDictionary *myInfo;
@@ -67,6 +70,10 @@
 
 @property (strong, nonatomic) NSString *photoFilename;
 @property (strong, nonatomic) NSData *photoData;
+
+@property (assign) BOOL isScrollUp;
+@property (assign) CGFloat bufferY;
+@property (assign) CGFloat scrollY;
 @end
 
 
@@ -85,7 +92,8 @@
         _photoFilename = @"";
         _photoData = [[NSData alloc] init];
         
-
+        _isScrollUp = NO;
+        _bufferY = 0.0f;
     }
     return self;
 }
@@ -241,37 +249,55 @@
 /// 내 정보 화면 구성
 - (void)setupMyInfoUI
 {
-    CGRect viewFrame = self.view.bounds;
+    CGRect viewFrame = self.view.frame;
     CGFloat yOffset = 0.0f;
-    CGFloat bottomOffset = 20.0f;
+    CGFloat bottomOffset = 0.0f;
     CGFloat scrolViewHeight = viewFrame.size.height;
+    
+    NSLog(@"Iphone %f ",[[UIScreen mainScreen] bounds].size.height);
+    
+    if (IS_LESS_THEN_IOS7) {
+        scrolViewHeight -= 54.0f;
+        bottomOffset = 60.0f;
+    }
+    else {
+        scrolViewHeight -= 10.0f;
+        bottomOffset = (-64.0f + 60.0f);
+        
+        if ([[UIScreen mainScreen] bounds].size.height < 568) {
+            bottomOffset += 88.0f;
+        }
+    }
     
     // 배경 스크롤 뷰
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, yOffset, viewFrame.size.width, scrolViewHeight)];
-    //    scrollView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1f];
-    //    scrollView.backgroundColor = [UIColor yellowColor];
-    //    scrollView.contentSize = CGSizeMake(viewFrame.size.width - 20.0f, scrolViewHeight);
-    if (_memType == MemberTypeStudent)
-    {
-        if (IS_LESS_THEN_IOS7) {
-            scrolViewHeight += 70.0f;
-            bottomOffset += 44.0f;
-        }
-        scrolViewHeight += 10.0f;
-        _scrollView.contentSize = CGSizeMake(viewFrame.size.width - 20.0f, scrolViewHeight);
-    }
-    else {
-        scrolViewHeight -= 64.0f;
-    }
+    _scrollView.backgroundColor = [UIColor yellowColor];
+    _scrollView.delegate = self;
+    
+    NSLog(@"스크롤 영역 높이 : %f", scrolViewHeight);
+    _scrollView.contentSize = CGSizeMake(viewFrame.size.width, scrolViewHeight + bottomOffset);
+//    if (_memType == MemberTypeStudent)
+//    {
+//        if (IS_LESS_THEN_IOS7) {
+//            scrolViewHeight += 70.0f;
+//            bottomOffset += 44.0f;
+//        }
+//        scrolViewHeight += 10.0f;
+//        _scrollView.contentSize = CGSizeMake(viewFrame.size.width - 20.0f, scrolViewHeight);
+//    }
+//    else {
+//        scrolViewHeight -= 64.0f;
+//    }
     
     [self.view addSubview:_scrollView];
     
     
     // 배경 이미지 뷰
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, _scrollView.frame.size.width - 20.0f, scrolViewHeight - bottomOffset)];
-    bgView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
-    
-    [_scrollView addSubview:bgView];
+//    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, _scrollView.frame.size.width - 20.0f, scrolViewHeight - bottomOffset)];
+//    UIView *bgView = [[UIView alloc] initWithFrame:self.scrollView.frame];
+//    bgView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
+//    
+//    [_scrollView addSubview:bgView];
     
     
     // 프로필 사진
@@ -282,7 +308,7 @@
     self.profileImageView.userInteractionEnabled = YES;
     [self.profileImageView setContentMode:UIViewContentModeScaleAspectFit];
     
-    [bgView addSubview:self.profileImageView];
+    [_scrollView addSubview:self.profileImageView];
 
     // 이벤트 뷰
     {
@@ -305,7 +331,7 @@
     [self.personalInfoLabel setTextAlignment:NSTextAlignmentLeft];
     [self.personalInfoLabel setText:@"개인정보"];
     
-    [bgView addSubview:self.personalInfoLabel];
+    [_scrollView addSubview:self.personalInfoLabel];
     yOffset += 18.0f;
     
     {
@@ -317,7 +343,7 @@
         [self.idLabel setTextAlignment:NSTextAlignmentCenter];
         [self.idLabel setText:@"아이디"];
         
-        [bgView addSubview:self.idLabel];
+        [_scrollView addSubview:self.idLabel];
 
         // 아이디 value
         self.idValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+85, yOffset, 200.0f, 18.0f)];
@@ -326,7 +352,7 @@
         [self.idValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.idValueLabel setText:@"테스트 아이디"];
         
-        [bgView addSubview:self.idValueLabel];
+        [_scrollView addSubview:self.idValueLabel];
         yOffset += 22.0f;
         
 
@@ -338,7 +364,7 @@
         [self.nameLabel setTextAlignment:NSTextAlignmentCenter];
         [self.nameLabel setText:@"이름"];
         
-        [bgView addSubview:self.nameLabel];
+        [_scrollView addSubview:self.nameLabel];
         
         
         // 이름 value
@@ -348,7 +374,7 @@
         [self.nameValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [self.nameValueLabel setText:@"테스트 이름"];
         
-        [bgView addSubview:self.nameValueLabel];
+        [_scrollView addSubview:self.nameValueLabel];
         yOffset += 22.0f;
         
         
@@ -360,7 +386,7 @@
         [self.mobileLabel setTextAlignment:NSTextAlignmentCenter];
         [self.mobileLabel setText:@"Mobile"];
         
-        [bgView addSubview:self.mobileLabel];
+        [_scrollView addSubview:self.mobileLabel];
         
         
         // Mobile value
@@ -369,7 +395,7 @@
         [self.mobileValueLabel setBackgroundColor:[UIColor whiteColor]];
         [self.mobileValueLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
-        [bgView addSubview:self.mobileValueLabel];
+        [_scrollView addSubview:self.mobileValueLabel];
 
         
         // mobile check button
@@ -386,7 +412,7 @@
         [_shareMobileBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_shareMobileBtn addTarget:self action:@selector(onSharedMobileBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
-        [bgView addSubview:_shareMobileBtn];
+        [_scrollView addSubview:_shareMobileBtn];
         yOffset += 24.0f;
 
         
@@ -398,7 +424,7 @@
         [self.telLabel setTextAlignment:NSTextAlignmentCenter];
         [self.telLabel setText:@"Tel."];
         
-        [bgView addSubview:self.telLabel];
+        [_scrollView addSubview:self.telLabel];
         self.telLabel.hidden = YES;
         
         
@@ -413,7 +439,7 @@
         [self.telTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         self.telTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
-        [bgView addSubview:self.telTextField];
+        [_scrollView addSubview:self.telTextField];
         self.telTextField.hidden = YES;
 //        yOffset = 24.0f;
 
@@ -426,7 +452,7 @@
         [self.emailLabel setTextAlignment:NSTextAlignmentCenter];
         [self.emailLabel setText:@"Email"];
         
-        [bgView addSubview:self.emailLabel];
+        [_scrollView addSubview:self.emailLabel];
         
         
         // Email value
@@ -440,7 +466,7 @@
         [self.emailTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
-        [bgView addSubview:self.emailTextField];
+        [_scrollView addSubview:self.emailTextField];
         
         
         // Email check button
@@ -457,14 +483,14 @@
         [_shareEmailBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         [_shareEmailBtn addTarget:self action:@selector(onSharedEmailBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
-        [bgView addSubview:_shareEmailBtn];
+        [_scrollView addSubview:_shareEmailBtn];
         yOffset += 24.0f;
 
 
         _workBgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f)];
 //        _workBgView.backgroundColor = [UIColor yellowColor];
         
-        [bgView addSubview:_workBgView];
+        [_scrollView addSubview:_workBgView];
 
         {
             CGFloat yyOffset = 0.0f;
@@ -605,12 +631,12 @@
     }
     yOffset += 10.0f;
     
-    
+#if (1)
     // 기타설정 배경 뷰
     _otherBgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, yOffset, viewFrame.size.width, 40.0f)];
 //    _otherBgView.backgroundColor = [UIColor greenColor];
     
-    [bgView addSubview:_otherBgView];
+    [_scrollView addSubview:_otherBgView];
     
     {
         CGFloat yyOffset = 0.0f;
@@ -671,6 +697,7 @@
             [_otherBgView addSubview:_chAutoLoginBtn];
         }
     }
+#endif
     yOffset += 60.0f;
 
     // 저장 버튼
@@ -686,7 +713,7 @@
 //    [_saveBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [_saveBtn addTarget:self action:@selector(onSaveBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [bgView addSubview:_saveBtn];
+    [_scrollView addSubview:_saveBtn];
     
 }
 
@@ -781,9 +808,62 @@
 
 
 #pragma mark - NSNotification selector
+-(void)setViewMovedUp:(BOOL)movedUp scrollHeight:(CGFloat)scrollHeight
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.2]; // if you want to slide up the view
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    CGRect rect = self.scrollView.frame;
+//    CGFloat height = kOFFSET_FOR_KEYBOARD;
+    CGFloat height = scrollHeight;
+
+    if (movedUp)
+    {
+        rect.size.height += height;
+        rect.origin.y -= height;
+    }
+    else
+    {
+        rect.size.height -= height;
+        rect.origin.y += height;
+        
+        
+    }
+    self.scrollView.frame = rect;
+    [UIView commitAnimations];
+}
 
 - (void)appearKeyboard:(NSNotification *)notification
 {
+    CGRect scrollRect = self.scrollView.frame;
+    CGFloat yOffset = 44.0f;
+//    CGFloat scollH =
+    _scrollY = _scrollView.contentOffset.y;
+//    if (!IS_LESS_THEN_IOS7) {
+//        scollH += 64.0f;
+//    }
+    if (!IS_LESS_THEN_IOS7) {
+        yOffset += 44.0f;
+    }
+
+    
+    CGRect rect = CGRectZero;
+    [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&rect];
+
+    NSLog(@"포커싱 위치 : %f(%f), %f %f", _focusY, scrollRect.size.height, yOffset, rect.size.height);
+    
+    if ((scrollRect.size.height - yOffset - _focusY) < rect.size.height)
+    {
+        _isScrollUp = YES;
+        
+//        CGFloat scrollSize = (scrollRect.size.height - _focusY);
+        _bufferY = rect.size.height - (scrollRect.size.height - yOffset - _focusY);
+        NSLog(@"setviewMoveUp : %f", _bufferY);
+        [self setViewMovedUp:YES scrollHeight:_bufferY];
+//        [self.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 216.0f, 0)];
+    }
+    return;
 //    _imageScrollView.scrollEnabled = NO;
 //    
 //    TextInputView *currentTextInputView = (TextInputView *)[_imageScrollView viewWithTag:300 + _selectedIndex];
@@ -800,7 +880,7 @@
 //            
 //        }];
 //    }
-    
+#if (0)
     CGRect viewFrame = self.view.bounds;
     CGRect rect = CGRectZero;
     
@@ -810,7 +890,12 @@
     CGFloat bottomOffset = rect.size.height;
     NSLog(@"포커싱 위치 : %f, %f", _focusY, viewFrame.size.height - bottomOffset - 64.0f - 20.0f);
     
-    if (_focusY > viewFrame.size.height - bottomOffset - 64.0f - 20.0f)
+    CGFloat sizeY = 64.0f;
+    if (IS_LESS_THEN_IOS7) {
+        sizeY += 44.0f;
+    }
+    
+    if (_focusY > viewFrame.size.height - bottomOffset - sizeY - 20.0f)
     {
         CGSize keyboardSize = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
         UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, 40, 0.0);
@@ -827,10 +912,31 @@
         }];
         
     }
+#endif
 }
 
 - (void)disappearKeyboard:(NSNotification *)notification
 {
+//    CGRect scrollRect = self.scrollView.frame;
+//    CGRect rect = CGRectZero;
+//    [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&rect];
+//    NSLog(@"포커싱 위치 : %f, %f", _focusY, rect.size.height);
+
+    if (_isScrollUp == YES)
+    {
+        _isScrollUp = NO;
+        
+//        CGFloat scrollSize = rect.size.height - (scrollRect.size.height - _focusY);
+        CGFloat scrollSize = _bufferY;
+        NSLog(@"setviewMoveDown : %f", scrollSize);
+
+        [self setViewMovedUp:NO scrollHeight:scrollSize];
+        self.scrollView.contentOffset = CGPointMake(0.0f, _scrollY);
+        [self.scrollView setNeedsLayout];
+//        [self.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, -_scrollY, 0)];
+    }
+    return;
+    
     CGRect viewFrame = self.view.bounds;
     CGFloat yOffset = 64.0f;
 
@@ -882,12 +988,12 @@
 {
     [sender setSelected:![sender isSelected]];
     
-    BOOL isSavedId = [sender isSelected];
-    NSLog(@"아이디 저장? %d", isSavedId);
-    
-    [[NSUserDefaults standardUserDefaults] setBool:isSavedId forKey:kSavedId];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [UserContext shared].isSavedID = isSavedId;
+//    BOOL isSavedId = [sender isSelected];
+//    NSLog(@"아이디 저장? %d", isSavedId);
+//    
+//    [[NSUserDefaults standardUserDefaults] setBool:isSavedId forKey:kSavedId];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [UserContext shared].isSavedID = isSavedId;
 
 }
 
@@ -895,20 +1001,20 @@
 {
     [sender setSelected:![sender isSelected]];
     
-    BOOL isAutoLogin = [sender isSelected];
-    NSLog(@"로그인 유지 ? %d", isAutoLogin);
-
-    if (isAutoLogin == YES) {
-        NSLog(@"아이디도 저장함");
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
-        [UserContext shared].isSavedID = YES;
-        
-        _chIdSaveBtn.selected = YES;
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [UserContext shared].isAutoLogin = isAutoLogin;
+//    BOOL isAutoLogin = [sender isSelected];
+//    NSLog(@"로그인 유지 ? %d", isAutoLogin);
+//
+//    if (isAutoLogin == YES) {
+//        NSLog(@"아이디도 저장함");
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
+//        [UserContext shared].isSavedID = YES;
+//        
+//        _chIdSaveBtn.selected = YES;
+//    }
+//    
+//    [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [UserContext shared].isAutoLogin = isAutoLogin;
 }
 
 /// 프로필 저장 버튼
@@ -954,6 +1060,30 @@
         _myInfo[@"tel"] = _telTextField.text;
     }
     
+    // 아이디 저장
+    BOOL isSavedId = [_chIdSaveBtn isSelected];
+    NSLog(@"아이디 저장? %d", isSavedId);
+    
+    [[NSUserDefaults standardUserDefaults] setBool:isSavedId forKey:kSavedId];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserContext shared].isSavedID = isSavedId;
+
+    // 로그인 유지
+    BOOL isAutoLogin = [_chAutoLoginBtn isSelected];
+    NSLog(@"로그인 유지 ? %d", isAutoLogin);
+    
+    if (isAutoLogin == YES) {
+        NSLog(@"아이디도 저장함");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
+        [UserContext shared].isSavedID = YES;
+        
+        _chIdSaveBtn.selected = YES;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserContext shared].isAutoLogin = isAutoLogin;
+
     
     // 변경된 프로필 서버로 저장
     [self requestAPIMyInfoUpdate];
@@ -963,6 +1093,13 @@
 //    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
 //    [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"변경 프로필 : %@", [[NSUserDefaults standardUserDefaults] objectForKey:kProfileInfo]);
+}
+
+#pragma mark - UIScrollViewDelegate methods
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+//    _scrollY = scrollView.contentOffset.y;
+    NSLog(@"스크롤된 영역 : %f", _scrollY);
 }
 
 #pragma mark - UIActionSheet delegates
