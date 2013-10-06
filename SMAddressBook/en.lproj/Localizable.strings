@@ -116,3 +116,12 @@
 
 /* send */
 "send" = "Send";
+
+/* kakao message */
+"kakao message" = "Kakao Message";
+
+/* message empty */
+"message empty" = "Message Empty.";
+
+/* kakao not install */
+"kakao not install" = "Kakao Talk is not installed.";

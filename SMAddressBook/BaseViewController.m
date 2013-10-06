@@ -45,7 +45,8 @@
     if (IS_LESS_THEN_IOS7) {
         [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
     } else {
-//        [self.navigationController.navigationBar setBarTintColor:[UIColor blueColor]];
+//        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
+        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x104E8B)];
     }
     
     // 공통 뷰 배경

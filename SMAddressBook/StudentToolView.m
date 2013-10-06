@@ -55,7 +55,7 @@
     NSInteger tag = 300;
     NSArray *buttonList = [NSArray arrayWithObjects:
                            [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
-                           [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
+                           [NSArray arrayWithObjects:@"tag_@_icon", @"tag_@_icon", nil],
 //                           [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            nil];
     

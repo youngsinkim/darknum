@@ -13,6 +13,8 @@
 #import "Staff.h"
 #import "Student.h"
 #import "DetailView.h"
+#import "PortraitNavigationController.h"
+#import "KakaoMessageViewController.h"
 
 #define kDetailViewH    60.0f
 
@@ -373,7 +375,12 @@
 // 카카오톡 전달
 - (void)sendKakao:(NSDictionary *)info
 {
-    
+    NSLog(@"카카오톡 전달");
+    KakaoMessageViewController *viewController = [[KakaoMessageViewController alloc] init];
+    viewController.view.backgroundColor = [UIColor whiteColor];
+
+//    [self presentModalViewController:viewController animated:YES];
+    [self presentViewController:[[PortraitNavigationController alloc] initWithRootViewController:viewController] animated:YES completion:nil];
 }
 
 #pragma mark - UIActionSheet delegates

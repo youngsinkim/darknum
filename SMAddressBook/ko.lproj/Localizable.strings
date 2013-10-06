@@ -117,3 +117,11 @@
 /* send */
 "send" = "보내기";
 
+/* kakao message */
+"kakao message" = "카카오 메시지";
+
+/* message empty */
+"message empty" = "메시지가 비어 있습니다";
+
+/* kakao not install */
+"kakao not install" = "카카오톡이 설치되어 있지 않습니다.";

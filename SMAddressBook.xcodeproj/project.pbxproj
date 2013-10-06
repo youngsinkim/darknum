@@ -183,6 +183,8 @@
 		BFABB01F17F761EA0018D236 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01E17F761EA0018D236 /* Student.m */; };
 		BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
 		BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
+		BFDEBEC718010A2C00F7409F /* KakaoLinkCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */; };
+		BFDEBECA1801149700F7409F /* KakaoMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */; };
 		BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885E17F1BDBD0045CA75 /* Faculty.m */; };
 		BFEB886217F1BDD20045CA75 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB886117F1BDD20045CA75 /* Staff.m */; };
 		BFFAC40B17FF0EBD00EA3364 /* emailicon_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAC40917FF0EBD00EA3364 /* emailicon_btn.png */; };
@@ -442,6 +444,10 @@
 		BFCA0C4517E4BD4600E750E7 /* ToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolView.m; sourceTree = "<group>"; };
 		BFCA0C4717E4DEFF00E750E7 /* NSString+UrlEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UrlEncoding.h"; sourceTree = "<group>"; };
 		BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UrlEncoding.m"; sourceTree = "<group>"; };
+		BFDEBEC518010A2C00F7409F /* KakaoLinkCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KakaoLinkCenter.h; sourceTree = "<group>"; };
+		BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KakaoLinkCenter.m; sourceTree = "<group>"; };
+		BFDEBEC81801149700F7409F /* KakaoMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KakaoMessageViewController.h; sourceTree = "<group>"; };
+		BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KakaoMessageViewController.m; sourceTree = "<group>"; };
 		BFEB885D17F1BDBD0045CA75 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
 		BFEB885E17F1BDBD0045CA75 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
 		BFEB886017F1BDD20045CA75 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
@@ -788,6 +794,8 @@
 				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
+				BFDEBEC81801149700F7409F /* KakaoMessageViewController.h */,
+				BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */,
 				5014294917E4289900BA231B /* DetailInfoViewController.h */,
 				5014294A17E4289900BA231B /* DetailInfoViewController.m */,
 				BF3E747417E21001006AAF8D /* DetailToolView.h */,
@@ -876,6 +884,7 @@
 		BF57B30717D1CC3C00B39C03 /* Extern (외부 모듈) */ = {
 			isa = PBXGroup;
 			children = (
+				BFDEBEC418010A2C00F7409F /* KakaoLink */,
 				BF57B30817D1CC3D00B39C03 /* MMHorizontalListView */,
 				BF57B30D17D1CC3D00B39C03 /* TSLanguageManager */,
 			);
@@ -978,6 +987,15 @@
 			);
 			name = "Search (검색)";
 			path = ..;
+			sourceTree = "<group>";
+		};
+		BFDEBEC418010A2C00F7409F /* KakaoLink */ = {
+			isa = PBXGroup;
+			children = (
+				BFDEBEC518010A2C00F7409F /* KakaoLinkCenter.h */,
+				BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */,
+			);
+			path = KakaoLink;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1236,6 +1254,7 @@
 				BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */,
 				BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */,
 				BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */,
+				BFDEBECA1801149700F7409F /* KakaoMessageViewController.m in Sources */,
 				5014294817E4159900BA231B /* DetailView.m in Sources */,
 				BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */,
 				BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */,
@@ -1254,6 +1273,7 @@
 				BF57B3AA17DB7A4200B39C03 /* SearchResultViewController.m in Sources */,
 				BF57B3AD17DC28A800B39C03 /* FavoriteSettCell.m in Sources */,
 				BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */,
+				BFDEBEC718010A2C00F7409F /* KakaoLinkCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
