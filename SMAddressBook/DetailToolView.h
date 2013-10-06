@@ -20,6 +20,11 @@
 @interface DetailToolView : UIView
 
 @property (weak) id<DetailToolViewDelegate> delegate;
+@property (strong, nonatomic) UIButton *telBtn;
+@property (strong, nonatomic) UIButton *smsBtn;
+@property (strong, nonatomic) UIButton *emailBtn;
+@property (strong, nonatomic) UIButton *saveBtn;
+@property (strong, nonatomic) UIButton *kakaoBtn;
 
 - (id)initWithFrame:(CGRect)frame type:(MemberType)type;
 

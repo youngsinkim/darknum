@@ -858,11 +858,27 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         [(DetailViewCell *)cell setMemType:MemberTypeStaff];
     } else if (_memType == MemberTypeStudent) {
         [(DetailViewCell *)cell setMemType:MemberTypeStudent];
+        
+        if ([info[@"share_email"] isEqualToString:@"y"]) {
+            _toolbar.emailBtn.enabled = YES;
+        } else {
+            _toolbar.emailBtn.enabled = NO;
+        }
+        
+        if ([info[@"share_mobile"] isEqualToString:@"y"]) {
+            _toolbar.telBtn.enabled = YES;
+            _toolbar.smsBtn.enabled = YES;
+        } else {
+            _toolbar.telBtn.enabled = NO;
+            _toolbar.smsBtn.enabled = NO;
+        }
+
     } else {
         return;
     }
     [(DetailViewCell *)cell setCellInfo:info];
     
+
 //	UILabel *label	= (UILabel *)view;
 //	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
 	

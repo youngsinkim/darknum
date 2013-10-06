@@ -125,3 +125,19 @@
 
 /* kakao not install */
 "kakao not install" = "카카오톡이 설치되어 있지 않습니다.";
+
+/* phone call */
+"Phone Call" = "전화";
+
+/* sms */
+"sms" = "문자";
+
+/* email */
+"email" = "이메일";
+
+/* save */
+"save" = "저장";
+
+/* ka talk */
+"ka talk" = "카톡";
+

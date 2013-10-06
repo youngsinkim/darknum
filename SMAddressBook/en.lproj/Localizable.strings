@@ -125,3 +125,19 @@
 
 /* kakao not install */
 "kakao not install" = "Kakao Talk is not installed.";
+
+/* phone call */
+"Phone Call" = "Call";
+
+/* sms */
+"sms" = "SMS";
+
+/* email */
+"email" = "Email";
+
+/* save */
+"save" = "Save";
+
+/* ka talk */
+"ka talk" = "Ka-Talk";
+

@@ -37,6 +37,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    // 공통 뷰 배경
+    self.view.backgroundColor = [UIColor whiteColor];
+    //   [self setBackgroundImage];
+
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_title_bg"] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTranslucent:YES];
 //    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
@@ -46,12 +50,14 @@
         [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
     } else {
 //        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
-        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x104E8B)];
+//        [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+//        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x0080FF)];
+//        [self.navigationController.navigationBar setTranslucent:NO];
+//        self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
+//        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//        self.navigationController.navigationBar.translucent = NO;
     }
     
-    // 공통 뷰 배경
-    self.view.backgroundColor = [UIColor whiteColor];
-//   [self setBackgroundImage];
     
     // 네비게이션 버튼
     [self setupMenuBarButtonItems];

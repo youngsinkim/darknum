@@ -102,8 +102,6 @@
 		50D134D017F97A1200F27231 /* NSURLRequest+SSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */; };
 		50D134D317F9800C00F27231 /* SSLWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134D217F9800C00F27231 /* SSLWebView.m */; };
 		50D134D517F9967A00F27231 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D134D417F9967A00F27231 /* MessageUI.framework */; };
-		BF16C5ED17F88DD000C308DD /* btn_small_01_ios.png in Resources */ = {isa = PBXBuildFile; fileRef = BF16C5EB17F88DD000C308DD /* btn_small_01_ios.png */; };
-		BF16C5EE17F88DD000C308DD /* btn_small_01_ios@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF16C5EC17F88DD000C308DD /* btn_small_01_ios@2x.png */; };
 		BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
 		BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */; };
 		BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8117C9BAB000614485 /* HelpViewController.m */; };
@@ -185,6 +183,10 @@
 		BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
 		BFDEBEC718010A2C00F7409F /* KakaoLinkCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */; };
 		BFDEBECA1801149700F7409F /* KakaoMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */; };
+		BFDEBED618015B9600F7409F /* HorImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED518015B9600F7409F /* HorImageButton.m */; };
+		BFDEBED91801670600F7409F /* UIButton+UIButtonExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */; };
+		BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
+		BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
 		BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885E17F1BDBD0045CA75 /* Faculty.m */; };
 		BFEB886217F1BDD20045CA75 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB886117F1BDD20045CA75 /* Staff.m */; };
 		BFFAC40B17FF0EBD00EA3364 /* emailicon_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAC40917FF0EBD00EA3364 /* emailicon_btn.png */; };
@@ -313,8 +315,6 @@
 		50D134D417F9967A00F27231 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9B3EE368BB1647438F672678 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		BF16C5EB17F88DD000C308DD /* btn_small_01_ios.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_small_01_ios.png; sourceTree = "<group>"; };
-		BF16C5EC17F88DD000C308DD /* btn_small_01_ios@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_small_01_ios@2x.png"; sourceTree = "<group>"; };
 		BF177E7A17C9BA8300614485 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
 		BF177E7B17C9BA8300614485 /* MyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoViewController.m; sourceTree = "<group>"; };
 		BF177E7D17C9BA9F00614485 /* FavoriteSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteSettingViewController.h; sourceTree = "<group>"; };
@@ -448,6 +448,12 @@
 		BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KakaoLinkCenter.m; sourceTree = "<group>"; };
 		BFDEBEC81801149700F7409F /* KakaoMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KakaoMessageViewController.h; sourceTree = "<group>"; };
 		BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KakaoMessageViewController.m; sourceTree = "<group>"; };
+		BFDEBED418015B9600F7409F /* HorImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorImageButton.h; sourceTree = "<group>"; };
+		BFDEBED518015B9600F7409F /* HorImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorImageButton.m; sourceTree = "<group>"; };
+		BFDEBED71801670600F7409F /* UIButton+UIButtonExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+UIButtonExt.h"; sourceTree = "<group>"; };
+		BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+UIButtonExt.m"; sourceTree = "<group>"; };
+		BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_kakaotalk_logo_iphone.png; sourceTree = "<group>"; };
+		BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_kakaotalk_logo_iphone@2x.png"; sourceTree = "<group>"; };
 		BFEB885D17F1BDBD0045CA75 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
 		BFEB885E17F1BDBD0045CA75 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
 		BFEB886017F1BDD20045CA75 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
@@ -747,8 +753,8 @@
 		BF16C5EA17F88DD000C308DD /* ResImages */ = {
 			isa = PBXGroup;
 			children = (
-				BF16C5EB17F88DD000C308DD /* btn_small_01_ios.png */,
-				BF16C5EC17F88DD000C308DD /* btn_small_01_ios@2x.png */,
+				BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */,
+				BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */,
 			);
 			path = ResImages;
 			sourceTree = "<group>";
@@ -845,6 +851,8 @@
 				5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */,
 				50D134D117F9800C00F27231 /* SSLWebView.h */,
 				50D134D217F9800C00F27231 /* SSLWebView.m */,
+				BFDEBED418015B9600F7409F /* HorImageButton.h */,
+				BFDEBED518015B9600F7409F /* HorImageButton.m */,
 			);
 			name = "Common (공통 모듈)";
 			sourceTree = "<group>";
@@ -877,6 +885,8 @@
 				50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */,
 				50D134CE17F97A1200F27231 /* NSURLRequest+SSL.h */,
 				50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */,
+				BFDEBED71801670600F7409F /* UIButton+UIButtonExt.h */,
+				BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1068,6 +1078,7 @@
 				5062B6A117C4D72F00A2495D /* cell_background.png in Resources */,
 				5062B6A217C4D72F00A2495D /* cell_background@2x.png in Resources */,
 				5062B6A317C4D72F00A2495D /* cell_selected_background.png in Resources */,
+				BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
 				5062B6A417C4D72F00A2495D /* cell_selected_background@2x.png in Resources */,
 				5062B6A517C4D72F00A2495D /* check_off.png in Resources */,
 				5062B6A617C4D72F00A2495D /* check_off@2x.png in Resources */,
@@ -1084,12 +1095,10 @@
 				5062B6B117C4D72F00A2495D /* icon_send_@2x.png in Resources */,
 				5062B6B217C4D72F00A2495D /* icon_suggest.png in Resources */,
 				5062B6B317C4D72F00A2495D /* icon_suggest@2x.png in Resources */,
-				BF16C5EE17F88DD000C308DD /* btn_small_01_ios@2x.png in Resources */,
 				5062B6B417C4D72F00A2495D /* left_cell_background.png in Resources */,
 				5062B6B517C4D72F00A2495D /* left_cell_background@2x.png in Resources */,
 				5062B6B617C4D72F00A2495D /* left_cell_selected_background.png in Resources */,
 				5062B6B717C4D72F00A2495D /* left_cell_selected_background@2x.png in Resources */,
-				BF16C5ED17F88DD000C308DD /* btn_small_01_ios.png in Resources */,
 				5062B6B817C4D72F00A2495D /* left_section_background.png in Resources */,
 				5062B6B917C4D72F00A2495D /* left_section_background@2x.png in Resources */,
 				BFFAC41117FF273700EA3364 /* friend_search_contact_on.png in Resources */,
@@ -1154,6 +1163,7 @@
 				BFFAC40C17FF0EBD00EA3364 /* emailicon_btn@2x.png in Resources */,
 				BF57B39E17D8F72B00B39C03 /* serviceTerms.html in Resources */,
 				BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */,
+				BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */,
 				BF57B3A617DB785D00B39C03 /* btn_white.png in Resources */,
 				BF57B3A717DB785D00B39C03 /* btn_white@2x.png in Resources */,
 				BF57B3B217DC387800B39C03 /* join_agreebox_ch.png in Resources */,
@@ -1245,6 +1255,7 @@
 				BF57B32517D24DDA00B39C03 /* FavoriteToolView.m in Sources */,
 				BF57B32817D2E6E800B39C03 /* StudentProfileViewController.m in Sources */,
 				BF57B32B17D2E77400B39C03 /* StaffProfileViewController.m in Sources */,
+				BFDEBED91801670600F7409F /* UIButton+UIButtonExt.m in Sources */,
 				BF57B32E17D2ED5900B39C03 /* FacultyAddressViewController.m in Sources */,
 				BF57B33217D2EDD700B39C03 /* FacultyMajorViewController.m in Sources */,
 				BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */,
@@ -1262,6 +1273,7 @@
 				BF57B38B17D78C2000B39C03 /* StudentDetailViewController.m in Sources */,
 				BF57B38E17D7928400B39C03 /* StudentDetailToolView.m in Sources */,
 				50B14EF917F517F200FCC662 /* ModelUtil.m in Sources */,
+				BFDEBED618015B9600F7409F /* HorImageButton.m in Sources */,
 				BF57B39117D7996500B39C03 /* StudentToolView.m in Sources */,
 				BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */,
 				BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */,

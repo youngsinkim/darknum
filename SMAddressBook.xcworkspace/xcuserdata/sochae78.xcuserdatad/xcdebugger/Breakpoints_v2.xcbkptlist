@@ -470,11 +470,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "402731737.103356"
+            timestampString = "402748762.827728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "897"
-            endingLineNumber = "897"
+            startingLineNumber = "913"
+            endingLineNumber = "913"
             landmarkName = "-easyTableView:scrolledToOffset:"
             landmarkType = "5">
          </BreakpointContent>
@@ -486,11 +486,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "402731737.103356"
+            timestampString = "402748762.827728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "905"
-            endingLineNumber = "905"
+            startingLineNumber = "921"
+            endingLineNumber = "921"
             landmarkName = "-easyTableView:scrolledToFraction:"
             landmarkType = "5">
          </BreakpointContent>
