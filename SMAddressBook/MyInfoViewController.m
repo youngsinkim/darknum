@@ -20,6 +20,7 @@
 
 @interface MyInfoViewController ()
 
+@property (strong, nonatomic) NSManagedObjectContext *moc;
 @property (strong, nonatomic) NSMutableDictionary *myInfo;
 
 @property (strong, nonatomic) UIScrollView *scrollView;         // 배경 스크롤 뷰
@@ -112,6 +113,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (_moc == nil) {
+        _moc = [appDelegate managedObjectContext];
+        NSLog(@"After managedObjectContext: %@", _moc);
+    }
+
 //    if (!IS_LESS_THEN_IOS7) {
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
 //        self.navigationController.navigationBar.translucent = NO;
@@ -119,6 +127,8 @@
 
     _memType = (MemberType)[[[UserContext shared] memberType] integerValue];
     NSLog(@"내 멤버 타입 : %d", _memType);
+    
+//    _idValueLabel.text = [UserContext shared]
     
 //    if (memType == MemberTypeStudent)
 //    {
@@ -1383,7 +1393,7 @@
     NSString *userId = [UserContext shared].userId;
     NSString *certNo = [UserContext shared].certNo;
     NSString *lang = [UserContext shared].language;
-    NSString *photoFileName = @"avatar.jpg";
+//    NSString *photoFileName = @"avatar.jpg";
 //    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:photoFileName], 0.5);
     
     if (!mobileNo || !userId | !certNo) {
@@ -1422,9 +1432,11 @@
         if (_photoData) {
             // 왼쪽 메뉴 사진 정보 업데이트
             MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-            
             UIImage *image = [[UIImage alloc] initWithData:_photoData];
             [menu updateHeaderImage:image];
+            
+            // DB에도 내 정보 업데이트
+            [self updateDBMyInfo];
         }
     }];
     
@@ -1432,4 +1444,52 @@
     
 }
 
+- (void)updateDBMyInfo
+{
+    if (_memType == MemberTypeStudent)
+    {
+        
+    }
+    else
+    {
+        
+    }
+}
+
+- (NSArray *)findDBMyInfo
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Student" inManagedObjectContext:_moc];
+    [fetchRequest setEntity:entity];
+    
+    // * (column)
+    //    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
+    //    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
+    //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
+    [fetchRequest setResultType:NSDictionaryResultType];
+    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"course"]];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    
+//    NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@""];
+//    if ([_info[@"name"] length] > 0 && [_info[@"courseclass"] length] > 0) {
+//        predicate = [NSPredicate predicateWithFormat:@"(course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@) AND (name contains[c] %@ OR name_en contains[c] %@)", _info[@"courseclass"], _info[@"name"], _info[@"name"]];
+//    } else if ([_info[@"courseclass"] length] > 0) {
+//        predicate = [NSPredicate predicateWithFormat:@"course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@", _info[@"courseclass"], _info[@"courseclass"]];
+//    } else if ([_info[@"name"] length] > 0) {
+//        predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@ OR name_en contains[c] %@", _info[@"name"], _info[@"name"]];
+//    }
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [_moc executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    
+    // 검색된 학생 목록 저장
+    return fetchedObjects;
+}
 @end
