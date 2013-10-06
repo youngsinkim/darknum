@@ -57,10 +57,10 @@
         
         _checkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _checkBtn.tag = 300;
-        _checkBtn.frame = CGRectMake(self.frame.size.width - 30.0f, 15.0f, 21.0f, 22.0f);
-        [_checkBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
-        [_checkBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
-        [_checkBtn setBackgroundImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateDisabled];
+        _checkBtn.frame = CGRectMake(self.frame.size.width - 30.0f, 5.0f, 30.0f, 46.0f);
+        [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
+        [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+        [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateDisabled];
         
         [_checkBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         

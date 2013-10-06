@@ -73,7 +73,12 @@
 
     // 검색 결과 화면
     [self setupSearchResultUI];
+    
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     if ([_info[@"islocal"] boolValue] == YES)
     {
@@ -152,13 +157,15 @@
     
     NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
     NSPredicate *predicate = nil;
-    if ([_info[@"name"] length] > 0) {
-        predicate = [NSPredicate predicateWithFormat:@"course.courseclass == %@ AND name == %@", _info[@"courseclass"], _info[@"name"]];
-    } else {
-        predicate = [NSPredicate predicateWithFormat:@"course.courseclass == %@", _info[@"courseclass"]];
+    if ([_info[@"name"] length] > 0 && [_info[@"courseclass"] length] > 0) {
+        predicate = [NSPredicate predicateWithFormat:@"(course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@) AND (name contains[c] %@ OR name_en contains[c] %@)", _info[@"courseclass"], _info[@"name"], _info[@"name"]];
+    } else if ([_info[@"courseclass"] length] > 0) {
+        predicate = [NSPredicate predicateWithFormat:@"course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@", _info[@"courseclass"], _info[@"courseclass"]];
+    } else if ([_info[@"name"] length] > 0) {
+        predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@ OR name_en contains[c] %@", _info[@"name"], _info[@"name"]];
     }
     [fetchRequest setPredicate:predicate];
-    
+
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     

@@ -173,45 +173,37 @@
 
 - (void)onSend
 {
-    NSLog(@"보내기");
-    
     if (_viewType == ToolViewTypeSms) {
-        [self sendSms];
+        NSLog(@"문자 보내기");
+        [self sendMessage];
     } else if (_viewType == ToolViewTypeEmail) {
+        NSLog(@"이메일 보내기");
         [self sendEmail];
     }
 }
 
-- (void)sendSms
+- (void)sendMessage
 {
-    if (![MFMessageComposeViewController canSendText]) {
+    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    controller.messageComposeDelegate = self;
+    if(![MFMessageComposeViewController canSendText])
+    {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
         [warningAlert show];
         return;
     }
-
-//    NSString *recipients = [NSString stringWithFormat:@""];
-//    NSInteger index = 0;
-//    
-//    for (NSDictionary *info in _selectArray) {
-//        recipients = [recipients stringByAppendingString:info[@"mobile"]];
-//        index++;
-//        
-//        if (index < [_selectArray count]) {
-//            recipients = [recipients stringByAppendingString:@","];
-//        }
-//    }
-
-//    NSLog(@"SMS 발송 : %@", recipients);
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:recipients]];
     
+    NSMutableArray *numbers = [[NSMutableArray alloc] init];
+    for (NSDictionary *info in _selectArray) {
+        [numbers addObject:info[@"mobile"]];
+    }
+    NSLog(@"문자 수신자: %@", numbers);
+    controller.recipients = [numbers mutableCopy];
+//    controller.body = @"";
 
-    MFMessageComposeViewController *messageComposer = [[MFMessageComposeViewController alloc] init];
-    messageComposer.messageComposeDelegate = self;
-    messageComposer.recipients = _selectArray;
-    NSString *message = @"";
-    [messageComposer setBody:message];
-    [self presentViewController:messageComposer animated:YES completion:nil];
+    [self presentModalViewController:controller animated:YES];
+//    [self presentViewController:messageComposer animated:YES completion:nil];
     
 }
 
@@ -755,6 +747,7 @@
     if (!cell) {
         NSLog(@"셀 생성");
         cell = [[ToolViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         //        cell.delegate = self;
         
@@ -910,24 +903,25 @@
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
     switch (result) {
-        case MessageComposeResultCancelled:
+		case MessageComposeResultCancelled:
+			NSLog(@"Cacelled");
+			break;
+		case MessageComposeResultFailed:
+            {
+                NSLog(@"failed");
+                UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:LocalizedString(@"Ok:", @"확인") otherButtonTitles:nil];
+                [warningAlert show];
+
+            }
             break;
-            
-        case MessageComposeResultFailed:
-        {
-            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:nil message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:LocalizedString(@"Ok:", @"확인") otherButtonTitles:nil];
-            [warningAlert show];
-            break;
-        }
-            
-        case MessageComposeResultSent:
-            break;
-            
-        default:
-            break;
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+		case MessageComposeResultSent:
+			break;
+		default:
+			break;
+	}
+	
+	[self dismissModalViewControllerAnimated:YES];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
