@@ -96,7 +96,7 @@
     self.tableView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
     
     // TODO: 내 프로필 정보에서 헤더 구성 데이터 가져오기
-    NSDictionary *profileDict = @{@"name":@"홍길동", @"class":@"GMBA 5기", @"photourl":@""};
+    NSDictionary *profileDict = @{@"name":@"", @"class":@"", @"photourl":@""};
 
     // 내 정보 해더 구성
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kHeaderH + yOffset)];
@@ -193,6 +193,8 @@
     NSDictionary *myInfo = [[UserContext shared] profileInfo];
     if ([myInfo[@"photourl"] length] > 0) {
         [_profileImgView setImageWithURL:[NSURL URLWithString:myInfo[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
+    } else {
+        [_profileImgView setImage:[UIImage imageNamed:@"profile_noimg"]];
     }
     
     if ([myInfo[@"name"] length] > 0) {

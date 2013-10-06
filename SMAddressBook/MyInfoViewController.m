@@ -257,11 +257,11 @@
     NSLog(@"Iphone %f ",[[UIScreen mainScreen] bounds].size.height);
     
     if (IS_LESS_THEN_IOS7) {
-        scrolViewHeight -= 54.0f;
+        scrolViewHeight -= 44.0f;
         bottomOffset = 60.0f;
     }
     else {
-        scrolViewHeight -= 10.0f;
+        scrolViewHeight -= 0.0f;
         bottomOffset = (-64.0f + 60.0f);
         
         if ([[UIScreen mainScreen] bounds].size.height < 568) {
@@ -269,9 +269,13 @@
         }
     }
     
+    if (_memType != MemberTypeStudent) {
+        bottomOffset = 0.0f;
+    }
+    
     // 배경 스크롤 뷰
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, yOffset, viewFrame.size.width, scrolViewHeight)];
-    _scrollView.backgroundColor = [UIColor yellowColor];
+//    _scrollView.backgroundColor = [UIColor yellowColor];
     _scrollView.delegate = self;
     
     NSLog(@"스크롤 영역 높이 : %f", scrolViewHeight);
