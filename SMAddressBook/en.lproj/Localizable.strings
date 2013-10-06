@@ -112,4 +112,7 @@
 "accept" = "Accept";
 
 /* Favorite Setting */
-"favorite setting" = "즐겨찾기 설정";
+"favorite setting" = "Favorite Setting";
+
+/* send */
+"send" = "Send";
