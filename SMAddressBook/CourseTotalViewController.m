@@ -314,7 +314,11 @@
         Course *course = [list objectAtIndex:indexPath.row];
         NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, course.title);
         
-        cell.textLabel.text = course.title;
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            cell.textLabel.text = course.title;
+        } else {
+            cell.textLabel.text = course.title_en;
+        }
 //        cell.cellInfo = cellInfo;
     }
         
