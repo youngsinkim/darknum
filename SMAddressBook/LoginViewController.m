@@ -38,7 +38,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"login_title", @"로그인");
+        self.navigationItem.title = LocalizedString(@"Login", @"로그인");
     }
     return self;
 }
@@ -135,7 +135,7 @@
         _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _loginBtn.frame = CGRectMake(xOffset + _idTextField.frame.size.width + 10.0f, startY, 70.0f, 60.0f);
         [_loginBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-        [_loginBtn setTitle:LocalizedString(@"login_title", @"로그인") forState:UIControlStateNormal];
+        [_loginBtn setTitle:LocalizedString(@"Login", @"로그인") forState:UIControlStateNormal];
         [_loginBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _loginBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         _loginBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -271,10 +271,10 @@
     //    [parent addSubview:self.view]; //reloads the view from the nib
     
     
-    self.navigationItem.title = LocalizedString(@"login_title", @"로그인");
+    self.navigationItem.title = LocalizedString(@"Login", @"로그인");
     self.idTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
     self.pwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
-    self.loginBtn.titleLabel.text = LocalizedString(@"login_title", @"로그인");
+    self.loginBtn.titleLabel.text = LocalizedString(@"Login", @"로그인");
     //    [_loginBtn setTitle:LocalizedString(@"login_title", @"로그인") forState:UIControlStateNormal];
     //    self.koLanguageBtn.titleLabel.text = LocalizedString(@"korean_text", @"한국어");
     //    self.enLanguageBtn.titleLabel.text = LocalizedString(@"english_text", @"영어");

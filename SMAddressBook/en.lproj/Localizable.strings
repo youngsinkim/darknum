@@ -9,6 +9,9 @@
 /// Login Title
 "login_title" = "LOGIN";
 
+/* Login */
+"Login" = "Log-in";
+
 /// faculty Text
 "faculty_text" = "Faculty";
 
@@ -16,22 +19,19 @@
 "faculty_member_text" = "Faculty Member";
 
 /// Total View Text
-"total_view_text" = "Total View";
+"total_view_text" = "View all";
 
 /// Setting
 "setting_title" = "Setting";
 
 /// My Info Setting
-"my_info_setting" = "My Info Setting";
+"my_info_setting" = "My information set-up";
 
 /// My Card Setting
 "my_card_setting" = "My Card Setting";
 
-/// Favorite Setting
-"favorite_setting" = "Favorite Setting";
-
 /// Term & Policy
-"terms_and_policy" = "Terms And Policy of Service";
+"terms_and_policy" = "Terms and Personal Information Protection Guidelines";
 
 /// Help
 "help" = "Help";
@@ -76,25 +76,25 @@
 "Next" = "Next";
 
 /* Alert Id Empty Text */
-"alert_id_empty_text" = "input user ID.";
+"alert_id_empty_text" = "Please enter the correct ID or password.";
 
 /* Alert Password Empty Text */
-"alert_pwd_empty_text" = "input user Password.";
+"alert_pwd_empty_text" = "Please enter the correct ID or password.";
 
 /* Terms of Service */
-"terms_text" = "Terms of Service";
+"terms_text" = "Terms and Personal Information Protection Guidelines";
 
 /* Accept Button Text */
 "accept_btn_text" = "Accept";
 
 /* Favorite Cell Faculty Count */
-"%d faculty" = "%d Faculty.";
+"%d faculty" = "There are %d number of professor contact numbers.";
 
 /* Favorite Cell Staff Count */
-"%d staff" = "%d Staff.";
+"%d staff" = "There are %d number of faculty contact numbers.";
 
 /* Favorite Cell Student Count */
-"%d student" = "%d Students.";
+"%d student" = "There are %d number of student contact numbers.";
 
 /* Take a Photo */
 "Take a Photo" = "Take a Photo";
@@ -106,7 +106,7 @@
 "update download title" = "Update Download";
 
 /* update download msg */
-"update download msg" = "즐겨찾기에 등록된 주소록의 업데이트 내역이 있습니다.\n업데이트 자료를 다운로드 합니다. 잠시만 기다려주세요.";
+"update download msg" = "There is an update in the address list registered on favorites. The update data will be downloaded. Please wait for a moment.";
 
 /* Favorite Setting Title */
 "Favorite Setting Title" = "즐겨찾기 주소록 재설정";
@@ -114,11 +114,11 @@
 /* Favorite Setting Msg */
 "Favorite Setting Msg" = "즐겨찾기 주소록이 변경되어 재성정 중입니다.\n잠시만 기다려주세요.";
 
-/* accept */
-"accept" = "Accept";
+/* Consent */
+"Consent" = "Consent";
 
 /* Favorite Setting */
-"favorite setting" = "Favorite Setting";
+"favorite setting" = "Favorites Settings";
 
 /* send */
 "send" = "Send";
@@ -133,7 +133,7 @@
 "kakao not install" = "Kakao Talk is not installed.";
 
 /* phone call */
-"Phone Call" = "Call";
+"Phone Call" = "phone";
 
 /* sms */
 "sms" = "SMS";
@@ -147,3 +147,8 @@
 /* ka talk */
 "ka talk" = "Ka-Talk";
 
+/* search */
+"Search" = "Search";
+
+/* search result */
+"Search Result" = "Search Result";

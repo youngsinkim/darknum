@@ -67,7 +67,7 @@
     // 전화
     _callBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _callBtn.frame = CGRectMake(xStart, yOffset, 110.0f, 30.0f);
-    [_callBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"favorite_setting", @"즐겨찾기 설정")] forState:UIControlStateNormal];
+    [_callBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"favorite setting", @"즐겨찾기 설정")] forState:UIControlStateNormal];
     [_callBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_callBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
 //    [_favoriteSettBtn setBackgroundColor:[UIColor blueColor]];

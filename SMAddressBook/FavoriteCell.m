@@ -43,7 +43,7 @@
         [self.contentView addSubview:_titleLabel];
         
         
-        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 35, 180, 20)];
+        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 35, 270, 20)];
         _countLabel.backgroundColor = [UIColor clearColor];
         _countLabel.textColor = [UIColor grayColor];
         _countLabel.font = [UIFont systemFontOfSize:12.0f];

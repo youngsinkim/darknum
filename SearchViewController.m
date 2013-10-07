@@ -44,7 +44,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = @"검색";
+        self.navigationItem.title = LocalizedString(@"Search", @"검색");
         
 //        _courses = [[NSMutableArray alloc] init];
 //        _classes = [[NSMutableArray alloc] init];
@@ -273,7 +273,7 @@
     [_searchBtn setFrame:CGRectMake((rect.size.width - 100.0f) / 2.0f, yOffset, 100.0f, 26.0f)];
     [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"btn_white"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f] forState:UIControlStateNormal];
     [_searchBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [_searchBtn setTitle:@"검색" forState:UIControlStateNormal];
+    [_searchBtn setTitle:LocalizedString(@"Search", @"검색") forState:UIControlStateNormal];
     [_searchBtn addTarget:self action:@selector(onSearchBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_searchBtn];

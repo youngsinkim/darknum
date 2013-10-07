@@ -149,7 +149,7 @@
     HelpViewController *helpVC = [[HelpViewController alloc] init];
 
     _settMenuList = @[@{@"type":[NSNumber numberWithInt:MenuViewTypeSettMyInfo], @"title":LocalizedString(@"my_info_setting", @"내 정보설정"), @"icon":@"help_icon", @"viewController":myInfoVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"favorite_setting", @"즐겨찾기 설정"), @"icon":@"help_icon", @"viewController":fvSettingVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"favorite setting", @"즐겨찾기 설정"), @"icon":@"help_icon", @"viewController":fvSettingVC},
                       @{@"type":[NSNumber numberWithInt:MenuViewTypeSettTerms], @"title":LocalizedString(@"terms_and_policy", @"약관 및 정책"), @"icon":@"help_icon", @"viewController":termsVC},
                       @{@"type":[NSNumber numberWithInt:MenuViewTypeSettHelp], @"title":LocalizedString(@"help", @"도움말"), @"icon":@"help_icon", @"viewController":helpVC}];
     
@@ -287,7 +287,11 @@
             }
         } else {
             Course *course = _addrMenuList[indexPath.row];
-            cell.textLabel.text = course.title;
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                cell.textLabel.text = course.title;
+            } else {
+                cell.textLabel.text = course.title_en;
+            }
         }
     
     } else {

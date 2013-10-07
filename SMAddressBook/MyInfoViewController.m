@@ -85,7 +85,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = @"내 정보 설정";
+        self.navigationItem.title = LocalizedString(@"my_info_setting", @"내 정보 설정");
         
         _memType = MemberTypeUnknown;
         _myInfo = [NSMutableDictionary dictionaryWithCapacity:10];

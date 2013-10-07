@@ -36,7 +36,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = @"검색 결과";
+        self.navigationItem.title = LocalizedString(@"Search Result", @"검색 결과");
         
     }
     return self;
@@ -47,7 +47,7 @@
     self = [super init];
     if (self)
     {
-        self.navigationItem.title = @"검색 결과";
+        self.navigationItem.title = LocalizedString(@"Search Result", @"검색 결과");
         
         _info = searchInfo;
         NSLog(@"검색 조건 : %@", _info);

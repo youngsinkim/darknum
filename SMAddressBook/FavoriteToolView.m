@@ -65,8 +65,8 @@
     
     // 즐겨찾기 설정
     _favoriteSettBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _favoriteSettBtn.frame = CGRectMake(xStart, yOffset, 110.0f, 30.0f);
-    [_favoriteSettBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"favorite_setting", @"즐겨찾기 설정")] forState:UIControlStateNormal];
+    _favoriteSettBtn.frame = CGRectMake(xStart, yOffset, 130.0f, 30.0f);
+    [_favoriteSettBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"favorite setting", @"즐겨찾기 설정")] forState:UIControlStateNormal];
     [_favoriteSettBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_favoriteSettBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
 //    [_favoriteSettBtn setBackgroundColor:[UIColor blueColor]];
@@ -74,19 +74,19 @@
     [_favoriteSettBtn setImage:[UIImage imageNamed:@"list_photo_on"] forState:UIControlStateNormal];
 //    [_favoriteSettBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateDisabled];
     [_favoriteSettBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [_favoriteSettBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-    [_favoriteSettBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_favoriteSettBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
+    [_favoriteSettBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
     //    [_favoriteSettBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
     [_favoriteSettBtn addTarget:self action:@selector(onFavoriteSetBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [bgView addSubview:_favoriteSettBtn];
 //    _favoriteSettBtn.enabled = NO;
-    xStart += 125;
+    xStart += 145;
     
     
     // 전체보기
     _totalStudentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _totalStudentBtn.frame = CGRectMake(xStart, yOffset, 85.0f, 30.0f);
+    _totalStudentBtn.frame = CGRectMake(xStart, yOffset, 80.0f, 30.0f);
     [_totalStudentBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"total_view_text", @"전체보기")] forState:UIControlStateNormal];
     [_totalStudentBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_totalStudentBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
@@ -100,7 +100,7 @@
     [_totalStudentBtn addTarget:self action:@selector(onTotalStudentBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [bgView addSubview:_totalStudentBtn];
-    xStart += 100;
+    xStart += 90;
 
     
     // 도움말

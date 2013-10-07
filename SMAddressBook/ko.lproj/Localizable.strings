@@ -9,6 +9,9 @@
 /// Login Title
 "login_title" = "로그인";
 
+/* Login */
+"Login" = "로그인";
+
 /// faculty Text
 "faculty_text" = "교수진";
 
@@ -16,22 +19,19 @@
 "faculty_member_text" = "교직원";
 
 /// Total View Text
-"total_view_text" = "전체보기";
+"total_view_text" = "전체 보기";
 
 /// Setting
 "setting_title" = "설정";
 
 /// My Info Setting
-"my_info_setting" = "내 정보설정";
+"my_info_setting" = "내 정보 설정";
 
 /// My Card Setting
 "my_card_setting" = "내 명함 설정";
 
-/// Favorite Setting
-"favorite_setting" = "즐겨찾기 설정";
-
 /// Term & Policy
-"terms_and_policy" = "약관 및 개인정보보호지침";
+"terms_and_policy" = "약관 및 개인정보 보호지침";
 
 /// Help
 "help" = "도움말";
@@ -76,25 +76,25 @@
 "Next" = "다음";
 
 /* Alert Id Empty Text */
-"alert_id_empty_text" = "아이디를 입력하세요.";
+"alert_id_empty_text" = "아이디 또는 패스워드를 정확히 입력해 주세요.";
 
 /* Alert Password Empty Text */
-"alert_pwd_empty_text" = "비밀번호를 입력하세요.";
+"alert_pwd_empty_text" = "아이디 또는 패스워드를 정확히 입력해 주세요.";
 
 /* Terms of Service */
-"terms_text" = "이용동의약관";
+"terms_text" = "약관 및 개인정보 보호지침";
 
 /* Accept Button Text */
 "accept_btn_text" = "동의함";
 
 /* Favorite Cell Faculty Count */
-"%d faculty" = "%d명의 교수님이 있습니다.";
+"%d faculty" = "%d명의 교수 연락처가 있습니다.";
 
 /* Favorite Cell Staff Count */
-"%d staff" = "%d명의 교직원이 있습니다.";
+"%d staff" = "%d명의 교직원 연락처가 있습니다.";
 
 /* Favorite Cell Student Count */
-"%d student" = "%d명의 학생이 있습니다.";
+"%d student" = "%d명의 학생 연락처가 있습니다.";
 
 /* Take a Photo */
 "Take a Photo" = "사진 촬영";
@@ -106,7 +106,7 @@
 "update download title" = "업데이트 다운로드";
 
 /* update download msg */
-"update download msg" = "즐겨찾기에 등록된 주소록의 업데이트 내역이 있습니다.\n업데이트 자료를 다운로드 합니다. 잠시만 기다려주세요.";
+"update download msg" = "즐겨찾기에 등록된 주소록의 업데이트 내역이 있습니다.\n업데이트 자료를 다운로드 합니다. 잠시만 기다려 주세요.";
 
 /* Favorite Setting Title */
 "Favorite Setting Title" = "즐겨찾기 주소록 재설정";
@@ -114,8 +114,8 @@
 /* Favorite Setting Msg */
 "Favorite Setting Msg" = "즐겨찾기 주소록이 변경되어 재성정 중입니다.\n잠시만 기다려주세요.";
 
-/* accept */
-"accept" = "동의합니다.";
+/* Consent */
+"Consent" = "동의 함";
 
 /* Favorite Setting */
 "favorite setting" = "즐겨찾기 설정";
@@ -147,3 +147,8 @@
 /* ka talk */
 "ka talk" = "카톡";
 
+/* search */
+"Search" = "검색";
+
+/* search result */
+"Search Result" = "검색 결과";
