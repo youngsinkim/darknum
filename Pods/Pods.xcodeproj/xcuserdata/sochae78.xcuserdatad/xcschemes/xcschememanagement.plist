@@ -29,11 +29,6 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>Pods-HMSegmentedControl.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
-		</dict>
 		<key>Pods-InflectorKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
