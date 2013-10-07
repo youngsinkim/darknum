@@ -99,8 +99,11 @@
 /* Take a Photo */
 "Take a Photo" = "Take a Photo";
 
-/* from Library */
-"Photo of Library" = "from Library";
+/* Photo of Library */
+"Photo of Library" = "Photo of Library";
+
+/* Delete Photo */
+"Delete Photo" = "Delete Photo";
 
 /* update download title */
 "update download title" = "Update Download";

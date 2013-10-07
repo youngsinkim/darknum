@@ -973,12 +973,27 @@
 // 프로필 사진 선택 시 (사진 찍기 메뉴 표시)
 - (void)onProfileImageClicked
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:LocalizedString(@"Cancel", @"Cancel")
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:LocalizedString(@"Take a Photo", @"Take a Photo"),
-                                                                      LocalizedString(@"Photo of Library", @"Photo of Library"), nil];
+    UIActionSheet *actionSheet = nil;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self
+                                         cancelButtonTitle:LocalizedString(@"Cancel", @"Cancel")
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:LocalizedString(@"Take a Photo", @"Take a Photo"),
+                                                           LocalizedString(@"Photo of Library", @"Photo of Library"),
+                                                           LocalizedString(@"Delete Photo", "사진 삭제"), nil];
+        actionSheet.destructiveButtonIndex = 2;
+
+    } else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                  delegate:self
+                                         cancelButtonTitle:LocalizedString(@"Cancel", @"Cancel")
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:LocalizedString(@"Photo of Library", @"Photo of Library"),
+                                                           LocalizedString(@"Delete Photo", "사진 삭제"), nil];
+        actionSheet.destructiveButtonIndex = 1;
+    }
+    
     [actionSheet showInView:self.view];
     
 }
@@ -1124,15 +1139,24 @@
         return;
     }
     
-    if (buttonIndex == 0)       // Camera
-    {
-        [self showCamera];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        if (buttonIndex == 0) {         // Camera
+            [self showCamera];
+        }
+        else if (buttonIndex == 1) {    // Album
+            [self showPhotoAlbum];
+        }
+        else if (buttonIndex == 2) {    // delete
+            [self removePhoto];
+        }
     }
-    else if (buttonIndex == 1)  // Album
-    {
-        [self showPhotoAlbum];
+    else {
+        if (buttonIndex == 0) {         // Album
+            [self showPhotoAlbum];
+        } else if (buttonIndex == 1) {  // delete
+            [self removePhoto];
+        }
     }
-    
 //    Camera *mera = [[Camera alloc] init];
 //    
 //    // 카메라
@@ -1197,6 +1221,20 @@
     
     [self presentViewController:picker animated:YES completion:nil];
     
+}
+
+- (void)removePhoto
+{
+    
+    [_profileImageView setImage:[UIImage imageNamed:@"placeholder"]];
+    
+    // 왼쪽 메뉴의 사진도 함께 삭제
+    _myInfo[@"photourl"] = @"";
+    MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    [menu updateHeaderInfo];
+
+//        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _myInfo[@"photourl"]]]
+//                          placeholderImage:[UIImage imageNamed:@"placeholder"]];
 }
 
 #pragma mark - UIImagePickerController delegate

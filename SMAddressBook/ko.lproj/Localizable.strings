@@ -102,6 +102,9 @@
 /* from Library */
 "Photo of Library" = "앨범에서 가져오기";
 
+/* Delete Photo */
+"Delete Photo" = "사진 삭제";
+
 /* update download title */
 "update download title" = "업데이트 다운로드";
 
