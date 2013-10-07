@@ -118,6 +118,9 @@
     }
     else
     {
+#if (1) // 로그인 화면으로 이동하는 flow 작성으로 기존 코드 수정
+        [self goLoginViewControllerWithDataReset:NO];
+#else
         // TODO: 자동 로그인이 아니면 이전 설정값 삭제
         {
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserId];
@@ -134,7 +137,7 @@
         UINavigationController *loginNavigationController = [self loginViewController];
         
         [self.container.centerViewController presentViewController:loginNavigationController animated:NO completion:nil];
-
+#endif
 //        if (self.loginSaveCheckBtn.selected == YES)
 //            {
 //            [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:@"userId"];
@@ -373,6 +376,38 @@
     }
 }
 
+#pragma mark 로그인 화면 표시
+- (void)goLoginViewControllerWithDataReset:(BOOL)isReset
+{
+    NSLog(@".......... 로그인 화면으로 이동 ..........");
+    if (isReset == YES) {
+        [self resetDBData];
+    }
+    
+    {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserId];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserPwd];
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCertNo];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMemType];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUpdateCount];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+    // MARK: 로그인 전이면, 로그인 화면 표시
+    UINavigationController *loginNavigationController = [self loginViewController];
+    
+    [self.container.centerViewController presentViewController:loginNavigationController animated:NO completion:nil];
+}
+
+#pragma mark - DB methods
+// 전체 데이터 초기화
+- (void)resetDBData
+{
+    
+}
+
 #pragma mark - Network methods
 /// 로그인 요청
 - (void)requestAPILogin
@@ -405,7 +440,25 @@
                                             //[self.HUD hide:YES];
 
                                             if (error) {
-                                                [[SMNetworkClient sharedClient] showNetworkError:error];
+                                                
+                                                NSLog(@"error ---- %@", [error localizedDescription]);
+                                                NSDictionary *info = [NSDictionary dictionaryWithDictionary:[error userInfo]];
+                                                NSLog(@"error UserInfo : %@", info);
+                                                BOOL isErrorAlert = YES;
+                                                
+                                                if ([info isKindOfClass:[NSDictionary class]]) {
+                                                    if ([info[@"errcode"] isEqualToString:@"3"]) {
+                                                        isErrorAlert = NO;
+                                                        NSLog(@"..... 모든 정보 리셋하고 로그인 화면으로 이동");
+                                                        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                                                        [appDelegate goLoginViewControllerWithDataReset:YES];
+                                                        isErrorAlert = NO;
+                                                    }
+                                                }
+
+                                                if (isErrorAlert) {
+                                                    [[SMNetworkClient sharedClient] showNetworkError:error];
+                                                }
                                             }
                                             else
                                             {

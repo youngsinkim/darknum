@@ -32,4 +32,7 @@
 /// 메인(즐겨찾기) 화면 뷰 컨트롤러
 - (void)showMainViewController:(UIViewController *)viewControllder animated:(BOOL)isAnimated;
 
+/// 로그인 화면으로 이동
+- (void)goLoginViewControllerWithDataReset:(BOOL)isReset;
+
 @end
