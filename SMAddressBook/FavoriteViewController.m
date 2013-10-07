@@ -468,7 +468,7 @@
                                                       _isCourseSaveDone = YES;
                                                   }
                                                   NSLog(@".......... saveDBFavoriteUpdates .........");
-                                                  [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+                                                  [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
 #endif
                                               }
                                           }];
@@ -515,7 +515,8 @@
                                                      _isMajorSaveDone = YES;
                                                  }
 //                                                 NSLog(@".......... SET DB MAJORS .........");
-//                                                 [self performSelector:@selector(updateDBFavorites) withObject:nil];
+                                                 [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
+
 #endif
                                              }
                                              
