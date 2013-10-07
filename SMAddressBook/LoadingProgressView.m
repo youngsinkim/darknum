@@ -432,9 +432,16 @@ static CGFloat count = 0.0f;
 }
 
 
-- (void)onStart:(NSInteger)position
+- (void)onStart:(NSInteger)position withType:(ProgressType)type
 {
     NSLog(@"---------- show progress ----------");
+    if (type == ProgressTypeFavoriteSetting) {
+        _titleLabel.text = LocalizedString(@"Favorite Setting Title", @"즐겨찾기 주소록 재설정");
+        _msgLabel.text = LocalizedString(@"Favorite Setting Msg", @"즐겨찾기 설정 메시지");
+    } else {
+        _titleLabel.text = LocalizedString(@"update download title", @"업데이트 다운로드");
+        _msgLabel.text = LocalizedString(@"update download msg", @"업데이트 메시지");
+    }
     [self setHidden:NO];    // 프로그래스 노출
     _percentLabel.text = [NSString stringWithFormat:@"(Download 0 / %d)", position];
 }

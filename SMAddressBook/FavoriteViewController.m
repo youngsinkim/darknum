@@ -161,7 +161,7 @@
 //            [_progressView setHidden:NO];   // test
 //    [self performSelector:@selector( showUpdateProgress) withObject:nil];
             // 1. 프로그래스 일단 노출
-            [self.progressView onStart:updateCount];
+            [self.progressView onStart:updateCount withType:ProgressTypeUpdateDownload];
 
             NSLog(@".......... REQUEST 교수 전공(Majors) 목록 서버 요청 .........");
             [self requestAPIMajors];

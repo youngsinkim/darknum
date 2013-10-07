@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    ProgressTypeUpdateDownload,
+    ProgressTypeFavoriteSetting,
+    ProgressTypeUnknown
+} ProgressType;
+
 @class LoadingProgressView;
 @protocol LoadingProgressViewDelegate <NSObject>
 
@@ -37,7 +43,7 @@
 
 - (void)setPos:(CGFloat)pos withValue:(NSInteger)value;
 
-- (void)onStart:(NSInteger)position;
+- (void)onStart:(NSInteger)position withType:(ProgressType)type;
 - (void)onProgress:(NSInteger)current total:(NSInteger)total;
 - (void)onStop;
 

@@ -108,6 +108,12 @@
 /* update download msg */
 "update download msg" = "즐겨찾기에 등록된 주소록의 업데이트 내역이 있습니다.\n업데이트 자료를 다운로드 합니다. 잠시만 기다려주세요.";
 
+/* Favorite Setting Title */
+"Favorite Setting Title" = "즐겨찾기 주소록 재설정";
+
+/* Favorite Setting Msg */
+"Favorite Setting Msg" = "즐겨찾기 주소록이 변경되어 재성정 중입니다.\n잠시만 기다려주세요.";
+
 /* accept */
 "accept" = "Accept";
 

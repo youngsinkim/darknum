@@ -200,7 +200,7 @@
             
             // 1. 프로그래스 일단 노출
             NSLog(@".......... progressbar onStart ..........");
-            [self.progressView onStart:[course.count integerValue]];
+            [self.progressView onStart:[course.count integerValue] withType:ProgressTypeFavoriteSetting];
 
         }
         
