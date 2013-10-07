@@ -177,6 +177,7 @@
 		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
+		BFA89612180329C500869FB8 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
 		BFABB01C17F75AE50018D236 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
 		BFABB01F17F761EA0018D236 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01E17F761EA0018D236 /* Student.m */; };
 		BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
@@ -436,6 +437,8 @@
 		BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCell.m; sourceTree = "<group>"; };
 		BF9CC1AF17EE2396000862F0 /* ToolViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewCell.h; sourceTree = "<group>"; };
 		BF9CC1B017EE2396000862F0 /* ToolViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewCell.m; sourceTree = "<group>"; };
+		BFA89610180329C500869FB8 /* FindWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWebViewController.h; sourceTree = "<group>"; };
+		BFA89611180329C500869FB8 /* FindWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWebViewController.m; sourceTree = "<group>"; };
 		BFABB01A17F75AE50018D236 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
 		BFABB01B17F75AE50018D236 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		BFABB01D17F761EA0018D236 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
@@ -642,6 +645,8 @@
 			children = (
 				5062B64F17C4D24700A2495D /* LoginViewController.h */,
 				5062B65017C4D24700A2495D /* LoginViewController.m */,
+				BFA89610180329C500869FB8 /* FindWebViewController.h */,
+				BFA89611180329C500869FB8 /* FindWebViewController.m */,
 			);
 			name = "Login (로그인)";
 			sourceTree = "<group>";
@@ -1252,6 +1257,7 @@
 				BF57B31117D1CC3D00B39C03 /* MMHorizontalListViewCell.m in Sources */,
 				BF57B31217D1CC3D00B39C03 /* TSLanguageManager.m in Sources */,
 				BF57B31517D1CE3B00B39C03 /* UIViewController+LoadingProgress.m in Sources */,
+				BFA89612180329C500869FB8 /* FindWebViewController.m in Sources */,
 				BF57B32517D24DDA00B39C03 /* FavoriteToolView.m in Sources */,
 				BF57B32817D2E6E800B39C03 /* StudentProfileViewController.m in Sources */,
 				BF57B32B17D2E77400B39C03 /* StaffProfileViewController.m in Sources */,

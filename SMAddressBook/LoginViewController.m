@@ -13,6 +13,8 @@
 #import "MenuTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+LoadingProgress.h"
+#import "PortraitNavigationController.h"
+#import "FindWebViewController.h"
 
 @interface LoginViewController ()
 
@@ -426,14 +428,20 @@
 - (void)onFindIdClicked
 {
     // TODO: 아이디 찾기 웹 페이지로 이동
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/ko/member/findid"]];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/ko/member/findid"]];
+    FindWebViewController *findWebViewController = [[FindWebViewController alloc] initWithUrl:@"https://biz.snu.ac.kr/ko/member/findid" title:LocalizedString(@"Find Id", @"아이디 찾기")];
+    [self presentViewController:[[PortraitNavigationController alloc] initWithRootViewController:findWebViewController] animated:YES completion:nil];
+//    [self presentViewController:findWebViewController animated:YES completion:nil];
 }
 
 /// 비밀번호 찾기
 - (void)onFindPasswdClicked
 {
     // TODO: 비밀번호 찾기 웹 페이지로 이동
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/ko/member/resetpassword"]];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/ko/member/resetpassword"]];
+    FindWebViewController *findWebViewController = [[FindWebViewController alloc] initWithUrl:@"https://biz.snu.ac.kr/ko/member/resetpassword" title:LocalizedString(@"Find Password", @"비밀번호 찾기")];
+    [self presentViewController:[[PortraitNavigationController alloc] initWithRootViewController:findWebViewController] animated:YES completion:nil];
+
 }
 
 #pragma mark - Network methods

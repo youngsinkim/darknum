@@ -155,3 +155,13 @@
 
 /* search result */
 "Search Result" = "검색 결과";
+
+/* Find Id */
+"Find Id" = "아이디 찾기";
+
+/* Find Password */
+"Find Password" = "비밀번호 찾기";
+
+/* Done */
+"Done" = "닫기";
+
