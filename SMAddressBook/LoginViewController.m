@@ -530,7 +530,8 @@
                                                 
 
                                                 // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
-                                                if ([[UserContext shared] isAcceptTerms] == NO)
+                                                NSLog(@"약관 동의 했나? %d", [[UserContext shared] isAcceptTerms]);
+                                                if ([UserContext shared].isAcceptTerms == NO)
                                                 {
                                                     // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
                                                     TermsViewController *termsViewController = [[TermsViewController alloc] init];

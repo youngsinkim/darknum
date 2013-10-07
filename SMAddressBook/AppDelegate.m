@@ -426,11 +426,10 @@
 - (void)goLoginViewControllerWithDataReset:(BOOL)isReset
 {
     NSLog(@".......... 로그인 화면으로 이동 ..........");
-    if (isReset == YES) {
-        [self resetDBData];
-    }
-    
+    if (isReset == YES)
     {
+        [self resetDBData];
+
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kProfileInfo];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLastUpdate];
@@ -442,12 +441,9 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUpdateCount];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMyClass];
         
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAutoLogin];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAcceptTerms];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSetProfile];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSavedId];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
         
 
         [[UserContext shared].profileInfo removeAllObjects];
@@ -462,12 +458,17 @@
         [UserContext shared].updateCount = @"";
         [UserContext shared].myClass = @"";
         
-        [UserContext shared].isLogined = NO;
-        [UserContext shared].isAutoLogin = NO;
         [UserContext shared].isAcceptTerms = NO;
         [UserContext shared].isExistProfile = NO;
         [UserContext shared].isSavedID = NO;
     }
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAutoLogin];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [UserContext shared].isLogined = NO;
+    [UserContext shared].isAutoLogin = NO;
+
 
     // MARK: 로그인 전이면, 로그인 화면 표시
     UINavigationController *loginNavigationController = [self loginViewController];
