@@ -198,6 +198,52 @@
     }
 }
 
+- (BOOL)resetDatastore
+{
+    [[self managedObjectContext] lock];
+    [[self managedObjectContext] reset];
+    NSPersistentStore *store = [[[self persistentStoreCoordinator] persistentStores] lastObject];
+    BOOL resetOk = NO;
+    
+    if (store)
+    {
+        NSURL *storeUrl = store.URL;
+        NSError *error;
+        
+        if ([[self persistentStoreCoordinator] removePersistentStore:store error:&error])
+        {
+            _persistentStoreCoordinator = nil;
+            _managedObjectContext = nil;
+            
+            if (![[NSFileManager defaultManager] removeItemAtPath:storeUrl.path error:&error])
+            {
+                NSLog(@"\nresetDatastore. Error removing file of persistent store: %@",
+                      [error localizedDescription]);
+                resetOk = NO;
+            }
+            else
+            {
+                //now recreate persistent store
+                [self persistentStoreCoordinator];
+                [[self managedObjectContext] unlock];
+                resetOk = YES;
+            }
+        }
+        else
+        {
+            NSLog(@"\nresetDatastore. Error removing persistent store: %@",
+                  [error localizedDescription]);
+            resetOk = NO;
+        }
+        return resetOk;
+    }
+    else
+    {
+        NSLog(@"\nresetDatastore. Could not find the persistent store");
+        return resetOk;
+    }
+}
+
 #pragma mark - Core Data stack
 
 // Returns the managed object context for the application.
@@ -385,14 +431,42 @@
     }
     
     {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kProfileInfo];
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLastUpdate];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserId];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserPwd];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCertNo];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMemType];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUpdateCount];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMyClass];
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAutoLogin];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAcceptTerms];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSetProfile];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSavedId];
         
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+
+        [[UserContext shared].profileInfo removeAllObjects];
+        [UserContext shared].profileInfo = [[NSMutableDictionary alloc] init];
+
+        [UserContext shared].lastUpdateDate = @"0000-00-00 00:00:00";
+        [UserContext shared].userId = @"";
+        [UserContext shared].userPwd = @"";
+        
+        [UserContext shared].certNo = @"";
+        [UserContext shared].memberType = @"";
+        [UserContext shared].updateCount = @"";
+        [UserContext shared].myClass = @"";
+        
+        [UserContext shared].isLogined = NO;
+        [UserContext shared].isAutoLogin = NO;
+        [UserContext shared].isAcceptTerms = NO;
+        [UserContext shared].isExistProfile = NO;
+        [UserContext shared].isSavedID = NO;
     }
 
     // MARK: 로그인 전이면, 로그인 화면 표시
@@ -405,7 +479,8 @@
 // 전체 데이터 초기화
 - (void)resetDBData
 {
-    
+    NSLog(@"..... DB 파일 삭제 후 제 생성");
+    [self resetDatastore];
 }
 
 #pragma mark - Network methods
@@ -447,9 +522,12 @@
                                                 BOOL isErrorAlert = YES;
                                                 
                                                 if ([info isKindOfClass:[NSDictionary class]]) {
-                                                    if ([info[@"errcode"] isEqualToString:@"3"]) {
+                                                    if ([info[@"errcode"] isEqualToString:@"2"]) {
                                                         isErrorAlert = NO;
                                                         NSLog(@"..... 모든 정보 리셋하고 로그인 화면으로 이동");
+                                                        
+                                                        [self.splashViewController dismissViewControllerAnimated:NO completion:nil];
+
                                                         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                                                         [appDelegate goLoginViewControllerWithDataReset:YES];
                                                         isErrorAlert = NO;

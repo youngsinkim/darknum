@@ -21,6 +21,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (void)saveContext;
+- (BOOL)resetDatastore;
 - (NSURL *)applicationDocumentsDirectory;
 
 // 로그인 뷰 컨트롤러

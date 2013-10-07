@@ -636,6 +636,7 @@
     if (_isCourseSaveDone && _isMajorSaveDone && [_updateInfo count] > 0)
     {
         NSLog(@"~~~~~~~~~~~~~~~~ 업데이트 된 것 저장하자 ~~~~~~~~~~~");
+        _cur = 0;
         [self saveDBFavorite:_updateInfo];
     }
     NSLog(@"---------- END ----------");
@@ -1547,6 +1548,7 @@
     
     [childContext performBlock:^{
         
+        int n = 0;
         for (NSDictionary *dict in students)
         {
             NSLog(@"학생(%@) 저장", dict[@"name"]);
@@ -1711,8 +1713,8 @@
 //                [childContext save:nil];
             }
             
-            ++_cur;
-            NSLog(@"..... 학생 저장 중 (%d)", _cur);
+            _cur += 1;
+            NSLog(@"..... 학생 저장 중 (%d - %d)", _cur, ++n);
             [childContext save:nil];
             
         } // for
@@ -1879,6 +1881,7 @@
     
     [childContext performBlock:^{
         
+        int n = 0;
         for (NSDictionary *info in objects)
         {
             // 교수 전공 검색
@@ -1989,8 +1992,8 @@
 //                major.major = info[@"major"];
             }
             
-            ++_cur;
-            NSLog(@"..... 교수 저장 중 (%d)", _cur);
+            _cur += 1;
+            NSLog(@"..... 교수 저장 중 (%d - %d)", _cur, ++n);
             [childContext save:nil];
             
         } // for
@@ -2081,7 +2084,7 @@
     __block BOOL done = NO;
     
     [childContext performBlock:^{
-        
+        int n = 0;
         for (NSDictionary *info in objects)
         {
             // 교직원 검색
@@ -2145,8 +2148,8 @@
                 newStaff.viewphotourl = info[@"viewphotourl"];
             }
             
-            ++_cur;
-            NSLog(@"..... Saving child (교직원)");
+            _cur += 1;
+            NSLog(@"..... 교직원 저장 중 (%d - %d)", _cur, ++n);
             [childContext save:nil];
             
         } // for

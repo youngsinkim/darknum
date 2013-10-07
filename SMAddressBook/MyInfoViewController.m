@@ -1044,6 +1044,12 @@
 //    [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
 //    [[NSUserDefaults standardUserDefaults] synchronize];
 //    [UserContext shared].isAutoLogin = isAutoLogin;
+    
+//    [UserContext shared].updateCount = @"";
+//    [UserContext shared].lastUpdateDate = @"0000-00-00 00:00:00";
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLastUpdate];
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUpdateCount];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 /// 프로필 저장 버튼
@@ -1406,7 +1412,7 @@
                                                  [_myInfo setDictionary:result];
                                                  NSLog(@"서버에서 가져온 내 정보 : %@", _myInfo);
                                                  
-                                                 [[UserContext shared] setProfileInfo:_myInfo];
+                                                 [UserContext shared].profileInfo = [_myInfo mutableCopy];
                                                  [[NSUserDefaults standardUserDefaults] setObject:_myInfo forKey:kProfileInfo];
                                                  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
                                                  [[NSUserDefaults standardUserDefaults] synchronize];

@@ -468,7 +468,7 @@
                                                 BOOL isErrorAlert = YES;
                                                 
                                                 if ([info isKindOfClass:[NSDictionary class]]) {
-                                                    if ([info[@"errcode"] isEqualToString:@"3"]) {
+                                                    if ([info[@"errcode"] isEqualToString:@"2"]) {
                                                         isErrorAlert = NO;
                                                         NSLog(@"..... 모든 정보 리셋하고 로그인 화면으로 이동");
                                                         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;

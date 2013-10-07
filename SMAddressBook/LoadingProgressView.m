@@ -451,6 +451,9 @@ static float progCnt = 0.0f;
 {
     if (current > 0 && total > 0)
     {
+        if (current >= total) {
+            current = total;
+        }
         float position = (float)(current / total);
         NSLog(@"---------- onProgress ( %f ) ----------", position);
         

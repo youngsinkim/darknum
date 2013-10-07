@@ -780,7 +780,7 @@
             }
             
             ++_cur;
-            NSLog(@"..... 학생 저장 중 (%d)", _cur);
+            NSLog(@"..... 학생 저장 중! (%d)", _cur);
             [childContext save:nil];
             
         } // for
