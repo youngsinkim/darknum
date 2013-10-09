@@ -14,6 +14,9 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MenuTableViewController.h"
 #import "SMNetworkClient.h"
+#import "Faculty.h"
+#import "Staff.h"
+#import "Student.h"
 
 #define kScreenY    64.0f
 #define kOFFSET_FOR_KEYBOARD 216.0f
@@ -193,8 +196,10 @@
     
     if ([UserContext shared].isExistProfile != YES) {
         self.navigationItem.leftBarButtonItem.enabled = NO;
+        self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
     } else {
         self.navigationItem.leftBarButtonItem.enabled = YES;
+        self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
     }
 
     if (_memType != MemberTypeStudent)
@@ -1477,18 +1482,27 @@
     [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         
         NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
-        [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
-
-        if (_photoData) {
-            // 왼쪽 메뉴 사진 정보 업데이트
-            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-            UIImage *image = [[UIImage alloc] initWithData:_photoData];
-            [menu updateHeaderImage:image];
-            
-            // DB에도 내 정보 업데이트
-            [self updateDBMyInfo];
-        }
     }];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                            NSLog(@"프로필 변경 완료");
+                                            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                        
+                                            if (_photoData)
+                                            {
+                                                // 왼쪽 메뉴 사진 정보 업데이트
+                                                MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+                                                UIImage *image = [[UIImage alloc] initWithData:_photoData];
+                                                [menu updateHeaderImage:image];
+                                                
+                                                // DB에도 내 정보 업데이트
+                                                [self updateDBMyInfo];
+                                            }
+                                     }
+                                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"error: %@",  operation.responseString);
+                                     }
+    ];
     
     [operation start];
     
@@ -1496,50 +1510,104 @@
 
 - (void)updateDBMyInfo
 {
-    if (_memType == MemberTypeStudent)
+    NSArray *fetched = [self findDBMyInfo];
+    NSLog(@"자신의 정보 찾았나? %@", fetched);
+
+    if (fetched && [fetched count] > 0)
     {
-        
+        if (_memType == MemberTypeFaculty)
+        {
+            Faculty *mo = fetched[0];
+            mo.email        = _myInfo[@"email"];
+            mo.office       = _myInfo[@"office"];
+            mo.office_en    = _myInfo[@"office_en"];
+            mo.photourl     = _myInfo[@"photourl"];
+            mo.tel          = _myInfo[@"tel"];
+            mo.viewphotourl = _myInfo[@"viewphotourl"];
+        }
+        else if (_memType == MemberTypeStaff)
+        {
+            Staff *mo = fetched[0];
+            mo.email     = _myInfo[@"email"];
+            mo.office    = _myInfo[@"office"];
+            mo.office_en = _myInfo[@"office_en"];
+            mo.work      = _myInfo[@"work"];
+            mo.work_en   = _myInfo[@"work_en"];
+            mo.photourl  = _myInfo[@"photourl"];
+            mo.tel       = _myInfo[@"tel"];
+            mo.viewphotourl = _myInfo[@"viewphotourl"];
+        }
+        else if (_memType == MemberTypeStudent)
+        {
+            Student *mo = fetched[0];
+            mo.email = _myInfo[@"email"];
+            mo.company = _myInfo[@"company"];
+            mo.company_en = _myInfo[@"company_en"];
+            mo.department = _myInfo[@"department"];
+            mo.department_en = _myInfo[@"department_en"];
+            mo.title = _myInfo[@"title"];
+            mo.title_en = _myInfo[@"title_en"];
+            mo.share_company = _myInfo[@"share_company"];
+            mo.share_email = _myInfo[@"share_email"];
+            mo.share_mobile = _myInfo[@"share_mobile"];
+            mo.photourl = _myInfo[@"photourl"];
+            mo.viewphotourl = _myInfo[@"viewphotourl"];
+        }
+
+        NSError *error;
+        if ([self.moc hasChanges] && ![self.moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
     }
-    else
-    {
-        
-    }
+//    if (_memType == MemberTypeStudent) {
+//    }
+//    else {
+//    }
 }
 
 - (NSArray *)findDBMyInfo
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
-    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Student" inManagedObjectContext:_moc];
+    // select Table
+    NSEntityDescription *entity = nil;
+    NSPredicate *predicate = nil;
+    NSString *userKey = [UserContext shared].userKey;
+    NSLog(@"자신의 타입 : %d, 고유키 : %@", _memType, userKey);
+    
+    if (_memType == MemberTypeStudent) {
+        // 학생 table
+        entity = [NSEntityDescription entityForName:@"Student" inManagedObjectContext:self.moc];
+        
+        predicate = [NSPredicate predicateWithFormat:@"(studcode == %@)", userKey];
+    }
+    else if (_memType == MemberTypeFaculty)
+    {
+        // 교수 table
+        entity = [NSEntityDescription entityForName:@"Faculty" inManagedObjectContext:self.moc];
+        
+        predicate = [NSPredicate predicateWithFormat:@"(memberidx == %@)", userKey];
+    }
+    else if (_memType == MemberTypeStaff)
+    {
+        // 교직원 table
+        entity = [NSEntityDescription entityForName:@"Staff" inManagedObjectContext:self.moc];
+        
+        predicate = [NSPredicate predicateWithFormat:@"(memberidx == %@)", userKey];
+    }
+    
+    if (entity == nil || predicate == nil) {
+        return nil;
+    }
+    
     [fetchRequest setEntity:entity];
-    
-    // * (column)
-    //    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
-    //    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
-    //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
-    [fetchRequest setResultType:NSDictionaryResultType];
-    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"course"]];
-    [fetchRequest setReturnsObjectsAsFaults:NO];
-    
-//    NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@""];
-//    if ([_info[@"name"] length] > 0 && [_info[@"courseclass"] length] > 0) {
-//        predicate = [NSPredicate predicateWithFormat:@"(course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@) AND (name contains[c] %@ OR name_en contains[c] %@)", _info[@"courseclass"], _info[@"name"], _info[@"name"]];
-//    } else if ([_info[@"courseclass"] length] > 0) {
-//        predicate = [NSPredicate predicateWithFormat:@"course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@", _info[@"courseclass"], _info[@"courseclass"]];
-//    } else if ([_info[@"name"] length] > 0) {
-//        predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@ OR name_en contains[c] %@", _info[@"name"], _info[@"name"]];
-//    }
     [fetchRequest setPredicate:predicate];
     
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
     NSError *error = nil;
-    NSArray *fetchedObjects = [_moc executeFetchRequest:fetchRequest error:&error];
-    NSLog(@"DB data count : %d", [fetchedObjects count]);
+    NSArray *filtered = [self.moc executeFetchRequest:fetchRequest error:&error];
+//    NSLog(@"Filtered DB count : %d", [filtered count]);
     
-    // 검색된 학생 목록 저장
-    return fetchedObjects;
+    return filtered;
 }
 @end
