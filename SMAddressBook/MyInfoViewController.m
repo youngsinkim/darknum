@@ -180,11 +180,6 @@
     }
 
 
-    // MARK: 프로필 유무 설정하여 최초 실행 이후에 프로필 화면으로 이동하지 않도록 처리.
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [UserContext shared].isExistProfile = YES;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -196,6 +191,12 @@
     CGFloat yOffset = 0.0f;
     CGRect frame;
     
+    if ([UserContext shared].isExistProfile != YES) {
+        self.navigationItem.leftBarButtonItem.enabled = NO;
+    } else {
+        self.navigationItem.leftBarButtonItem.enabled = YES;
+    }
+
     if (_memType != MemberTypeStudent)
     {
         _telLabel.hidden = NO;
@@ -244,7 +245,12 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+
+    // MARK: 프로필 유무 설정하여 최초 실행 이후에 프로필 화면으로 이동하지 않도록 처리.
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [UserContext shared].isExistProfile = YES;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     

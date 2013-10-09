@@ -10,7 +10,7 @@
 #import "StudentAddressCell.h"
 
 #import "DetailViewController.h"
-#import "DetailInfoViewController.h"
+//#import "DetailInfoViewController.h"
 #import "StudentDetailViewController.h"
 #import "Course.h"
 #import "Student.h"

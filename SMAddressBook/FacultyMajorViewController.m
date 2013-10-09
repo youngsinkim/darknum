@@ -7,7 +7,7 @@
 //
 
 #import "FacultyMajorViewController.h"
-#import "AddressViewController.h"
+//#import "AddressViewController.h"
 #import "MajorCell.h"
 #import "Major.h"
 #import "FacultyAddressViewController.h"

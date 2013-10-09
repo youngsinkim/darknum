@@ -98,7 +98,7 @@ static UserContext *_sharedUserContext = nil;
     }
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserKey]) {
-        _userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserKey];
+        _userKey = [[NSUserDefaults standardUserDefaults] objectForKey:kUserKey];
     }
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kCertNo]) {

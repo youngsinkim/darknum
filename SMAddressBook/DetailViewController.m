@@ -12,7 +12,7 @@
 #import "Faculty.h"
 #import "Staff.h"
 #import "Student.h"
-#import "DetailView.h"
+//#import "DetailView.h"
 #import "PortraitNavigationController.h"
 #import "KakaoMessageViewController.h"
 

@@ -13,7 +13,7 @@
 #import "FacultyMajorViewController.h"      //< 교수 전공 뷰 컨트롤러
 #import "StaffAddressViewController.h"      //< 교직원 주소록 뷰 컨트롤러
 #import "StudentAddressViewController.h"    //< 과정 기수(학생) 주소록 뷰 컨트롤러
-#import "CourseClassViewController.h"       //< 과정 기수 뷰 컨트롤러
+//#import "CourseClassViewController.h"       //< 과정 기수 뷰 컨트롤러
 #import "CourseTotalViewController.h"       //< 과전 전체보기 뷰 컨트롤러
 
 #import "MyInfoViewController.h"            //< 내 정보 설정 뷰 컨트롤러

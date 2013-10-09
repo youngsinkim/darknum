@@ -76,6 +76,7 @@
     if ([UserContext shared].isSavedID == YES)
     {
         _idTextField.text = [UserContext shared].userId;
+        _idSaveCheckBtn.selected = YES;
         [_pwdTextField becomeFirstResponder];
     }
 }

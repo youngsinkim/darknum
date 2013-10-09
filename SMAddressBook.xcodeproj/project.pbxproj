@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5014294817E4159900BA231B /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294717E4159900BA231B /* DetailView.m */; };
-		5014294B17E4289900BA231B /* DetailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5014294A17E4289900BA231B /* DetailInfoViewController.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
 		5052F0E217E6F1C700CB41D3 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
@@ -105,14 +103,12 @@
 		BF177E7C17C9BA8300614485 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
 		BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */; };
 		BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8117C9BAB000614485 /* HelpViewController.m */; };
-		BF177E8817C9BBFF00614485 /* CourseClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8717C9BBFF00614485 /* CourseClassViewController.m */; };
 		BF177E8C17C9BC3D00614485 /* CourseTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */; };
 		BF177E8F17CA1FA000614485 /* menu_img.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177E8D17CA1FA000614485 /* menu_img.png */; };
 		BF177E9017CA1FA000614485 /* menu_img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177E8E17CA1FA000614485 /* menu_img@2x.png */; };
 		BF177E9317CA20AB00614485 /* profile_btn_my_set.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177E9117CA20AB00614485 /* profile_btn_my_set.png */; };
 		BF177E9417CA20AB00614485 /* profile_btn_my_set@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177E9217CA20AB00614485 /* profile_btn_my_set@2x.png */; };
 		BF177E9717CA277C00614485 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9617CA277C00614485 /* MenuCell.m */; };
-		BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9D17CA6D1300614485 /* ContactCell.m */; };
 		BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
 		BF177EA317CBB1B900614485 /* nav_title_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF177EA217CBB1B900614485 /* nav_title_bg@2x.png */; };
 		BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EAA17CBBAE700614485 /* CourseClassCell.m */; };
@@ -128,6 +124,7 @@
 		BF3E747A17E217F2006AAF8D /* recommend_icon_adress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3E747817E217F2006AAF8D /* recommend_icon_adress@2x.png */; };
 		BF3E747C17E21F0D006AAF8D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */; };
 		BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
+		BF53FD3618059DBE00AB8DF3 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3518059DBE00AB8DF3 /* Staff.m */; };
 		BF57B2CE17CCE28400B39C03 /* btn_back.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2C817CCE28400B39C03 /* btn_back.png */; };
 		BF57B2CF17CCE28400B39C03 /* btn_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2C917CCE28400B39C03 /* btn_back@2x.png */; };
 		BF57B2D017CCE28400B39C03 /* btn_filter.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CA17CCE28400B39C03 /* btn_filter.png */; };
@@ -155,7 +152,6 @@
 		BF57B33517D2EDED00B39C03 /* StaffAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */; };
 		BF57B33917D2EE1100B39C03 /* StudentAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */; };
 		BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34A17D34A0200B39C03 /* MajorCell.m */; };
-		BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34D17D38BF500B39C03 /* AddressViewController.m */; };
 		BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35317D38E8200B39C03 /* AddressCell.m */; };
 		BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35617D38EC600B39C03 /* StudentAddressCell.m */; };
 		BF57B38B17D78C2000B39C03 /* StudentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38A17D78C2000B39C03 /* StudentDetailViewController.m */; };
@@ -189,7 +185,6 @@
 		BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
 		BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
 		BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885E17F1BDBD0045CA75 /* Faculty.m */; };
-		BFEB886217F1BDD20045CA75 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB886117F1BDD20045CA75 /* Staff.m */; };
 		BFFAC40B17FF0EBD00EA3364 /* emailicon_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAC40917FF0EBD00EA3364 /* emailicon_btn.png */; };
 		BFFAC40C17FF0EBD00EA3364 /* emailicon_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAC40A17FF0EBD00EA3364 /* emailicon_btn@2x.png */; };
 		BFFAC41117FF273700EA3364 /* friend_search_contact_on.png in Resources */ = {isa = PBXBuildFile; fileRef = BFFAC40D17FF273700EA3364 /* friend_search_contact_on.png */; };
@@ -201,10 +196,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5014294617E4159900BA231B /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
-		5014294717E4159900BA231B /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
-		5014294917E4289900BA231B /* DetailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailInfoViewController.h; sourceTree = "<group>"; };
-		5014294A17E4289900BA231B /* DetailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailInfoViewController.m; sourceTree = "<group>"; };
 		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
 		5052F0E017E6F1C700CB41D3 /* LoadingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingProgressView.h; sourceTree = "<group>"; };
 		5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingProgressView.m; sourceTree = "<group>"; };
@@ -322,8 +313,6 @@
 		BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteSettingViewController.m; sourceTree = "<group>"; };
 		BF177E8017C9BAB000614485 /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		BF177E8117C9BAB000614485 /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
-		BF177E8617C9BBFF00614485 /* CourseClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseClassViewController.h; sourceTree = "<group>"; };
-		BF177E8717C9BBFF00614485 /* CourseClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseClassViewController.m; sourceTree = "<group>"; };
 		BF177E8A17C9BC3D00614485 /* CourseTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseTotalViewController.h; sourceTree = "<group>"; };
 		BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTotalViewController.m; sourceTree = "<group>"; };
 		BF177E8D17CA1FA000614485 /* menu_img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_img.png; sourceTree = "<group>"; };
@@ -332,8 +321,6 @@
 		BF177E9217CA20AB00614485 /* profile_btn_my_set@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_btn_my_set@2x.png"; sourceTree = "<group>"; };
 		BF177E9517CA277C00614485 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
 		BF177E9617CA277C00614485 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
-		BF177E9C17CA6D1300614485 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
-		BF177E9D17CA6D1300614485 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
 		BF177E9F17CA70AF00614485 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		BF177EA017CA70AF00614485 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		BF177EA217CBB1B900614485 /* nav_title_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_title_bg@2x.png"; sourceTree = "<group>"; };
@@ -358,6 +345,8 @@
 		BF3E747817E217F2006AAF8D /* recommend_icon_adress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recommend_icon_adress@2x.png"; sourceTree = "<group>"; };
 		BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		BF3E747D17E2223F006AAF8D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		BF53FD3418059DBE00AB8DF3 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
+		BF53FD3518059DBE00AB8DF3 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
 		BF57B2C817CCE28400B39C03 /* btn_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back.png; sourceTree = "<group>"; };
 		BF57B2C917CCE28400B39C03 /* btn_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back@2x.png"; sourceTree = "<group>"; };
 		BF57B2CA17CCE28400B39C03 /* btn_filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_filter.png; sourceTree = "<group>"; };
@@ -401,8 +390,6 @@
 		BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentAddressViewController.m; sourceTree = "<group>"; };
 		BF57B34917D34A0200B39C03 /* MajorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MajorCell.h; sourceTree = "<group>"; };
 		BF57B34A17D34A0200B39C03 /* MajorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MajorCell.m; sourceTree = "<group>"; };
-		BF57B34C17D38BF500B39C03 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
-		BF57B34D17D38BF500B39C03 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
 		BF57B35217D38E8200B39C03 /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
 		BF57B35317D38E8200B39C03 /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
 		BF57B35517D38EC400B39C03 /* StudentAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentAddressCell.h; sourceTree = "<group>"; };
@@ -459,8 +446,6 @@
 		BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_kakaotalk_logo_iphone@2x.png"; sourceTree = "<group>"; };
 		BFEB885D17F1BDBD0045CA75 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
 		BFEB885E17F1BDBD0045CA75 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
-		BFEB886017F1BDD20045CA75 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
-		BFEB886117F1BDD20045CA75 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
 		BFFAC40917FF0EBD00EA3364 /* emailicon_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emailicon_btn.png; sourceTree = "<group>"; };
 		BFFAC40A17FF0EBD00EA3364 /* emailicon_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emailicon_btn@2x.png"; sourceTree = "<group>"; };
 		BFFAC40D17FF273700EA3364 /* friend_search_contact_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend_search_contact_on.png; sourceTree = "<group>"; };
@@ -497,10 +482,10 @@
 				BFABB01A17F75AE50018D236 /* Course.h */,
 				BFABB01B17F75AE50018D236 /* Course.m */,
 				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
+				BF53FD3418059DBE00AB8DF3 /* Staff.h */,
+				BF53FD3518059DBE00AB8DF3 /* Staff.m */,
 				BFABB01D17F761EA0018D236 /* Student.h */,
 				BFABB01E17F761EA0018D236 /* Student.m */,
-				BFEB886017F1BDD20045CA75 /* Staff.h */,
-				BFEB886117F1BDD20045CA75 /* Staff.m */,
 				BFEB885D17F1BDBD0045CA75 /* Faculty.h */,
 				BFEB885E17F1BDBD0045CA75 /* Faculty.m */,
 				BF57B2EA17CFA40F00B39C03 /* Major.h */,
@@ -800,21 +785,14 @@
 		BF177E8917C9BC0600614485 /* 주소록 목록 화면 */ = {
 			isa = PBXGroup;
 			children = (
-				BF57B37317D6555E00B39C03 /* old */,
-				BF57B34C17D38BF500B39C03 /* AddressViewController.h */,
-				BF57B34D17D38BF500B39C03 /* AddressViewController.m */,
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
 				BFDEBEC81801149700F7409F /* KakaoMessageViewController.h */,
 				BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */,
-				5014294917E4289900BA231B /* DetailInfoViewController.h */,
-				5014294A17E4289900BA231B /* DetailInfoViewController.m */,
 				BF3E747417E21001006AAF8D /* DetailToolView.h */,
 				BF3E747517E21001006AAF8D /* DetailToolView.m */,
 				BF57B3B617DCD09E00B39C03 /* DetailViewCell.h */,
 				BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */,
-				5014294617E4159900BA231B /* DetailView.h */,
-				5014294717E4159900BA231B /* DetailView.m */,
 				BF57B35217D38E8200B39C03 /* AddressCell.h */,
 				BF57B35317D38E8200B39C03 /* AddressCell.m */,
 				BF57B32F17D2ED6100B39C03 /* 교수진 주소록 */,
@@ -964,17 +942,6 @@
 				BF57B38D17D7928300B39C03 /* StudentDetailToolView.m */,
 			);
 			name = "학생 주소록";
-			sourceTree = "<group>";
-		};
-		BF57B37317D6555E00B39C03 /* old */ = {
-			isa = PBXGroup;
-			children = (
-				BF177E8617C9BBFF00614485 /* CourseClassViewController.h */,
-				BF177E8717C9BBFF00614485 /* CourseClassViewController.m */,
-				BF177E9C17CA6D1300614485 /* ContactCell.h */,
-				BF177E9D17CA6D1300614485 /* ContactCell.m */,
-			);
-			name = old;
 			sourceTree = "<group>";
 		};
 		BF57B39217D79C9B00B39C03 /* Tool (툴바 뷰) */ = {
@@ -1240,19 +1207,15 @@
 				BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */,
 				5052F0E217E6F1C700CB41D3 /* LoadingProgressView.m in Sources */,
 				BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */,
-				5014294B17E4289900BA231B /* DetailInfoViewController.m in Sources */,
 				BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */,
-				BF177E8817C9BBFF00614485 /* CourseClassViewController.m in Sources */,
 				BF177E8C17C9BC3D00614485 /* CourseTotalViewController.m in Sources */,
 				BF177E9717CA277C00614485 /* MenuCell.m in Sources */,
-				BF177E9E17CA6D1300614485 /* ContactCell.m in Sources */,
 				BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */,
 				BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */,
 				BF57B2DD17CF824A00B39C03 /* FavoriteCell.m in Sources */,
 				BF57B2EC17CFA40F00B39C03 /* Major.m in Sources */,
 				BF57B30517D1CC2D00B39C03 /* NSString+MD5.m in Sources */,
 				BF57B30617D1CC2D00B39C03 /* UIView+Shadow.m in Sources */,
-				BFEB886217F1BDD20045CA75 /* Staff.m in Sources */,
 				BF57B31017D1CC3D00B39C03 /* MMHorizontalListView.m in Sources */,
 				BF57B31117D1CC3D00B39C03 /* MMHorizontalListViewCell.m in Sources */,
 				BF57B31217D1CC3D00B39C03 /* TSLanguageManager.m in Sources */,
@@ -1272,8 +1235,6 @@
 				BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */,
 				BF57B34B17D34A0300B39C03 /* MajorCell.m in Sources */,
 				BFDEBECA1801149700F7409F /* KakaoMessageViewController.m in Sources */,
-				5014294817E4159900BA231B /* DetailView.m in Sources */,
-				BF57B34E17D38BF600B39C03 /* AddressViewController.m in Sources */,
 				BF57B35417D38E8200B39C03 /* AddressCell.m in Sources */,
 				BF57B35717D38EC700B39C03 /* StudentAddressCell.m in Sources */,
 				BF57B38B17D78C2000B39C03 /* StudentDetailViewController.m in Sources */,
@@ -1284,6 +1245,7 @@
 				BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */,
 				BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */,
 				BFABB01C17F75AE50018D236 /* Course.m in Sources */,
+				BF53FD3618059DBE00AB8DF3 /* Staff.m in Sources */,
 				50C4A2D317D87B86006DEC43 /* Util.m in Sources */,
 				BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */,
 				BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */,

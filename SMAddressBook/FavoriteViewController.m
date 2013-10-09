@@ -87,6 +87,7 @@
         _facultySaveDone = NO;
         _staffSaveDone = NO;
         _isCourseSaveDone = NO;
+        _isSavingFavorites = NO;
     }
     return self;
 }
@@ -474,8 +475,8 @@
                                                   }
                                                   
                                                   NSLog(@".......... saveDBFavoriteUpdates .........");
-                                                  if (_isSavingFavorites != YES) {
-                                                      [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
+                                                  if (_isSavingFavorites == NO) {
+                                                      [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
                                                   }
 #endif
                                               }
@@ -524,8 +525,8 @@
                                                  }
                                                  
 //                                                 NSLog(@".......... SET DB MAJORS .........");
-                                                 if (_isSavingFavorites != YES) {
-                                                     [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
+                                                 if (_isSavingFavorites == NO) {
+                                                     [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
                                                  }
 
 #endif
@@ -584,23 +585,11 @@
                                                     
                                                     [_updateInfo setDictionary:result];
                                                     NSLog(".......... onUpdateDBFavorites (업데이트 저장 하자.) ..........");
-#if (1)
+                                                    
 //                                                    [self onUpdateDBFavorites:_updateInfo];
-                                                    if (_isSavingFavorites != YES) {
+                                                    if (_isSavingFavorites == NO) {
                                                         [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
                                                     }
-#else
-                                                    // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
-//                                                    NSDictionary *favoriteInfo = [result valueForKeyPath:@"data"];
-                                                    
-    //                                                [self onUpdateDBFavorites:favoriteInfo];
-    //                                                 NSLog(@"Thread3 - 5");
-//                                                    [_updateInfo setDictionary:favoriteInfo];
-                                                    [_updateInfo setDictionary:result];
-                                                    NSLog(@"즐겨찾기 업데이트 목록 (%d) : %@", [_updateInfo count], _updateInfo);
-                                                    
-                                                    [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
-#endif
                                                 }
                                             }];
     NSLog(@"---------- end ----------");
@@ -645,12 +634,10 @@
 - (void)saveDBFavoriteUpdates
 {
     NSLog(@"---------- START ----------");
-    NSLog(@"기수(%d) - 완료(%d), 전공 (%d) - 완료 (%d), 즐겨찾기 업데이트 (%d)", [_courses count], _isCourseSaveDone, [_majors count], _isMajorSaveDone, [_updateInfo count]);
+    NSLog(@"기수(%d - 완료:%d), 전공(%d - 완료:%d), 업데이트 개수(%d)", [_courses count], _isCourseSaveDone, [_majors count], _isMajorSaveDone, [_updateInfo count]);
     if (_isCourseSaveDone && _isMajorSaveDone && [_updateInfo count] > 0)
     {
-        NSLog(@"~~~~~~~~~~~~~~~~ 업데이트 된 것 저장하자 ~~~~~~~~~~~");
-        _cur = 0;
-        _isSavingFavorites = YES;
+        NSLog(@"##########   업데이트 저장하자!   ##########");
         [self saveDBFavorite:_updateInfo];
     }
     NSLog(@"---------- END ----------");
@@ -2221,9 +2208,13 @@
 /// course classes DB 추가 및 업데이트
 - (void)saveDBFavorite:(NSDictionary *)updateInfo
 {
-    NSLog(@"----------- saveDBFavorite START ----------");
+    _cur = 0;
+    _isSavingFavorites = YES;
+    NSLog(@"----------- DB 저장 시작 (_cur=%d 초기화) ----------", _cur);
+
     NSDictionary *info = [NSDictionary dictionaryWithDictionary:updateInfo];
     [self saveDBFavoriteStudent:info];
+    
 //    if ([updateInfo[@"student"] isKindOfClass:[NSArray class]])
 //    {
 //        NSArray *students = updateInfo[@"student"];
@@ -2252,8 +2243,9 @@
 //    }
     
     NSLog(@"----------- saveDBFavorite END ----------");
-    return;
-    
+
+
+#if (0)
 //    [self showUpdateProgress];
 
 //    dispatch_queue_t queue3 = dispatch_queue_create("dbqueue3", NULL);
@@ -2505,8 +2497,10 @@
     }
 //    });// dispatch
     
-    
     NSLog(@"----------- END ----------");
+    
+#endif
+    
 }
 
 

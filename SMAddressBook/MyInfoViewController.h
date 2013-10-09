@@ -17,7 +17,7 @@
 
 @interface MyInfoViewController : BaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
 
-@property (nonatomic, assign) MemberType memType; // 멤버 타입 ( 타입별로 화면 구성 변경 )
+@property (assign, nonatomic) MemberType memType; // 멤버 타입 ( 타입별로 화면 구성 변경 )
 
 //- (id)initWithMemberType:(MemberType)type;
 
