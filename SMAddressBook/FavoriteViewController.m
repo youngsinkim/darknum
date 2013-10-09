@@ -55,6 +55,7 @@
 @property (assign) BOOL studentSaveDone;    // 학생 업데이트 목록 DB 저장 여부
 @property (assign) BOOL facultySaveDone;    // 교수 업데이트 목록 DB 저장 여부
 @property (assign) BOOL staffSaveDone;      // 교직원 업데이트 목록 DB 저장 여부
+@property (assign) BOOL isSavingFavorites;  // 즐겨찾기 업데이트가 진행되면 더이상 즐겨찾기 업데이트 안되도록 처리하기 위해 추가
 @property (strong, nonatomic) NSTimer *savedTimer;
 @property (strong, nonatomic) NSTimer *progressTimer;
 @end
@@ -85,6 +86,7 @@
         _studentSaveDone = NO;
         _facultySaveDone = NO;
         _staffSaveDone = NO;
+        _isCourseSaveDone = NO;
     }
     return self;
 }
@@ -158,6 +160,9 @@
         
         if (updateCount > 0)
         {
+            // 업데이트 카운트가 존재하면 업데이트를 진행해야 하므로 저장 flag 초기화
+            _isSavingFavorites = NO;
+            
 //            [_progressView setHidden:NO];   // test
 //    [self performSelector:@selector( showUpdateProgress) withObject:nil];
             // 1. 프로그래스 일단 노출
@@ -467,8 +472,11 @@
                                                       NSLog(@"---------- 업데이트된 기수 목록이 없으므로 완료 처리 ----------");
                                                       _isCourseSaveDone = YES;
                                                   }
+                                                  
                                                   NSLog(@".......... saveDBFavoriteUpdates .........");
-                                                  [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
+                                                  if (_isSavingFavorites != YES) {
+                                                      [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
+                                                  }
 #endif
                                               }
                                           }];
@@ -514,8 +522,11 @@
                                                      NSLog(@"---------- 변경된 교수 전공이 없어 완료 처리 ----------")
                                                      _isMajorSaveDone = YES;
                                                  }
+                                                 
 //                                                 NSLog(@".......... SET DB MAJORS .........");
-                                                 [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
+                                                 if (_isSavingFavorites != YES) {
+                                                     [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil afterDelay:0.3f];
+                                                 }
 
 #endif
                                              }
@@ -575,7 +586,9 @@
                                                     NSLog(".......... onUpdateDBFavorites (업데이트 저장 하자.) ..........");
 #if (1)
 //                                                    [self onUpdateDBFavorites:_updateInfo];
-                                                    [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+                                                    if (_isSavingFavorites != YES) {
+                                                        [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+                                                    }
 #else
                                                     // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
 //                                                    NSDictionary *favoriteInfo = [result valueForKeyPath:@"data"];
@@ -637,6 +650,7 @@
     {
         NSLog(@"~~~~~~~~~~~~~~~~ 업데이트 된 것 저장하자 ~~~~~~~~~~~");
         _cur = 0;
+        _isSavingFavorites = YES;
         [self saveDBFavorite:_updateInfo];
     }
     NSLog(@"---------- END ----------");

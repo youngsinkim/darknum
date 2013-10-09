@@ -209,7 +209,7 @@
         NSString *userId = [UserContext shared].userId;
         NSString *certNo = [UserContext shared].certNo;
         NSString *lastUpdate = [UserContext shared].lastUpdateDate;
-        NSString *lang = [UserContext shared].language;
+//        NSString *lang = [UserContext shared].language;
         
         if (!mobileNo || !userId | !certNo || !lastUpdate) {
             return;
@@ -301,7 +301,7 @@
     NSString *userId = [UserContext shared].userId;
     NSString *certNo = [UserContext shared].certNo;
     NSString *lang = [UserContext shared].language;
-    NSString *courseClass = info[@"courseclass"];
+//    NSString *courseClass = info[@"courseclass"];
     
     if (!mobileNo || !userId | !certNo) {
         return;

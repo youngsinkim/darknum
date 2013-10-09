@@ -27,6 +27,7 @@
 
 #define kUserId         @"userId"
 #define kUserPwd        @"userPwd"
+#define kUserKey        @"userkey"
 
 #define kSavedId        @"savedUserId"
 
@@ -36,6 +37,7 @@
 @property (strong, nonatomic) NSString *lastUpdateDate;         //< 업데이트 시간 (마지막 서버 연동 시간 저장, 이 시간 값을 기준으로 서버의 새로운 데이터를 받아온다.)
 @property (strong, nonatomic) NSString *userId;
 @property (strong, nonatomic) NSString *userPwd;
+@property (strong, nonatomic) NSString *userKey;
 
 @property (strong, nonatomic) NSString *certNo;                 //< 로그인 토큰
 @property (strong, nonatomic) NSString *memberType;             //< 내 멤버 종류 (1:student, 2:faculty, 3:staff)

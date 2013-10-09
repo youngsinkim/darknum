@@ -435,6 +435,7 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLastUpdate];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserId];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserPwd];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserKey];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kCertNo];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kMemType];
@@ -452,6 +453,7 @@
         [UserContext shared].lastUpdateDate = @"0000-00-00 00:00:00";
         [UserContext shared].userId = @"";
         [UserContext shared].userPwd = @"";
+        [UserContext shared].userKey = @"";
         
         [UserContext shared].certNo = @"";
         [UserContext shared].memberType = @"";

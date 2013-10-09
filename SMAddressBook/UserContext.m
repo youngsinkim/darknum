@@ -38,6 +38,7 @@ static UserContext *_sharedUserContext = nil;
         _sharedUserContext.lastUpdateDate = @"0000-00-00 00:00:00";// [[NSDateFormatter alloc] dateFromString:@"0000-00-00 00:00:00"];
         _sharedUserContext.userId = @"";        // 사용자 ID
         _sharedUserContext.userPwd = @"";       // 사용자 비밀번호
+        _sharedUserContext.userKey = @"";       // 사용자 고유번혼 (studcode or memberidx)
 
         _sharedUserContext.certNo = @"";        // 로그인 토큰
         _sharedUserContext.memberType = @"";    // 내 멤버 종류
@@ -96,6 +97,10 @@ static UserContext *_sharedUserContext = nil;
         _userPwd = [[NSUserDefaults standardUserDefaults] objectForKey:kUserPwd];
     }
 
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserKey]) {
+        _userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserKey];
+    }
+
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kCertNo]) {
         _certNo = [[NSUserDefaults standardUserDefaults] objectForKey:kCertNo];
     }
@@ -131,8 +136,8 @@ static UserContext *_sharedUserContext = nil;
     _language = [TSLanguageManager selectedLanguage];
     NSLog(@"현재 언어 : %@", _language);
     
-    NSLog(@"previous AppInfo : \nautoLogin(%d), acceptTerms(%d), isProfile(%d), certno(%@), memtype(%@), updatecnt(%@), updateTime:%@, userID(%@), passWD(%@)",
-          _isAutoLogin, _isAcceptTerms, _isExistProfile, _certNo, _memberType, _updateCount, _lastUpdateDate, _userId, _userPwd);
+    NSLog(@"previous AppInfo : \nautoLogin(%d), acceptTerms(%d), isProfile(%d), certno(%@), memtype(%@), updatecnt(%@), updateTime:%@, userID(%@), passWD(%@), userKey(%@)",
+          _isAutoLogin, _isAcceptTerms, _isExistProfile, _certNo, _memberType, _updateCount, _lastUpdateDate, _userId, _userPwd, _userKey);
 
 }
 
