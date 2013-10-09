@@ -2716,7 +2716,7 @@
     
     if (!cell) {
         cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        //        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+//        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     }

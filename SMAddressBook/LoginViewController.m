@@ -68,6 +68,18 @@
     [_idTextField becomeFirstResponder];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 아이디 저장이 설정되어 있으면 로그인 입력창에 아이디를 노출시켜준다
+    if ([UserContext shared].isSavedID == YES)
+    {
+        _idTextField.text = [UserContext shared].userId;
+        [_pwdTextField becomeFirstResponder];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
