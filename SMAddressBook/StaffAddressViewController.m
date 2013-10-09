@@ -29,7 +29,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        self.navigationItem.title = LocalizedString(@"staff_text", @"교직원");
+        self.navigationItem.title = LocalizedString(@"faculty_member_text", @"교직원");
         
         _staffs = [[NSMutableArray alloc] init];
 

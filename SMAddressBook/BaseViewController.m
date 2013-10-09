@@ -13,6 +13,9 @@
 
 @interface BaseViewController ()
 
+@property (strong, nonatomic) UIButton *homeButton;
+@property (strong, nonatomic) UIButton *searchButton;
+
 @end
 
 @implementation BaseViewController
@@ -62,6 +65,19 @@
     // 네비게이션 버튼
     [self setupMenuBarButtonItems];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
+    {
+        _prevButton.hidden = NO;
+    } else {
+        // 최상위 화면이면 이전 버튼 노출 안함
+        _prevButton.hidden = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,6 +132,7 @@
 
     self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
     self.navigationItem.rightBarButtonItem = [self rightMenuBarButtonItem];
+//    [self rightMenuBarButtonItem];
 }
 
 /// 네비게이션 왼쪽 [메뉴] 버튼
@@ -188,26 +205,26 @@
     CGFloat size = 40.0f;
     
     /* back 버튼 */
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0.0f, 5.0f, size, size);
-    [backButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _prevButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _prevButton.frame = CGRectMake(0.0f, 5.0f, size, size);
+    [_prevButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    [_prevButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_prevButton];
 
-    [toolbar addSubview:backButton];
-//    [buttons addObject:barButtonItem];
+    [toolbar addSubview:_prevButton];
+    [buttons addObject:barButtonItem];
     
     
     /* 홈 버튼 */
-    UIButton *homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    homeButton.frame = CGRectMake(40.0f, 5.0f, size, size);
-    [homeButton setImage:[UIImage imageNamed:@"btn_home"] forState:UIControlStateNormal];
-    [homeButton addTarget:self action:@selector(onHomeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _homeButton.frame = CGRectMake(40.0f, 5.0f, size, size);
+    [_homeButton setImage:[UIImage imageNamed:@"btn_home"] forState:UIControlStateNormal];
+    [_homeButton addTarget:self action:@selector(onHomeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:homeButton];
+    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_homeButton];
     
-    [toolbar addSubview:homeButton];
+    [toolbar addSubview:_homeButton];
     [buttons addObject:barButtonItem];
     
     
@@ -225,6 +242,7 @@
     
     // Add buttons to toolbar and toolbar to nav bar.
 //    [toolbar setItems:buttons animated:NO];
+//    self.navigationItem.rightBarButtonItems = buttons;
     
 //    return [[UIBarButtonItem alloc] initWithCustomView:tools];
     return [[UIBarButtonItem alloc] initWithCustomView:toolbar];

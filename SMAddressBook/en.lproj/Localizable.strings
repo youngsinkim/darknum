@@ -16,7 +16,7 @@
 "faculty_text" = "Faculty";
 
 /// faculty Member Text
-"faculty_member_text" = "Faculty Member";
+"faculty_member_text" = "Staff";
 
 /// Total View Text
 "total_view_text" = "View all";
