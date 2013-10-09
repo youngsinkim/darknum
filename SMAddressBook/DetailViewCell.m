@@ -26,6 +26,8 @@
 @property (strong, nonatomic) UILabel *emailValueLabel;
 @property (strong, nonatomic) UILabel *officeLabel;
 @property (strong, nonatomic) UILabel *officeValueLabel;
+@property (strong, nonatomic) UILabel *workLabel;
+@property (strong, nonatomic) UILabel *workValueLabel;
 
 
 @end
@@ -189,6 +191,23 @@
         [self addSubview:_officeValueLabel];
 
         
+        _workLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_workLabel setBackgroundColor:[UIColor clearColor]];
+        [_workLabel setTextColor:[UIColor darkGrayColor]];
+        [_workLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
+        [_workLabel setTextAlignment:NSTextAlignmentRight];
+        [_workLabel setText:@"담당업무"];
+        
+        [self addSubview:_workLabel];
+        
+        
+        _workValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_workValueLabel setBackgroundColor:[UIColor clearColor]];
+        [_workValueLabel setTextColor:[UIColor grayColor]];
+        [_workValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
+        
+        [self addSubview:_workValueLabel];
+
 
 //        int tag = 500;
 //        for (int idx = 0; idx < 5; idx++)
@@ -323,9 +342,15 @@
                 NSLog(@"%@", _cellInfo[@"major.title"]);
                 _majorValueLabel.text = _cellInfo[@"major.title"];
             } else {
-                _majorValueLabel.text = _cellInfo[@"major.title"];
+                _majorValueLabel.text = _cellInfo[@"major.title_en"];
             }
             
+        } else if (_memType == MemberTypeStaff) {
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                _workValueLabel.text = _cellInfo[@"work"];
+            } else {
+                _workValueLabel.text = _cellInfo[@"work_en"];
+            }
         }
         
         MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
@@ -400,6 +425,9 @@
     {
         if (_memType == MemberTypeFaculty) {
             _majorValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
+            yOffset += 24.0f;
+        } else if (_memType == MemberTypeStaff) {
+            _workValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
             yOffset += 24.0f;
         }
 

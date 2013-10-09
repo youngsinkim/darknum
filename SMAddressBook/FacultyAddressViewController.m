@@ -122,6 +122,7 @@
     NSDictionary *properties = [entity propertiesByName];
     NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
     [propertiesToFetch addObject:@"major.title"];
+    [propertiesToFetch addObject:@"major.title_en"];
     [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
 //    [fetchRequest setPropertiesToFetch:@[@"major.title", @"email", @"memberidx", @"name", @"mobile", @"name_en", @"office", @"office_en", @"photourl", @"tel", @"viewphotourl"]];
 //    [fetchRequest setPropertiesToFetch:@[@"majortitle", @"major.title"]];
@@ -136,7 +137,7 @@
 
     if ([fetchedObjects count] > 0)
     {
-        NSLog(@"(%@)전공 교수 목록 : %@", _majorInfo[@"major"], fetchedObjects[0][@"major.title"]);
+        NSLog(@"(%@)전공 교수 목록 : %@ (%@)", _majorInfo[@"major"], fetchedObjects[0][@"major.title"], fetchedObjects[0][@"major.title_en"]);
         return fetchedObjects;
 //        Major *major = fetchedObjects[0];
 //        if (major)

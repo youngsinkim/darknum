@@ -1342,7 +1342,7 @@
                 major.major = info[@"major"];
                 major.title = info[@"title"];
                 major.title_en = info[@"title_en"];
-                NSLog(@"업데이트 전공 : major(%@), title(%@)", major.major, major.title);
+                NSLog(@"업데이트 전공 : major(%@), title(%@) title_en(%@)", major.major, major.title, major.title_en);
             }
             else
             {
@@ -1354,7 +1354,7 @@
                 major.title_en = info[@"title_en"];
 //                major.facultys;
 
-                NSLog(@"추가 전공 : major(%@), title(%@)", major.major, major.title);
+                NSLog(@"추가 전공 : major(%@), title(%@), title_en(%@0", major.major, major.title, major.title_en);
             }
             
             NSLog(@"(%@)전공 DB 저장 성공!", major.title);
@@ -2121,14 +2121,16 @@
                 else {
                     // 등록된 사용자이므로 정보만 업데이트
                     NSLog(@"업데이트 staff(%@) : %@", staff.name, staff.memberidx);
-                    staff.email = info[@"email"];
-                    staff.mobile = info[@"mobile"];
-                    staff.name = info[@"name"];
-                    staff.name_en = info[@"name_en"];
-                    staff.office = info[@"office"];
+                    staff.email     = info[@"email"];
+                    staff.mobile    = info[@"mobile"];
+                    staff.name      = info[@"name"];
+                    staff.name_en   = info[@"name_en"];
+                    staff.office    = info[@"office"];
                     staff.office_en = info[@"office_en"];
-                    staff.photourl = info[@"photourl"];
-                    staff.tel = info[@"tel"];
+                    staff.work      = info[@"work"];
+                    staff.work_en   = info[@"work_en"];
+                    staff.photourl  = info[@"photourl"];
+                    staff.tel       = info[@"tel"];
                     staff.viewphotourl = info[@"viewphotourl"];
                 }
             }
@@ -2138,14 +2140,16 @@
                 newStaff.memberidx = info[@"memberidx"];
                 
                 NSLog(@"(%@)교직원 추가 : %@", info[@"name"], newStaff.memberidx);
-                newStaff.email = info[@"email"];
-                newStaff.mobile = info[@"mobile"];
-                newStaff.name = info[@"name"];
-                newStaff.name_en = info[@"name_en"];
-                newStaff.office = info[@"office"];
-                newStaff.office_en = info[@"office_en"];
-                newStaff.photourl = info[@"photourl"];
-                newStaff.tel = info[@"tel"];
+                newStaff.email      = info[@"email"];
+                newStaff.mobile     = info[@"mobile"];
+                newStaff.name       = info[@"name"];
+                newStaff.name_en    = info[@"name_en"];
+                newStaff.office     = info[@"office"];
+                newStaff.office_en  = info[@"office_en"];
+                newStaff.work       = info[@"work"];
+                newStaff.work_en    = info[@"work_en"];
+                newStaff.photourl   = info[@"photourl"];
+                newStaff.tel        = info[@"tel"];
                 newStaff.viewphotourl = info[@"viewphotourl"];
             }
             
