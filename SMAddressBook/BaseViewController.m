@@ -13,6 +13,7 @@
 
 @interface BaseViewController ()
 
+@property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButton *homeButton;
 @property (strong, nonatomic) UIButton *searchButton;
 
@@ -40,6 +41,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+//    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, 320, 44)];
+//    _titleLabel.textAlignment = UITextAlignmentLeft;
+////    titleLabel.text = LocalizedString(@"favorite_title", @"즐겨찾기");
+//    self.navigationItem.titleView = _titleLabel;
+
     // 공통 뷰 배경
     self.view.backgroundColor = [UIColor whiteColor];
     //   [self setBackgroundImage];
@@ -94,6 +101,10 @@
     [self.view addSubview:backgroundView];
 }
 
+//- (void)setTitle:(NSString *)title
+//{
+//    _titleLabel.text = title;
+//}
 
 #pragma mark - Autorotate (세로모드 only)
 

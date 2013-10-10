@@ -33,7 +33,9 @@
 	// Do any additional setup after loading the view.
     
     self.title = LocalizedString(@"kakao message", @"카카오 메시지");
-    [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
+    if (!IS_LESS_THEN_IOS7) {
+        [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
+    }
 
     CGRect viewFrame = self.view.bounds;
     CGFloat yOffset = 74.0f;
@@ -158,26 +160,30 @@
     return YES;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
     NSLog(@"textViewDidBeginEditing:");
 //    textView.backgroundColor = [UIColor greenColor];
-    NSTextStorage* textStorage = [[NSTextStorage alloc] initWithString:textView.text];
-    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-    [textStorage addLayoutManager:layoutManager];
-    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.view.bounds.size];
-    [layoutManager addTextContainer:textContainer];
-    [_messageView removeFromSuperview];
-    
-    CGRect viewFrame = self.view.bounds;
-    CGFloat yOffset = 74.0f;
-    if (IS_LESS_THEN_IOS7) {
+    if (!IS_LESS_THEN_IOS7)
+    {
+        NSTextStorage* textStorage = [[NSTextStorage alloc] initWithString:textView.text];
+        NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+        [textStorage addLayoutManager:layoutManager];
+        NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:self.view.bounds.size];
+        [layoutManager addTextContainer:textContainer];
+        [_messageView removeFromSuperview];
         
+        CGRect viewFrame = self.view.bounds;
+        CGFloat yOffset = 74.0f;
+        if (IS_LESS_THEN_IOS7) {
+            
+        }
+        _messageView = [[UITextView alloc] initWithFrame:CGRectMake(10, yOffset, viewFrame.size.width - 20.0f, 100.0f) textContainer:textContainer];
+        _messageView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
+        _messageView.keyboardType = UIKeyboardTypeDefault;
+        
+        [self.view addSubview:_messageView];
     }
-    _messageView = [[UITextView alloc] initWithFrame:CGRectMake(10, yOffset, viewFrame.size.width - 20.0f, 100.0f) textContainer:textContainer];
-    _messageView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
-    _messageView.keyboardType = UIKeyboardTypeDefault;
-    
-    [self.view addSubview:_messageView];
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
