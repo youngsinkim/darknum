@@ -131,7 +131,7 @@
     _memType = (MemberType)[[[UserContext shared] memberType] integerValue];
     NSLog(@"내 멤버 타입 : %d", _memType);
     
-//    _idValueLabel.text = [UserContext shared]
+    _idValueLabel.text = [UserContext shared].userId;
     
 //    if (memType == MemberTypeStudent)
 //    {
@@ -1338,7 +1338,7 @@
     [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _myInfo[@"photourl"]]]
                       placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    _idValueLabel.text = _myInfo[@"id"];
+    _idValueLabel.text = [UserContext shared].userId;
     _nameValueLabel.text = _myInfo[@"name"];
     _mobileValueLabel.text = _myInfo[@"mobile"];
     _emailTextField.text = _myInfo[@"email"];
