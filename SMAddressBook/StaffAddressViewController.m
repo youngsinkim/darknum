@@ -70,7 +70,13 @@
 // 교직원 목록 화면 구성
 - (void)setupStaffUI
 {
-    _staffTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    CGRect viewRect = self.view.bounds;
+    
+    if (IS_LESS_THEN_IOS7) {
+        viewRect.size.height -= 44.0f;
+    }
+
+    _staffTableView = [[UITableView alloc] initWithFrame:viewRect];
     _staffTableView.dataSource = self;
     _staffTableView.delegate = self;
     

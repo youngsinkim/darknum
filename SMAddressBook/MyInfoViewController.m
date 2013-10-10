@@ -278,8 +278,13 @@
     NSLog(@"Iphone %f ",[[UIScreen mainScreen] bounds].size.height);
     
     if (IS_LESS_THEN_IOS7) {
-        scrolViewHeight -= 44.0f;
-        bottomOffset = 60.0f;
+        if ([[UIScreen mainScreen] bounds].size.height < 568) {
+            scrolViewHeight -= 44.0f;
+            bottomOffset = (60.0f + 88.0f);
+        } else {
+            scrolViewHeight -= 44.0f;
+            bottomOffset = 60.0f;
+        }
     }
     else {
         scrolViewHeight -= 0.0f;

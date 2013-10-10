@@ -89,7 +89,13 @@
 /// 주소록 화면 구성
 - (void)setupAddressUI
 {
-    _addressTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    CGRect viewRect = self.view.bounds;
+    
+    if (IS_LESS_THEN_IOS7) {
+        viewRect.size.height -= 44.0f;
+    }
+
+    _addressTableView = [[UITableView alloc] initWithFrame:viewRect];
     _addressTableView.dataSource = self;
     _addressTableView.delegate = self;
     //    _addressTableView = UITableViewCellSeparatorStyleNone;

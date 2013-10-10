@@ -32,10 +32,13 @@
 	// Do any additional setup after loading the view.
     
 //    self.view.backgroundColor = [UIColor yellowColor];
-    CGRect viewFrame = self.view.bounds;
-//    viewFrame.origin.y += 64.0f;
+    CGRect viewRect = self.view.bounds;
     
-    _helpWebView = [[UIWebView alloc] initWithFrame:viewFrame];
+    if (IS_LESS_THEN_IOS7) {
+        viewRect.size.height -= 44.0f;
+    }
+
+    _helpWebView = [[UIWebView alloc] initWithFrame:viewRect];
 //    _webView2.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _helpWebView.backgroundColor = [UIColor clearColor];
     
