@@ -310,21 +310,28 @@
     }
     else
     {
-        if (mobile.length > 0 && tel.length > 0) {
-            // 번호가 둘다 있으면 팝업 띄움
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                     delegate:self
-                                                            cancelButtonTitle:LocalizedString(@"Cancel", @"취소")
-                                                       destructiveButtonTitle:nil
-                                                            otherButtonTitles:LocalizedString(mobile, nil), LocalizedString(tel, nil),
-                                          nil];
-            
-            [actionSheet showInView:self.view];
-
-        } else if (mobile.length > 0) {
-            [self sendCall:mobile];
-        } else if (tel.length > 0) {
+        if ((MemberType)[[UserContext shared].memberType integerValue] == MemberTypeStudent)
+        {
             [self sendCall:tel];
+        }
+        else
+        {
+            if (mobile.length > 0 && tel.length > 0) {
+                // 번호가 둘다 있으면 팝업 띄움
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                         delegate:self
+                                                                cancelButtonTitle:LocalizedString(@"Cancel", @"취소")
+                                                           destructiveButtonTitle:nil
+                                                                otherButtonTitles:LocalizedString(mobile, nil), LocalizedString(tel, nil),
+                                              nil];
+                
+                [actionSheet showInView:self.view];
+
+            } else if (mobile.length > 0) {
+                [self sendCall:mobile];
+            } else if (tel.length > 0) {
+                [self sendCall:tel];
+            }
         }
     }
     
@@ -852,6 +859,17 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     NSDictionary *info = _contacts[indexPath.row];
     NSLog(@"상세 정보 : %@", info);
 
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if (info[@"name"]) {
+            self.navigationItem.title = info[@"name"];
+        }
+    } else {
+        if (info[@"name_en"]) {
+            self.navigationItem.title = info[@"name_en"];
+        }
+    }
+
+    
     if (_memType == MemberTypeFaculty) {
         [(DetailViewCell *)cell setMemType:MemberTypeFaculty];
     } else if (_memType == MemberTypeStaff) {
