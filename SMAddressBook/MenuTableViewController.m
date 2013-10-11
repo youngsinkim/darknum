@@ -206,7 +206,16 @@
 //    }
     NSString *class = [UserContext shared].myClass;
     if ([class length] > 0) {
-        _classLabel.text = class;
+        NSArray *findClasses = [DBMethod findCourseClass:class];
+        if ([findClasses count] > 0) {
+            NSDictionary *info = findClasses[0];
+            NSLog(@"내 정보 : %@", info);
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                _classLabel.text = info[@"title"];
+            } else {
+                _classLabel.text = info[@"title_en"];
+            }
+        }
     }
 }
 

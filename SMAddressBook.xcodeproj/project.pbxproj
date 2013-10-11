@@ -125,6 +125,7 @@
 		BF3E747C17E21F0D006AAF8D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */; };
 		BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
 		BF53FD3618059DBE00AB8DF3 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3518059DBE00AB8DF3 /* Staff.m */; };
+		BF53FD3C18083E1100AB8DF3 /* DBMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3B18083E1100AB8DF3 /* DBMethod.m */; };
 		BF57B2CE17CCE28400B39C03 /* btn_back.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2C817CCE28400B39C03 /* btn_back.png */; };
 		BF57B2CF17CCE28400B39C03 /* btn_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2C917CCE28400B39C03 /* btn_back@2x.png */; };
 		BF57B2D017CCE28400B39C03 /* btn_filter.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B2CA17CCE28400B39C03 /* btn_filter.png */; };
@@ -347,6 +348,8 @@
 		BF3E747D17E2223F006AAF8D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		BF53FD3418059DBE00AB8DF3 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
 		BF53FD3518059DBE00AB8DF3 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
+		BF53FD3A18083E1100AB8DF3 /* DBMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMethod.h; sourceTree = "<group>"; };
+		BF53FD3B18083E1100AB8DF3 /* DBMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBMethod.m; sourceTree = "<group>"; };
 		BF57B2C817CCE28400B39C03 /* btn_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_back.png; sourceTree = "<group>"; };
 		BF57B2C917CCE28400B39C03 /* btn_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_back@2x.png"; sourceTree = "<group>"; };
 		BF57B2CA17CCE28400B39C03 /* btn_filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_filter.png; sourceTree = "<group>"; };
@@ -494,6 +497,8 @@
 				50B14F0117F522B600FCC662 /* Major+Methods.m */,
 				50B14EF717F517F200FCC662 /* ModelUtil.h */,
 				50B14EF817F517F200FCC662 /* ModelUtil.m */,
+				BF53FD3A18083E1100AB8DF3 /* DBMethod.h */,
+				BF53FD3B18083E1100AB8DF3 /* DBMethod.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1194,6 +1199,7 @@
 				5062B62717C4C10400A2495D /* main.m in Sources */,
 				5062B62B17C4C10400A2495D /* AppDelegate.m in Sources */,
 				5062B63417C4C10400A2495D /* SMAddressBook.xcdatamodeld in Sources */,
+				BF53FD3C18083E1100AB8DF3 /* DBMethod.m in Sources */,
 				5062B64317C4CC0400A2495D /* MenuTableViewController.m in Sources */,
 				5062B64617C4CC2700A2495D /* BaseViewController.m in Sources */,
 				5062B64A17C4CCEE00A2495D /* PortraitNavigationController.m in Sources */,
