@@ -66,6 +66,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    if (IS_LESS_THEN_IOS7) {
+        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
+    }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onClose)];
     
     // 보내기 버튼
@@ -793,6 +796,16 @@
         //        [cell setCellInfo:info];
         NSLog(@"cell dict : %@", dict);
         cell.info = [dict mutableCopy];
+
+        if (_viewType == ToolViewTypeSms) {
+            if ([dict[@"share_mobile"] isEqualToString:@"n"]) {
+                cell.checkBtn.enabled = NO;
+            }
+        } else if (_viewType == ToolViewTypeEmail) {
+            if ([dict[@"share_email"] isEqualToString:@"n"]) {
+                cell.checkBtn.enabled = NO;
+            }
+        }
         
         if ([_selectArray containsObject:dict]) {
             [cell.checkBtn setSelected:YES];

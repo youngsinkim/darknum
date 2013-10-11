@@ -24,5 +24,6 @@
 @property id<ToolViewCellDelegate> delegate;
 @property (strong, nonatomic) NSDictionary *info;
 @property (strong, nonatomic) UIButton *checkBtn;
+@property (assign, nonatomic) BOOL checkEnabled;
 
 @end

@@ -60,8 +60,7 @@
         _checkBtn.frame = CGRectMake(self.frame.size.width - 30.0f, 5.0f, 30.0f, 46.0f);
         [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
         [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
-        [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateDisabled];
-        
+        [_checkBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateDisabled];
         [_checkBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.contentView addSubview:_checkBtn];
@@ -97,6 +96,14 @@
     
     NSString *infoString = [NSString stringWithFormat:@"[%@] %@ %@ %@", _info[@"status"], _info[@"company"], _info[@"department"], _info[@"title"]];
     _descLabel.text = infoString;
+
+//    _checkBtn.enabled = NO;
+}
+
+- (void)setCheckEnabled:(BOOL)checkEnabled
+{
+    _checkBtn.enabled = checkEnabled;
+    [self layoutSubviews];
 }
 
 - (void)onBtnClicked:(id)sender
