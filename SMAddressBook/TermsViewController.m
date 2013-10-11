@@ -55,6 +55,10 @@
 //    }
 
     [self setupTermsViewUI];
+    
+    [self performSelector:@selector(loadTermsWebView) withObject:nil afterDelay:0.2f];
+    [self performSelector:@selector(loadPolicyWebView) withObject:nil afterDelay:0.4f];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -116,8 +120,8 @@
     [[_webView1 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView1 layer] setBorderWidth:2.0f];
     
-    NSURLRequest *termsUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kTermsUrl]];
-    [_webView1 loadRequest:termsUrl];
+//    NSURLRequest *termsUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kTermsUrl]];
+//    [_webView1 loadRequest:termsUrl];
     _webView1.delegate = self;
     
     [self.view addSubview:_webView1];
@@ -154,8 +158,8 @@
     [[_webView2 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView2 layer] setBorderWidth:2.0f];
     
-    NSURLRequest *policyUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kPolicyUrl]];
-    [_webView2 loadRequest:policyUrl];
+//    NSURLRequest *policyUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kPolicyUrl]];
+//    [_webView2 loadRequest:policyUrl];
     _webView2.delegate = self;
 
     
@@ -297,4 +301,34 @@
     [self.view setNeedsLayout];
 }
 
+- (void)loadTermsWebView
+{
+    NSURLRequest *termsUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kTermsUrl]];
+    [_webView1 loadRequest:termsUrl];
+}
+
+- (void)loadPolicyWebView
+{
+    NSURLRequest *policyUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kPolicyUrl]];
+    [_webView2 loadRequest:policyUrl];
+}
+
+
+- (BOOL) canPerformAction:(SEL)action withSender:(id)sender {
+    return NO;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // Important to call super since we are subclassing UIWebView
+    // Important so javascript scroll events fire
+    // Even iOS 6 respondsToSelector, but crashes
+    // if ([super respondsToSelector:@selector(scrollViewDidScroll:)]) {}
+//    @try {
+//        [super scrollViewDidScroll:scrollView];
+//    }
+//    @catch (NSException *exception) {
+//        
+//    }
+
+}
 @end
