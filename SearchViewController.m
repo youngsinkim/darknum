@@ -84,8 +84,12 @@
         NSArray *tmpClass = [self loadDBCourseClasses:courseInfo[@"course"]];
         for (NSDictionary *classInfo in tmpClass)
         {
-            NSLog(@"기수 : %@", classInfo[@"courseclass"]);
-            [classArray addObject:classInfo[@"courseclass"]];
+            NSLog(@"기수 : %@ (%@)", classInfo[@"title"], classInfo[@"title_en"]);
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                [classArray addObject:classInfo[@"title"]];
+            } else {
+                [classArray addObject:classInfo[@"title_en"]];
+            }
         }
         
         [subInfo setValue:classArray forKey:@"sub"];
@@ -350,8 +354,9 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"courseclass"];
-    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
+    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"title"];
+    NSAttributeDescription *type2 = [entity.attributesByName objectForKey:@"title_en"];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, type2, nil]];
 //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
     [fetchRequest setResultType:NSDictionaryResultType];
     
@@ -360,7 +365,7 @@
     [fetchRequest setPredicate:predicate];
     
     // order by (ZCOURSECLASS)
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
     NSError *error = nil;
