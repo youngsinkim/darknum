@@ -41,7 +41,7 @@
     CGFloat yOffset = 74.0f;
     
     if (IS_LESS_THEN_IOS7) {
-        
+        yOffset = 10.0f;
     }
     
     // 네비게이션 바 버튼
@@ -198,6 +198,13 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSLog(@"shouldChangeTextInRange:");
+    //textView에 어느 글을 쓰더라도 이 메소드를 호출합니다.
+    if ([text isEqualToString:@"\n"]) {
+        // return키를 누루면 원래 줄바꿈이 일어나므로 \n을 입력하는데 \n을 입력하면 실행하게 합니다.
+        [textView resignFirstResponder]; //키보드를 닫는 메소드입니다.
+        return FALSE; //리턴값이 FALSE이면, 입력한 값이 입력되지 않습니다.
+    }
+    return TRUE; //평소에 경우에는 입력을 해줘야 하므로, TRUE를 리턴하면 TEXT가 입력됩니다.
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
