@@ -13,5 +13,6 @@
 @interface AddressCell : UITableViewCell
 
 @property (strong, nonatomic) NSDictionary *cellInfo;
+@property (assign) MemberType memType;
 
 @end

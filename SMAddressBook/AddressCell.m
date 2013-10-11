@@ -14,7 +14,7 @@
 @property (strong, nonatomic) UIImageView *profileImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *emailLabel;
-
+@property (strong, nonatomic) UILabel *descLabel; // 담당업무
 @end
 
 @implementation AddressCell
@@ -35,16 +35,23 @@
         
         
         // 이름
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 8.0f, 200.0f, 20.0f)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = [UIColor darkGrayColor];
         _nameLabel.backgroundColor = [UIColor clearColor];
         [_nameLabel setFont:[UIFont systemFontOfSize:15.0f]];
         
         [self.contentView addSubview:_nameLabel];
+
+        // 설명
+        _descLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _descLabel.textColor = [UIColor lightGrayColor];
+        [_descLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
+        [self.contentView addSubview:_descLabel];
+
         
         // 이메일
-        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, 36.0f, 200.0f, 20.0f)];
+        _emailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _emailLabel.textColor = [UIColor lightGrayColor];
         [_emailLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
@@ -93,8 +100,59 @@
     if (_cellInfo[@"email"]) {
         _emailLabel.text = _cellInfo[@"email"];
     }
+
+    if (_memType == MemberTypeStaff)
+    {
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            if (_cellInfo[@"work"]) {
+                _descLabel.text = _cellInfo[@"work"];
+            }
+        } else {
+            if (_cellInfo[@"work_en"]) {
+                _descLabel.text = _cellInfo[@"work_en"];
+            }
+        }
+    }
     
 //    [self setNeedsDisplay];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGRect viewRect = self.bounds;
+    CGFloat xOffset = 60.0f;
+    CGFloat yOffset = 5.0f;
+    
+    _nameLabel.frame = CGRectMake(60.0f, 8.0f, 200.0f, 20.0f);
+    _emailLabel.frame = CGRectMake(60.0f, 36.0f, 200.0f, 20.0f);
+    
+    if (_memType == MemberTypeStaff)
+    {
+        if (_nameLabel.text.length > 0 && _descLabel.text.length > 0 && _emailLabel.text.length > 0)
+        {
+            yOffset = 3.0f;
+            _nameLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            yOffset += 18.0f;
+            _descLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            yOffset += 18.0f;
+            _emailLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+        }
+        else if(_nameLabel.text.length > 0 && _descLabel.text.length > 0)
+        {
+            yOffset = 7.0f;
+            _nameLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            yOffset += 24.0f;
+            _descLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+        }
+        else if(_nameLabel.text.length > 0 && _emailLabel.text.length > 0) {
+            yOffset = 7.0f;
+            _nameLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            yOffset += 24.0f;
+            _emailLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+        }
+    }
 }
 
 @end

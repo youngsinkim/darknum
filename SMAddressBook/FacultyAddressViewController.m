@@ -203,6 +203,8 @@
         NSDictionary *info = _faculties[indexPath.row];
         NSLog(@"교수 : %@", info);
         
+        cell.memType = MemberTypeFaculty;
+
         [cell setCellInfo:info];
     }
     

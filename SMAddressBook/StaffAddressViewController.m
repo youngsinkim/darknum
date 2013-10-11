@@ -161,6 +161,7 @@
         NSDictionary *info = _staffs[indexPath.row];
         NSLog(@"교직원 : %@", info);
     
+        cell.memType = MemberTypeStaff;
         [cell setCellInfo:info];
     }
     
