@@ -14,8 +14,8 @@
 @property (strong, nonatomic) UIImageView *profileImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *memberLabel;
-@property (strong, nonatomic) UILabel *mobileStLabel;
-@property (strong, nonatomic) UILabel *mobileLabel;
+//@property (strong, nonatomic) UILabel *mobileStLabel;
+//@property (strong, nonatomic) UILabel *mobileLabel;
 @property (strong, nonatomic) UILabel *emailStLabel;
 @property (strong, nonatomic) UILabel *emailLabel;
 
@@ -62,20 +62,20 @@
         yOffset += 16.0f;
         
         // 모바일
-        _mobileStLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
-        _mobileStLabel.textColor = [UIColor grayColor];
-        [_mobileStLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        _mobileStLabel.text = @"Mobile";
-        
-        [self.contentView addSubview:_mobileStLabel];
-        
-        
-        _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + 40.0f, yOffset, 150.0f, 14.0f)];
-        _mobileLabel.textColor = [UIColor lightGrayColor];
-        [_mobileLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        
-        [self.contentView addSubview:_mobileLabel];
-        yOffset += 16.0f;
+//        _mobileStLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 35.f, 14.0f)];
+//        _mobileStLabel.textColor = [UIColor grayColor];
+//        [_mobileStLabel setFont:[UIFont systemFontOfSize:12.0f]];
+//        _mobileStLabel.text = @"Mobile";
+//        
+//        [self.contentView addSubview:_mobileStLabel];
+//        
+//        
+//        _mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + 40.0f, yOffset, 150.0f, 14.0f)];
+//        _mobileLabel.textColor = [UIColor lightGrayColor];
+//        [_mobileLabel setFont:[UIFont systemFontOfSize:12.0f]];
+//        
+//        [self.contentView addSubview:_mobileLabel];
+//        yOffset += 16.0f;
         
         
         // 이메일
@@ -125,6 +125,7 @@
         if (cellInfo[@"name"]) {
             _nameLabel.text = cellInfo[@"name"];
         }
+        
         if ([cellInfo[@"company"] length] > 0 && [cellInfo[@"department"] length] > 0) {
             NSString *description = [NSString stringWithFormat:@"%@ | %@", cellInfo[@"company"], cellInfo[@"department"]];
             _memberLabel.text = description;// cellInfo[@"desc"];
@@ -140,17 +141,22 @@
         }
     }
     
-    
-    if (cellInfo[@"mobile"]) {
-        _mobileLabel.text = cellInfo[@"mobile"];
-    }
-    if ([cellInfo[@"share_mobile"] isEqualToString:@"y"]) {
-        _mobileLabel.hidden = NO;
-        _mobileStLabel.hidden = NO;
+    if ([cellInfo[@"share_company"] isEqualToString:@"y"] && _memberLabel.text.length > 0) {
+        _memberLabel.hidden = NO;
     } else {
-        _mobileLabel.hidden = YES;
-        _mobileStLabel.hidden = YES;
+        _memberLabel.hidden = YES;
     }
+
+//    if (cellInfo[@"mobile"]) {
+//        _mobileLabel.text = cellInfo[@"mobile"];
+//    }
+//    if ([cellInfo[@"share_mobile"] isEqualToString:@"y"]) {
+//        _mobileLabel.hidden = NO;
+//        _mobileStLabel.hidden = NO;
+//    } else {
+//        _mobileLabel.hidden = YES;
+//        _mobileStLabel.hidden = YES;
+//    }
     
     if (cellInfo[@"email"]) {
         _emailLabel.text = cellInfo[@"email"];
@@ -162,8 +168,42 @@
         _emailLabel.hidden = YES;
         _emailStLabel.hidden = YES;
     }
-//
-//    [self setNeedsDisplay];
+
+    [self layoutSubviews];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+
+    CGRect viewRect = self.bounds;
+    CGFloat xOffset = 5.0f;
+    CGFloat yOffset = 8.0f;
+
+    // profile image
+    xOffset += (_profileImageView.frame.size.width + 5.0f);
+    
+    CGFloat cellWidth = (viewRect.size.width - xOffset - 20.0f);
+
+    if (!_memberLabel.hidden && !_emailLabel.hidden) {
+        _nameLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 16.0f);
+        yOffset += 20.0f;
+        _memberLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 16.0f);
+        yOffset += 20.0f;
+        _emailStLabel.frame = CGRectMake(xOffset, yOffset, 35.0f, 16.0f);
+        _emailLabel.frame = CGRectMake(xOffset + _emailStLabel.frame.size.width + 5.0f, yOffset, (cellWidth - _emailStLabel.frame.size.width), 14.0f);
+    }
+    else if (_memberLabel.hidden) {
+        _nameLabel.frame = CGRectMake(xOffset, yOffset, 200.0f, 16.0f);
+        yOffset += 24.0f;
+        _emailStLabel.frame = CGRectMake(xOffset, yOffset, 35.0f, 16.0f);
+        _emailLabel.frame = CGRectMake(xOffset + _emailStLabel.frame.size.width + 5.0f, yOffset, (cellWidth - _emailStLabel.frame.size.width), 16.0f);
+    }
+    else if (_emailLabel.hidden) {
+        _nameLabel.frame = CGRectMake(xOffset, yOffset, 200.0f, 16.0f);
+        yOffset += 24.0f;
+        _memberLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 16.0f);
+    }
 }
 
 @end
