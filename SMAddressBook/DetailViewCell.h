@@ -9,7 +9,7 @@
 //#import "MMHorizontalListViewCell.h"
 
 /// 주소록 상세정보 화면 (셀)
-@interface DetailViewCell : UIView
+@interface DetailViewCell : UIView // UIScrollView
 
 @property (assign, nonatomic) MemberType memType;
 @property (strong, nonatomic) NSDictionary *cellInfo;

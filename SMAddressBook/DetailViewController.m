@@ -808,6 +808,11 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         yOffset = 20.0f;
     }
     DetailViewCell *cellView = [[DetailViewCell alloc] initWithFrame:CGRectMake(0, yOffset, rect.size.width, rect.size.height-yOffset)];
+#ifdef USE_SCROLL
+    if (IS_LESS_THEN_IOS7 && ([[UIScreen mainScreen] bounds].size.height < 568)) {
+        cellView.contentSize = CGSizeMake(320.0f, cellView.frame.size.height + 50.0f);  // iPhone5가 아닌 경우, 화면 내용이 잘릴 수 있어 스크롤 뷰로 변경하고 컨텐츠 사이즈 임의로 조정
+    }
+#endif
     return cellView;
     
     
@@ -845,6 +850,9 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     }
     
     DetailViewCell *cell = (DetailViewCell *)view;
+#ifdef USE_SCROLL
+    cell.contentOffset = CGPointZero;   // 해당 셀이 ScrollView일 경우에 해당
+#endif
 //    UILabel *label = (UILabel *)view;
 //    DetailViewCell *cell = [[DetailViewCell alloc] init];
 //    
