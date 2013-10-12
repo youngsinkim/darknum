@@ -23,6 +23,7 @@
 @property (strong, nonatomic) UIButton *acceptBtn1;
 @property (strong, nonatomic) UIButton *acceptBtn2;
 @property (strong, nonatomic) UIButton *nextBtn;
+@property (assign) BOOL isFinished;
 @end
 
 @implementation TermsViewController
@@ -34,7 +35,8 @@
         // Custom initialization
         self.navigationItem.title = LocalizedString(@"terms_text", @"이용약관동의");
 //        self.isHideAcceptBtn = NO;
-        self.isByMenu = NO; 
+        self.isByMenu = NO;
+        self.isFinished = NO;
     }
     return self;
 }
@@ -56,8 +58,7 @@
 
     [self setupTermsViewUI];
     
-    [self performSelector:@selector(loadTermsWebView) withObject:nil afterDelay:0.2f];
-    [self performSelector:@selector(loadPolicyWebView) withObject:nil afterDelay:0.4f];
+    [self performSelector:@selector(loadTermsWebView) withObject:nil];
 
 }
 
@@ -331,4 +332,35 @@
 //    }
 
 }
+
+#pragma mark - UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *requestStr = [[request URL] absoluteString];
+    NSLog(@"webView:shouldStartLoadWithRequest\nRequest : %@", requestStr);
+    
+    if ([requestStr isEqualToString:@"https://biz.snu.ac.kr/fb/html/privacy-policy"]) {
+        _isFinished = YES;
+    }
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSLog(@"webViewDidStartLoad");
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"webViewDidFinishLoad");
+    if (!_isFinished) {
+        [self performSelector:@selector(loadPolicyWebView) withObject:nil];
+    }
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"webView:didFailLoadWithError");
+}
+
 @end
