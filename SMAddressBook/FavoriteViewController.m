@@ -34,8 +34,8 @@
 @interface FavoriteViewController ()
 
 @property (strong, nonatomic) NSManagedObjectContext *moc;
-@property (strong, nonatomic) NSManagedObjectContext *mainMoc;
-@property (strong, nonatomic) NSManagedObjectContext *backMoc;
+//@property (strong, nonatomic) NSManagedObjectContext *mainMoc;
+//@property (strong, nonatomic) NSManagedObjectContext *backMoc;
 
 @property (strong, nonatomic) FavoriteToolView *favoriteToolbar;
 @property (strong, nonatomic) UITableView *favoriteTableView;   // 즐겨찾기 테이블 뷰
@@ -991,83 +991,75 @@
 }
 
 /// 로컬 기수 목록 읽어오기
-- (void)findLocalClasses
-{
-    NSManagedObjectContext *backgroundMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    [backgroundMOC setParentContext:_mainMoc];
-    
-    [backgroundMOC performBlock:^{
-        NSLog(@"backgroundMOC performBlock:");
-        
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:backgroundMOC];
-        [fetchRequest setEntity:entity];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == 'FACULTY') OR (course == 'STAFF') OR (favyn == 'y')"];
-        [fetchRequest setPredicate:predicate];
-        
-        // order by (ZCOURSECLASS, ZCOURSE)
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
-        NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
-        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, sortDescriptor1, nil]];
-        
-        NSError *error = nil;
-        NSLog(@"backgroundMOC executeFetchRequest.");
-        NSArray *fetchedObjects = [backgroundMOC executeFetchRequest:fetchRequest error:&error];
-        NSLog(@"DB result cnt : %d", [fetchedObjects count]);
-        
-        for (Course *class in fetchedObjects) {
-            NSLog(@"Background DB title : %@", class.title);
-        }
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            NSLog(@"main queue");
-            
-            [_mainMoc performBlock:^{
-                NSLog(@"mainMoc performBlock:");
-                
-                if (fetchedObjects)
-                {
-                    NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:[fetchedObjects count]];
-                    
-                    for (NSManagedObject *mo in fetchedObjects)
-                    {
-                        NSManagedObjectID *moid = [mo objectID];
-                        NSManagedObject *mainMO = [_mainMoc objectWithID:moid];
-                        
-                        [objects addObject:mainMO];
-                    }
-                    
-                    //                    for (Course *class in objects) {
-                    //                        NSLog(@"copy MO title : %@", class.title);
-                    //                    }
-                    
-                    [_favorites setArray:objects];
-                    
-                    //                    for (Course *class in _favorites) {
-                    //                        NSLog(@"maib DB title : %@", class.title);
-                    //                    }
-                    NSLog(@"즐겨찾기 테이블 업데이트 (%d) ...", [_favorites count]);
-                    
-                    if ([_favorites count] > 0)
-                    {
-                        // 즐겨찾기 목록 테이블 뷰 적용
-                        [self.favoriteTableView reloadData];
-                        
-                        // 즐겨찾기 목록 메뉴 적용
-                        MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-                        [menu setAddrMenuList:self.favorites];
-                    }
-                }
-                
-            }];
-            
-        });
-        
-    }];
-    NSLog(@"-");
-}
+//- (void)findLocalClasses
+//{
+//    NSManagedObjectContext *backgroundMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//    [backgroundMOC setParentContext:_moc];
+//    
+//    [backgroundMOC performBlock:^{
+//        NSLog(@"backgroundMOC performBlock:");
+//        
+//        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//        
+//        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:backgroundMOC];
+//        [fetchRequest setEntity:entity];
+//        
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(course == 'FACULTY') OR (course == 'STAFF') OR (favyn == 'y')"];
+//        [fetchRequest setPredicate:predicate];
+//        
+//        // order by (ZCOURSECLASS, ZCOURSE)
+//        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+//        NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"course" ascending:YES];
+//        [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, sortDescriptor1, nil]];
+//        
+//        NSError *error = nil;
+//        NSLog(@"backgroundMOC executeFetchRequest.");
+//        NSArray *fetchedObjects = [backgroundMOC executeFetchRequest:fetchRequest error:&error];
+//        NSLog(@"DB result cnt : %d", [fetchedObjects count]);
+//        
+//        for (Course *class in fetchedObjects) {
+//            NSLog(@"Background DB title : %@", class.title);
+//        }
+//        
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            NSLog(@"main queue");
+//            
+//            [_moc performBlock:^{
+//                NSLog(@"mainMoc performBlock:");
+//                
+//                if (fetchedObjects)
+//                {
+//                    NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:[fetchedObjects count]];
+//                    
+//                    for (NSManagedObject *mo in fetchedObjects)
+//                    {
+//                        NSManagedObjectID *moid = [mo objectID];
+//                        NSManagedObject *mainMO = [_moc objectWithID:moid];
+//                        
+//                        [objects addObject:mainMO];
+//                    }
+//                    
+//                    [_favorites setArray:objects];
+//                    NSLog(@"즐겨찾기 테이블 업데이트 (%d) ...", [_favorites count]);
+//                    
+//                    if ([_favorites count] > 0)
+//                    {
+//                        // 즐겨찾기 목록 테이블 뷰 적용
+//                        [self.favoriteTableView reloadData];
+//                        
+//                        // 즐겨찾기 목록 메뉴 적용
+//                        MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+//                        [menu setAddrMenuList:self.favorites];
+//                    }
+//                }
+//                
+//            }];
+//            
+//        });
+//        
+//    }];
+//    NSLog(@"-");
+//}
 
 
 - (void)loadDB

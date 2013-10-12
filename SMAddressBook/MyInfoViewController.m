@@ -17,6 +17,8 @@
 #import "Faculty.h"
 #import "Staff.h"
 #import "Student.h"
+#import "NSDate+Helper.h"
+
 
 #define kScreenY    64.0f
 #define kOFFSET_FOR_KEYBOARD 216.0f
@@ -78,6 +80,12 @@
 @property (assign) BOOL isScrollUp;
 @property (assign) CGFloat bufferY;
 @property (assign) CGFloat scrollY;
+
+@property (strong, nonatomic) LoadingProgressView *progressView;    // 즐겨찾기 업데이트에 사용할 프로그래스바
+@property (strong, nonatomic) NSTimer *progressTimer;
+@property (assign) NSInteger tot;
+@property (assign) NSInteger cur;
+
 @end
 
 
@@ -133,30 +141,9 @@
     
     _idValueLabel.text = [UserContext shared].userId;
     
-//    if (memType == MemberTypeStudent)
-//    {
-//        // 학생이면, 학생 프로필 화면 구성
-//        StudentProfileViewController *studentProfileVC = [[StudentProfileViewController alloc] init];
-//        
-//        [self addChildViewController:studentProfileVC];
-//        [self.view addSubview:studentProfileVC.view];
-//        [studentProfileVC didMoveToParentViewController:self];
-//    }
-//    else
-//    {
-//        // 교수/교직원이면, staff 프로필 화면 구성
-//        StaffProfileViewController *staffProfileVC = [[StaffProfileViewController alloc] init];
-//        
-//        [self addChildViewController:staffProfileVC];
-//        [self.view addSubview:staffProfileVC.view];
-//        [staffProfileVC didMoveToParentViewController:self];
-//    }
-//    return;
-    
     // 내 정보 화면 구성
     [self setupMyInfoUI];
     
-
     
     // 로컬에서(DB) 데이터 가져오기
     [_myInfo setDictionary:[self loadMyInfo]];
@@ -182,7 +169,7 @@
         _chAutoLoginBtn.selected = NO;
     }
 
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -195,8 +182,12 @@
     CGRect frame;
     
     if ([UserContext shared].isExistProfile != YES) {
+        // 최초 실행 시 (프로필 설정 전)
         self.navigationItem.leftBarButtonItem.enabled = NO;
         self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
+        
+        // 최초 실행 시, 프로필 화면에서 즐겨찾기 업데이트 진행
+//        [self setupFavoriteDB];
     } else {
         self.navigationItem.leftBarButtonItem.enabled = YES;
         self.menuContainerViewController.panMode = MFSideMenuPanModeDefault;
@@ -762,6 +753,43 @@
     }
 }
 
+
+- (void)initUpdateProgress
+{
+    if (!_progressView)
+    {
+        _progressView = [[LoadingProgressView alloc] initWithFrame:self.view.bounds];
+        _progressView.delegate = self;
+        [[[UIApplication sharedApplication] keyWindow] addSubview:_progressView];
+//        [self.view addSubview:_progressView];
+    }
+}
+
+#pragma mark 즐겨찾기 업데이트 진행
+- (void)setupFavoriteDB
+{
+    NSArray *favorites = [DBMethod loadDBFavoriteCourses];
+    NSLog(@"(최초) 기존 즐겨찾기 DB 목록이 존재하나? %d", [favorites count]);
+    if ([favorites count] > 0) {
+        return;
+    }
+    
+    // 업데이트 프로그래스 화면 구성
+    [self initUpdateProgress];
+    
+    // 프로그래스 노출
+    NSInteger updateCount = [[UserContext shared].updateCount integerValue];
+    NSLog(@"업데이트 개수 (%d)", updateCount);
+    [self.progressView onStart:updateCount withType:ProgressTypeUpdateDownload];
+
+    
+    // 1. 전체 기수 목록 구성
+    NSLog(@".......... 1. 전체 기수(CourseClass) 목록 서버 요청 .........");
+    [self performSelector:@selector(requestAPIClasses) withObject:nil afterDelay:0.1f];
+
+    // 2. 교수 전공 목록 구성
+    // 3. 즐겨찾기 업데이트 목록 구성 (저장)
+}
 
 #pragma mark - UITextField delegate
 /// 리턴 키를 누를 때 실행
@@ -1570,6 +1598,181 @@
 //    }
 }
 
+
+/// 각 과정별 기수 목록 서버로 요청
+- (void)requestAPIClasses
+{
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    
+    // 과정별 기수 목록
+    [[SMNetworkClient sharedClient] postClasses:param
+                                          block:^(NSArray *result, NSError *error) {
+                                              NSLog(@"response 기수 목록 (%d)", [result count]);
+                                              
+                                              if (error) {
+                                                  [[SMNetworkClient sharedClient] showNetworkError:error];
+                                              }
+                                              else
+                                              {
+                                                  // 과정 기수 목록
+//                                                  [_courses setArray:result];
+                                                  
+                                                  if ([result count] > 0)
+                                                  {
+                                                      // 기수목록 DB 저장
+                                                      NSLog(@".......... SAVE DB CourseClasses .........");
+                                                      [self performSelectorInBackground:@selector(savedCourseClasses:) withObject:result];
+//                                                      [self saveDBCourseClasses:result];
+//                                                  } else {
+//                                                      NSLog(@"---------- 업데이트된 기수 목록이 없으므로 완료 처리 ----------");
+//                                                      _isCourseSaveDone = YES;
+                                                  }
+                                                  
+
+                                                  NSLog(@".......... 2. 교수 전공(Majors) 목록 서버 요청 .........");
+                                                  [self performSelector:@selector(requestAPIMajors) withObject:nil afterDelay:0.2f];
+
+//                                                  NSLog(@".......... saveDBFavoriteUpdates .........");
+//                                                  if (_isSavingFavorites == NO) {
+//                                                      [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+//                                                  }
+                                              }
+                                          }];
+}
+
+
+/// (교수)전공목록 서버로 요청
+- (void)requestAPIMajors
+{
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    
+    // 전공 전공 목록
+    [[SMNetworkClient sharedClient] postMajors:param
+                                         block:^(NSArray *result, NSError *error) {
+                                             NSLog(@"response 전공 목록 (%d)", [result count]);
+                                             
+                                             if (error) {
+                                                 [[SMNetworkClient sharedClient] showNetworkError:error];
+                                             }
+                                             else
+                                             {
+//                                                 [_majors setArray:result];
+                                                 
+                                                 if ([result count] > 0)
+                                                 {
+                                                     // 전공목록 DB 저장.
+                                                     NSLog(@".......... SAVE DB MAJORS .........");
+                                                     [self performSelectorInBackground:@selector(savedMajor:) withObject:result];
+//                                                 } else {
+//                                                     NSLog(@"---------- 변경된 교수 전공이 없어 완료 처리 ----------")
+//                                                     _isMajorSaveDone = YES;
+                                                 }
+
+                                                 NSLog(@".......... 3. 즐겨찾기 업데이트 목록 서버 요청  .........");
+                                                 [self performSelector:@selector(requestAPIFavorites) withObject:nil afterDelay:0.2f];
+
+//                                                 if (_isSavingFavorites == NO) {
+//                                                     [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+//                                                 }
+                                                 
+                                             }
+                                         }];
+}
+
+
+/// 업데이트 목록 서버 요청
+- (void)requestAPIFavorites
+{
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    NSString *lastUpdate = [UserContext shared].lastUpdateDate;
+    
+    if (!mobileNo || !userId | !certNo || !lastUpdate) {
+        return;
+    }
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"updatedate":lastUpdate};
+    
+//    _studentSaveDone = NO;
+//    _facultySaveDone = NO;
+//    _staffSaveDone = NO;
+//    _cur = 0;
+    
+    // 업데이트가 있을때만, 로딩 프로그래스 시작...
+    //    NSLog(@"---------- Progress Show ----------");
+    //    [self showUpdateProgress];
+    
+    // 즐겨찾기 업데이트 목록
+    [[SMNetworkClient sharedClient] postFavorites:param
+                                            block:^(NSDictionary *result, NSError *error) {
+                                                NSLog(@"response 업데이트 목록 (%d)", [result count]);
+                                                
+                                                if (error) {
+                                                    [[SMNetworkClient sharedClient] showNetworkError:error];
+                                                }
+                                                else
+                                                {
+                                                    // 즐겨찾기 업데이트 수신 후, 현재 시간을 마지막 업데이트 시간으로 저장
+                                                    {
+                                                        NSDate *date = [NSDate date];
+                                                        NSString *displayString = [date string];
+                                                        NSLog(@"즐겨찾기 업데이트 시간? %@", displayString);
+                                                        
+                                                        [UserContext shared].lastUpdateDate = displayString;
+                                                        [[NSUserDefaults standardUserDefaults] setValue:displayString forKey:kLastUpdate];
+                                                        [[NSUserDefaults standardUserDefaults] synchronize];
+                                                    }
+                                                    
+                                                    NSLog(@".......... 업데이트 시간 저장 : %@", [UserContext shared].lastUpdateDate);
+//                                                    [_updateInfo setDictionary:result];
+                                                    
+                                                    NSLog(@".......... onUpdateDBFavorites (업데이트 저장 하자.) ..........");
+                                                    
+                                                    // 임시로 여기에서 progress 숨기기
+                                                    [self stopRepeatingTimer];
+//                                                    if (_isSavingFavorites == NO) {
+//                                                        [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+//                                                    }
+                                                }
+                                            }];
+}
+
+
+- (void)savedCourseClasses:(NSArray *)array
+{
+    if (array)
+    {
+        NSLog(@"서버에서 받아온 기수 목록 저장하자.");
+        [DBMethod saveDBCourseClasses:array];
+    }
+}
+
+- (void)savedMajor:(NSArray *)array
+{
+    if (array)
+    {
+        NSLog(@"서버에서 받아온 전공 목록 저장하자.");
+        [DBMethod saveDBMajors:array];
+    }
+}
+
+#pragma mark - DB methods
+
+/// 내 정보 조희
 - (NSArray *)findDBMyInfo
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -1615,4 +1818,66 @@
     
     return filtered;
 }
+
+#pragma mark - Timer
+- (void)startRepeatingTimer:(NSDictionary *)info {
+    NSLog(@".......... startRepeatingTimer (info : %@)", info);
+    
+    _tot = [[UserContext shared].updateCount floatValue];
+    _cur = 0;
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.3
+                                                      target:self
+                                                    selector:@selector(timerFired:)
+                                                    userInfo:info
+                                                     repeats:YES];
+    
+    self.progressTimer = timer;
+}
+
+- (void)timerFired:(NSTimer *)timer
+{
+//    NSDictionary *info = [timer userInfo];
+    //    NSLog(@".......... timerFired (info : %@)", info);
+    NSLog(@".......... timerFired ( %d / %d ) ..........", _cur, _tot);
+    [self.progressView onProgress:_cur total:_tot];
+    //    self.progressView.percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", _cur, _tot];
+    //    self.progressView.progress = (float)(_cur / _tot);
+}
+
+- (void)stopRepeatingTimer
+{
+    NSLog(@".......... stopRepeatingTimer");
+    
+    [self.progressView onProgress:_cur total:_tot];
+    //    self.progressView.percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", _cur, _tot];
+    //    self.progressView.progress = (float)(_cur / _tot);
+    
+    [UIView animateWithDuration:0.2f
+     //                          delay:0.0f
+     //                        options:UIViewAnimationOptionTransitionNone
+                     animations:^{
+                         [self.progressView onProgress:_tot total:_tot];
+                         
+                         //                         self.progressView.percentLabel.text = [NSString stringWithFormat:@"(Download %d / %d)", _tot, _tot];
+                         //                         self.progressView.progress = (float)(_tot / _tot);
+                     } completion:^(BOOL finished) {
+                         [self.progressTimer invalidate];
+                         self.progressTimer = nil;
+                         
+                         [self performSelector:@selector(hideProgressView) withObject:nil afterDelay:0.3];
+                         //                         [self.progressView onStop];
+                     }];
+}
+
+
+- (void)hideProgressView
+{
+    [self.progressView onStop];
+    
+    // TODO: 업데이트 카운트 한 번만 쓰고 0으로 초기화. (다음 로그인 시에 다시 세팅)
+    [UserContext shared].updateCount = 0;
+    
+}
+
 @end

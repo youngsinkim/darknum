@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoadingProgressView.h"
 
 //typedef enum {
 //    MemberTypeStudent = 1,
@@ -15,7 +16,7 @@
 //    MemberTypeUnknown
 //} MemberType;
 
-@interface MyInfoViewController : BaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate>
+@interface MyInfoViewController : BaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, LoadingProgressViewDelegate>
 
 @property (assign, nonatomic) MemberType memType; // 멤버 타입 ( 타입별로 화면 구성 변경 )
 

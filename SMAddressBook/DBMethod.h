@@ -10,6 +10,15 @@
 
 @interface DBMethod : NSObject
 
+/// 즐겨찾기 (기수)목록 가져오기
++ (NSArray *)loadDBFavoriteCourses;
+
+/// 전체 기수목록 DB 추가 및 업데이트
++ (void)saveDBCourseClasses:(NSArray *)courseClasses;
+
+/// 교수 전공목록 DB 업데이트
++ (void)saveDBMajors:(NSArray *)majors;
+
 /// 사용자 정보 조회
 + (NSArray *)findCourseClass:(NSString *)courseclass;
 
