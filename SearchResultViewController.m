@@ -295,15 +295,17 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
-    
-    self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
-    
-    DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
-    viewController.currentIdx = indexPath.row;
-    viewController.contacts = [_results mutableCopy];
-    
-    [self.navigationController pushViewController:viewController animated:YES];
-
+ 
+    if ([_results count] > 0)
+    {
+        self.menuContainerViewController.panMode = MFSideMenuPanModeNone;
+        
+        DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
+        viewController.currentIdx = indexPath.row;
+        viewController.contacts = [_results mutableCopy];
+        
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
     //    Student *student = _students[indexPath.row];
     
 //    StudentDetailViewController *viewController = [[StudentDetailViewController alloc] initWithInfo:[_students mutableCopy]];
