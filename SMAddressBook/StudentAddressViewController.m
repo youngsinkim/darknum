@@ -78,7 +78,8 @@
     [self setupStudentAddressUI];
     
     // 학생 목록 DB에서 가져오기
-    [_students setArray:[self loadDBFilteredStudents]];
+    [_students setArray:[self sorted:[self loadDBFilteredStudents]]];
+    
     
     if ([_students count] == 0) {
         // 전체보기에서 들어올 경우는 즐겨찾기로 저장된 기수가 아니면 db에 목록이 존재하지 않으므로 서버로 요청한다...
@@ -214,6 +215,17 @@
     return nil;
 }
 
+- (NSArray *)sorted:(NSArray *)array {
+    NSSortDescriptor *sortDescriptor;
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    } else {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name_en" ascending:YES];
+    }
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    
+    return [array sortedArrayUsingDescriptors:sortDescriptors];
+}
 
 #pragma mark - Network API
 /// 해당 기수의 학생 목록 요청

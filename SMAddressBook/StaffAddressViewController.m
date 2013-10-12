@@ -105,7 +105,12 @@
     
     [fetchRequest setResultType:NSDictionaryResultType];
 
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    NSSortDescriptor *sortDescriptor;
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    } else {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name_en" ascending:YES];
+    }
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
     NSError *error = nil;

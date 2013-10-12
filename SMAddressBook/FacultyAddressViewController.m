@@ -137,6 +137,14 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", _majorInfo[@"major"]];
     [fetchRequest setPredicate:predicate];
     
+    NSSortDescriptor *sortDescriptor;
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    } else {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name_en" ascending:YES];
+    }
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+
     NSError *error = nil;
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d, %@", [fetchedObjects count], fetchedObjects);
