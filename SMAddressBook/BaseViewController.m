@@ -15,7 +15,6 @@
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIButton *homeButton;
-@property (strong, nonatomic) UIButton *searchButton;
 
 @end
 
@@ -240,14 +239,14 @@
     
     
     /* 검색 버튼 */
-    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    searchButton.frame = CGRectMake(80.0f, 5.0f, size, size);
-    [searchButton setImage:[UIImage imageNamed:@"btn_filter"] forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(onSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _searchButton.frame = CGRectMake(80.0f, 5.0f, size, size);
+    [_searchButton setImage:[UIImage imageNamed:@"btn_filter"] forState:UIControlStateNormal];
+    [_searchButton addTarget:self action:@selector(onSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchButton];
+    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchButton];
     
-    [toolbar addSubview:searchButton];
+    [toolbar addSubview:_searchButton];
     [buttons addObject:barButtonItem];
     
     

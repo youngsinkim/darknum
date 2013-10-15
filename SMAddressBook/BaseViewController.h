@@ -12,6 +12,7 @@
 @interface BaseViewController : UIViewController
 
 @property (strong, nonatomic) UIButton *prevButton;
+@property (strong, nonatomic) UIButton *searchButton;
 
 /// 컨테이너 뷰 컨트롤러
 - (MFSideMenuContainerViewController *)menuContainerViewController;
