@@ -155,14 +155,26 @@
     [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"course"]];
     [fetchRequest setReturnsObjectsAsFaults:NO];
     
-    NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
+    NSLog(@"찾을 기수 : %@", _info);
     NSPredicate *predicate = nil;
     if ([_info[@"name"] length] > 0 && [_info[@"courseclass"] length] > 0) {
-        predicate = [NSPredicate predicateWithFormat:@"(course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@) AND (name contains[c] %@ OR name_en contains[c] %@)", _info[@"courseclass"], _info[@"name"], _info[@"name"]];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            predicate = [NSPredicate predicateWithFormat:@"classtitle contains[cd] %@ AND name contains[cd] %@", _info[@"courseclass"], _info[@"name"]];
+        } else {
+            predicate = [NSPredicate predicateWithFormat:@"classtitle_en contains[c] %@ AND name_en contains[c] %@", _info[@"courseclass"], _info[@"name"]];
+        }
     } else if ([_info[@"courseclass"] length] > 0) {
-        predicate = [NSPredicate predicateWithFormat:@"course.courseclass contains[c] %@ OR course.courseclass_en contains[c] %@", _info[@"courseclass"], _info[@"courseclass"]];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            predicate = [NSPredicate predicateWithFormat:@"classtitle contains[cd] %@", _info[@"courseclass"]];
+        } else {
+            predicate = [NSPredicate predicateWithFormat:@"classtitle_en contains[cd] %@", _info[@"courseclass"]];
+        }
     } else if ([_info[@"name"] length] > 0) {
-        predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@ OR name_en contains[c] %@", _info[@"name"], _info[@"name"]];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", _info[@"name"]];
+        } else {
+            predicate = [NSPredicate predicateWithFormat:@"name_en contains[c] %@", _info[@"name"]];
+        }
     }
     [fetchRequest setPredicate:predicate];
 
