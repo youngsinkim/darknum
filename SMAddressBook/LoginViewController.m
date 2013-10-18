@@ -442,7 +442,13 @@
 {
     // TODO: 아이디 찾기 웹 페이지로 이동
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/ko/member/findid"]];
-    FindWebViewController *findWebViewController = [[FindWebViewController alloc] initWithUrl:@"https://biz.snu.ac.kr/ko/member/findid" title:LocalizedString(@"Find Id", @"아이디 찾기")];
+    NSString *findIdUrl = @"https://biz.snu.ac.kr/fb/find-id?lang=";
+    if (![[UserContext shared].language isEqualToString:kLMKorean]) {
+        findIdUrl = [findIdUrl stringByAppendingString:kLMEnglish];
+    } else {
+        findIdUrl = [findIdUrl stringByAppendingString:kLMKorean];
+    }
+    FindWebViewController *findWebViewController = [[FindWebViewController alloc] initWithUrl:findIdUrl title:LocalizedString(@"Find Id", @"아이디 찾기")];
     [self presentViewController:[[PortraitNavigationController alloc] initWithRootViewController:findWebViewController] animated:YES completion:nil];
 //    [self presentViewController:findWebViewController animated:YES completion:nil];
 }
@@ -452,7 +458,14 @@
 {
     // TODO: 비밀번호 찾기 웹 페이지로 이동
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://biz.snu.ac.kr/ko/member/resetpassword"]];
-    FindWebViewController *findWebViewController = [[FindWebViewController alloc] initWithUrl:@"https://biz.snu.ac.kr/ko/member/resetpassword" title:LocalizedString(@"Find Password", @"비밀번호 찾기")];
+    NSString *findPwdUrl = @"https://biz.snu.ac.kr/fb/find-pw?lang=";
+    if (![[UserContext shared].language isEqualToString:kLMKorean]) {
+        findPwdUrl = [findPwdUrl stringByAppendingString:kLMEnglish];
+    } else {
+        findPwdUrl = [findPwdUrl stringByAppendingString:kLMKorean];
+    }
+
+    FindWebViewController *findWebViewController = [[FindWebViewController alloc] initWithUrl:findPwdUrl title:LocalizedString(@"Find Password", @"비밀번호 찾기")];
     [self presentViewController:[[PortraitNavigationController alloc] initWithRootViewController:findWebViewController] animated:YES completion:nil];
 
 }
