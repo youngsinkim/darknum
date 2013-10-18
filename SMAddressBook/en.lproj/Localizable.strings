@@ -165,3 +165,21 @@
 /* Done */
 "Done" = "Done";
 
+/* Sms Auth */
+"Sms Auth" = "SMS Auth";
+
+/* Sms Auth Info */
+"Sms Auth Info" = "본인인증을 위해 휴대전화번호와 인증번호를 입력하세요.";
+
+/* Mobile Phone Number */
+"Mobile Phone Number" = "Enter your phone number.";
+
+/* Auth Code */
+"Auth Code" = "Auth Code";
+
+/* Receive Auth Code */
+"Receivce Auth Code" = "Receive Code";
+
+/* Empty Error Msg */
+"Text Empty" = "Text Empty";
+

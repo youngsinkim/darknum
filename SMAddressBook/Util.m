@@ -28,16 +28,21 @@ extern NSString* CTSettingCopyMyPhoneNumber();
 /// 단말 전화 번호
 + (NSString *)phoneNumber
 {
-    NSString *orgPhone = CTSettingCopyMyPhoneNumber();
-    
-    int location = orgPhone.length - 10;
-    int length = orgPhone.length;
-    NSString *phone = [NSString stringWithFormat:@"0%@", [orgPhone substringWithRange:NSMakeRange(location, length - location)]];
-    NSLog(@"Phone : %@", phone);    // phone = "+821025297368";
-    
-    // TODO: 임시로 하드 코딩함 (API 연동)
-    phone = @"01023873856";
-    
+//    NSString *orgPhone = CTSettingCopyMyPhoneNumber();
+//    
+//    int location = orgPhone.length - 10;
+//    int length = orgPhone.length;
+//    NSString *phone = [NSString stringWithFormat:@"0%@", [orgPhone substringWithRange:NSMakeRange(location, length - location)]];
+//    NSLog(@"Phone : %@", phone);    // phone = "+821025297368";
+//    
+//    // TODO: 임시로 하드 코딩함 (API 연동)
+//    phone = @"01023873856";
+
+    NSString *phone = @"";
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kScode]) {
+        phone = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kScode]];
+    }
+
     return phone;
 }
 

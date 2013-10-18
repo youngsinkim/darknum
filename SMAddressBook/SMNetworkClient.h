@@ -8,7 +8,7 @@
 
 #import "AFHTTPClient.h"
 
-#define SERVER_URL          @"http://biz.snu.ac.kr"
+#define SERVER_URL          @"https://biz.snu.ac.kr"
 
 #define apiClassesKey       @"http://biz.snu.ac.kr/fb/classes"
 #define apiMajorKey         @"http://biz.snu.ac.kr/fb/majors"
@@ -60,6 +60,12 @@
 
 /// 8. 내 정보 저장(학생)
 - (void)updateMyInfo:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
+
+/// 14. 본인인증 요청
+- (void)postAuth:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
+
+/// 15. 인증번호 받기
+- (void)postAuthSms:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 
 /// otn test API
 - (void)getVodTotalList:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;

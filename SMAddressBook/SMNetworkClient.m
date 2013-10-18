@@ -48,6 +48,7 @@
     //    }
     //
     //    self.defaultSSLPinningMode = AFSSLPinningModeNone;
+    self.allowsInvalidSSLCertificate = YES;
     
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
@@ -412,6 +413,56 @@
                    block([NSMutableDictionary dictionary], error);
                }
                NSLog(@"error : %@", [error description]);
+           }];
+}
+
+/// 14. 본인인증 요청
+- (void)postAuth:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
+{
+    static NSString * const kAPIAuth = (SERVER_URL@"/fb/auth");
+    NSLog(@"API Path(%@) param :\n%@", kAPIAuth, param);
+    
+    [self postPath:kAPIAuth
+        parameters:param
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               NSLog(@"HTTP POST API: %@", operation.request.URL);
+               
+               if (block)
+               {
+                   NSLog(@"RESPONSE JSON: %@", JSON);
+                   block([NSDictionary dictionaryWithDictionary:JSON], nil);
+               }
+           }
+           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                NSLog(@"error : %@", [error description]);
+               if (block) {
+                   block([NSDictionary dictionary], error);
+               }
+           }];
+}
+
+/// 15. 인증번호 받기
+- (void)postAuthSms:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block
+{
+    static NSString * const kAPIAuthSms = (SERVER_URL@"/fb/authsms");
+    NSLog(@"API Path(%@) param :\n%@", kAPIAuthSms, param);
+    
+    [self postPath:kAPIAuthSms
+        parameters:param
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               NSLog(@"HTTP POST API: %@", operation.request.URL);
+               
+               if (block)
+               {
+                   NSLog(@"RESPONSE JSON: %@", JSON);
+                   block([NSDictionary dictionaryWithDictionary:JSON], nil);
+               }
+           }
+           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                NSLog(@"error : %@", [error description]);
+               if (block) {
+                   block([NSDictionary dictionary], error);
+               }
            }];
 }
 

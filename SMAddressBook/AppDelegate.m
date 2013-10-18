@@ -11,6 +11,7 @@
 #import "PortraitNavigationController.h"//< 세로모드 네비게이션 컨트롤러
 #import "MenuTableViewController.h"     //< 왼쪽 메뉴 테이블 뷰 컨트롤러
 
+#import "SmsAuthViewController.h"       //< 본인인증 뷰 컨트롤러
 #import "LoginViewController.h"         //< 로그인 뷰 컨트롤러
 #import "TermsViewController.h"
 
@@ -84,7 +85,8 @@
     
     // 로그인 여부 확인
     BOOL isAutoLogin = [[UserContext shared] isAutoLogin];
-    NSLog(@"AUTO_LOGIN(%d), CertNo : %@", isAutoLogin, [UserContext shared].certNo);
+    NSString *phoneNumber = [Util phoneNumber];
+    NSLog(@"AUTO_LOGIN(%d), CertNo : %@, Phone : ", isAutoLogin, [UserContext shared].certNo, phoneNumber);
     
     // 자동 로그인 설정 유무
     if (isAutoLogin && [[UserContext shared].userId length] > 0 && [[UserContext shared].userPwd length] > 0)
@@ -115,6 +117,12 @@
         // 자동 로그인 요청
         [self requestAPILogin];
         
+    }
+    else if (phoneNumber.length == 0) {
+        // 최초 설치 후, 휴대전화 인증을 받지 않은 유저는 휴대전화 본인인증을 받고 로그인 창으로 이동하도록 시나리오 추가.
+        SmsAuthViewController *smsAuthViewController = [[SmsAuthViewController alloc] init];
+        
+        [self.container.centerViewController presentViewController:[self navigationController:smsAuthViewController] animated:NO completion:nil];
     }
     else
     {

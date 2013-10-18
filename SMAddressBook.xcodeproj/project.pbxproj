@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		503D546D181146C10046E0C5 /* SmsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503D546C181146C10046E0C5 /* SmsAuthViewController.m */; };
+		503D546E181146C10046E0C5 /* SmsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503D546C181146C10046E0C5 /* SmsAuthViewController.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
 		5052F0E217E6F1C700CB41D3 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
@@ -384,6 +386,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		503D546B181146C10046E0C5 /* SmsAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmsAuthViewController.h; sourceTree = "<group>"; };
+		503D546C181146C10046E0C5 /* SmsAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmsAuthViewController.m; sourceTree = "<group>"; };
 		5052623317C72ACC004C4724 /* http_sample_data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = http_sample_data; sourceTree = "<group>"; };
 		5052F0E017E6F1C700CB41D3 /* LoadingProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingProgressView.h; sourceTree = "<group>"; };
 		5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingProgressView.m; sourceTree = "<group>"; };
@@ -840,6 +844,8 @@
 		5062B65217C4D25200A2495D /* Login (로그인) */ = {
 			isa = PBXGroup;
 			children = (
+				503D546B181146C10046E0C5 /* SmsAuthViewController.h */,
+				503D546C181146C10046E0C5 /* SmsAuthViewController.m */,
 				5062B64F17C4D24700A2495D /* LoginViewController.h */,
 				5062B65017C4D24700A2495D /* LoginViewController.m */,
 				BFA89610180329C500869FB8 /* FindWebViewController.h */,
@@ -1581,6 +1587,7 @@
 				50B14F0217F522B600FCC662 /* Major+Methods.m in Sources */,
 				BF3E747617E21001006AAF8D /* DetailToolView.m in Sources */,
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
+				503D546D181146C10046E0C5 /* SmsAuthViewController.m in Sources */,
 				50D134D017F97A1200F27231 /* NSURLRequest+SSL.m in Sources */,
 				BFABB01F17F761EA0018D236 /* Student.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
@@ -1657,6 +1664,7 @@
 				BF241C81180931AE001A7AA0 /* Major+Methods.m in Sources */,
 				BF241C82180931AE001A7AA0 /* DetailToolView.m in Sources */,
 				BF241C83180931AE001A7AA0 /* LoginViewController.m in Sources */,
+				503D546E181146C10046E0C5 /* SmsAuthViewController.m in Sources */,
 				BF241C84180931AE001A7AA0 /* NSURLRequest+SSL.m in Sources */,
 				BF241C85180931AE001A7AA0 /* Student.m in Sources */,
 				BF241C86180931AE001A7AA0 /* SMNetworkClient.m in Sources */,

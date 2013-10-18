@@ -20,6 +20,7 @@
 #define kSetProfile     @"SetProfile"   //< 내 프로필 설정 여부 (내 정보 설정에 따라 최초 로그인 시 프로필 화면 노출 결정)
 
 // login info.
+#define kScode          @"scode"        //< 암호화된 휴대폰번호
 #define kCertNo         @"certno"
 #define kMemType        @"memtype"
 #define kUpdateCount    @"updatecount"
