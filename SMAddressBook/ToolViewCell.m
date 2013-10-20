@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIImageView *profileImageView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *descLabel;
+@property (strong, nonatomic) UILabel *emailLabel;
 
 @end
 
@@ -53,6 +54,14 @@
         [_descLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
         [self.contentView addSubview:_descLabel];
+        yOffset += 22.0f;
+
+        
+        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 150.0f, 14.0f)];
+        _emailLabel.textColor = [UIColor lightGrayColor];
+        [_emailLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        
+        [self.contentView addSubview:_emailLabel];
 
         
         _checkBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -94,8 +103,19 @@
         _nameLabel.text = _info[@"name"];
     }
     
-    NSString *infoString = [NSString stringWithFormat:@"[%@] %@ %@ %@", _info[@"status"], _info[@"company"], _info[@"department"], _info[@"title"]];
+//    NSString *infoString = [NSString stringWithFormat:@"%@ | %@ %@", _info[@"company"], _info[@"department"], _info[@"title"]];
+    NSString *infoString = [NSString stringWithFormat:@"%@ | %@", _info[@"company"], _info[@"department"]];
     _descLabel.text = infoString;
+
+    if (_info[@"email"]) {
+        _emailLabel.text = _info[@"email"];
+    }
+    if ([_info[@"share_email"] isEqualToString:@"y"]) {
+        _emailLabel.hidden = NO;
+    } else {
+        _emailLabel.hidden = YES;
+    }
+    [self layoutSubviews];
 
 //    _checkBtn.enabled = NO;
 }
