@@ -304,13 +304,25 @@
 
 - (void)loadTermsWebView
 {
-    NSURLRequest *termsUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kTermsUrl]];
+    NSString *Url = @"https://biz.snu.ac.kr/fb/terms-of-use?lang=";
+    if (![[UserContext shared].language isEqualToString:kLMKorean]) {
+        Url = [Url stringByAppendingString:kLMEnglish];
+    } else {
+        Url = [Url stringByAppendingString:kLMKorean];
+    }
+    NSURLRequest *termsUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:Url]];
     [_webView1 loadRequest:termsUrl];
 }
 
 - (void)loadPolicyWebView
 {
-    NSURLRequest *policyUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:kPolicyUrl]];
+    NSString *Url = @"https://biz.snu.ac.kr/fb/privacy-policy?lang=";
+    if (![[UserContext shared].language isEqualToString:kLMKorean]) {
+        Url = [Url stringByAppendingString:kLMEnglish];
+    } else {
+        Url = [Url stringByAppendingString:kLMKorean];
+    }
+    NSURLRequest *policyUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:Url]];
     [_webView2 loadRequest:policyUrl];
 }
 
@@ -339,7 +351,9 @@
     NSString *requestStr = [[request URL] absoluteString];
     NSLog(@"webView:shouldStartLoadWithRequest\nRequest : %@", requestStr);
     
-    if ([requestStr isEqualToString:@"https://biz.snu.ac.kr/fb/html/privacy-policy"]) {
+//    if ([requestStr isEqualToString:@"https://biz.snu.ac.kr/fb/html/privacy-policy"]) {
+    NSRange range = [requestStr rangeOfString:@"privacy-policy"];
+    if (range.location != NSNotFound) {
         _isFinished = YES;
     }
     return YES;

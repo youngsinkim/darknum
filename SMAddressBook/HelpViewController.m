@@ -42,8 +42,19 @@
 //    _webView2.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _helpWebView.backgroundColor = [UIColor clearColor];
     
-    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://biz.snu.ac.kr/fb/html/user-guide"]];
-    [_helpWebView loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
+    NSString *Url = @"https://biz.snu.ac.kr/fb/user-guide?lang=";
+    if (![[UserContext shared].language isEqualToString:kLMKorean]) {
+        Url = [Url stringByAppendingString:kLMEnglish];
+    } else {
+        Url = [Url stringByAppendingString:kLMKorean];
+    }
+    NSLog(@"도움말 : %@", Url);
+
+    NSURLRequest *helpUrl = [NSURLRequest requestWithURL:[NSURL URLWithString:Url]];
+    [_helpWebView loadRequest:helpUrl];
+
+//    NSData *htmlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:Url]];
+//    [_helpWebView loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
     
     [self.view addSubview:_helpWebView];
 
