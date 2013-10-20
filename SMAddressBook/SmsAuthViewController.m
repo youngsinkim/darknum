@@ -11,8 +11,11 @@
 #import "UIViewController+LoadingProgress.h"
 #import "LoginViewController.h"
 
-@interface SmsAuthViewController ()
 
+@interface SmsAuthViewController ()
+{
+    NSString *phoneNumberStr;
+}
 @property (strong, nonatomic) UILabel *infoLabel;
 @property (strong, nonatomic) UILabel *phoneLabel;
 @property (strong, nonatomic) UILabel *authLabel;
@@ -32,6 +35,7 @@
     if (self) {
         // Custom initialization
         self.navigationItem.title = LocalizedString(@"Sms Auth", @"본인 인증");
+        phoneNumberStr = @"";
     }
     return self;
 }
@@ -256,75 +260,19 @@
                                               }
                                               else
                                               {
-                                                  // 로그인 결과 로컬(파일) 저장.
-                                                  NSDictionary *dict = [NSDictionary dictionaryWithDictionary:result];
-                                                  //                                                if (![dict isKindOfClass:[NSNull class]])
-                                                  //                                                {
-                                                  //                                                    [UserContext shared].certNo     = dict[kCertNo];
-                                                  //                                                    [UserContext shared].memberType = dict[kMemType];
-                                                  //                                                    [UserContext shared].updateCount= dict[kUpdateCount];
-                                                  //                                                    [UserContext shared].userId     = [self.idTextField text];
-                                                  //                                                    [UserContext shared].myClass    = dict[kMyClass];
-                                                  //                                                    [UserContext shared].userKey    = dict[kUserKey];
-                                                  //
-                                                  //                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kCertNo] forKey:kCertNo];
-                                                  //                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kMemType] forKey:kMemType];
-                                                  //                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kUpdateCount] forKey:kUpdateCount];
-                                                  //                                                    [[NSUserDefaults standardUserDefaults] setValue: dict[kMyClass] forKey:kMyClass];
-                                                  //                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
-                                                  //                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kUserKey] forKey:kUserKey];
-                                                  //
-                                                  //                                                    // 아이디 저장 체크되어 있으면 아이디 저장
-                                                  //                                                    if (self.idSaveCheckBtn.selected == YES)
-                                                  //                                                    {
-                                                  //                                                        [UserContext shared].isSavedID = YES;
-                                                  //                                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
-                                                  //                                                    }
-                                                  //
-                                                  //                                                    // 자동 로그인 체크되어 있으면 비밀번호 및 자동 로그인 여부 저장.
-                                                  //                                                    if (self.loginSaveCheckBtn.selected == YES)
-                                                  //                                                    {
-                                                  //                                                        [UserContext shared].userPwd = dict[kUserPwd];
-                                                  //                                                        [UserContext shared].isAutoLogin = YES;
-                                                  //
-                                                  //                                                        [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:kUserPwd];
-                                                  //                                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
-                                                  //                                                    }
-                                                  //
-                                                  //                                                    [[NSUserDefaults standardUserDefaults] synchronize];
-                                                  //                                                    [UserContext shared].isLogined = YES;
-                                                  //
-                                                  //                                                }
-                                                  //
-                                                  //
-                                                  //                                                // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
-                                                  //                                                NSLog(@"약관 동의 했나? %d", [[UserContext shared] isAcceptTerms]);
-                                                  //                                                if ([UserContext shared].isAcceptTerms == NO)
-                                                  //                                                {
-                                                  //                                                    // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
-                                                  //                                                    TermsViewController *termsViewController = [[TermsViewController alloc] init];
-                                                  //                                                    
-                                                  //                                                    [self.navigationController pushViewController:termsViewController animated:YES];
-                                                  //                                                }
-                                                  //                                                else
-                                                  //                                                {
-                                                  //                                                    // 로그인 성공하면 즐겨찾기 화면으로 이동
-                                                  //                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                                                  //                                                    //                                                    [appDelegate showMainViewController:self animated:YES];
-                                                  //                                                    
-                                                  //                                                    // 메뉴 구성 먼저하고, 로그인 창을 모달로 띄운 시나리오에서는 해당 로그인 창을 닫는 루틴 처리.
-                                                  //                                                    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-                                                  //                                                    
-                                                  //                                                    if ([[UserContext shared] isExistProfile] == NO)
-                                                  //                                                    {
-                                                  //                                                        // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
-                                                  //                                                        MenuTableViewController *leftMenuViewController = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
-                                                  //                                                        
-                                                  //                                                        [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
-                                                  //                                                    }
-                                                  //                                                    
-                                                  //                                                }
-                                                  
+                                                  // 휴대전화 로컬(파일) 저장.
+                                                  if (phoneNumberStr.length > 0)
+                                                  {
+                                                      [[NSUserDefaults standardUserDefaults] setValue:phoneNumberStr forKey:kScode];
+                                                      [[NSUserDefaults standardUserDefaults] synchronize];
+                                                      NSLog(@"휴대폰 암호화번호: %@", [[NSUserDefaults standardUserDefaults] objectForKey:kScode]);
+                                                      
+                                                      // 휴대폰 인증 끝나면 로그인 화면으로 이동.
+                                                      LoginViewController *loginViewController = [[LoginViewController alloc] init];
+                                                      
+                                                      [self.navigationController pushViewController:loginViewController animated:YES];
+                                                      
+                                                  }
                                               }
                                               
                                           }];
@@ -353,75 +301,9 @@
                                             }
                                             else
                                             {
-                                                // 로그인 결과 로컬(파일) 저장.
-                                                NSDictionary *dict = [NSDictionary dictionaryWithDictionary:result];
-//                                                if (![dict isKindOfClass:[NSNull class]])
-//                                                {
-//                                                    [UserContext shared].certNo     = dict[kCertNo];
-//                                                    [UserContext shared].memberType = dict[kMemType];
-//                                                    [UserContext shared].updateCount= dict[kUpdateCount];
-//                                                    [UserContext shared].userId     = [self.idTextField text];
-//                                                    [UserContext shared].myClass    = dict[kMyClass];
-//                                                    [UserContext shared].userKey    = dict[kUserKey];
-//                                                    
-//                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kCertNo] forKey:kCertNo];
-//                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kMemType] forKey:kMemType];
-//                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kUpdateCount] forKey:kUpdateCount];
-//                                                    [[NSUserDefaults standardUserDefaults] setValue: dict[kMyClass] forKey:kMyClass];
-//                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
-//                                                    [[NSUserDefaults standardUserDefaults] setValue:dict[kUserKey] forKey:kUserKey];
-//                                                    
-//                                                    // 아이디 저장 체크되어 있으면 아이디 저장
-//                                                    if (self.idSaveCheckBtn.selected == YES)
-//                                                    {
-//                                                        [UserContext shared].isSavedID = YES;
-//                                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
-//                                                    }
-//                                                    
-//                                                    // 자동 로그인 체크되어 있으면 비밀번호 및 자동 로그인 여부 저장.
-//                                                    if (self.loginSaveCheckBtn.selected == YES)
-//                                                    {
-//                                                        [UserContext shared].userPwd = dict[kUserPwd];
-//                                                        [UserContext shared].isAutoLogin = YES;
-//                                                        
-//                                                        [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:kUserPwd];
-//                                                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
-//                                                    }
-//                                                    
-//                                                    [[NSUserDefaults standardUserDefaults] synchronize];
-//                                                    [UserContext shared].isLogined = YES;
-//                                                    
-//                                                }
-//                                                
-//                                                
-//                                                // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
-//                                                NSLog(@"약관 동의 했나? %d", [[UserContext shared] isAcceptTerms]);
-//                                                if ([UserContext shared].isAcceptTerms == NO)
-//                                                {
-//                                                    // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
-//                                                    TermsViewController *termsViewController = [[TermsViewController alloc] init];
-//                                                    
-//                                                    [self.navigationController pushViewController:termsViewController animated:YES];
-//                                                }
-//                                                else
-//                                                {
-//                                                    // 로그인 성공하면 즐겨찾기 화면으로 이동
-//                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//                                                    //                                                    [appDelegate showMainViewController:self animated:YES];
-//                                                    
-//                                                    // 메뉴 구성 먼저하고, 로그인 창을 모달로 띄운 시나리오에서는 해당 로그인 창을 닫는 루틴 처리.
-//                                                    [self.navigationController dismissViewControllerAnimated:NO completion:nil];
-//                                                    
-//                                                    if ([[UserContext shared] isExistProfile] == NO)
-//                                                    {
-//                                                        // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
-//                                                        MenuTableViewController *leftMenuViewController = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
-//                                                        
-//                                                        [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
-//                                                    }
-//                                                    
-//                                                }
-                                                
+                                                // 휴대폰 번호 기억
+                                                phoneNumberStr = _phoneNumberField.text;
+                                                NSLog(@"사용자 휴대폰번호: %@", phoneNumberStr);
                                             }
                                             
                                         }];
