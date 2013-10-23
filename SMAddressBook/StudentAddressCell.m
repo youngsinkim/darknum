@@ -141,7 +141,10 @@
         }
     }
     
-    if ([cellInfo[@"share_company"] isEqualToString:@"y"] && _memberLabel.text.length > 0) {
+    // 로그인 유저 타입
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+
+    if (([cellInfo[@"share_company"] isEqualToString:@"y"] && _memberLabel.text.length > 0) || myType != MemberTypeStudent) {
         _memberLabel.hidden = NO;
     } else {
         _memberLabel.hidden = YES;
@@ -161,7 +164,8 @@
     if (cellInfo[@"email"]) {
         _emailLabel.text = cellInfo[@"email"];
     }
-    if ([cellInfo[@"share_email"] isEqualToString:@"y"]) {
+    
+    if ([cellInfo[@"share_email"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
         _emailLabel.hidden = NO;
         _emailStLabel.hidden = NO;
     } else {

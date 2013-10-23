@@ -271,6 +271,8 @@
         _mobileValueLabel.text = _cellInfo[@"mobile"];
     }
     
+    // 로그인 유저 타입
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
 
     if (_memType == MemberTypeStudent)
     {
@@ -300,15 +302,16 @@
             }
             [descString appendString:_cellInfo[@"title"]];
         }
+        
         _companyLabel.text = descString;
-        if ([_cellInfo[@"share_company"] isEqualToString:@"y"]) {
+        if ([_cellInfo[@"share_company"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
             _companyLabel.hidden = NO;
         } else {
             _companyLabel.hidden = YES;
         }
         
         // 모바일 번호 표시
-        if ([_cellInfo[@"share_mobile"] isEqualToString:@"y"]) {
+        if ([_cellInfo[@"share_mobile"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
             _mobileLabel.hidden = NO;
             _mobileValueLabel.hidden = NO;
         } else {
@@ -316,7 +319,7 @@
             _mobileValueLabel.hidden = YES;
         }
         
-        if ([_cellInfo[@"share_email"] isEqualToString:@"y"]) {
+        if ([_cellInfo[@"share_email"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
             _emailLabel.hidden = NO;
             _emailValueLabel.hidden = NO;
         } else {
@@ -353,7 +356,6 @@
             }
         }
         
-        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
         if (myType == MemberTypeStudent) {
             _mobileLabel.hidden = YES;
             _mobileValueLabel.hidden = YES;
