@@ -106,12 +106,24 @@
     [fetchRequest setResultType:NSDictionaryResultType];
 
 //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", majorValue];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title != ''"];
-    [fetchRequest setPredicate:predicate];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title != ''"];
+//    [fetchRequest setPredicate:predicate];
+//
+//    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+//    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
 
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    NSPredicate *predicate;
+    NSSortDescriptor *sortDescriptor;
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        [NSPredicate predicateWithFormat:@"title != ''"];
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES];
+    } else {
+        [NSPredicate predicateWithFormat:@"title_en != ''"];
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title_en" ascending:YES];
+    }
+    [fetchRequest setPredicate:predicate];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    
+
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
     
