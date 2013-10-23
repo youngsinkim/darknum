@@ -208,7 +208,16 @@
         _shareEmailBtn.hidden = YES;
         _shareOfficeBtn.hidden = YES;
         _workBgView.hidden = YES;
-        _saveBtn.hidden = YES;
+//        _saveBtn.hidden = YES;
+        
+        if (_workBgView.hidden == YES) {
+            CGSize viewSize = _workBgView.frame.size;
+            CGRect btnFrame = _saveBtn.frame;
+            
+            btnFrame.origin.y -= (viewSize.height - 30);
+            _saveBtn.frame = btnFrame;
+
+        }
         
         // tel label
         frame = _telLabel.frame;
