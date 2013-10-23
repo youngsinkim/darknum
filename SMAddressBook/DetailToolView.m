@@ -73,7 +73,7 @@
     
 
 //    CGFloat width =  300.0f / [buttonList count];
-    CGFloat width =  300.0f / 5;
+    CGFloat width =  300.0f / 4;
     CGPoint point = CGPointMake(10.0f, 10.0f);
     
     if (_memType != MemberTypeStudent) {
@@ -199,25 +199,25 @@
     [self addSubview:_saveBtn];
     point.x += width;
     
-    
-    if (_memType == MemberTypeStudent) {
-        // 카톡 버튼
-        _kakaoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _kakaoBtn.tag = tag++;
-        _kakaoBtn.frame = CGRectMake(point.x, point.y, 50.0f, 50.0f);
-        
-        [_kakaoBtn setTitle:LocalizedString(@"ka talk", @"카톡") forState:UIControlStateNormal];
-        [_kakaoBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        [_kakaoBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        [_kakaoBtn setImage:[UIImage imageNamed:@"btn_kakaotalk_logo_iphone"] forState:UIControlStateNormal];
-        [_kakaoBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
-        
-        [_kakaoBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];
-        [_kakaoBtn centerImageAndTitle:1.0f];
-        
-        [self addSubview:_kakaoBtn];
-        point.x += width;
-    }
+// 기능 삭제
+//    if (_memType == MemberTypeStudent) {
+//        // 카톡 버튼
+//        _kakaoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _kakaoBtn.tag = tag++;
+//        _kakaoBtn.frame = CGRectMake(point.x, point.y, 50.0f, 50.0f);
+//        
+//        [_kakaoBtn setTitle:LocalizedString(@"ka talk", @"카톡") forState:UIControlStateNormal];
+//        [_kakaoBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+//        [_kakaoBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+//        [_kakaoBtn setImage:[UIImage imageNamed:@"btn_kakaotalk_logo_iphone"] forState:UIControlStateNormal];
+//        [_kakaoBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+//        
+//        [_kakaoBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];
+//        [_kakaoBtn centerImageAndTitle:1.0f];
+//        
+//        [self addSubview:_kakaoBtn];
+//        point.x += width;
+//    }
     
 }
 
