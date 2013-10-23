@@ -177,7 +177,7 @@
     _classTextField.tag = 301;
     _classTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
     _classTextField.delegate = self;
-    _classTextField.placeholder = LocalizedString(@" 기수을 선택하세요", @"기수을 선택하세요");
+    _classTextField.placeholder = LocalizedString(@"All classes", @"기수 선택 안내");
     _classTextField.text = @"";
     [_classTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
     [_classTextField setTextAlignment:NSTextAlignmentLeft];
@@ -231,7 +231,7 @@
     _nameTextField.tag = 400;
     _nameTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
     _nameTextField.delegate = self;
-    _nameTextField.placeholder = LocalizedString(@" 이름 검색", @"이름 검색");
+    _nameTextField.placeholder = LocalizedString(@"Search name", @"이름 검색");
     _nameTextField.text = @"";
     [_nameTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
     [_nameTextField setTextAlignment:NSTextAlignmentLeft];

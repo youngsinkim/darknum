@@ -183,3 +183,26 @@
 /* Empty Error Msg */
 "Text Empty" = "빈 문자열 오류";
 
+/* All faculties */
+"All faculties" = "전체교수";
+
+/* All Classes */
+"All classes" = "전체";
+
+/* Search name */
+"Search name" = "이름 검색";
+
+/* Athentication Description */
+"Athentication Description" = "본인인증을 위해 휴대전화번호와 인증번호를 입력하세요.";
+
+/* Verification code */
+"Verification code" = "인증번호";
+
+/* Send Verification Code */
+"Send Verification Code" = "인증번호받기";
+
+/* Submit */
+"Submit" = "확인";
+
+/* Cell Phone No. */
+"cell phone no." = "휴대전화번호";

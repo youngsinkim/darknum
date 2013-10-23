@@ -73,7 +73,7 @@
     [_infoLabel setFont:[UIFont systemFontOfSize:14.0f]];
     _infoLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
     _infoLabel.backgroundColor = [UIColor clearColor];
-    _infoLabel.text = LocalizedString(@"Sms Auth Info", @"본인인증 안내");
+    _infoLabel.text = LocalizedString(@"Athentication Description", @"본인인증 안내");
     
     [self.view addSubview:_infoLabel];
     yOffset += _infoLabel.frame.size.height;
@@ -87,7 +87,7 @@
     [_phoneLabel setFont:[UIFont systemFontOfSize:14.0f]];
     _phoneLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
     _phoneLabel.backgroundColor = [UIColor clearColor];
-    _phoneLabel.text = LocalizedString(@"Mobile Phone Number", @"휴대전화번호");
+    _phoneLabel.text = LocalizedString(@"cell phone no.", @"휴대전화번호");
     
     [self.view addSubview:_phoneLabel];
     yOffset += _phoneLabel.frame.size.height;
@@ -100,7 +100,7 @@
     _phoneNumberField.delegate = self;
     _phoneNumberField.borderStyle = UITextBorderStyleRoundedRect;
 //    _phoneNumberField.placeholder = LocalizedString(@"user_id_placeholder", @"휴대전화번호");
-    _phoneNumberField.text = @"01023873856";// @"01025578458";
+//    _phoneNumberField.text = @"01023873856";// @"01025578458";
     //        [_idTextField setBorderStyle:UITextBorderStyleLine];
     //        [_idTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
     [_phoneNumberField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
@@ -123,7 +123,7 @@
     [_authLabel setFont:[UIFont systemFontOfSize:14.0f]];
     _authLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
     _authLabel.backgroundColor = [UIColor clearColor];
-    _authLabel.text = LocalizedString(@"Auth Code", @"인증번호");
+    _authLabel.text = LocalizedString(@"Verification code", @"인증번호");
     
     [self.view addSubview:_authLabel];
     yOffset += (_authLabel.frame.size.height);
@@ -153,7 +153,7 @@
     _confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _confirmBtn.frame = CGRectMake(10.0f, yOffset, 100.0f, 30.0f);
     [_confirmBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-    [_confirmBtn setTitle:LocalizedString(@"Ok", @"확인") forState:UIControlStateNormal];
+    [_confirmBtn setTitle:LocalizedString(@"Submit", @"확인") forState:UIControlStateNormal];
     [_confirmBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     _confirmBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -163,9 +163,9 @@
 
     
     _smsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _smsBtn.frame = CGRectMake(150.0f, yOffset, 100.0f, 30.0f);
+    _smsBtn.frame = CGRectMake(140.0f, yOffset, 160.0f, 30.0f);
     [_smsBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-    [_smsBtn setTitle:LocalizedString(@"Receivce Auth Code", @"인증번호받기") forState:UIControlStateNormal];
+    [_smsBtn setTitle:LocalizedString(@"Send Verification Code", @"인증번호받기") forState:UIControlStateNormal];
     [_smsBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _smsBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     _smsBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -260,6 +260,8 @@
                                               }
                                               else
                                               {
+                                                  //phoneNumberStr = _phoneNumberField.text;
+
                                                   // 휴대전화 로컬(파일) 저장.
                                                   if (phoneNumberStr.length > 0)
                                                   {

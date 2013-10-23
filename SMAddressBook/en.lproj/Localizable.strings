@@ -183,3 +183,26 @@
 /* Empty Error Msg */
 "Text Empty" = "Text Empty";
 
+/* All faculties */
+"All faculties" = "All faculties";
+
+/* All Classes */
+"All classes" = "All classes";
+
+/* Search name */
+"Search name" = "Search name";
+
+/* Athentication Description */
+"Athentication Description" = "Athentication: Please enter your cell phone no. and verification code";
+
+/* Verification code */
+"Verification code" = "Verification code";
+
+/* Send Verification Code */
+"Send Verification Code" = "Send Verification Code";
+
+/* Submit */
+"Submit" = "Submit";
+
+/* Cell Phone No. */
+"cell phone no." = "cell phone no.";
