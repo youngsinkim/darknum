@@ -106,7 +106,7 @@
         NSLog(@"After 과정 정보 : %@", _courseClasses);
     }
     
-    _courses = [@[@{@"course":@"교수진/교직원"}] mutableCopy];
+    _courses = [@[@{@"course":LocalizedString(@"Favorite Static Course", @"교수진/교직원")}] mutableCopy];
     [_courses addObjectsFromArray:tmpCourses];
     
     [_courseClasses setArray:@[tmpList]];
@@ -897,8 +897,11 @@
         NSDictionary *info = [course dictionaryWithValuesForKeys:keys];
         NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, info[@"favyn"]);
 
-//        cell.textLabel.text = course.title;
-        cell.classLabel.text = course.title;
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            cell.classLabel.text = course.title;
+        } else {
+            cell.classLabel.text = course.title_en;
+        }
         cell.cellInfo = info;
 
 //        if ([course.favyn isEqualToString:@"y"] || [course.type integerValue] > 1) {

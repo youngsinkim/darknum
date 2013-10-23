@@ -21,7 +21,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = @"도움말";
     }
     return self;
 }
@@ -30,6 +29,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.navigationItem.title = LocalizedString(@"help", "도움말");
     
 //    self.view.backgroundColor = [UIColor yellowColor];
     CGRect viewRect = self.view.bounds;

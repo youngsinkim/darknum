@@ -360,12 +360,12 @@
     yOffset = 140.0f;
 
     // 개인정보 텍스트
-    self.personalInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 60.0f, 16.0f)];
+    self.personalInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 150.0f, 16.0f)];
     [self.personalInfoLabel setTextColor:[UIColor blackColor]];
 //    [self.personalInfoLabel setBackgroundColor:[UIColor lightGrayColor]];
     [self.personalInfoLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [self.personalInfoLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.personalInfoLabel setText:@"개인정보"];
+    [self.personalInfoLabel setText:LocalizedString(@"Personal Info", @"개인정보")];
     
     [_scrollView addSubview:self.personalInfoLabel];
     yOffset += 18.0f;

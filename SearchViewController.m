@@ -112,7 +112,7 @@
 {
     CGRect rect = self.view.bounds;
     CGFloat yOffset = 15.0f;
-    CGFloat xOffset = 60.0f;
+    CGFloat xOffset = 75.0f;
     
     if (!IS_LESS_THEN_IOS7) {
         yOffset += 64.0f;
@@ -125,12 +125,12 @@
     [self.view addSubview:bgView];
     
     // 과정 text
-    _courseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 55.0f, 22.0f)];
+    _courseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 70.0f, 22.0f)];
     [_courseLabel setTextColor:[UIColor blackColor]];
     [_courseLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
     [_courseLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
     [_courseLabel setTextAlignment:NSTextAlignmentCenter];
-    [_courseLabel setText:@"과정"];
+    [_courseLabel setText:LocalizedString(@"course", @"과정")];
     
     [bgView addSubview:_courseLabel];
     
@@ -162,12 +162,12 @@
 
     
     // 기수 text
-    _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 55.0f, 22.0f)];
+    _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 70.0f, 22.0f)];
     [_classLabel setTextColor:[UIColor blackColor]];
     [_classLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
     [_classLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
     [_classLabel setTextAlignment:NSTextAlignmentCenter];
-    [_classLabel setText:@"기수"];
+    [_classLabel setText:LocalizedString(@"classes", @"기수")];
     
     [bgView addSubview:_classLabel];
 
@@ -216,12 +216,12 @@
 //    yOffset += 40.0f;
     
     // 이름 text
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 55.0f, 22.0f)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 70.0f, 22.0f)];
     [_nameLabel setTextColor:[UIColor blackColor]];
     [_nameLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
     [_nameLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
     [_nameLabel setTextAlignment:NSTextAlignmentCenter];
-    [_nameLabel setText:@"이름"];
+    [_nameLabel setText:LocalizedString(@"name", @"이름")];
     
     [bgView addSubview:_nameLabel];
 
@@ -243,12 +243,12 @@
     
     
     // 옵션 text
-    _optionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 55.0f, 27.0f)];
+    _optionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, yOffset, 70.0f, 27.0f)];
     [_optionLabel setTextColor:[UIColor blackColor]];
     [_optionLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
     [_optionLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
     [_optionLabel setTextAlignment:NSTextAlignmentCenter];
-    [_optionLabel setText:@"옵션"];
+    [_optionLabel setText:LocalizedString(@"option", @"옵션")];
     
     [bgView addSubview:_optionLabel];
 
@@ -256,7 +256,7 @@
     // 옵션 버튼
     _optionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _optionBtn.frame = CGRectMake(xOffset, yOffset, 200.0f, 27.0f);
-    [_optionBtn setTitle:LocalizedString(@"즐겨찾기 내에서 검색", @"즐겨찾기 내에서 검색") forState:UIControlStateNormal];
+    [_optionBtn setTitle:LocalizedString(@"option string", @"즐겨찾기 내에서 검색") forState:UIControlStateNormal];
     [_optionBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [_optionBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [_optionBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];

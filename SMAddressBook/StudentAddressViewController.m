@@ -53,7 +53,11 @@
         _info = [NSDictionary dictionaryWithDictionary:info];
         NSLog(@"학생 정보 : %@", _info);
 
-        self.navigationItem.title = _info[@"title"];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            self.navigationItem.title = _info[@"title"];
+        } else {
+            self.navigationItem.title = _info[@"title_en"];
+        }
 
         _students = [[NSMutableArray alloc] init];
     

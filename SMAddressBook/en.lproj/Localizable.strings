@@ -206,3 +206,24 @@
 
 /* Cell Phone No. */
 "cell phone no." = "cell phone no.";
+
+/* Favorite Static Course */
+"Favorite Static Course" = "Faculty / Staff";
+
+/* course */
+"course" = "course";
+
+/* classes */
+"classes" = "classes";
+
+/* name */
+"name" = "name";
+
+/* option */
+"option" = "option";
+
+/* option string */
+"option string" = "즐겨찾기 내에서 검색";
+
+/* Personal Info */
+"Personal Info" = "Personal Info.";
