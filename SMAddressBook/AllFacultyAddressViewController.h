@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StudentToolView.h"
 
-@interface AllFacultyAddressViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AllFacultyAddressViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, StudentToolViewDelegate>
 
 @end

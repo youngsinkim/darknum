@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "StudentToolView.h"
 
-@interface StaffAddressViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface StaffAddressViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, StudentToolViewDelegate>
 
 @end

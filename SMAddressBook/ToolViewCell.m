@@ -70,6 +70,7 @@
         [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
         [_checkBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
         [_checkBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateDisabled];
+        [_checkBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateSelected|UIControlStateDisabled];
         [_checkBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.contentView addSubview:_checkBtn];

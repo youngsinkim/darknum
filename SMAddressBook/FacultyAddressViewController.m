@@ -11,6 +11,9 @@
 #import "AddressCell.h"
 #import "Major.h"
 #import "Faculty.h"
+#import "PortraitNavigationController.h"
+#import "SmsViewController.h"
+#import "ToolViewController.h"
 
 @interface FacultyAddressViewController ()
 
@@ -18,6 +21,7 @@
 @property (strong, nonatomic) UITableView *addressTableView;    //< 주소록 테이블 뷰
 @property (strong, nonatomic) NSMutableArray *faculties;        //< 주소록 목록
 @property (strong, nonatomic) NSDictionary *majorInfo;          //< 셀 구성을 위한 정보
+@property (strong, nonatomic) StudentToolView *footerToolView;
 
 @end
 
@@ -91,6 +95,11 @@
 {
     CGRect viewRect = self.view.bounds;
     
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+    if (myType != MemberTypeStudent) {
+        viewRect.size.height -= kStudentToolH;
+    }
+
     if (IS_LESS_THEN_IOS7) {
         viewRect.size.height -= 44.0f;
     }
@@ -108,6 +117,56 @@
         edges.left = 0;
         _addressTableView.separatorInset = edges;
     }
+    
+    if (myType != MemberTypeStudent)
+    {
+        _footerToolView = [[StudentToolView alloc] initWithFrame:CGRectMake(0.0f, viewRect.size.height, viewRect.size.width, kStudentToolH)];
+        _footerToolView.delegate = self;
+        
+        [self.view addSubview:_footerToolView];
+    }
+
+}
+
+
+#pragma mark - Callback methods
+// 주소록 하단 툴 버튼
+- (void)didSelectedToolTag:(NSNumber *)type
+{
+    switch ([type intValue])
+    {
+        case 0: // sms
+            [self onSmsViewController];
+            break;
+            
+        case 1: // email
+            [self onEmailViewController];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)onSmsViewController
+{
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_faculties viewType:ToolViewTypeSms];
+    toolVC.navigationItem.title = self.navigationItem.title;
+    
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    
+}
+
+- (void)onEmailViewController
+{
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_faculties viewType:ToolViewTypeEmail];
+    toolVC.navigationItem.title = self.navigationItem.title;
+    
+    PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - DB methods
