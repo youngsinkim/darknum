@@ -137,8 +137,16 @@
 
 #pragma mark - UITableView DataSources
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 0) {
+        return 1;
+    }
     return ([_majors count] > 0)? [_majors count] : 1;
 }
 
@@ -149,47 +157,72 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([_majors count] == 0)
+    if (indexPath.section == 0)
     {
-        static NSString *identifier = @"NoMajorCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
+        static NSString *identifier = @"AllMajorCell";
+        MajorCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell = [[MajorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
+
+//        NSDictionary *majorInfo = _majors[indexPath.row];
+//        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+//            cell.textLabel.text = majorInfo[@"title"];
+//        } else {
+//            cell.textLabel.text = majorInfo[@"title_en"];
+//        }
+        cell.textLabel.text = @"전체 교수";
         
         return cell;
     }
-    
-    static NSString *identifier = @"MajorCell";
-    MajorCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell) {
-        cell = [[MajorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        cell.selectionStyle = UITableViewCellSelectionStyleGray;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-    }
-    
-    if ([_majors count] > 0)
+    else
     {
-#if (1)
-        NSDictionary *majorInfo = _majors[indexPath.row];
-
-        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-            cell.textLabel.text = majorInfo[@"title"];
-        } else {
-            cell.textLabel.text = majorInfo[@"title_en"];
+        if ([_majors count] == 0)
+        {
+            static NSString *identifier = @"NoMajorCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            
+            return cell;
         }
+        
+        static NSString *identifier = @"MajorCell";
+        MajorCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        
+        if (!cell) {
+            cell = [[MajorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    //        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+        }
+        
+        if ([_majors count] > 0)
+        {
+#if (1)
+            NSDictionary *majorInfo = _majors[indexPath.row];
+
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                cell.textLabel.text = majorInfo[@"title"];
+            } else {
+                cell.textLabel.text = majorInfo[@"title_en"];
+            }
 #else
-        // db에서 가져오면 managedObject로 받음
-        Major *major = _majors[indexPath.row];
-    NSLog(@"major (%d) : %@, %@", indexPath.row, major.title, major);
-        cell.textLabel.text = major.title;
+            // db에서 가져오면 managedObject로 받음
+            Major *major = _majors[indexPath.row];
+        NSLog(@"major (%d) : %@, %@", indexPath.row, major.title, major);
+            cell.textLabel.text = major.title;
 #endif
-    }
-    
-    return cell;
+        }
+        
+        return cell;
+        
+    } // section
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -197,22 +230,29 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSLog(@"선택한 셀 => (%i / %i)", indexPath.row, indexPath.section);
     
-    NSDictionary *majorInfo = [_majors[indexPath.row] mutableCopy];
-    if ([majorInfo isKindOfClass:[NSDictionary class]])
+    if (indexPath.section == 0)
     {
-        NSLog(@"선택된 셀 정보 : %@", majorInfo);
         
-        // 전공에 해당하는 교수 목록 화면으로, (type = faculty, dict = 전공 정보)
+    }
+    else
+    {
+        NSDictionary *majorInfo = [_majors[indexPath.row] mutableCopy];
+        if ([majorInfo isKindOfClass:[NSDictionary class]])
+        {
+            NSLog(@"선택된 셀 정보 : %@", majorInfo);
+            
+            // 전공에 해당하는 교수 목록 화면으로, (type = faculty, dict = 전공 정보)
+            
+            FacultyAddressViewController *viewController = [[FacultyAddressViewController alloc] initWithInfo:majorInfo];
+    //        AddressViewController *viewController = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                viewController.navigationItem.title = majorInfo[@"title"];
+            } else {
+                viewController.navigationItem.title = majorInfo[@"title_en"];
+            }
         
-        FacultyAddressViewController *viewController = [[FacultyAddressViewController alloc] initWithInfo:majorInfo];
-//        AddressViewController *viewController = [[AddressViewController alloc] initWithType:MemberTypeFaculty info:majorInfo];
-        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-            viewController.navigationItem.title = majorInfo[@"title"];
-        } else {
-            viewController.navigationItem.title = majorInfo[@"title_en"];
+            [self.navigationController pushViewController:viewController animated:YES];
         }
-    
-        [self.navigationController pushViewController:viewController animated:YES];
     }
 }
 
