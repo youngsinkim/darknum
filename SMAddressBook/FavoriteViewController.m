@@ -588,6 +588,59 @@
 }
 
 
+// 내 정보 조회
+- (void)requestAPIMyInfo
+{
+    NSString *mobileNo = [Util phoneNumber];
+    NSString *userId = [UserContext shared].userId;
+    NSString *certNo = [UserContext shared].certNo;
+    
+    if (!mobileNo || !userId | !certNo) {
+        return;
+    }
+    
+    //    path    /fb/myinfo
+    //    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    NSLog(@"MyInfo Request Parameter : %@", param);
+    
+    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
+    
+    // 내 (프로필)정보
+    [[SMNetworkClient sharedClient] postMyInfo:param
+                                         block:^(NSDictionary *result, NSError *error) {
+                                             
+                                             [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                             
+                                             if (error) {
+                                                 [[SMNetworkClient sharedClient] showNetworkError:error];
+                                             }
+                                             else
+                                             {
+                                                 // 과정 기수 목록을 DB에 저장하고 tableView 업데이트
+                                                 //NSArray *classes = [result valueForKeyPath:@"data"];
+                                                 
+                                                 // 로그인 결과 로컬(파일) 저장.
+                                                 //                                                 NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:result];
+                                                 NSDictionary *_myInfo = [NSDictionary dictionaryWithDictionary:result];
+//                                                 [_myInfo setDictionary:result];
+                                                 NSLog(@"서버에서 가져온 내 정보 : %@", _myInfo);
+                                                 
+                                                 [UserContext shared].profileInfo = [_myInfo mutableCopy];
+                                                 [[NSUserDefaults standardUserDefaults] setObject:_myInfo forKey:kProfileInfo];
+                                                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
+                                                 [[NSUserDefaults standardUserDefaults] synchronize];
+                                                 NSLog(@"저장 후 프로필 : %@", [[NSUserDefaults standardUserDefaults] objectForKey:kProfileInfo]);
+                                                 
+                                                 dispatch_async(dispatch_get_main_queue(), ^{
+//                                                     [self updateMyInfo];
+                                                     //                                                      [self onDBUpdate:(NSDictionary *)result];
+                                                 });
+                                             }
+                                         }];
+}
+
+
 #pragma mark - Callback methods
 - (void)myProgressTask:(id)sender
 {

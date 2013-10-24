@@ -91,19 +91,20 @@
 - (void)setupLoginUI
 {
     CGRect rect = self.view.frame;
-    CGFloat yOffset = 10.0f;
+    CGFloat yOffset = 0.0f;
     
     if (!IS_LESS_THEN_IOS7) {
         yOffset += 64.0f;
     }
     
     // 배경 라인 박스
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, yOffset, rect.size.width - 20.0f, 200.0f)];
-    [bgView.layer setCornerRadius:6.0f];
-    [bgView.layer setBackgroundColor:[UIColor colorWithRed:135.0f/255.0 green:206.0f/255.0 blue:250.0f/255.0 alpha:0.2f].CGColor];
-    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.2f].CGColor];
-    [bgView.layer setBorderWidth:1.0f];
-    [bgView setUserInteractionEnabled:YES];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, yOffset, rect.size.width, 200.0f)];
+    bgView.backgroundColor = [UIColor clearColor];
+//    [bgView.layer setCornerRadius:6.0f];
+//    [bgView.layer setBackgroundColor:[UIColor colorWithRed:135.0f/255.0 green:206.0f/255.0 blue:250.0f/255.0 alpha:0.2f].CGColor];
+//    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.2f].CGColor];
+//    [bgView.layer setBorderWidth:1.0f];
+//    [bgView setUserInteractionEnabled:YES];
     
     [self.view addSubview:bgView];
     
@@ -520,6 +521,19 @@
                                                 NSDictionary *dict = [NSDictionary dictionaryWithDictionary:result];
                                                 if (![dict isKindOfClass:[NSNull class]])
                                                 {
+                                                    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserId]) {
+                                                        NSString *prevLoginId = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUserId]];
+                                                        if (![_idTextField.text isEqualToString:prevLoginId]) {
+                                                            // 다른 아이디로 로그인한 경우, 이전 로그인 정보 삭제.
+                                                            [[UserContext shared].profileInfo removeAllObjects];
+                                                            [UserContext shared].isExistProfile = NO;
+                                                            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kProfileInfo];
+                                                            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kSetProfile];
+                                                            [[NSUserDefaults standardUserDefaults] synchronize];
+
+                                                        }
+                                                    }
+
                                                     [UserContext shared].certNo     = dict[kCertNo];
                                                     [UserContext shared].memberType = dict[kMemType];
                                                     [UserContext shared].updateCount= dict[kUpdateCount];

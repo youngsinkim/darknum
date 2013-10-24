@@ -35,6 +35,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.navigationItem.title = LocalizedString(@"All faculties", @"전체교수");
     
     // CoreData 컨텍스트 지정
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
