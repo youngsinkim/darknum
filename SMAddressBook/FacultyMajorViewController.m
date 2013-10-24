@@ -7,9 +7,9 @@
 //
 
 #import "FacultyMajorViewController.h"
-//#import "AddressViewController.h"
 #import "MajorCell.h"
 #import "Major.h"
+#import "AllFacultyAddressViewController.h"
 #import "FacultyAddressViewController.h"
 #import "NSString+MD5.h"
 #import "UIViewController+LoadingProgress.h"
@@ -232,7 +232,9 @@
     
     if (indexPath.section == 0)
     {
+        AllFacultyAddressViewController *viewController = [[AllFacultyAddressViewController alloc] init];
         
+        [self.navigationController pushViewController:viewController animated:YES];
     }
     else
     {

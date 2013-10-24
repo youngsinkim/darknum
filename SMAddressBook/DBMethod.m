@@ -49,6 +49,54 @@
     return fetchedObjects;
 }
 
+#pragma mark 전체 교수 목록 조회
+/// 전체 교수 목록 가져오기
++ (NSArray *)loadDBAllFaculties
+{
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *moc = [appDelegate managedObjectContext];
+    if (moc == nil) {
+        NSLog(@"After managedObjectContext: %@", moc);
+        return nil;
+    }
+    
+    NSManagedObjectContext *threadedMoc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    threadedMoc.parentContext = moc;
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Faculty" inManagedObjectContext:moc];
+    [fetchRequest setEntity:entity];
+    
+    [fetchRequest setResultType:NSDictionaryResultType];
+//    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"major"]];
+//    NSDictionary *properties = [entity propertiesByName];
+//    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
+//    [propertiesToFetch addObject:@"major.title"];
+//    [propertiesToFetch addObject:@"major.title_en"];
+//    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
+//    //    [fetchRequest setPropertiesToFetch:@[@"major.title", @"email", @"memberidx", @"name", @"mobile", @"name_en", @"office", @"office_en", @"photourl", @"tel", @"viewphotourl"]];
+//    //    [fetchRequest setPropertiesToFetch:@[@"majortitle", @"major.title"]];
+//    [fetchRequest setReturnsObjectsAsFaults:NO];
+    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", _majorInfo[@"major"]];
+//    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor;
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    } else {
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name_en" ascending:YES];
+    }
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [moc executeFetchRequest:fetchRequest error:&error];
+    NSLog(@"전체 교수 조회 수 : %d", [fetchedObjects count]);
+    
+    return fetchedObjects;
+}
+
 
 #pragma mark 기수 목록 업데이트
 /// 전체 기수목록 DB 추가 및 업데이트

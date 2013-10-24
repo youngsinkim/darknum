@@ -13,6 +13,9 @@
 /// 즐겨찾기 (기수)목록 가져오기
 + (NSArray *)loadDBFavoriteCourses;
 
+/// 전체 교수 목록 가져오기
++ (NSArray *)loadDBAllFaculties;
+
 /// 전체 기수목록 DB 추가 및 업데이트
 + (void)saveDBCourseClasses:(NSArray *)courseClasses;
 

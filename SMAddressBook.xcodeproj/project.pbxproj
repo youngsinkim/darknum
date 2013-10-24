@@ -363,6 +363,8 @@
 		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
+		BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
+		BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
 		BFA89612180329C500869FB8 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
 		BFABB01C17F75AE50018D236 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
 		BFABB01F17F761EA0018D236 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01E17F761EA0018D236 /* Student.m */; };
@@ -620,6 +622,8 @@
 		BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCell.m; sourceTree = "<group>"; };
 		BF9CC1AF17EE2396000862F0 /* ToolViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewCell.h; sourceTree = "<group>"; };
 		BF9CC1B017EE2396000862F0 /* ToolViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewCell.m; sourceTree = "<group>"; };
+		BFA79CA11819556B005E37FA /* AllFacultyAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllFacultyAddressViewController.h; sourceTree = "<group>"; };
+		BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllFacultyAddressViewController.m; sourceTree = "<group>"; };
 		BFA89610180329C500869FB8 /* FindWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWebViewController.h; sourceTree = "<group>"; };
 		BFA89611180329C500869FB8 /* FindWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWebViewController.m; sourceTree = "<group>"; };
 		BFABB01A17F75AE50018D236 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
@@ -1130,6 +1134,8 @@
 				BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */,
 				BF57B34917D34A0200B39C03 /* MajorCell.h */,
 				BF57B34A17D34A0200B39C03 /* MajorCell.m */,
+				BFA79CA11819556B005E37FA /* AllFacultyAddressViewController.h */,
+				BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */,
 				BF57B32C17D2ED5800B39C03 /* FacultyAddressViewController.h */,
 				BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */,
 			);
@@ -1589,6 +1595,7 @@
 				5062B65117C4D24700A2495D /* LoginViewController.m in Sources */,
 				503D546D181146C10046E0C5 /* SmsAuthViewController.m in Sources */,
 				50D134D017F97A1200F27231 /* NSURLRequest+SSL.m in Sources */,
+				BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */,
 				BFABB01F17F761EA0018D236 /* Student.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
@@ -1666,6 +1673,7 @@
 				BF241C83180931AE001A7AA0 /* LoginViewController.m in Sources */,
 				503D546E181146C10046E0C5 /* SmsAuthViewController.m in Sources */,
 				BF241C84180931AE001A7AA0 /* NSURLRequest+SSL.m in Sources */,
+				BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */,
 				BF241C85180931AE001A7AA0 /* Student.m in Sources */,
 				BF241C86180931AE001A7AA0 /* SMNetworkClient.m in Sources */,
 				BF241C87180931AE001A7AA0 /* FavoriteViewController.m in Sources */,
