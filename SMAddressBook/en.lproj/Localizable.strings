@@ -239,3 +239,6 @@
 
 /* Select Email Recipients */
 "Email Recipients %d" = "Email Recipients (%d)";
+
+/* Limit Error Msg */
+"Limit Error Msg" = "한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.";

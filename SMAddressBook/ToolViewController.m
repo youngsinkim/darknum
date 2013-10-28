@@ -911,7 +911,7 @@
         if (_viewType == ToolViewTypeSms) {
             if ([_selectArray count] >= 20) {
                 UIAlertView *countAlertView = [[UIAlertView alloc] initWithTitle:nil
-                                                                         message:@"over 20"
+                                                                         message:LocalizedString(@"Limit Error Msg", @"한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.")
                                                                         delegate:nil
                                                                cancelButtonTitle:LocalizedString(@"Ok", @"확인")
                                                                otherButtonTitles:nil];
