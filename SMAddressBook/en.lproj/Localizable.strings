@@ -227,3 +227,15 @@
 
 /* Personal Info */
 "Personal Info" = "Personal Info.";
+
+/* Select Message Recipients */
+"Select Message Recipients" = "Select Message Recipients";
+
+/* Select Email Recipients */
+"Select Email Recipients" = "Select Email Recipients";
+
+/* Message Recipients */
+"Message Recipients %d" = "Message Recipients (%d)";
+
+/* Select Email Recipients */
+"Email Recipients %d" = "Email Recipients (%d)";

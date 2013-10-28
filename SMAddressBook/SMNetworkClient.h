@@ -20,13 +20,13 @@
 #define kData           @"data"
 
 // input key codes
-#define kUserId         @"userid"
-#define kScode          @"scode"
+//#define kUserId         @"userid"
+//#define kScode          @"scode"
 
-#define kCertNo         @"certno"
-#define kMemType        @"memtype"
-#define kLastUpdate     @"lastupdate"
-#define kUpdateCount    @"updatecount"
+//#define kCertNo         @"certno"
+//#define kMemType        @"memtype"
+//#define kLastUpdate     @"lastupdate"
+//#define kUpdateCount    @"updatecount"
 
 
 @interface SMNetworkClient : AFHTTPClient

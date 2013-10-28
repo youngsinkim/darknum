@@ -227,3 +227,15 @@
 
 /* Personal Info */
 "Personal Info" = "개인정보";
+
+/* Select Message Recipients */
+"Select Message Recipients" = "문자 수신자 선택";
+
+/* Select Email Recipients */
+"Select Email Recipients" = "메일 수신자 선택";
+
+/* Message Recipients */
+"Message Recipients %d" = "문자 수신자 (%d)";
+
+/* Select Email Recipients */
+"Email Recipients %d" = "메일 수신자 (%d)";
