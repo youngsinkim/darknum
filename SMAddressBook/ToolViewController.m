@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSMutableArray *members;
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) NSMutableArray *selectArray;
+@property (strong, nonatomic) UILabel *sectionTitleLabel;
 @property (assign) ToolViewType viewType;
 @property (assign) BOOL isSearching;
 
@@ -256,11 +257,36 @@
         NSLog(@"전체 선택 : %d", isAllSelected);
 
         if (isAllSelected == YES) {
-            [_selectArray setArray:_members];
-        } else {
+            if (_viewType == ToolViewTypeSms) {
+                [_selectArray removeAllObjects];
+                
+                int count = 0;
+                int i = 0;
+                
+                for (NSDictionary *dict in _members)
+                {
+                    if (![dict[@"share_mobile"] isEqualToString:@"n"]) {
+                        _selectArray[count] = _members[i];
+                        count++;
+                    }
+                    
+                    if (count >= 20) {
+                        break;
+                    }
+                    i++;
+                }
+            }
+            else
+            {
+                [_selectArray setArray:_members];
+            }
+            NSLog(@"선택 항목 : %@", _selectArray);
+        }
+        else {
             [_selectArray removeAllObjects];
         }
     }
+    
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //    [self performSelector:@selector(updateTablewView) withObject:nil];
@@ -646,19 +672,19 @@
         
         CGFloat yOffset = 0.0f;
 
-        UILabel *sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, yOffset, 100, kTableHeaderH)];
-        sectionTitleLabel.textColor = [UIColor darkGrayColor];
-        sectionTitleLabel.backgroundColor = [UIColor clearColor];
-        [sectionTitleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        _sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, yOffset, 200, kTableHeaderH)];
+        _sectionTitleLabel.textColor = [UIColor darkGrayColor];
+        _sectionTitleLabel.backgroundColor = [UIColor clearColor];
+        [_sectionTitleLabel setFont:[UIFont systemFontOfSize:14.0f]];
 //        [sectionTitleLabel setText:@"메일 수신자 선택"];
         
         if (_viewType == ToolViewTypeSms) {
-            sectionTitleLabel.text = NSLocalizedString(@"문자 수신자 선택", nil);
+            _sectionTitleLabel.text = NSLocalizedString(@"Select Message Recipients", nil);
         } else if (_viewType == ToolViewTypeEmail) {
-            sectionTitleLabel.text = NSLocalizedString(@"메일 수신자 선택", nil);
+            _sectionTitleLabel.text = NSLocalizedString(@"Select Email Recipients", nil);
         }
 
-        [headerView addSubview:sectionTitleLabel];
+        [headerView addSubview:_sectionTitleLabel];
         
         if (!_allSelectedBtn)
         {
@@ -680,6 +706,13 @@
         [headerView addSubview:_allSelectedBtn];
     }
     
+    if (_viewType == ToolViewTypeSms) {
+        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Email Recipients %d", @"메일 수신자"), [_selectArray count]];
+    } else {
+        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Message Recipients %d", @"문자 수신자"), [_selectArray count]];
+    }
+    NSLog(@"선택된 수 : %@", _sectionTitleLabel.text);
+
     return headerView;
 }
 
@@ -799,11 +832,15 @@
 
         if (_viewType == ToolViewTypeSms) {
             if ([dict[@"share_mobile"] isEqualToString:@"n"]) {
-                cell.checkBtn.enabled = NO;
+                [cell.checkBtn setEnabled:NO];
+            } else {
+                [cell.checkBtn setEnabled:YES];
             }
         } else if (_viewType == ToolViewTypeEmail) {
             if ([dict[@"share_email"] isEqualToString:@"n"]) {
-                cell.checkBtn.enabled = NO;
+                [cell.checkBtn setEnabled:NO];
+            } else {
+                [cell.checkBtn setEnabled:YES];
             }
         }
         
@@ -813,7 +850,6 @@
         else {
             [cell.checkBtn setSelected:NO];
         }
-        
         //        cell.textLabel.text = dict[@"name"];
         
     }
@@ -871,18 +907,44 @@
         [_selectArray removeObject:[array objectAtIndex:row]];
     }
     else {
+        // 20명 이상 선택 시, 경고 알림
+        if (_viewType == ToolViewTypeSms) {
+            if ([_selectArray count] >= 20) {
+                UIAlertView *countAlertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                         message:@"over 20"
+                                                                        delegate:nil
+                                                               cancelButtonTitle:LocalizedString(@"Ok", @"확인")
+                                                               otherButtonTitles:nil];
+                [countAlertView show];
+                return;
+            }
+        }
         [_selectArray addObject:[array objectAtIndex:row]];
     }
     NSLog(@"선택 항목 : %@", _selectArray);
     
-    
-    // 선택 항목 수에 따라 [전체 선택] 버튼 상태 변경.
-    if (_selectArray.count == _members.count) {
-        _allSelectedBtn.selected = YES;
+    if (_viewType == ToolViewTypeSms) {
+        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Email Recipients %d", @"메일 수신자"), [_selectArray count]];
     } else {
-        _allSelectedBtn.selected = NO;
+        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Message Recipients %d", @"문자 수신자"), [_selectArray count]];
     }
     
+    
+    // 선택 항목 수에 따라 [전체 선택] 버튼 상태 변경.
+    if (_viewType == ToolViewTypeSms) {
+        if (_selectArray.count == 20) {
+            _allSelectedBtn.selected = YES;
+        } else {
+            _allSelectedBtn.selected = NO;
+        }
+    }
+    else {
+        if (_selectArray.count == _members.count) {
+            _allSelectedBtn.selected = YES;
+        } else {
+            _allSelectedBtn.selected = NO;
+        }
+    }
     
     // 보내기 버튼은 선택된 항목이 있을 때만 활성화 시키기.
     if ([_selectArray count] > 0) {

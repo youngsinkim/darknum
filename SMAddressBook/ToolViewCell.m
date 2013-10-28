@@ -121,12 +121,6 @@
 //    _checkBtn.enabled = NO;
 }
 
-- (void)setCheckEnabled:(BOOL)checkEnabled
-{
-    _checkBtn.enabled = checkEnabled;
-    [self layoutSubviews];
-}
-
 - (void)onBtnClicked:(id)sender
 {
 //    [(UIButton *)sender setSelected:![(UIButton *)sender isSelected]];
