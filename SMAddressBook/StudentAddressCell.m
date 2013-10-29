@@ -151,8 +151,12 @@
     // 로그인 유저 타입
     MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
 
-    if (([cellInfo[@"share_company"] isEqualToString:@"y"] && _memberLabel.text.length > 0) || myType != MemberTypeStudent) {
-        _memberLabel.hidden = NO;
+    NSLog(@"직장 정보 길이 : %d", _memberLabel.text.length);
+    if ([cellInfo[@"share_company"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
+        if (_memberLabel.text.length > 0)
+            _memberLabel.hidden = NO;
+        else
+            _memberLabel.hidden = YES;
     } else {
         _memberLabel.hidden = YES;
     }
