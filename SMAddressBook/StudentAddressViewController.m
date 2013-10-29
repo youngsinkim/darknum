@@ -328,7 +328,7 @@
             NSArray *keys = [[[student entity] attributesByName] allKeys];
             [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
         }
-        NSLog(@"학생 목록 셀 정보 : %@", dict);
+        NSLog(@"학생 목록 셀 정보 : %@, %@ | %@ %@ (%@)", dict[@"name"], dict[@"company"], dict[@"department"], dict[@"title"], dict[@"share_company"]);
     
         [cell setCellInfo:dict];
 

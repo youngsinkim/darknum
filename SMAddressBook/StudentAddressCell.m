@@ -127,17 +127,24 @@
         }
         
         if ([cellInfo[@"company"] length] > 0 && [cellInfo[@"department"] length] > 0) {
-            NSString *description = [NSString stringWithFormat:@"%@ | %@", cellInfo[@"company"], cellInfo[@"department"]];
+            NSString *description = [NSString stringWithFormat:@"%@ | %@ %@", cellInfo[@"company"], cellInfo[@"department"], cellInfo[@"title"]];
             _memberLabel.text = description;// cellInfo[@"desc"];
+        }
+        else {
+            _memberLabel.text = @"";    // 스크롤 시, 텍스트 겹침 현상 발생되어 수정
         }
     }
     else {
         if (cellInfo[@"name_en"]) {
             _nameLabel.text = cellInfo[@"name_en"];
         }
+        
         if ([cellInfo[@"company_en"] length] > 0 && [cellInfo[@"department_en"] length] > 0) {
-            NSString *description = [NSString stringWithFormat:@" %@ | %@", cellInfo[@"company_en"], cellInfo[@"department_en"]];
+            NSString *description = [NSString stringWithFormat:@" %@ | %@ %@", cellInfo[@"company_en"], cellInfo[@"department_en"], cellInfo[@"title_en"]];
             _memberLabel.text = description;// cellInfo[@"desc"];
+        }
+        else {
+            _memberLabel.text = @"";    // 스크롤 시, 텍스트 겹침 현상 발생되어 수정
         }
     }
     
