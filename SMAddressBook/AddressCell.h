@@ -10,9 +10,16 @@
 
 #define kAddressCellH   60.0f
 
+typedef enum {
+    AddressCellTypeNormal,
+    AddressCellTypeAllFaculty,
+    AddressCellTypeUnknown
+}AddressCellType;
+
 @interface AddressCell : UITableViewCell
 
 @property (strong, nonatomic) NSDictionary *cellInfo;
 @property (assign) MemberType memType;
+@property (assign) AddressCellType cellType;
 
 @end

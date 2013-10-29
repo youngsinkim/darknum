@@ -27,6 +27,8 @@
 //        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
         //        self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
         
+        _cellType = AddressCellTypeNormal;
+        
         // 프로필 사진
         _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, 50.0f, 50.0f)];
         _profileImageView.image = [UIImage imageNamed:@"placeholder"];
@@ -113,6 +115,23 @@
             }
         }
     }
+    else if (_memType == MemberTypeFaculty && _cellType == AddressCellTypeAllFaculty)
+    {
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            if (_cellInfo[@"major.title"]) {
+                _descLabel.text = _cellInfo[@"major.title"];
+            }
+        } else {
+            if (_cellInfo[@"major.title_en"]) {
+                _descLabel.text = _cellInfo[@"major.title_en"];
+            }
+        }
+    }
+    else
+    {
+        _descLabel.text = @"";
+    }
+    
     
 //    [self setNeedsDisplay];
 }
@@ -128,7 +147,8 @@
     _nameLabel.frame = CGRectMake(60.0f, 8.0f, 200.0f, 20.0f);
     _emailLabel.frame = CGRectMake(60.0f, 36.0f, 200.0f, 20.0f);
     
-    if (_memType == MemberTypeStaff)
+//    if (_memType == MemberTypeStaff)
+    if ([_descLabel.text length] > 0)
     {
         if (_nameLabel.text.length > 0 && _descLabel.text.length > 0 && _emailLabel.text.length > 0)
         {

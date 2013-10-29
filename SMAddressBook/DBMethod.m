@@ -69,15 +69,15 @@
     [fetchRequest setEntity:entity];
     
     [fetchRequest setResultType:NSDictionaryResultType];
-//    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"major"]];
-//    NSDictionary *properties = [entity propertiesByName];
-//    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
-//    [propertiesToFetch addObject:@"major.title"];
-//    [propertiesToFetch addObject:@"major.title_en"];
-//    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
-//    //    [fetchRequest setPropertiesToFetch:@[@"major.title", @"email", @"memberidx", @"name", @"mobile", @"name_en", @"office", @"office_en", @"photourl", @"tel", @"viewphotourl"]];
-//    //    [fetchRequest setPropertiesToFetch:@[@"majortitle", @"major.title"]];
-//    [fetchRequest setReturnsObjectsAsFaults:NO];
+    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"major"]];
+    NSDictionary *properties = [entity propertiesByName];
+    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
+    [propertiesToFetch addObject:@"major.title"];
+    [propertiesToFetch addObject:@"major.title_en"];
+    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
+    //    [fetchRequest setPropertiesToFetch:@[@"major.title", @"email", @"memberidx", @"name", @"mobile", @"name_en", @"office", @"office_en", @"photourl", @"tel", @"viewphotourl"]];
+    //    [fetchRequest setPropertiesToFetch:@[@"majortitle", @"major.title"]];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
     
 //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(major.major == %@)", _majorInfo[@"major"]];
 //    [fetchRequest setPredicate:predicate];

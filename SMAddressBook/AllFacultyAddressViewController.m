@@ -197,6 +197,7 @@
         NSLog(@"교수 : %@", info);
         
         cell.memType = MemberTypeFaculty;
+        cell.cellType = AddressCellTypeAllFaculty;
         
         [cell setCellInfo:info];
     }
