@@ -263,7 +263,8 @@
         NSLog(@"전체 선택 : %d", isAllSelected);
 
         if (isAllSelected == YES) {
-            if (_viewType == ToolViewTypeSms) {
+            if (_viewType == ToolViewTypeSms)
+            {
                 [_selectArray removeAllObjects];
                 
                 int count = 0;
@@ -290,12 +291,20 @@
                                                                    otherButtonTitles:nil];
                     [countAlertView show];
                 }
+                
             }
             else
             {
                 [_selectArray setArray:_members];
             }
             NSLog(@"선택 항목 : %@", _selectArray);
+            
+            if ([_selectArray count] > 0) {
+                self.navigationItem.rightBarButtonItem.enabled = YES;
+            } else {
+                self.navigationItem.rightBarButtonItem.enabled = NO;
+            }
+
         }
         else {
             [_selectArray removeAllObjects];
@@ -722,9 +731,9 @@
     }
     
     if (_viewType == ToolViewTypeSms) {
-        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Email Recipients %d", @"메일 수신자"), [_selectArray count]];
-    } else {
         _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Message Recipients %d", @"문자 수신자"), [_selectArray count]];
+    } else {
+        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Email Recipients %d", @"메일 수신자"), [_selectArray count]];
     }
     NSLog(@"선택된 수 : %@", _sectionTitleLabel.text);
 
@@ -943,9 +952,9 @@
     NSLog(@"선택 항목 : %@", _selectArray);
     
     if (_viewType == ToolViewTypeSms) {
-        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Email Recipients %d", @"메일 수신자"), [_selectArray count]];
-    } else {
         _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Message Recipients %d", @"문자 수신자"), [_selectArray count]];
+    } else {
+        _sectionTitleLabel.text = [NSString stringWithFormat:LocalizedString(@"Email Recipients %d", @"메일 수신자"), [_selectArray count]];
     }
     
     
