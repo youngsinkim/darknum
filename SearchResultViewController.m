@@ -208,7 +208,7 @@
     
     NSString *lang = [UserContext shared].language;
     
-    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang, @"course":_info[@"course"], @"courseclass":_info[@"courseclass"], @"name":_info[@"name"]};
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang, @"course":_info[@"course"], @"class":_info[@"courseclass"], @"name":_info[@"name"]};
     NSLog(@"(/fb/students) Request Parameter : %@", param);
     
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
