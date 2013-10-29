@@ -270,6 +270,15 @@
 - (void)menuButtonClicked:(id)sender {
     [self.menuContainerViewController toggleLeftSideMenuCompletion:^{
         [self setupMenuBarButtonItems];
+        
+        if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
+        {
+            _prevButton.hidden = NO;
+        } else {
+            // 최상위 화면이면 이전 버튼 노출 안함
+            _prevButton.hidden = YES;
+        }
+
     }];
 }
 
