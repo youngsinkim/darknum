@@ -10,6 +10,12 @@
 
 #define ToolViewCellH   75.0f
 
+typedef enum {
+    ToolViewCellTypeNormal,
+    ToolViewCellTypeAllFaculty,
+    ToolViewCellTypeUnknown
+}ToolViewCellType;
+
 @class ToolViewCell;
 
 @protocol ToolViewCellDelegate <NSObject>
@@ -25,5 +31,8 @@
 @property (strong, nonatomic) NSDictionary *info;
 @property (strong, nonatomic) UIButton *checkBtn;
 //@property (assign, nonatomic) BOOL checkEnabled;
+@property (assign) MemberType memType;
+@property (assign) ToolViewCellType cellType;
+
 
 @end

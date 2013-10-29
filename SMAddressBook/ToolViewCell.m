@@ -25,6 +25,9 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        _memType = MemberTypeStudent;
+        _cellType = ToolViewCellTypeNormal;
+
         // Initialization code
         CGFloat xOffset = 6.0f;
         CGFloat yOffset = 6.0f;
@@ -57,7 +60,7 @@
         yOffset += 22.0f;
 
         
-        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 150.0f, 14.0f)];
+        _emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 300.0f, 14.0f)];
         _emailLabel.textColor = [UIColor lightGrayColor];
         [_emailLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
@@ -100,22 +103,78 @@
                           placeholderImage:[UIImage imageNamed:@"placeholder"]];
     }
 
-    if (_info[@"name"]) {
-        _nameLabel.text = _info[@"name"];
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if (_info[@"name"]) {
+            _nameLabel.text = _info[@"name"];
+        }
     }
-    
-//    NSString *infoString = [NSString stringWithFormat:@"%@ | %@ %@", _info[@"company"], _info[@"department"], _info[@"title"]];
-    NSString *infoString = [NSString stringWithFormat:@"%@ | %@", _info[@"company"], _info[@"department"]];
-    _descLabel.text = infoString;
+    else {
+        if (_info[@"name_en"]) {
+            _nameLabel.text = _info[@"name_en"];
+        }
+    }
 
+    // 이메일
     if (_info[@"email"]) {
         _emailLabel.text = _info[@"email"];
+        NSLog(@"이메일 : %@", _emailLabel.text);
     }
-    if ([_info[@"share_email"] isEqualToString:@"y"]) {
-        _emailLabel.hidden = NO;
-    } else {
-        _emailLabel.hidden = YES;
+
+    //
+    if (_memType == MemberTypeStudent)
+    {
+        if ([_info[@"share_email"] isEqualToString:@"y"]) {
+            _emailLabel.hidden = NO;
+        } else {
+            _emailLabel.hidden = YES;
+        }
+
+        if ([[UserContext shared].language isEqualToString:kLMKorean])
+        {
+            if ([_info[@"company"] length] > 0 && [_info[@"department"] length] > 0) {
+                NSString *description = [NSString stringWithFormat:@"%@ | %@ %@", _info[@"company"], _info[@"department"], _info[@"title"]];
+                _descLabel.text = description;
+            }
+            else {
+                _descLabel.text = @"";
+            }
+        }
+        else {
+            if ([_info[@"company_en"] length] > 0 && [_info[@"department_en"] length] > 0) {
+                NSString *description = [NSString stringWithFormat:@" %@ | %@ %@", _info[@"company_en"], _info[@"department_en"], _info[@"title_en"]];
+                _descLabel.text = description;
+            }
+            else {
+                _descLabel.text = @"";
+            }
+        }
     }
+    else if (_memType == MemberTypeFaculty)
+    {
+        if (_cellType == ToolViewCellTypeAllFaculty) {
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                _descLabel.text = _info[@"major.title"];
+            }
+            else {
+                _descLabel.text = _info[@"major.title_en"];
+            }
+        }
+    }
+    else if (_memType == MemberTypeStaff)
+    {
+        if ([[UserContext shared].language isEqualToString:kLMKorean])
+        {
+            _descLabel.text = _info[@"work"];
+        }
+        else
+        {
+            _descLabel.text = _info[@"work_en"];
+        }
+    }
+    else {
+        _descLabel.text = @"";
+    }
+
     [self layoutSubviews];
 
 //    _checkBtn.enabled = NO;

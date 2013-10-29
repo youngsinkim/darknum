@@ -129,7 +129,7 @@
 
 - (void)onSmsViewController
 {
-    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_staffs viewType:ToolViewTypeSms];
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_staffs viewType:ToolViewTypeSms memberType:MemberTypeStaff];
     toolVC.navigationItem.title = self.navigationItem.title;
     
     PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];
@@ -139,7 +139,7 @@
 
 - (void)onEmailViewController
 {
-    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_staffs viewType:ToolViewTypeEmail];
+    ToolViewController *toolVC = [[ToolViewController alloc] initWithInfo:_staffs viewType:ToolViewTypeEmail memberType:MemberTypeStaff];
     toolVC.navigationItem.title = self.navigationItem.title;
     
     PortraitNavigationController *nav = [[PortraitNavigationController alloc] initWithRootViewController:toolVC];

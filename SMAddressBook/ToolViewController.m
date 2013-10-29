@@ -26,6 +26,7 @@
 @property (strong, nonatomic) NSMutableArray *selectArray;
 @property (strong, nonatomic) UILabel *sectionTitleLabel;
 @property (assign) ToolViewType viewType;
+@property (assign) MemberType memType;
 @property (assign) BOOL isSearching;
 
 @end
@@ -40,12 +41,15 @@
 //        _members = [[NSMutableArray alloc] init];
 //        _selectArray = [[NSMutableArray alloc] init];
 //        _searchResults = [[NSMutableArray alloc] init];
+        _cellType = ToolViewCellTypeNormal;
+        _isSearching = NO;
+
     }
     return self;
 }
 
 
-- (id)initWithInfo:(NSMutableArray *)items viewType:(ToolViewType)type
+- (id)initWithInfo:(NSMutableArray *)items viewType:(ToolViewType)type memberType:(MemberType)memType
 {
     self = [super init];
     if (self)
@@ -54,6 +58,8 @@
         _selectArray = [[NSMutableArray alloc] init];
         _searchResults = [[NSMutableArray alloc] init];
         _viewType = type;
+        _memType = memType;
+        _cellType = ToolViewCellTypeNormal;
         _isSearching = NO;
         NSLog(@"학생 정보 : %@", _members);
         
@@ -827,6 +833,10 @@
         //        NSDictionary *info = @{@"photourl":staff.photourl, @"name":staff.name, @"email":staff.email};
         //
         //        [cell setCellInfo:info];
+        
+        cell.memType = _memType;
+        cell.cellType = _cellType;
+        
         NSLog(@"cell dict : %@", dict);
         cell.info = [dict mutableCopy];
 

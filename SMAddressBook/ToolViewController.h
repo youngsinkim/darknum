@@ -18,6 +18,8 @@ typedef enum {
 
 @interface ToolViewController : UIViewController <UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ToolViewCellDelegate, MFMessageComposeViewControllerDelegate>
 
-- (id)initWithInfo:(NSMutableArray *)items viewType:(ToolViewType)type;
+@property (assign) ToolViewCellType cellType;
+
+- (id)initWithInfo:(NSMutableArray *)items viewType:(ToolViewType)type memberType:(MemberType)memType;
 
 @end
