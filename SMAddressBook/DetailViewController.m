@@ -608,7 +608,9 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     }
     //If using iOS 4/5
     else {
-        ABAddressBookRef addressBook = ABAddressBookCreate();
+//        ABAddressBookRef addressBook = ABAddressBookCreate();
+        CFErrorRef err;
+        ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &err);
         [self searchForPersonInAddressBook:addressBook withName:fullName];
     }
 
@@ -707,7 +709,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 -(void)accessGrantedForAddressBook
 {
     // Load data from the plist file
-	NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
+//	NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
 //	self.menuArray = [NSMutableArray arrayWithContentsOfFile:plistPath];
 //    [self.tableView reloadData];
 }
@@ -715,7 +717,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)newPersonViewController:(ABNewPersonViewController *)newPersonView didCompleteWithNewPerson:(ABRecordRef)person
 {
-    [newPersonView dismissModalViewControllerAnimated:YES];
+    [newPersonView dismissViewControllerAnimated:YES completion:nil];
 //    [[self navigationController] popViewControllerAnimated:YES];
 }
 
@@ -779,7 +781,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
             cell.memType = MemberTypeStudent;
             [(DetailViewCell *)cell setCellInfo:info];
             
-            UIImage *image = [cell.profileImage image];
+//            UIImage *image = [cell.profileImage image];
             NSLog(@"상세정보 셀 : (%d), %@", index, info[@"name_en"]);
 //            NSLog(@"상세정보 이미지 : %@", image);
         }
@@ -975,7 +977,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 //페이지 컨트롤 값이 변경될때, 스크롤뷰 위치 설정
 - (void) pageChangeValue:(id)sender {
-    UIPageControl *pControl = (UIPageControl *) sender;
+//    UIPageControl *pControl = (UIPageControl *) sender;
 //    [scrollView setContentOffset:CGPointMake(pControl.currentPage*320, 0) animated:YES];
 }
 

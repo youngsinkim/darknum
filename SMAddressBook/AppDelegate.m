@@ -86,7 +86,7 @@
     // 로그인 여부 확인
     BOOL isAutoLogin = [[UserContext shared] isAutoLogin];
     NSString *phoneNumber = [Util phoneNumber];
-    NSLog(@"AUTO_LOGIN(%d), CertNo : %@, Phone : ", isAutoLogin, [UserContext shared].certNo, phoneNumber);
+    NSLog(@"AUTO_LOGIN(%d), CertNo : %@, Phone : %@", isAutoLogin, [UserContext shared].certNo, phoneNumber);
     
     // 자동 로그인 설정 유무
     if (isAutoLogin && [[UserContext shared].userId length] > 0 && [[UserContext shared].userPwd length] > 0)

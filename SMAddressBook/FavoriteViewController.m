@@ -2879,7 +2879,7 @@
 
 - (void)timerFired:(NSTimer *)timer
 {
-    NSDictionary *info = [timer userInfo];
+//    NSDictionary *info = [timer userInfo];
 //    NSLog(@".......... timerFired (info : %@)", info);
     NSLog(@".......... timerFired ( %d / %d ) ..........", _cur, _tot);
     [self.progressView onProgress:_cur total:_tot];

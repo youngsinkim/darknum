@@ -94,7 +94,7 @@
 
 - (void)setBackgroundImage
 {
-    UIImage *image = [UIImage imageNamed:@"007-StockPhoto-320x568"];
+//    UIImage *image = [UIImage imageNamed:@"007-StockPhoto-320x568"];
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
     [self.view addSubview:backgroundView];

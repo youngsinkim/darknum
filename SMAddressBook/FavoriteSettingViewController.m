@@ -547,7 +547,7 @@
         }
         return nil;
 #endif
-        return fetchedObjects;
+        return (NSMutableArray *)fetchedObjects;
     }
     return nil;
 
@@ -991,7 +991,7 @@
 
 - (void)timerFired:(NSTimer *)timer
 {
-    NSDictionary *info = [timer userInfo];
+//    NSDictionary *info = [timer userInfo];
 
     NSLog(@".......... timerFired ( %d / %d ) ..........", _cur, _tot);
     [self.progressView onProgress:_cur total:_tot];

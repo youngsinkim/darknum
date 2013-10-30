@@ -18,6 +18,6 @@
 - (MFSideMenuContainerViewController *)menuContainerViewController;
 
 /// 네비게이션 왼쪽 메뉴 버튼
-- (void)leftMenuButtonClicked:(id)sender;
+//- (void)leftMenuButtonClicked:(id)sender;
 
 @end

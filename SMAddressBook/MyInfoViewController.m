@@ -179,7 +179,7 @@
     [super viewWillAppear:animated];
     
     // 멤버 타입에 따른 컨트롤 표시 및 위치 조정
-    CGRect viewFrame = self.view.bounds;
+//    CGRect viewFrame = self.view.bounds;
     CGFloat yOffset = 0.0f;
     CGRect frame;
     

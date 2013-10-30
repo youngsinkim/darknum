@@ -584,7 +584,7 @@
 /// 네비게이션 뷰 컨트롤러
 - (UINavigationController *)menuNavigationController:(MenuViewType)menuType withMenuInfo:(NSDictionary *)info
 {
-    UINavigationController *nav = nil;
+//    UINavigationController *nav = nil;
     NSArray *controllers = nil;
     
     switch (menuType)

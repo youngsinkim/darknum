@@ -44,7 +44,7 @@
 /// 툴바 UI
 - (void)setupStudentToolbarUI
 {
-    CGSize viewSize = self.frame.size;
+//    CGSize viewSize = self.frame.size;
 //    NSLog(@"size (%f, %f)", viewSize.width, viewSize.height);
     
     // 배경 라인 박스

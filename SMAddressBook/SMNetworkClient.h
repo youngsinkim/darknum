@@ -68,6 +68,6 @@
 - (void)postAuthSms:(NSDictionary *)param block:(void (^)(NSDictionary *result, NSError *error))block;
 
 /// otn test API
-- (void)getVodTotalList:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
+//- (void)getVodTotalList:(NSDictionary *)param block:(void (^)(NSMutableDictionary *dData, NSError *error))block;
 
 @end

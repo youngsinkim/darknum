@@ -62,7 +62,7 @@
 
 - (void)setupUI
 {
-    CGRect viewRect = self.view.bounds;
+//    CGRect viewRect = self.view.bounds;
     CGFloat yOffset = 10.0f;
     
     // 본인인증 안내 문구

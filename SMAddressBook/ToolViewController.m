@@ -226,7 +226,8 @@
     controller.recipients = [numbers mutableCopy];
 //    controller.body = @"";
 
-    [self presentModalViewController:controller animated:YES];
+    [self presentViewController:controller animated:YES completion:nil];
+//    [self presentModalViewController:controller animated:YES];
 //    [self presentViewController:messageComposer animated:YES completion:nil];
     
 }
@@ -1037,8 +1038,7 @@
 			break;
 	}
 	
-	[self dismissModalViewControllerAnimated:YES];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

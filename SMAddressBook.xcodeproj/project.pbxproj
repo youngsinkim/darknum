@@ -1263,6 +1263,9 @@
 					5062B61417C4C10400A2495D = {
 						DevelopmentTeam = KGA775A3LM;
 					};
+					BF241C75180931AE001A7AA0 = {
+						DevelopmentTeam = KGA775A3LM;
+					};
 				};
 			};
 			buildConfigurationList = 5062B61017C4C10400A2495D /* Build configuration list for PBXProject "SMAddressBook" */;
@@ -1857,7 +1860,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
@@ -1873,7 +1876,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
