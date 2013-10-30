@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>49A97F14-B222-4339-A8FC-1E56E7B2EA3B</string>
+	<string>0BC19A0F-E801-4F1E-A101-9B0A13EA7DFC</string>
 	<key>IDESourceControlProjectName</key>
 	<string>SMAddressBook</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -18,7 +18,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>523F0457-6458-4313-B4D2-D2AD1C7D27FB</key>
-		<string>..</string>
+		<string>../../snumba_1012</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://bitbucket.org/sochae78/smaddressbook.git</string>
@@ -28,6 +28,14 @@
 	<string>523F0457-6458-4313-B4D2-D2AD1C7D27FB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>523F0457-6458-4313-B4D2-D2AD1C7D27FB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>snumba_0914</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

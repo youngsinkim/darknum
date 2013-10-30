@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "755"
-            endingLineNumber = "755"
+            startingLineNumber = "773"
+            endingLineNumber = "773"
             landmarkName = "-MMHorizontalListView:cellAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "768"
-            endingLineNumber = "768"
+            startingLineNumber = "786"
+            endingLineNumber = "786"
             landmarkName = "-MMHorizontalListView:cellAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -264,11 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "404755848.526868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
             landmarkName = "@implementation ToolViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -280,27 +280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "404755848.526868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "686"
-            endingLineNumber = "686"
-            landmarkName = "-tableView:viewForHeaderInSection:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "764"
-            endingLineNumber = "764"
+            startingLineNumber = "782"
+            endingLineNumber = "782"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -312,11 +296,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "404755848.526868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "749"
-            endingLineNumber = "749"
+            startingLineNumber = "767"
+            endingLineNumber = "767"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -454,11 +438,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "743"
-            endingLineNumber = "743"
+            startingLineNumber = "761"
+            endingLineNumber = "761"
             landmarkName = "-MMHorizontalListView:cellAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -470,11 +454,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "950"
-            endingLineNumber = "950"
+            startingLineNumber = "968"
+            endingLineNumber = "968"
             landmarkName = "@implementation DetailViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -486,13 +470,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "958"
-            endingLineNumber = "958"
-            landmarkName = "-scrollViewDidScroll:"
-            landmarkType = "5">
+            startingLineNumber = "976"
+            endingLineNumber = "976"
+            landmarkName = "@implementation DetailViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -900,11 +884,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "-searchForPersonInAddressBook:withName:"
             landmarkType = "5">
          </BreakpointContent>
@@ -916,11 +900,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "576"
-            endingLineNumber = "576"
+            startingLineNumber = "594"
+            endingLineNumber = "594"
             landmarkName = "-showPersonViewController"
             landmarkType = "5">
          </BreakpointContent>
@@ -996,11 +980,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "404755848.526868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "621"
-            endingLineNumber = "621"
+            startingLineNumber = "639"
+            endingLineNumber = "639"
             landmarkName = "-searchDisplayController:shouldReloadTableForSearchString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1028,11 +1012,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "404755848.526868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
             landmarkName = "@implementation ToolViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1044,11 +1028,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "404755848.526868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879"
+            startingLineNumber = "897"
+            endingLineNumber = "897"
             landmarkName = "@implementation ToolViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1060,11 +1044,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "404755848.526868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "876"
-            endingLineNumber = "876"
+            startingLineNumber = "894"
+            endingLineNumber = "894"
             landmarkName = "@implementation ToolViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1076,11 +1060,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "403123621.010766"
+            timestampString = "404830018.535683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
+            startingLineNumber = "416"
+            endingLineNumber = "416"
             landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>

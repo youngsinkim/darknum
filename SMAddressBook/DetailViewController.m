@@ -15,6 +15,7 @@
 //#import "DetailView.h"
 #import "PortraitNavigationController.h"
 #import "KakaoMessageViewController.h"
+#import "DetailGuideViewController.h"
 
 #define kDetailViewH    60.0f
 
@@ -103,6 +104,22 @@
     {
         [_horListView reloadData];
     }
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // 설치 후 최초 접근 시, 가이드 화면 노출함 (클릭하면 상태 저장하고 이후부터 노출 안함)
+    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kDetailGuide] boolValue])
+    {
+        DetailGuideViewController *detailGuideVC = [[DetailGuideViewController alloc] init];
+        detailGuideVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        [self presentViewController:detailGuideVC animated:YES completion:nil];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning

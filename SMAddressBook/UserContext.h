@@ -32,6 +32,8 @@
 
 #define kSavedId        @"savedUserId"
 
+#define kDetailGuide    @"detailGuide"  // 디테일 화면 가이드 표시 (최초에만 표시하고 이후는 표시하지 않기 위해 저장)
+
 @interface UserContext : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary *profileInfo; // 내 정보(프로필) 데이터

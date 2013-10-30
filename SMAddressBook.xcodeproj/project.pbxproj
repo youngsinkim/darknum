@@ -362,6 +362,8 @@
 		BF57B3B417DC387800B39C03 /* join_agreebox.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B017DC387800B39C03 /* join_agreebox.png */; };
 		BF57B3B517DC387800B39C03 /* join_agreebox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */; };
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
+		BF5900A31821363A00DD6980 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
+		BF5900A41821363A00DD6980 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
 		BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
 		BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
@@ -620,6 +622,8 @@
 		BF57B3B117DC387800B39C03 /* join_agreebox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "join_agreebox@2x.png"; sourceTree = "<group>"; };
 		BF57B3B617DCD09E00B39C03 /* DetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewCell.h; sourceTree = "<group>"; };
 		BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewCell.m; sourceTree = "<group>"; };
+		BF5900A11821363A00DD6980 /* DetailGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailGuideViewController.h; sourceTree = "<group>"; };
+		BF5900A21821363A00DD6980 /* DetailGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailGuideViewController.m; sourceTree = "<group>"; };
 		BF9CC1AF17EE2396000862F0 /* ToolViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewCell.h; sourceTree = "<group>"; };
 		BF9CC1B017EE2396000862F0 /* ToolViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewCell.m; sourceTree = "<group>"; };
 		BFA79CA11819556B005E37FA /* AllFacultyAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllFacultyAddressViewController.h; sourceTree = "<group>"; };
@@ -1009,6 +1013,8 @@
 			children = (
 				BF177E9F17CA70AF00614485 /* DetailViewController.h */,
 				BF177EA017CA70AF00614485 /* DetailViewController.m */,
+				BF5900A11821363A00DD6980 /* DetailGuideViewController.h */,
+				BF5900A21821363A00DD6980 /* DetailGuideViewController.m */,
 				BFDEBEC81801149700F7409F /* KakaoMessageViewController.h */,
 				BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */,
 				BF3E747417E21001006AAF8D /* DetailToolView.h */,
@@ -1587,6 +1593,7 @@
 				BF53FD3C18083E1100AB8DF3 /* DBMethod.m in Sources */,
 				5062B64317C4CC0400A2495D /* MenuTableViewController.m in Sources */,
 				5062B64617C4CC2700A2495D /* BaseViewController.m in Sources */,
+				BF5900A31821363A00DD6980 /* DetailGuideViewController.m in Sources */,
 				5062B64A17C4CCEE00A2495D /* PortraitNavigationController.m in Sources */,
 				BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */,
 				5062B64E17C4CDDC00A2495D /* UserContext.m in Sources */,
@@ -1665,6 +1672,7 @@
 				BF241C7B180931AE001A7AA0 /* DBMethod.m in Sources */,
 				BF241C7C180931AE001A7AA0 /* MenuTableViewController.m in Sources */,
 				BF241C7D180931AE001A7AA0 /* BaseViewController.m in Sources */,
+				BF5900A41821363A00DD6980 /* DetailGuideViewController.m in Sources */,
 				BF241C7E180931AE001A7AA0 /* PortraitNavigationController.m in Sources */,
 				BF241C7F180931AE001A7AA0 /* NSString+UrlEncoding.m in Sources */,
 				BF241C80180931AE001A7AA0 /* UserContext.m in Sources */,
