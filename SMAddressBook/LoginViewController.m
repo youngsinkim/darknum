@@ -226,7 +226,7 @@
         
         /* 로그인 유지 버튼 */
         _loginSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loginSaveCheckBtn.frame = CGRectMake(xOffset + _idSaveCheckBtn.frame.size.width + 30.0f, startY, 120.0f, 27.0f);
+        _loginSaveCheckBtn.frame = CGRectMake(xOffset + _idSaveCheckBtn.frame.size.width + 10.0f, startY, 160.0f, 27.0f);
         [_loginSaveCheckBtn setTitle:LocalizedString(@"login_save_text", @"로그인 유지") forState:UIControlStateNormal];
         [_loginSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];

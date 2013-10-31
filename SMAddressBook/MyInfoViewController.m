@@ -98,7 +98,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"my_info_setting", @"내 정보 설정");
+        self.navigationItem.title = LocalizedString(@"My Page", @"내 정보 설정");
         
         _memType = MemberTypeUnknown;
         _myInfo = [NSMutableDictionary dictionaryWithCapacity:10];
@@ -365,7 +365,7 @@
 //    [self.personalInfoLabel setBackgroundColor:[UIColor lightGrayColor]];
     [self.personalInfoLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [self.personalInfoLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.personalInfoLabel setText:LocalizedString(@"Personal Info", @"개인정보")];
+    [self.personalInfoLabel setText:LocalizedString(@"Personal information", @"개인 정보")];
     
     [_scrollView addSubview:self.personalInfoLabel];
     yOffset += 18.0f;
@@ -415,12 +415,12 @@
         
         
         // Mobile text
-        self.mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 80.0f, 22.0f)];
+        self.mobileLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 84.0f, 22.0f)];
         [self.mobileLabel setTextColor:[UIColor blackColor]];
         [self.mobileLabel setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.1f]];
-        [self.mobileLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [self.mobileLabel setFont:[UIFont systemFontOfSize:10.0f]];
         [self.mobileLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.mobileLabel setText:@"Mobile"];
+        [self.mobileLabel setText:LocalizedString(@"Mobile Phone", @"전화")];
         
         [_scrollView addSubview:self.mobileLabel];
         
@@ -436,11 +436,11 @@
         
         // mobile check button
         _shareMobileBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_shareMobileBtn setFrame:CGRectMake(xOffset+240.0f, yOffset, 60.0f, 22.0f)];
-        [_shareMobileBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"공개", @"공개 여부")] forState:UIControlStateNormal];
+        [_shareMobileBtn setFrame:CGRectMake(xOffset+220.0f, yOffset, 90.0f, 22.0f)];
+        [_shareMobileBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Disclosure", @"공개 여부")] forState:UIControlStateNormal];
         [_shareMobileBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_shareMobileBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-        [_shareMobileBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_shareMobileBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         [_shareMobileBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
         [_shareMobileBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
         [_shareMobileBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -507,11 +507,11 @@
         
         // Email check button
         _shareEmailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_shareEmailBtn setFrame:CGRectMake(xOffset+240.0f, yOffset, 60.0f, 22.0f)];
-        [_shareEmailBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"공개", @"공개 여부")] forState:UIControlStateNormal];
+        [_shareEmailBtn setFrame:CGRectMake(xOffset+220.0f, yOffset, 90.0f, 22.0f)];
+        [_shareEmailBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Disclosure", @"공개 여부")] forState:UIControlStateNormal];
         [_shareEmailBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_shareEmailBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-        [_shareEmailBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_shareEmailBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         [_shareEmailBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
         [_shareEmailBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
         [_shareEmailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -589,11 +589,11 @@
             
             // 직장 공개 check button
             _shareOfficeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [_shareOfficeBtn setFrame:CGRectMake(xOffset + 85.0f, yyOffset, 60.0f, 22.0f)];
-            [_shareOfficeBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"공개", @"공개 여부")] forState:UIControlStateNormal];
+            [_shareOfficeBtn setFrame:CGRectMake(xOffset + 85.0f, yyOffset, 90.0f, 22.0f)];
+            [_shareOfficeBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Disclosure", @"공개 여부")] forState:UIControlStateNormal];
             [_shareOfficeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
             [_shareOfficeBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-            [_shareOfficeBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+            [_shareOfficeBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
             [_shareOfficeBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
             [_shareOfficeBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
             [_shareOfficeBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -677,12 +677,12 @@
     {
         CGFloat yyOffset = 0.0f;
         // 기타설정 텍스트
-        self.otherInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yyOffset, 60.0f, 16.0f)];
+        self.otherInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yyOffset, 250.0f, 16.0f)];
         [self.otherInfoLabel setTextColor:[UIColor blackColor]];
 //        [self.otherInfoLabel setBackgroundColor:[UIColor lightGrayColor]];
         [self.otherInfoLabel setFont:[UIFont systemFontOfSize:12.0f]];
         [self.otherInfoLabel setTextAlignment:NSTextAlignmentLeft];
-        [self.otherInfoLabel setText:@"기타정보"];
+        [self.otherInfoLabel setText:LocalizedString(@"Other setup", @"기타 설정")];
         
         [_otherBgView addSubview:self.otherInfoLabel];
         yyOffset += 18.0f;

@@ -68,7 +68,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"favorite_title", @"즐겨찾기");
+        self.navigationItem.title = LocalizedString(@"Favorites", @"즐겨찾기");
         
         _moc = nil;
         self.favorites = [[NSMutableArray alloc] initWithCapacity:3];
@@ -95,7 +95,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+//    _titleView.title = LocalizedString(@"Favorites", @"즐겨찾기");
+
     NSLog(@"---------- START ----------");
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (_moc == nil) {
@@ -2758,6 +2760,16 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return ([_favorites count] > 0)? kFavoriteCellH : self.view.frame.size.height;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2) {
+        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+    }
+    else {
+        [cell setBackgroundColor:[UIColor clearColor]];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

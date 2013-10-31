@@ -18,6 +18,8 @@
 @interface TermsViewController ()
 
 @property (strong, nonatomic) UIView *scrollView;
+@property (strong, nonatomic) UILabel *termsTitleLabel;
+@property (strong, nonatomic) UILabel *personalTitleLabel;
 @property (strong, nonatomic) UIWebView *webView1;
 @property (strong, nonatomic) UIWebView *webView2;
 @property (strong, nonatomic) UIButton *acceptBtn1;
@@ -103,20 +105,32 @@
 
 //    [self.view addSubview:_scrollView];
     
-    CGFloat sizeHeight = (rect.size.height - 44.0f - 170) / 2;
+    CGFloat sizeHeight = (rect.size.height - 44.0f - 170 - 50) / 2;
     CGFloat yOffset = 0.0f;
     
     if (!IS_LESS_THEN_IOS7) {
         yOffset += 64.0f;
     }
     
-//    // 서비스 약관
+    yOffset += 5.0f;
+    
+    // 이용약관 문구
+    _termsTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, 20.0f)];
+    [_termsTitleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    _termsTitleLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
+    _termsTitleLabel.backgroundColor = [UIColor clearColor];
+    _termsTitleLabel.text = LocalizedString(@"terms policy", @"이용 약과");
+
+    [self.view addSubview:_termsTitleLabel];
+    yOffset += 25.0f;
+
+    // 서비스 약관
     _webView1 = [[UIWebView alloc] init];
-    _webView1.frame = CGRectMake(10.0f, yOffset+5.0f, rect.size.width - 20.0f, sizeHeight);
+    _webView1.frame = CGRectMake(10.0f, yOffset, rect.size.width - 20.0f, sizeHeight);
     _webView1.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _webView1.backgroundColor = [UIColor clearColor];
-    [[_webView1 layer] setCornerRadius:10];
-    [_webView1 setClipsToBounds:YES];
+//    [[_webView1 layer] setCornerRadius:10];
+//    [_webView1 setClipsToBounds:YES];
     
     [[_webView1 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView1 layer] setBorderWidth:2.0f];
@@ -126,13 +140,13 @@
     _webView1.delegate = self;
     
     [self.view addSubview:_webView1];
-    yOffset += (sizeHeight + 10.0f);
+    yOffset += (sizeHeight + 5.0f);
     
     
     // 서비스 약관동의 버튼
     _acceptBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn1.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
-    [_acceptBtn1 setTitle:LocalizedString(@"Consent", @"동의함") forState:UIControlStateNormal];
+    _acceptBtn1.frame = CGRectMake(10.0f, yOffset, 300.0f, 30.0f);
+    [_acceptBtn1 setTitle:LocalizedString(@"agree terms", @"약관 동의함") forState:UIControlStateNormal];
     [_acceptBtn1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_acceptBtn1 setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [_acceptBtn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
@@ -145,16 +159,26 @@
     [_acceptBtn1 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_acceptBtn1];
-    yOffset += 30.0f;
+    yOffset += 35.0f;
 
+
+    // 개인정보보호방침 문구
+    _personalTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, 300.0f, 20.0f)];
+    [_personalTitleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    _personalTitleLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
+    _personalTitleLabel.backgroundColor = [UIColor clearColor];
+    _personalTitleLabel.text = LocalizedString(@"personal policy", @"개인정보보호방침");
+    
+    [self.view addSubview:_personalTitleLabel];
+    yOffset += 25.0f;
 
     // 개인보호
     _webView2 = [[UIWebView alloc] init];
-    _webView2.frame = CGRectMake(10.0f, yOffset+5.0f, rect.size.width - 20.0f, sizeHeight);
+    _webView2.frame = CGRectMake(10.0f, yOffset, rect.size.width - 20.0f, sizeHeight);
 //    _webView2.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _webView2.backgroundColor = [UIColor clearColor];
-    [[_webView2 layer] setCornerRadius:10];
-    [_webView2 setClipsToBounds:YES];
+//    [[_webView2 layer] setCornerRadius:10];
+//    [_webView2 setClipsToBounds:YES];
     
     [[_webView2 layer] setBorderColor:[UIColorFromRGB(0xDCDCDC) CGColor]];
     [[_webView2 layer] setBorderWidth:2.0f];
@@ -165,13 +189,13 @@
 
     
     [self.view addSubview:_webView2];
-    yOffset += (sizeHeight + 10.0f);
+    yOffset += (sizeHeight + 5.0f);
     
     
     // 개인보호 정책동의 버튼
     _acceptBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn2.frame = CGRectMake(10.0f, yOffset, 150.0f, 30.0f);
-    [_acceptBtn2 setTitle:LocalizedString(@"Consent", @"동의함") forState:UIControlStateNormal];
+    _acceptBtn2.frame = CGRectMake(10.0f, yOffset, 300.0f, 30.0f);
+    [_acceptBtn2 setTitle:LocalizedString(@"agree personal", @"개인정책 동의함") forState:UIControlStateNormal];
     [_acceptBtn2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
@@ -184,7 +208,7 @@
     [_acceptBtn2 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_acceptBtn2];
-    yOffset += (30.0f + 10.0f);
+    yOffset += 35.0f;
 
     
     // 약관동의 버튼
@@ -196,7 +220,7 @@
     _nextBtn.frame = CGRectMake((rect.size.width - 70.0f) / 2, rect.size.height - bottomOffset, 70.0f, 30.0f);
 //    _nextBtn.center = CGPointMake(300.0f / 2, 566.0f);
     [_nextBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-    [_nextBtn setTitle:LocalizedString(@"Next", @"다음") forState:UIControlStateNormal];
+    [_nextBtn setTitle:LocalizedString(@"Agree", @"동의함") forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];

@@ -51,6 +51,7 @@
     //   [self setBackgroundImage];
 
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_title_bg"] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setTranslucent:YES];
 //    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
@@ -59,14 +60,20 @@
         [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
     } else {
 //        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
-//        [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+//        [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
 //        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x0080FF)];
 //        [self.navigationController.navigationBar setTranslucent:NO];
+
+        
 //        self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
-//        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-//        self.navigationController.navigationBar.translucent = NO;
+//        self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     }
     
+    // 타이틀 뷰
+//    _titleView = [[TitleView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, 44.0f)];
+////    _titleView.backgroundColor = [UIColor grayColor];
+//    
+//    [self.navigationItem setTitleView:_titleView];
     
     // 네비게이션 버튼
     [self setupMenuBarButtonItems];

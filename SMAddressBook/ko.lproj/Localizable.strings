@@ -1,7 +1,7 @@
 /* Localized versions of Info.plist keys */
 
-/// Favorite Title
-"favorite_title" = "즐겨찾기";
+/* Favorites */
+"Favorites" = "즐겨찾기";
 
 /// Address Title
 "address_title" = "주소록";
@@ -18,14 +18,14 @@
 /// faculty Member Text
 "faculty_member_text" = "교직원";
 
-/// Total View Text
-"total_view_text" = "전체 주소록";
+/* Member List */
+"Member List" = "전체주소록";
 
 /// Setting
 "setting_title" = "설정";
 
-/// My Info Setting
-"my_info_setting" = "내 정보 설정";
+/* My page */
+"My Page" = "내 정보 설정";
 
 /// My Card Setting
 "my_card_setting" = "내 명함 설정";
@@ -33,8 +33,14 @@
 /// Term & Policy
 "terms_and_policy" = "약관 및 개인정보 보호지침";
 
-/// Help
-"help" = "도움말";
+/* terms text */
+"terms policy" = "이용 약관";
+
+/* personal policy */
+"personal policy" = "개인정보처리방침";
+
+/* Help */
+"Help" = "도움말";
 
 /// User ID Placeholder
 "user_id_placeholder" = "아이디";
@@ -72,8 +78,8 @@
 /* Button Cancel */
 "Cancel" = "취소";
 
-/* Next */
-"Next" = "다음";
+/* Agree */
+"Agree" = "동의함";
 
 /* Alert Id Empty Text */
 "alert_id_empty_text" = "아이디 또는 패스워드를 정확히 입력해 주세요.";
@@ -117,11 +123,14 @@
 /* Favorite Setting Msg */
 "Favorite Setting Msg" = "즐겨찾기 주소록이 변경되어 재성정 중입니다.\n잠시만 기다려주세요.";
 
-/* Consent */
-"Consent" = "동의 함";
+/* agree terms */
+"agree terms" = "약관을 확인 하였습니다.";
 
-/* Favorite Setting */
-"favorite setting" = "즐겨찾기 설정";
+/* agree personal */
+"agree personal" = "개인정보 보호정책을 확인 하였습니다.";
+
+/* Favorite Settings */
+"Favorite Settings" = "즐겨찾기 설정";
 
 /* send */
 "send" = "보내기";
@@ -225,8 +234,17 @@
 /* option string */
 "option string" = "즐겨찾기 내에서 검색";
 
-/* Personal Info */
-"Personal Info" = "개인정보";
+/* Personal information */
+"Personal information" = "개인 정보";
+
+/* Other setup */
+"Other setup" = "기타 설정";
+
+/* Disclosure */
+"Disclosure" = "공개";
+
+/* Mobile Phone */
+"Mobile Phone" = "전화";
 
 /* Select Message Recipients */
 "Select Message Recipients" = "문자 수신자 선택";

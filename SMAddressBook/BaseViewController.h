@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <MFSideMenuContainerViewController.h>
+#import "TitleView.h"
 
 @interface BaseViewController : UIViewController
+{
+//    TitleView *_titleView;
+}
 
 @property (strong, nonatomic) UIButton *prevButton;
 @property (strong, nonatomic) UIButton *searchButton;

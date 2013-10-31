@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "758"
-            endingLineNumber = "758"
+            startingLineNumber = "760"
+            endingLineNumber = "760"
             landmarkName = "-getLocalFavoriteClasses:"
             landmarkType = "5">
             <Locations>
@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "874"
-            endingLineNumber = "874"
+            startingLineNumber = "876"
+            endingLineNumber = "876"
             landmarkName = "-getLocalMajors:"
             landmarkType = "5">
          </BreakpointContent>
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/AppDelegate.m"
-            timestampString = "403023664.185514"
+            timestampString = "404930620.792659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
             landmarkName = "@implementation AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "702"
-            endingLineNumber = "702"
+            startingLineNumber = "704"
+            endingLineNumber = "704"
             landmarkName = "-getLocalFavoriteClasses:"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
+            startingLineNumber = "692"
+            endingLineNumber = "692"
             landmarkName = "-saveDBFavoriteUpdates"
             landmarkType = "5">
          </BreakpointContent>
@@ -312,11 +312,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "779"
-            endingLineNumber = "779"
+            startingLineNumber = "781"
+            endingLineNumber = "781"
             landmarkName = "-getLocalFavoriteClasses:"
             landmarkType = "5">
          </BreakpointContent>
@@ -328,11 +328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "848"
-            endingLineNumber = "848"
+            startingLineNumber = "850"
+            endingLineNumber = "850"
             landmarkName = "-getLocalMajors:"
             landmarkType = "5">
          </BreakpointContent>
@@ -344,11 +344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "-onFavoriteSettBtnTouched:"
             landmarkType = "5">
          </BreakpointContent>
@@ -406,11 +406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "709"
-            endingLineNumber = "709"
+            startingLineNumber = "711"
+            endingLineNumber = "711"
             landmarkName = "-getLocalFavoriteClasses:"
             landmarkType = "5">
          </BreakpointContent>
@@ -596,11 +596,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "-initUpdateProgress"
             landmarkType = "5">
          </BreakpointContent>
@@ -692,11 +692,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1189"
-            endingLineNumber = "1189"
+            startingLineNumber = "1191"
+            endingLineNumber = "1191"
             landmarkName = "-loadDBFavoriteCourses"
             landmarkType = "5">
          </BreakpointContent>
@@ -708,11 +708,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1195"
-            endingLineNumber = "1195"
+            startingLineNumber = "1197"
+            endingLineNumber = "1197"
             landmarkName = "-loadDBFavoriteCourses"
             landmarkType = "5">
          </BreakpointContent>
@@ -724,11 +724,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1238"
-            endingLineNumber = "1238"
+            startingLineNumber = "1240"
+            endingLineNumber = "1240"
             landmarkName = "-saveDBCourseClasses:"
             landmarkType = "5">
          </BreakpointContent>
@@ -740,11 +740,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1663"
-            endingLineNumber = "1663"
+            startingLineNumber = "1665"
+            endingLineNumber = "1665"
             landmarkName = "-saveDBFavoriteStudent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -756,11 +756,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1915"
-            endingLineNumber = "1915"
+            startingLineNumber = "1917"
+            endingLineNumber = "1917"
             landmarkName = "-saveDBFavoriteFaculty:"
             landmarkType = "5">
          </BreakpointContent>
@@ -772,11 +772,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1653"
-            endingLineNumber = "1653"
+            startingLineNumber = "1655"
+            endingLineNumber = "1655"
             landmarkName = "-saveDBFavoriteStudent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -788,11 +788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1827"
-            endingLineNumber = "1827"
+            startingLineNumber = "1829"
+            endingLineNumber = "1829"
             landmarkName = "-saveDBFavoriteStudent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -804,11 +804,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1839"
-            endingLineNumber = "1839"
+            startingLineNumber = "1841"
+            endingLineNumber = "1841"
             landmarkName = "-saveDBFavoriteStudent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -820,11 +820,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1835"
-            endingLineNumber = "1835"
+            startingLineNumber = "1837"
+            endingLineNumber = "1837"
             landmarkName = "-saveDBFavoriteStudent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -836,11 +836,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1831"
-            endingLineNumber = "1831"
+            startingLineNumber = "1833"
+            endingLineNumber = "1833"
             landmarkName = "-saveDBFavoriteStudent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -852,11 +852,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1559"
-            endingLineNumber = "1559"
+            startingLineNumber = "1561"
+            endingLineNumber = "1561"
             landmarkName = "@implementation FavoriteViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -868,11 +868,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2206"
-            endingLineNumber = "2206"
+            startingLineNumber = "2208"
+            endingLineNumber = "2208"
             landmarkName = "-saveDBFavoriteStaff:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1108,11 +1108,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "476"
-            endingLineNumber = "476"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
             landmarkName = "-requestAPIClasses"
             landmarkType = "5">
          </BreakpointContent>
@@ -1124,11 +1124,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "403119021.289968"
+            timestampString = "404930236.356306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "524"
+            endingLineNumber = "524"
             landmarkName = "-requestAPIMajors"
             landmarkType = "5">
          </BreakpointContent>
@@ -1140,11 +1140,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/TermsViewController.m"
-            timestampString = "403254207.224224"
+            timestampString = "404923586.413102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "-setupTermsViewUI"
             landmarkType = "5">
          </BreakpointContent>

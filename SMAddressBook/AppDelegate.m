@@ -77,6 +77,8 @@
 
     
     // MARK: App 실행 (왼쪽 메뉴, 즐겨찾기 메인 뷰 구성)
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}]; // 네비게이션바 타이틀 색
+
     
     // sochae - 메뉴 구성 먼저 하고 로그인 창 모달로 띄우도록 시나리오 변경
     [self showMainViewController:nil animated:NO];

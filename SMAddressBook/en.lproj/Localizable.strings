@@ -1,7 +1,7 @@
 /* Localized versions of Info.plist keys */
 
-/// Favorite Title
-"favorite_title" = "Favorite";
+/* Favorites */
+"Favorites" = "Favorites";
 
 /// Address Title
 "address_title" = "Address";
@@ -18,14 +18,14 @@
 /// faculty Member Text
 "faculty_member_text" = "Staff";
 
-/// Total View Text
-"total_view_text" = "All Students";
+/* Member List */
+"Member List" = "Member List";
 
 /// Setting
 "setting_title" = "Setting";
 
-/// My Info Setting
-"my_info_setting" = "My information set-up";
+/* My Page*/
+"My Page" = "My Page";
 
 /// My Card Setting
 "my_card_setting" = "My Card Setting";
@@ -33,8 +33,14 @@
 /// Term & Policy
 "terms_and_policy" = "Terms and Personal Information Protection Guidelines";
 
-/// Help
-"help" = "Help";
+/* terms text */
+"terms policy" = "User agreement";
+
+/* personal policy */
+"personal policy" = "Personal Privacy Policy";
+
+/* Help */
+"Help" = "Help";
 
 /// User ID Placeholder
 "user_id_placeholder" = "user ID";
@@ -49,16 +55,16 @@
 "english_text" = "English";
 
 /* ID Save Check Button Text */
-"id_save_text" = "Saved ID";
+"id_save_text" = "Save your ID";
 
 /* Login Save Check Button Text */
-"login_save_text" = "Saved Login";
+"login_save_text" = "Keep Log-in Status";
 
 /* ID Find Text */
-"id_find_text" = "Find UserID >";
+"id_find_text" = "Find ID";
 
 /* PWD Find Text */
-"password_find_text" = "Find Password >";
+"password_find_text" = "Find Password";
 
 /* Login Info Text */
 "login_info_text" = "서울대학교 경영전문대학원 회원센터에\n 등록된 아이디와 비밀번로 로그인 하세요.";
@@ -72,8 +78,8 @@
 /* Button Cancel */
 "Cancel" = "Cancel";
 
-/* Next */
-"Next" = "Next";
+/* Agree */
+"Agree" = "I agree.";
 
 /* Alert Id Empty Text */
 "alert_id_empty_text" = "Please enter the correct ID or password.";
@@ -82,7 +88,7 @@
 "alert_pwd_empty_text" = "Please enter the correct ID or password.";
 
 /* Terms of Service */
-"terms_text" = "Terms and Personal Information Protection Guidelines";
+"terms_text" = "Terms and Privacy Policy";
 
 /* Accept Button Text */
 "accept_btn_text" = "Accept";
@@ -117,11 +123,14 @@
 /* Favorite Setting Msg */
 "Favorite Setting Msg" = "즐겨찾기 주소록이 변경되어 재성정 중입니다.\n잠시만 기다려주세요.";
 
-/* Consent */
-"Consent" = "Consent";
+/* agree terms */
+"agree terms" = "Confirmed the Terms.";
 
-/* Favorite Setting */
-"favorite setting" = "Favorites Settings";
+/* agree personal */
+"agree personal" = "I read terms and personal privacy policy.";
+
+/* Favorite Settings */
+"Favorite Settings" = "Favorite Settings";
 
 /* send */
 "send" = "Send";
@@ -225,8 +234,17 @@
 /* option string */
 "option string" = "즐겨찾기 내에서 검색";
 
-/* Personal Info */
-"Personal Info" = "Personal Info.";
+/* Personal information */
+"Personal information" = "Personal information";
+
+/* Other setup */
+"Other setup" = "Other set-up";
+
+/* Disclosure */
+"Disclosure" = "Disclosure";
+
+/* Mobile Phone */
+"Mobile Phone" = "Mobile Phone";
 
 /* Select Message Recipients */
 "Select Message Recipients" = "Select Message Recipients";
