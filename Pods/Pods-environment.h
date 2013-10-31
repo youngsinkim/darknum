@@ -12,6 +12,24 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 2
 
+// ActionSheetPicker2
+#define COCOAPODS_POD_AVAILABLE_ActionSheetPicker2
+#define COCOAPODS_VERSION_MAJOR_ActionSheetPicker2 0
+#define COCOAPODS_VERSION_MINOR_ActionSheetPicker2 1
+#define COCOAPODS_VERSION_PATCH_ActionSheetPicker2 0
+
+// EasyTableView
+#define COCOAPODS_POD_AVAILABLE_EasyTableView
+#define COCOAPODS_VERSION_MAJOR_EasyTableView 1
+#define COCOAPODS_VERSION_MINOR_EasyTableView 1
+#define COCOAPODS_VERSION_PATCH_EasyTableView 1
+
+// FontAwesome+iOS
+#define COCOAPODS_POD_AVAILABLE_FontAwesome_iOS
+#define COCOAPODS_VERSION_MAJOR_FontAwesome_iOS 0
+#define COCOAPODS_VERSION_MINOR_FontAwesome_iOS 1
+#define COCOAPODS_VERSION_PATCH_FontAwesome_iOS 1
+
 // JSONKit
 #define COCOAPODS_POD_AVAILABLE_JSONKit
 // This library does not follow semantic-versioning,
@@ -19,9 +37,27 @@
 // Please contact the author.
 // Version: 1.5pre.
 
+// MBProgressHUD
+#define COCOAPODS_POD_AVAILABLE_MBProgressHUD
+#define COCOAPODS_VERSION_MAJOR_MBProgressHUD 0
+#define COCOAPODS_VERSION_MINOR_MBProgressHUD 7
+#define COCOAPODS_VERSION_PATCH_MBProgressHUD 0
+
 // MFSideMenu
 #define COCOAPODS_POD_AVAILABLE_MFSideMenu
 #define COCOAPODS_VERSION_MAJOR_MFSideMenu 0
 #define COCOAPODS_VERSION_MINOR_MFSideMenu 5
 #define COCOAPODS_VERSION_PATCH_MFSideMenu 3
+
+// PPiAwesomeButton
+#define COCOAPODS_POD_AVAILABLE_PPiAwesomeButton
+#define COCOAPODS_VERSION_MAJOR_PPiAwesomeButton 1
+#define COCOAPODS_VERSION_MINOR_PPiAwesomeButton 2
+#define COCOAPODS_VERSION_PATCH_PPiAwesomeButton 8
+
+// PPiFlatSegmentedControl
+#define COCOAPODS_POD_AVAILABLE_PPiFlatSegmentedControl
+#define COCOAPODS_VERSION_MAJOR_PPiFlatSegmentedControl 1
+#define COCOAPODS_VERSION_MINOR_PPiFlatSegmentedControl 3
+#define COCOAPODS_VERSION_PATCH_PPiFlatSegmentedControl 3
 

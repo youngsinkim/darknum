@@ -18,14 +18,28 @@
 // 
 //#import <MFSideMenu.h>          //< 사이드 메뉴 오픈 소스
 
-//#import "JYNetworkManager.h"    //< 네트워크 모듈
+#import "AppDelegate.h"
+#import "SMNetworkClient.h"     //< 네트워크 모듈
 #import "UserContext.h"         //< 사용자 정보
+#import "Util.h"
+#import "DBMethod.h"
+#import "NSManagedObjectContext+AsyncFetch.h"
 
-//#import "BaseViewController.h"  //< 공통 뷰 컨트롤러
+#import "LoadingView.h"
+#import <MBProgressHUD.h>
+
+
+#import "BaseViewController.h"  //< 공통 뷰 컨트롤러
 //#import "PortraitNavigationController.h"    //< 세로모드 네비게이션 컨트롤러
 
-//#import "TSLanguageManager.h"
+#import "TSLanguageManager.h"   //< 다국어 모듈
 
+typedef enum {
+    MemberTypeStudent = 1,
+    MemberTypeFaculty = 2,
+    MemberTypeStaff = 3,
+    MemberTypeUnknown
+} MemberType;
 
 ///////////////////////////////////////////////////////////////
 #ifdef DEBUG
@@ -38,8 +52,17 @@
 // for AFNetworking
 #define _AFNETWORKING_PREFER_NSJSONSERIALIZATION_
 
-
 ///////////////////////////////////////////////////////////////
-/// plist 정보
-#define USERINFO    @"UserInfo"
-#define kAutoLogin  @"AutoLogin"
+//RGB color macro
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
+/////////////////////////
+#define NSLocalizedString(key, comment) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
+
+
+
+

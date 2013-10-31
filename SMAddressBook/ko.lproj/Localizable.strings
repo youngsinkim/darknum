@@ -1,0 +1,244 @@
+/* Localized versions of Info.plist keys */
+
+/// Favorite Title
+"favorite_title" = "즐겨찾기";
+
+/// Address Title
+"address_title" = "주소록";
+
+/// Login Title
+"login_title" = "로그인";
+
+/* Login */
+"Login" = "로그인";
+
+/// faculty Text
+"faculty_text" = "교수진";
+
+/// faculty Member Text
+"faculty_member_text" = "교직원";
+
+/// Total View Text
+"total_view_text" = "전체 주소록";
+
+/// Setting
+"setting_title" = "설정";
+
+/// My Info Setting
+"my_info_setting" = "내 정보 설정";
+
+/// My Card Setting
+"my_card_setting" = "내 명함 설정";
+
+/// Term & Policy
+"terms_and_policy" = "약관 및 개인정보 보호지침";
+
+/// Help
+"help" = "도움말";
+
+/// User ID Placeholder
+"user_id_placeholder" = "아이디";
+
+/// User PWD Placeholder
+"user_pwd_placeholder" = "비밀번호";
+
+// Korean Button Text
+"korean_text" = "한국어";
+
+// English Button Text
+"english_text" = "English";
+
+/* ID Save Check Button Text */
+"id_save_text" = "아이디 저장";
+
+/* Login Save Check Button Text */
+"login_save_text" = "로그인 유지";
+
+/* ID Find Text */
+"id_find_text" = "아이디 찾기";
+
+/* PWD Find Text */
+"password_find_text" = "비밀번호 찾기";
+
+/* Login Info Text */
+"login_info_text" = "서울대학교 경영전문대학원 회원센터에\n 등록된 아이디와 비밀번로 로그인 하세요.";
+
+/* Login Error Text */
+"login_error_text" = "서울대학교 경영전문대학원 소속이 아니거나,\n 잘못된 아이디 또는 비밀번호로 입력하셨습니다. ";
+
+/* Button OK */
+"Ok" = "확인";
+
+/* Button Cancel */
+"Cancel" = "취소";
+
+/* Next */
+"Next" = "다음";
+
+/* Alert Id Empty Text */
+"alert_id_empty_text" = "아이디 또는 패스워드를 정확히 입력해 주세요.";
+
+/* Alert Password Empty Text */
+"alert_pwd_empty_text" = "아이디 또는 패스워드를 정확히 입력해 주세요.";
+
+/* Terms of Service */
+"terms_text" = "약관 및 개인정보 보호지침";
+
+/* Accept Button Text */
+"accept_btn_text" = "동의함";
+
+/* Favorite Cell Faculty Count */
+"%d faculty" = "%d명의 교수 연락처가 있습니다.";
+
+/* Favorite Cell Staff Count */
+"%d staff" = "%d명의 교직원 연락처가 있습니다.";
+
+/* Favorite Cell Student Count */
+"%d student" = "%d명의 학생 연락처가 있습니다.";
+
+/* Take a Photo */
+"Take a Photo" = "사진 촬영";
+
+/* from Library */
+"Photo of Library" = "앨범에서 가져오기";
+
+/* Delete Photo */
+"Delete Photo" = "사진 삭제";
+
+/* update download title */
+"update download title" = "업데이트 다운로드";
+
+/* update download msg */
+"update download msg" = "즐겨찾기에 등록된 주소록의 업데이트 내역이 있습니다.\n업데이트 자료를 다운로드 합니다. 잠시만 기다려 주세요.";
+
+/* Favorite Setting Title */
+"Favorite Setting Title" = "즐겨찾기 주소록 재설정";
+
+/* Favorite Setting Msg */
+"Favorite Setting Msg" = "즐겨찾기 주소록이 변경되어 재성정 중입니다.\n잠시만 기다려주세요.";
+
+/* Consent */
+"Consent" = "동의 함";
+
+/* Favorite Setting */
+"favorite setting" = "즐겨찾기 설정";
+
+/* send */
+"send" = "보내기";
+
+/* kakao message */
+"kakao message" = "카카오 메시지";
+
+/* message empty */
+"message empty" = "메시지가 비어 있습니다";
+
+/* kakao not install */
+"kakao not install" = "카카오톡이 설치되어 있지 않습니다.";
+
+/* phone call */
+"Phone Call" = "전화";
+
+/* sms */
+"sms" = "문자";
+
+/* email */
+"email" = "이메일";
+
+/* save */
+"save" = "저장";
+
+/* ka talk */
+"ka talk" = "카톡";
+
+/* search */
+"Search" = "검색";
+
+/* search result */
+"Search Result" = "검색 결과";
+
+/* Find Id */
+"Find Id" = "아이디 찾기";
+
+/* Find Password */
+"Find Password" = "비밀번호 찾기";
+
+/* Done */
+"Done" = "닫기";
+
+/* Sms Auth */
+"Sms Auth" = "본인인증";
+
+/* Sms Auth Info */
+"Sms Auth Info" = "본인인증을 위해 휴대전화번호와 인증번호를 입력하세요.";
+
+/* Mobile Phone Number */
+"Mobile Phone Number" = "휴대전화번호";
+
+/* Auth Code */
+"Auth Code" = "인증번호";
+
+/* Receive Auth Code */
+"Receivce Auth Code" = "인증번호받기";
+
+/* Empty Error Msg */
+"Text Empty" = "빈 문자열 오류";
+
+/* All faculties */
+"All faculties" = "전체교수";
+
+/* All Classes */
+"All classes" = "전체";
+
+/* Search name */
+"Search name" = "이름 검색";
+
+/* Athentication Description */
+"Athentication Description" = "본인인증을 위해 휴대전화번호와 인증번호를 입력하세요.";
+
+/* Verification code */
+"Verification code" = "인증번호";
+
+/* Send Verification Code */
+"Send Verification Code" = "인증번호받기";
+
+/* Submit */
+"Submit" = "확인";
+
+/* Cell Phone No. */
+"cell phone no." = "휴대전화번호";
+
+/* Favorite Static Course */
+"Favorite Static Course" = "교수진/교직원";
+
+/* course */
+"course" = "과정";
+
+/* classes */
+"classes" = "기수";
+
+/* name */
+"name" = "이름";
+
+/* option */
+"option" = "옵션";
+
+/* option string */
+"option string" = "즐겨찾기 내에서 검색";
+
+/* Personal Info */
+"Personal Info" = "개인정보";
+
+/* Select Message Recipients */
+"Select Message Recipients" = "문자 수신자 선택";
+
+/* Select Email Recipients */
+"Select Email Recipients" = "메일 수신자 선택";
+
+/* Message Recipients */
+"Message Recipients %d" = "문자 수신자 (%d)";
+
+/* Select Email Recipients */
+"Email Recipients %d" = "메일 수신자 (%d)";
+
+/* Limit Error Msg */
+"Limit Error Msg" = "한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.";

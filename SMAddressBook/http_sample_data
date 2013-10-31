@@ -1,0 +1,481 @@
+// sample http packet data 
+
+--------------------------------------------------------
+[ Test Web Page ]
+
+    http://snumba.zenda.co.kr/storyboard/test/test.html
+    wpsek#21
+
+--------------------------------------------------------
+[ API Server ]
+
+    http://biz.snu.ac.kr
+
+--------------------------------------------------------
+[ API List ]
+
+--------------------------------------------------------
+1. 로그인 
+
+    path    /fb/login
+    param   scode=5684825a51beb9d2fa05e4675d91253c&phone=01023873856&updatedate=0000-00-00+00%3A00%3A00&userid=ztest01&passwd=1111%23
+    
+    data    {
+            "errcode":"0",
+            "certno":"m9kebjkakte1tvrqfg90i9fh84",
+            "memtype":"1",
+            "updatecount":"218"
+            }
+
+--------------------------------------------------------
+2. 과정기수 목록 (구, 즐겨찾기 목록)
+
+    path    /fb/classes
+    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
+    
+    data    {
+                "errcode" : "0",
+                "data" : [
+                            {
+                                "title" : "교수진",
+                                "count" : "112",
+                                "course" : "FACULTY",
+                                "courseclass" : "",
+                                "title_en" : "Faculty"
+                            },
+                            {
+                                "title" : "교직원",
+                                "count" : "58",
+                                "course" : "STAFF",
+                                "courseclass" : ""
+                            },
+                            {
+                                "favyn" : "n",
+                                "title" : "EMBA 1기",
+                                "count" : "0",
+                                "course" : "EMBA",
+                                "courseclass" : "EMBA09001",
+                                "title_en" : "Class of EMBA 2009"
+                            },
+                            {
+                                "favyn" : "n",
+                                "title" : "EMBA 2기",
+                                "count" : "0",
+                                "course" : "EMBA",
+                                "courseclass" : "EMBA10002",
+                                "title_en" : "Class of EMBA 2010"
+                            }
+                        ]
+            }
+
+--------------------------------------------------------
+3. (기수별) 학생 주소록 목록
+
+    path    /fb/students
+    paran   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84&lang=ko&courseclass=SNUMBA11005
+    
+    data    {
+              "errcode" : "0",
+              "data" : [{
+                        "course":"SNUMBA",
+                        "courseclass":"SNUMBA11005",
+                        "classtitle":"SNUMBA 5기",
+                        "classtitle_en":"Class of SNUMBA 2011",
+                        "studcode":"201127212",
+                        "name":"김재범",
+                        "name_en":"KIM JAEBUM",
+                        "mobile":"010-3267-9785",
+                        "email":"coach077@hotmail.com",
+                        "company":"포스코",
+                        "department":"마케팅실",
+                        "title":"과장",
+                        "company_en":"",
+                        "department_en":"",
+                        "title_en":"",
+                        "status":"졸업",
+                        "status_en":"졸업",
+                        "share_mobile":"n",
+                        "share_email":"y",
+                        "share_company":"y",
+                        "photourl":""
+                        },
+                        {
+                        "course":"SNUMBA",
+                        "courseclass":"SNUMBA11005",
+                        "classtitle":"SNUMBA 5기",
+                        "classtitle_en":"Class of SNUMBA 2011",
+                        "studcode":"201127234",
+                        "name":"이영준",
+                        "name_en":"LEE YOUNGJUNE",
+                        "mobile":"010-2718-5370",
+                        "email":"royyslee@gmail.com",
+                        "company":"메드트로닉 코리아(Medtronic)",
+                        "department":"경영기획",
+                        "title":"과장",
+                        "company_en":"",
+                        "department_en":"",
+                        "title_en":"",
+                        "status":"졸업",
+                        "status_en":"졸업",
+                        "share_mobile":"n",
+                        "share_email":"y",
+                        "share_company":"y",
+                        "photourl":""
+                        },
+                        {
+                        "course":"SNUMBA",
+                        "courseclass":"SNUMBA11005",
+                        "classtitle":"SNUMBA 5기",
+                        "classtitle_en":"Class of SNUMBA 2011",
+                        "studcode":"201127218",
+                        "name":"문태양",
+                        "name_en":"MOON TAEYANG",
+                        "mobile":"010-6786-6428",
+                        "email":"illsun1@gmail.com",
+                        "company":"퀄컴코리아",
+                        "department":"Engineering",
+                        "title":"과장",
+                        "company_en":"",
+                        "department_en":"",
+                        "title_en":"",
+                        "status":"졸업",
+                        "status_en":"졸업",
+                        "share_mobile":"n",
+                        "share_email":"y",
+                        "share_company":"y",
+                        "photourl":""
+                        }]
+            }
+
+
+--------------------------------------------------------
+4. (검색) 학생 주소록 목록
+
+    path    /fb/students
+    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84&lang=ko&course=SNUMBA&class=SNUMBA11005&name=%EC%A1%B0%EA%B0%95%ED%97%8C
+    
+    data    {
+              "errcode" : "0",
+              "data" : [
+                        {
+                        "course":"SNUMBA",
+                        "courseclass":"SNUMBA11005",
+                        "classtitle":"SNUMBA 5기",
+                        "classtitle_en":"Class of SNUMBA 2011",
+                        "studcode":"201127243",
+                        "name":"조강헌",
+                        "name_en":"Kanghon Cho",
+                        "mobile":"010-3710-3327",
+                        "email":"kanghon.cho@gmail.com",
+                        "company":" 알바트로스 인베스트먼트",
+                        "department":" ",
+                        "title":" 책임 심사역",
+                        "company_en":"",
+                        "department_en":"",
+                        "title_en":"",
+                        "status":"졸업",
+                        "status_en":"졸업",
+                        "share_mobile":"n",
+                        "share_email":"y",
+                        "share_company":"y",
+                        "photourl":"/memberphoto/f36531e2-f755-4e82-9fbb-5ce03577d16f.jpg"
+                        }
+                      ]
+            }
+
+--------------------------------------------------------
+5. 교수전공 목록
+
+    path    /fb/majors
+    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
+    
+    data    {
+              "errcode" : "0",
+              "data" : [
+                        {
+                          "major" : "1",
+                          "title" : "경영정보",
+                          "title_en" : "Management Information Systems"
+                        },
+                        {
+                          "major" : "2",
+                          "title" : "국제경영",
+                          "title_en" : "International Business"
+                        },
+                        {
+                          "major" : "3",
+                          "title" : "마케팅",
+                          "title_en" : "Marketing"
+                        },
+                        {
+                          "major" : "4",
+                          "title" : "생산관리",
+                          "title_en" : "Operations Management"
+                        },
+                        {
+                          "major" : "5",
+                          "title" : "인사조직",
+                          "title_en" : "Human Resource Management &amp; Organizational Behavior"
+                        },
+                        {
+                          "major" : "6",
+                          "title" : "재무&middot;금융",
+                          "title_en" : "Finance"
+                        },
+                        {
+                          "major" : "7",
+                          "title" : "회계학",
+                          "title_en" : "Accounting"
+                        }
+                      ]
+            }
+
+--------------------------------------------------------
+6. 내 정보 조회 (학생)
+
+    path    /fb/myinfo
+    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
+    
+    data    {
+              "errcode" : "0",
+              "data" : {
+                        "name":"테스터01",
+                        "name_en":"Tester 01",
+                        "mobile":"010-2387-3856",
+                        "email":"hwa@zenda.co.kr",
+                        "company":"",
+                        "department":"",
+                        "title":"",
+                        "company_en":"",
+                        "department_en":"",
+                        "title_en":"",
+                        "share_mobile":"n",
+                        "share_email":"y",
+                        "share_company":"y",
+                        "photourl":"/memberphoto/fd8dd0420f0ac6b5364a42c20aaea359.gif"
+                        }
+            }
+
+--------------------------------------------------------
+6-1. 내 정보 저장 (학생)
+
+    path    /fb/updatemyinfo
+    param   준비중...
+
+--------------------------------------------------------
+7. 내 정보 조희 (교수)
+
+    path    /fb/myinfo
+    param   scode=4441ab3fca14297d7f246d2c5e14596f&userid=srho&certno=m9kebjkakte1tvrqfg90i9fh84
+    
+    data    {
+            "errcode":"0",
+            "data":{
+                    "name":"노상규",
+                    "name_en":"RHO SANGKYU",
+                    "tel":"02-880-6922",
+                    "mobile":"010-3341-6922",
+                    "email":"srho@snu.ac.kr",
+                    "office":"SK관 502호",
+                    "office_en":"Sk Bldg #502",
+                    "photourl":"/facultyphoto/4794603f233609e7142ce6ea32c3f22b.jpg"
+                    }
+            }
+
+--------------------------------------------------------
+7-1. 내 정보 저장 (교수)
+
+    path    /fb/updatemyinfo
+    param   준비중...
+
+--------------------------------------------------------
+8. 내 정보 조회 (교직원)
+
+    path    /fb/myinfo
+    param   scode=485dfefbbdf2ad202efae2639f3d2e05&userid=lje21&certno=m9kebjkakte1tvrqfg90i9fh84
+    
+    data    {
+            "errcode":"0",
+            "data":{
+                    "name":"\uc774\uc9c0\uc740",
+                    "name_en":"Lee JiEun",
+                    "tel":"02-880-8936",
+                    "mobile":"010-5590-1884",
+                    "email":"lje21@snu.ac.kr",
+                    "office":"",
+                    "office_en":"",
+                    "photourl":""
+                    }
+            }
+
+--------------------------------------------------------
+8-1. 내 정보 저장 (교직원)
+
+    path    /fb/updatemyinfo
+    param   준비중...
+
+--------------------------------------------------------
+9. 즐겨찾기 주소록 업데이트 목록
+
+    path    /fb/updated
+    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84&updatedate=0000-00-00+00%3A00%3A00
+    
+    data    {
+                "errcode":"0",
+                "staff":[{
+                            "mobile":"010-4437-0138",
+                            "office":"",
+                            "name_en":"kim soon-ok",
+                            "memberidx":"112788",
+                            "photourl":"",
+                            "remove":"n",
+                            "email":"kso@snu.ac.kr",
+                            "tel":"880-6960",
+                            "office_en":"",
+                            "name":"김순옥"
+                            },
+                            {
+                            "mobile":"01084324520",
+                            "office":"",
+                            "name_en":"kang kyung shin",
+                            "memberidx":"60326",
+                            "photourl":"\/memberphoto\/f9d94a17-10bf-47ae-91b4-c3e470cba773.jpg",
+                            "remove":"n",
+                            "email":"kshs35@snu.ac.kr",
+                            "tel":"02-880-1332",
+                            "office_en":"",
+                            "name":"강경신"
+                            },
+                            {
+                            "mobile":"010-7305-8600",
+                            "office":"",
+                            "name_en":"KANG WONAE",
+                            "memberidx":"4073",
+                            "photourl":"\/memberphoto\/b411c7e4-e028-4c66-a71d-c34c4c6f40e3.jpg",
+                            "remove":"n",
+                            "email":"wonae@snu.ac.kr",
+                            "tel":"02-880-6909",
+                            "office_en":"",
+                            "name":"강원애"
+                            }],
+                "student":[{
+                            "name_en":"KIM JAEBUM",
+                            "status":"졸업",
+                            "classtitle":"SNUMBA 5기",
+                            "title":"과장",
+                            "company":"포스코",
+                            "share_company":"y",
+                            "department_en":"",
+                            "title_en":"",
+                            "name":"김재범",
+                            "classtitle_en":"Class of SNUMBA 2011",
+                            "status_en":"졸업",
+                            "company_en":"",
+                            "department":"마케팅실",
+                            "email":"coach077@hotmail.com",
+                            "studcode":"201127212",
+                            "mobile":"010-3267-9785",
+                            "photourl":"",
+                            "remove":"n",
+                            "courseclass":"SNUMBA11005",
+                            "share_mobile":"n",
+                            "share_email":"y",
+                            "course":"SNUMBA"
+                            },
+                            {
+                            "name_en":"LIM KYUNG HWAN",
+                            "status":"졸업",
+                            "classtitle":"SNUMBA 5기",
+                            "title":"차장",
+                            "company":"(주)네오플럭스",
+                            "share_company":"y",
+                            "department_en":"",
+                            "title_en":"",
+                            "name":"임경환",
+                            "classtitle_en":"Class of SNUMBA 2011",
+                            "status_en":"졸업",
+                            "company_en":"",
+                            "department":"벤처투자본부",
+                            "email":"wj21.k.lim@gmail.com",
+                            "studcode":"201127237",
+                            "mobile":"010-5257-3441",
+                            "photourl":"\/memberphoto\/30e49852-a8e0-476b-afed-d4b890229e40.jpg",
+                            "remove":"n",
+                            "courseclass":"SNUMBA11005",
+                            "share_mobile":"n",
+                            "share_email":"y",
+                            "course":"SNUMBA"
+                            },
+                            {
+                            "name_en":"MOON TAEYANG",
+                            "status":"졸업",
+                            "classtitle":"SNUMBA 5기",
+                            "title":"과장",
+                            "company":"퀄컴코리아",
+                            "share_company":"y",
+                            "department_en":"",
+                            "title_en":"",
+                            "name":"문태양",
+                            "classtitle_en":"Class of SNUMBA 2011",
+                            "status_en":"졸업",
+                            "company_en":"",
+                            "department":"Engineering",
+                            "email":"illsun1@gmail.com",
+                            "studcode":"201127218",
+                            "mobile":"010-6786-6428",
+                            "photourl":"",
+                            "remove":"n",
+                            "courseclass":"SNUMBA11005",
+                            "share_mobile":"n",
+                            "share_email":"y",
+                            "course":"SNUMBA"
+                            }],
+                "faculty":[{
+                            "mobile":"010-3712-6945",
+                            "major":"2",
+                            "name_en":"CHO DONG-SUNG",
+                            "memberidx":"3034",
+                            "office":"LG관 612호",
+                            "photourl":"\/facultyphoto\/c310c58ab70b1dfb33ce374fec1122e9.jpg",
+                            "remove":"n",
+                            "email":"dscho@snu.ac.kr",
+                            "tel":"02-880-6945",
+                            "office_en":"LG bldg. #612",
+                            "name":"조동성"
+                            },
+                            {
+                            "mobile":"010-9925-6948",
+                            "major":"6",
+                            "name_en":"KIM YOUNG-JIN",
+                            "memberidx":"3153",
+                            "office":"SK관 411호",
+                            "photourl":"\/facultyphoto\/7990794780d4c7849efe5294a20b9357.jpg",
+                            "remove":"n",
+                            "email":"yjinkim@snu.ac.kr",
+                            "tel":"02-880-6948",
+                            "office_en":"SK Bldg. #411",
+                            "name":"김영진"
+                            },
+                            {
+                            "mobile":"010-3720-9695",
+                            "major":"5",
+                            "name_en":"PARK OHSOO",
+                            "memberidx":"3449",
+                            "office":"SK관 508호",
+                            "photourl":"\/facultyphoto\/e462f1b1835d584abcdf0505e6c9efe5.jpg",
+                            "remove":"n",
+                            "email":"ospark@snu.ac.kr",
+                            "tel":"02-880-6951",
+                            "office_en":"SK Bldg. #508",
+                            "name":"박오수"
+                            }]
+            }
+
+--------------------------------------------------------
+11. 즐겨찾기 목록 저장
+
+    준비중..
+
+--------------------------------------------------------
+
+--------------------------------------------------------

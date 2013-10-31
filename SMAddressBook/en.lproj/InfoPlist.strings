@@ -1,2 +1,61 @@
 /* Localized versions of Info.plist keys */
 
+/// Favorite Title
+"favorite_title" = "Favorite";
+
+/// Address Title
+"address_title" = "Address";
+
+/// Login Title
+"login_title" = "LOGIN";
+
+/// faculty Text
+"faculty_text" = "Faculty";
+
+/// faculty Member Text
+"faculty_member_text" = "Faculty Member";
+
+/// Total View Text
+"total_view_text" = "Total View";
+
+/// Setting
+"setting_title" = "Setting";
+
+/// My Info Setting
+"my_info_setting" = "My Info Setting";
+
+/// My Card Setting
+"my_card_setting" = "My Card Setting";
+
+/// Favorite Setting
+"favorite setting" = "Favorite Setting";
+
+/// Term & Policy
+"terms_and_policy" = "Terms And Policy";
+
+/// Help
+"help" = "Help";
+
+/// User ID Placeholder
+"user_id_placeholder" = "user ID";
+
+/// User PWD Placeholder
+"user_pwd_placeholder" = "user password";
+
+// Korean Button Text
+"korean_text" = "Korean";
+
+// English Button Text
+"english_text" = "English";
+
+/* ID Save Check Button Text */
+"id_save_text" = "Saved ID";
+
+/* Login Save Check Button Text */
+"login_save_text" = "Saved Login";
+
+/* ID Find Text */
+"id_find_text" = "Find UserID >";
+
+/* PWD Find Text */
+"password_find_text" = "Find Password >";

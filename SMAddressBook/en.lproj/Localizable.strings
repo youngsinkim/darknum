@@ -1,0 +1,244 @@
+/* Localized versions of Info.plist keys */
+
+/// Favorite Title
+"favorite_title" = "Favorite";
+
+/// Address Title
+"address_title" = "Address";
+
+/// Login Title
+"login_title" = "LOGIN";
+
+/* Login */
+"Login" = "Log-in";
+
+/// faculty Text
+"faculty_text" = "Faculty";
+
+/// faculty Member Text
+"faculty_member_text" = "Staff";
+
+/// Total View Text
+"total_view_text" = "All Students";
+
+/// Setting
+"setting_title" = "Setting";
+
+/// My Info Setting
+"my_info_setting" = "My information set-up";
+
+/// My Card Setting
+"my_card_setting" = "My Card Setting";
+
+/// Term & Policy
+"terms_and_policy" = "Terms and Personal Information Protection Guidelines";
+
+/// Help
+"help" = "Help";
+
+/// User ID Placeholder
+"user_id_placeholder" = "user ID";
+
+/// User PWD Placeholder
+"user_pwd_placeholder" = "user password";
+
+// Korean Button Text
+"korean_text" = "Korean";
+
+// English Button Text
+"english_text" = "English";
+
+/* ID Save Check Button Text */
+"id_save_text" = "Saved ID";
+
+/* Login Save Check Button Text */
+"login_save_text" = "Saved Login";
+
+/* ID Find Text */
+"id_find_text" = "Find UserID >";
+
+/* PWD Find Text */
+"password_find_text" = "Find Password >";
+
+/* Login Info Text */
+"login_info_text" = "서울대학교 경영전문대학원 회원센터에\n 등록된 아이디와 비밀번로 로그인 하세요.";
+
+/* Login Error Text */
+"login_error_text" = "서울대학교 경영전문대학원 소속이 아니거나,\n 잘못된 아이디 또는 비밀번호로 입력하셨습니다. ";
+
+/* Button OK */
+"Ok" = "OK";
+
+/* Button Cancel */
+"Cancel" = "Cancel";
+
+/* Next */
+"Next" = "Next";
+
+/* Alert Id Empty Text */
+"alert_id_empty_text" = "Please enter the correct ID or password.";
+
+/* Alert Password Empty Text */
+"alert_pwd_empty_text" = "Please enter the correct ID or password.";
+
+/* Terms of Service */
+"terms_text" = "Terms and Personal Information Protection Guidelines";
+
+/* Accept Button Text */
+"accept_btn_text" = "Accept";
+
+/* Favorite Cell Faculty Count */
+"%d faculty" = "There are %d number of professor contact numbers.";
+
+/* Favorite Cell Staff Count */
+"%d staff" = "There are %d number of faculty contact numbers.";
+
+/* Favorite Cell Student Count */
+"%d student" = "There are %d number of student contact numbers.";
+
+/* Take a Photo */
+"Take a Photo" = "Take a Photo";
+
+/* Photo of Library */
+"Photo of Library" = "Photo of Library";
+
+/* Delete Photo */
+"Delete Photo" = "Delete Photo";
+
+/* update download title */
+"update download title" = "Update Download";
+
+/* update download msg */
+"update download msg" = "There is an update in the address list registered on favorites. The update data will be downloaded. Please wait for a moment.";
+
+/* Favorite Setting Title */
+"Favorite Setting Title" = "즐겨찾기 주소록 재설정";
+
+/* Favorite Setting Msg */
+"Favorite Setting Msg" = "즐겨찾기 주소록이 변경되어 재성정 중입니다.\n잠시만 기다려주세요.";
+
+/* Consent */
+"Consent" = "Consent";
+
+/* Favorite Setting */
+"favorite setting" = "Favorites Settings";
+
+/* send */
+"send" = "Send";
+
+/* kakao message */
+"kakao message" = "Kakao Message";
+
+/* message empty */
+"message empty" = "Message Empty.";
+
+/* kakao not install */
+"kakao not install" = "Kakao Talk is not installed.";
+
+/* phone call */
+"Phone Call" = "phone";
+
+/* sms */
+"sms" = "SMS";
+
+/* email */
+"email" = "Email";
+
+/* save */
+"save" = "Save";
+
+/* ka talk */
+"ka talk" = "Ka-Talk";
+
+/* search */
+"Search" = "Search";
+
+/* search result */
+"Search Result" = "Search Result";
+
+/* Find Id */
+"Find Id" = "Find ID";
+
+/* Find Password */
+"Find Password" = "Find Password";
+
+/* Done */
+"Done" = "Done";
+
+/* Sms Auth */
+"Sms Auth" = "SMS Auth";
+
+/* Sms Auth Info */
+"Sms Auth Info" = "본인인증을 위해 휴대전화번호와 인증번호를 입력하세요.";
+
+/* Mobile Phone Number */
+"Mobile Phone Number" = "Enter your phone number.";
+
+/* Auth Code */
+"Auth Code" = "Auth Code";
+
+/* Receive Auth Code */
+"Receivce Auth Code" = "Receive Code";
+
+/* Empty Error Msg */
+"Text Empty" = "Text Empty";
+
+/* All faculties */
+"All faculties" = "All faculties";
+
+/* All Classes */
+"All classes" = "All classes";
+
+/* Search name */
+"Search name" = "Search name";
+
+/* Athentication Description */
+"Athentication Description" = "Athentication: Please enter your cell phone no. and verification code";
+
+/* Verification code */
+"Verification code" = "Verification code";
+
+/* Send Verification Code */
+"Send Verification Code" = "Send Verification Code";
+
+/* Submit */
+"Submit" = "Submit";
+
+/* Cell Phone No. */
+"cell phone no." = "cell phone no.";
+
+/* Favorite Static Course */
+"Favorite Static Course" = "Faculty / Staff";
+
+/* course */
+"course" = "course";
+
+/* classes */
+"classes" = "classes";
+
+/* name */
+"name" = "name";
+
+/* option */
+"option" = "option";
+
+/* option string */
+"option string" = "즐겨찾기 내에서 검색";
+
+/* Personal Info */
+"Personal Info" = "Personal Info.";
+
+/* Select Message Recipients */
+"Select Message Recipients" = "Select Message Recipients";
+
+/* Select Email Recipients */
+"Select Email Recipients" = "Select Email Recipients";
+
+/* Message Recipients */
+"Message Recipients %d" = "Message Recipients (%d)";
+
+/* Select Email Recipients */
+"Email Recipients %d" = "Email Recipients (%d)";
+
+/* Limit Error Msg */
+"Limit Error Msg" = "한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.";

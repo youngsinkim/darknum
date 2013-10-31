@@ -1,4 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Course" representedClassName="Course" syncable="YES">
+        <attribute name="count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseclass" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favyn" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="students" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Student" inverseName="course" inverseEntity="Student" syncable="YES"/>
+    </entity>
+    <entity name="Faculty" representedClassName="Faculty" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="memberidx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="office" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="office_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewphotourl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="major" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Major" inverseName="facultys" inverseEntity="Major" syncable="YES"/>
+    </entity>
+    <entity name="Major" representedClassName="Major" syncable="YES">
+        <attribute name="major" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_en" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="facultys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Faculty" inverseName="major" inverseEntity="Faculty" syncable="YES"/>
+    </entity>
+    <entity name="Staff" representedClassName="Staff" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="memberidx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="office" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="office_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewphotourl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="work" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="work_en" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Student" representedClassName="Student" syncable="YES">
+        <attribute name="classtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="classtitle_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="department" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="department_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photourl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="remove" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="studcode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_en" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewphotourl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="course" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="students" inverseEntity="Course" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Course" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Faculty" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Major" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Staff" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Student" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
 </model>
