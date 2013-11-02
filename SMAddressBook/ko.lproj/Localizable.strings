@@ -151,7 +151,7 @@
 "sms" = "문자";
 
 /* email */
-"email" = "이메일";
+"email" = "메일";
 
 /* save */
 "save" = "저장";
@@ -219,8 +219,11 @@
 /* Favorite Static Course */
 "Favorite Static Course" = "교수진/교직원";
 
-/* course */
-"course" = "과정";
+/* Program */
+"Program" = "과정";
+
+/* Program place holder */
+"Program place holder" = "과정을 선택하세요.";
 
 /* classes */
 "classes" = "기수";
@@ -247,7 +250,7 @@
 "Mobile Phone" = "전화";
 
 /* Select Message Recipients */
-"Select Message Recipients" = "문자 수신자 선택";
+"Select Message Recipients" = "SMS 수신자 선택";
 
 /* Select Email Recipients */
 "Select Email Recipients" = "메일 수신자 선택";
@@ -260,3 +263,7 @@
 
 /* Limit Error Msg */
 "Limit Error Msg" = "한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.";
+
+/* Search Name */
+"Search Name" = "이름 검색";
+

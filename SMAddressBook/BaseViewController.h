@@ -12,7 +12,7 @@
 
 @interface BaseViewController : UIViewController
 {
-//    TitleView *_titleView;
+    TitleView *_titleView;
 }
 
 @property (strong, nonatomic) UIButton *prevButton;

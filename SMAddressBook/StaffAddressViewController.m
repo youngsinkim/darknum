@@ -194,6 +194,16 @@
     return ([_staffs count] > 0)? kAddressCellH : self.view.frame.size.height;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2) {
+        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+    }
+    else {
+        [cell setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([_staffs count] == 0)
@@ -215,6 +225,7 @@
         cell = [[AddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 //        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
     }
     
     if ([_staffs count] > 0)

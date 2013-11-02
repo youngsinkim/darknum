@@ -31,7 +31,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"total_view_text", "전체보기");
+        self.navigationItem.title = LocalizedString(@"Member List", "전체보기");
         
         _courses = [[NSMutableArray alloc] init];
         _tabIndex = 0;
@@ -306,6 +306,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
     }
     
     if ([list count] > 0)

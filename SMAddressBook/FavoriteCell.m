@@ -13,6 +13,7 @@
 
 @interface FavoriteCell ()
 
+@property (strong, nonatomic) UIImageView *photoImageView;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *countLabel;
 
@@ -27,26 +28,28 @@
         // Initialization code
         self.backgroundColor = [UIColor clearColor];
         
-        _photoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile_noimg"]];
-        _photoImageView.frame = CGRectMake(5, 5, 50, 50);
-        [_photoImageView.layer setCornerRadius:2.0f];
+        _photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 26, 27)];
+        _photoImageView.image = [UIImage imageNamed:@"profile_noimg"];
+//        [_photoImageView.layer setCornerRadius:2.0f];
+//        _photoImageView.contentScaleFactor = 1.0f;
+//        _photoImageView.contentMode = UIViewContentModeCenter;
         
         [self.contentView addSubview:_photoImageView];
         
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 8, 180, 20)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(47, 8, 180, 20)];
         _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.textColor = [UIColor darkGrayColor];
-        _titleLabel.font = [UIFont systemFontOfSize:16.0f];
+        _titleLabel.textColor = UIColorFromRGB(0x323C73);
+        _titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
         _titleLabel.text = self.title;
         
         [self.contentView addSubview:_titleLabel];
         
         
-        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 35, 270, 20)];
+        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(47, 25, 270, 20)];
         _countLabel.backgroundColor = [UIColor clearColor];
         _countLabel.textColor = [UIColor grayColor];
-        _countLabel.font = [UIFont systemFontOfSize:12.0f];
+        _countLabel.font = [UIFont systemFontOfSize:10.0f];
         _countLabel.text = @"0명의 학생이 있습니다";
         
         [self.contentView addSubview:_countLabel];
@@ -80,5 +83,13 @@
             _countLabel.text = [NSString stringWithFormat:LocalizedString(@"%d student", nil), count];
             break;
     }
+}
+
+- (void)setIconName:(NSString *)iconName
+{
+    _iconName = iconName;
+    
+    _photoImageView.image = [UIImage imageNamed:_iconName];
+    [_photoImageView setNeedsDisplay];
 }
 @end

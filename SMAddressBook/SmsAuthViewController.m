@@ -260,7 +260,7 @@
                                               }
                                               else
                                               {
-                                                  //phoneNumberStr = _phoneNumberField.text;
+//                                                  phoneNumberStr = _phoneNumberField.text;
 
                                                   // 휴대전화 로컬(파일) 저장.
                                                   if (phoneNumberStr.length > 0)

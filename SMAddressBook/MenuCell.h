@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#define kCellH          40.0f
+#define kCellH          42.0f
 
 @interface MenuCell : UITableViewCell
+
+@property (strong, nonatomic) UILabel *menuLabel;
+//@property (strong, nonatomic) NSDictionary *cellInfo;
+@property (strong, nonatomic) NSString *iconName;
 
 @end

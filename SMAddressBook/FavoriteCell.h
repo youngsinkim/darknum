@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#define kFavoriteCellH  65
+#define kFavoriteCellH  50
 @interface FavoriteCell : UITableViewCell
 
-@property (strong, nonatomic) UIImageView *photoImageView;
 @property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *iconName;
 @property (assign, nonatomic) NSInteger count;
 
 - (void)setMemType:(NSInteger)type WidhCount:(NSInteger)count;

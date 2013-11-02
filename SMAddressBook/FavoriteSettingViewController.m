@@ -38,7 +38,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"favorite setting", @"즐겨찾기 설정");
+        self.navigationItem.title = LocalizedString(@"Favorite Settings", @"즐겨찾기 설정");
         
         _courses = [[NSMutableArray alloc] initWithCapacity:4];
         _courseClasses = [[NSMutableArray alloc] initWithCapacity:4];
@@ -858,6 +858,15 @@
     return ([_courses count] > 0)? FavoriteSettCellH : self.view.frame.size.height;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGRect rect = cell.frame;
+    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(10.0f, rect.size.height - 0.5f, rect.size.width - 20.0f, 0.5f)];
+    lineV.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.4f];
+    
+    [cell.contentView addSubview:lineV];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *list = _courseClasses[indexPath.section];
@@ -883,6 +892,7 @@
     if (!cell) {
         cell = [[FavoriteSettCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
         cell.delegate = self;
     }

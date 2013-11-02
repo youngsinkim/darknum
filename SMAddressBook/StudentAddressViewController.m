@@ -287,6 +287,16 @@
     return ([_students count] > 0)? kStudAddressCellH : self.view.frame.size.height;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2) {
+        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+    }
+    else {
+        [cell setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([_students count] == 0)
@@ -307,6 +317,7 @@
     if (!cell) {
         cell = [[StudentAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
 //            cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

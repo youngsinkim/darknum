@@ -96,7 +96,7 @@
 {
     [super viewDidLoad];
 
-//    _titleView.title = LocalizedString(@"Favorites", @"즐겨찾기");
+    _titleView.title = LocalizedString(@"Favorites", @"즐겨찾기");
 
     NSLog(@"---------- START ----------");
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -205,6 +205,9 @@
 {
     [super viewDidAppear:animated];
     
+    // 서버로 내 정보 요청
+    [self requestAPIMyInfo];
+
     MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
     [menu updateHeaderInfo];
 }
@@ -635,6 +638,9 @@
                                                  NSLog(@"저장 후 프로필 : %@", [[NSUserDefaults standardUserDefaults] objectForKey:kProfileInfo]);
                                                  
                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                     MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+                                                     [menu updateHeaderInfo];
+
 //                                                     [self updateMyInfo];
                                                      //                                                      [self onDBUpdate:(NSDictionary *)result];
                                                  });
@@ -2793,7 +2799,8 @@
         cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 //        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
     }
     
     if ([_favorites count] > 0)
@@ -2809,7 +2816,22 @@
         }
 //        cell.titleLabel.text = course.title;
         [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
-        //        cell.textLabel.text = course.title;
+        
+        if ([course.type integerValue] == 2) {
+            cell.iconName = @"ic_list_prof";
+        } else if ([course.type integerValue] == 3) {
+            cell.iconName = @"ic_list_staff";
+        } else {
+            if ([course.course isEqualToString:@"EMBA"]) {
+                cell.iconName = @"ic_list_emba";
+            }
+            else if ([course.course isEqualToString:@"GMBA"]) {
+                cell.iconName = @"ic_list_gmba";
+            }
+            else {
+                cell.iconName = @"ic_list_smba";
+            }
+        }
     }
     
     return cell;

@@ -4,7 +4,7 @@
 "Favorites" = "Favorites";
 
 /// Address Title
-"address_title" = "Address";
+"address_title" = "Favorites list";
 
 /// Login Title
 "login_title" = "LOGIN";
@@ -22,7 +22,7 @@
 "Member List" = "Member List";
 
 /// Setting
-"setting_title" = "Setting";
+"setting_title" = "Settings";
 
 /* My Page*/
 "My Page" = "My Page";
@@ -94,13 +94,13 @@
 "accept_btn_text" = "Accept";
 
 /* Favorite Cell Faculty Count */
-"%d faculty" = "There are %d number of professor contact numbers.";
+"%d faculty" = "Total of %d members";
 
 /* Favorite Cell Staff Count */
-"%d staff" = "There are %d number of faculty contact numbers.";
+"%d staff" = "Total of %d members";
 
 /* Favorite Cell Student Count */
-"%d student" = "There are %d number of student contact numbers.";
+"%d student" = "Total of %d members";
 
 /* Take a Photo */
 "Take a Photo" = "Take a Photo";
@@ -219,20 +219,23 @@
 /* Favorite Static Course */
 "Favorite Static Course" = "Faculty / Staff";
 
-/* course */
-"course" = "course";
+/* Program */
+"Program" = "Program";
+
+/* Program place holder */
+"Program place holder" = "Please select program.";
 
 /* classes */
-"classes" = "classes";
+"classes" = "Class";
 
 /* name */
-"name" = "name";
+"name" = "Name";
 
 /* option */
-"option" = "option";
+"option" = "Option";
 
 /* option string */
-"option string" = "즐겨찾기 내에서 검색";
+"option string" = "Search within favorites";
 
 /* Personal information */
 "Personal information" = "Personal information";
@@ -247,16 +250,19 @@
 "Mobile Phone" = "Mobile Phone";
 
 /* Select Message Recipients */
-"Select Message Recipients" = "Select Message Recipients";
+"Select Message Recipients" = "Select SMS recipient";
 
 /* Select Email Recipients */
-"Select Email Recipients" = "Select Email Recipients";
+"Select Email Recipients" = "Select mail recipient";
 
 /* Message Recipients */
-"Message Recipients %d" = "Message Recipients (%d)";
+"Message Recipients %d" = "Select SMS recipient (%d)";
 
 /* Select Email Recipients */
-"Email Recipients %d" = "Email Recipients (%d)";
+"Email Recipients %d" = "Select mail recipient (%d)";
 
 /* Limit Error Msg */
 "Limit Error Msg" = "한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.";
+
+/* Search Name */
+"Search Name" = "Search Name";

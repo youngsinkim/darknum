@@ -12,7 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define kSearchBarH     44.0f
-#define kTableHeaderH   30.0f
+#define kTableHeaderH   26.0f
 #define MAX_LENGTH      10
 
 @interface ToolViewController ()
@@ -126,7 +126,7 @@
 //    _searchBar.tintColor = [UIColor colorWithWhite:0.8 alpha:1.0];
     _searchBar.delegate = self;
 //    _searchBar.barStyle = UIBarStyleBlackTranslucent;
-    _searchBar.placeholder = @"대상자를 선택해주세요.";
+    _searchBar.placeholder = LocalizedString(@"Search Name", @"이름 검색");
 //    _searchBar.keyboardType = UIKeyboardTypeDefault;
 //    _searchBar.showsCancelButton = YES;
 //    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -700,7 +700,7 @@
         _sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, yOffset, 200, kTableHeaderH)];
         _sectionTitleLabel.textColor = [UIColor darkGrayColor];
         _sectionTitleLabel.backgroundColor = [UIColor clearColor];
-        [_sectionTitleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_sectionTitleLabel setFont:[UIFont systemFontOfSize:12.0f]];
 //        [sectionTitleLabel setText:@"메일 수신자 선택"];
         
         if (_viewType == ToolViewTypeSms) {
@@ -757,6 +757,16 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return ([_members count] > 0)? ToolViewCellH : self.view.frame.size.height;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2) {
+        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+    }
+    else {
+        [cell setBackgroundColor:[UIColor clearColor]];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -823,7 +833,8 @@
         NSLog(@"셀 생성");
         cell = [[ToolViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
+
         //        cell.delegate = self;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCellChecking:)];

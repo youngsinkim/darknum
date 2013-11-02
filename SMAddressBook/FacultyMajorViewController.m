@@ -155,6 +155,16 @@
     return ([_majors count] > 0)? kMajorCellH : self.view.frame.size.height;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2) {
+        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+    }
+    else {
+        [cell setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
@@ -165,6 +175,7 @@
         if (!cell) {
             cell = [[MajorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
         }
 
 //        NSDictionary *majorInfo = _majors[indexPath.row];
@@ -173,7 +184,7 @@
 //        } else {
 //            cell.textLabel.text = majorInfo[@"title_en"];
 //        }
-        cell.textLabel.text = @"전체 교수";
+        cell.textLabel.text = LocalizedString(@"All faculties", @"전체 교수");
         
         return cell;
     }

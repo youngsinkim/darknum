@@ -106,7 +106,7 @@
 
     {
         // 내 프로필 사진
-        _profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, yOffset + 5.0f, 50.0f, 50.0f)];
+        _profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, yOffset + 5.0f, 40.0f, 40.0f)];
         [_profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
         
         [headerView addSubview:_profileImgView];
@@ -130,8 +130,8 @@
         [headerView addSubview:_classLabel];
         
         UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        settingBtn.frame = CGRectMake(headerView.frame.size.width - 105.0f, yOffset + 3.0f, 47.0f, 47.0f);
-        [settingBtn setImage:[UIImage imageNamed:@"profile_btn_my_set"] forState:UIControlStateNormal];
+        settingBtn.frame = CGRectMake(headerView.frame.size.width - 90.0f, yOffset + 8.0f, 33.0f, 33.0f);
+        [settingBtn setImage:[UIImage imageNamed:@"ic_mf_setting"] forState:UIControlStateNormal];
 //        [settingBtn setImage:[UIImage imageNamed:@"menu_img"] forState:UIControlStateHighlighted];
         [settingBtn addTarget:self action:@selector(onMyInfoSettingClicked) forControlEvents:UIControlEventTouchUpInside];
         
@@ -148,10 +148,10 @@
     TermsViewController *termsVC = [[TermsViewController alloc] init];
     HelpViewController *helpVC = [[HelpViewController alloc] init];
 
-    _settMenuList = @[@{@"type":[NSNumber numberWithInt:MenuViewTypeSettMyInfo], @"title":LocalizedString(@"my_info_setting", @"내 정보설정"), @"icon":@"help_icon", @"viewController":myInfoVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"favorite setting", @"즐겨찾기 설정"), @"icon":@"help_icon", @"viewController":fvSettingVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettTerms], @"title":LocalizedString(@"terms_and_policy", @"약관 및 정책"), @"icon":@"help_icon", @"viewController":termsVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettHelp], @"title":LocalizedString(@"help", @"도움말"), @"icon":@"help_icon", @"viewController":helpVC}];
+    _settMenuList = @[@{@"type":[NSNumber numberWithInt:MenuViewTypeSettMyInfo], @"title":LocalizedString(@"My Page", @"내 정보설정"), @"icon":@"ic_mf_mypage", @"viewController":myInfoVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"Favorite settings", @"즐겨찾기 설정"), @"icon":@"ic_mf_bm", @"viewController":fvSettingVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettTerms], @"title":LocalizedString(@"terms_text", @"약관 및 정책"), @"icon":@"ic_mf_terms", @"viewController":termsVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettHelp], @"title":LocalizedString(@"Help", @"도움말"), @"icon":@"ic_mf_help", @"viewController":helpVC}];
     
 
 }
@@ -181,7 +181,7 @@
 {
     CourseTotalViewController *courseTotalVC = [[CourseTotalViewController alloc] init];
     
-    NSDictionary *courseDict = @{@"title":LocalizedString(@"total_view_text", @"전체보기"), @"icon":@"help_icon", @"viewController":courseTotalVC};
+    NSDictionary *courseDict = @{@"title":LocalizedString(@"Member List", @"전체보기"), @"icon":@"ic_mf_all", @"viewController":courseTotalVC};
     
     return courseDict;
 }
@@ -197,8 +197,14 @@
         [_profileImgView setImage:[UIImage imageNamed:@"profile_noimg"]];
     }
     
-    if ([myInfo[@"name"] length] > 0) {
-        _nameLabel.text = myInfo[@"name"];
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if ([myInfo[@"name"] length] > 0) {
+            _nameLabel.text = myInfo[@"name"];
+        }
+    } else {
+        if ([myInfo[@"name_en"] length] > 0) {
+            _nameLabel.text = myInfo[@"name_en"];
+        }
     }
     
 //    if ([myInfo[@"courseclass"] length] > 0) {
@@ -292,14 +298,32 @@
             NSLog(@"주소록 목록 : %@", [dict description]);
             
             if (![dict isEqual:[NSNull null]]) {
-                cell.textLabel.text = dict[@"title"];
+                cell.menuLabel.text = dict[@"title"];
+                cell.iconName = dict[@"icon"];
             }
         } else {
             Course *course = _addrMenuList[indexPath.row];
             if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-                cell.textLabel.text = course.title;
+                cell.menuLabel.text = course.title;
             } else {
-                cell.textLabel.text = course.title_en;
+                cell.menuLabel.text = course.title_en;
+            }
+            
+            if ([course.type isEqualToString:@"2"]) {
+                cell.iconName = @"ic_mf_prof";
+            } else if ([course.type isEqualToString:@"3"]) {
+                cell.iconName = @"ic_mf_staff";
+            } else {
+                if ([course.course isEqualToString:@"EMBA"]) {
+                    cell.iconName = @"ic_mf_emba";
+                }
+                else if ([course.course isEqualToString:@"GMBA"]) {
+                    cell.iconName = @"ic_mf_gmba";
+                }
+                else {
+                    cell.iconName = @"ic_mf_smba";
+                }
+
             }
         }
     
@@ -307,7 +331,8 @@
         NSDictionary *dict = _settMenuList[indexPath.row];
         
         if (![dict isEqual:[NSNull null]]) {
-            cell.textLabel.text = dict[@"title"];
+            cell.menuLabel.text = dict[@"title"];
+            cell.iconName = dict[@"icon"];
         }
     }
     return cell;
@@ -388,7 +413,7 @@
     
     // 섹션 타이틀
     UILabel *sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectInset(sectionImageView.frame, 10.0f, 0.0f)];
-    sectionTitleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0f];
+    sectionTitleLabel.font = [UIFont systemFontOfSize:14.0f];
     sectionTitleLabel.textAlignment = NSTextAlignmentLeft;;
 //    sectionTitleLabel.textColor = [UIColor colorWithRed:125.0f/255.0f green:129.0f/255.0f blue:146.0f/255.0f alpha:1.0f];
     sectionTitleLabel.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
@@ -410,6 +435,14 @@
     return sectionImageView;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGRect rect = cell.frame;
+    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 1, rect.size.width, 1.0f)];
+    lineV.backgroundColor = UIColorFromRGB(0x303030);
+    
+    [cell.contentView addSubview:lineV];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

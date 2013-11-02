@@ -148,9 +148,9 @@
     
     
     // 로컬에서(DB) 데이터 가져오기
-    [_myInfo setDictionary:[self loadMyInfo]];
-    NSLog(@"로컬 저장된 내 정보 : %@", _myInfo);
-    [self updateMyInfo];
+//    [_myInfo setDictionary:[self loadMyInfo]];
+//    NSLog(@"로컬 저장된 내 정보 : %@", _myInfo);
+//    [self updateMyInfo];
     
     // 서버로 내 정보 요청
     [self requestAPIMyInfo];
