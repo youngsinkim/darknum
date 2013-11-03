@@ -475,19 +475,53 @@
 // 검색 버튼
 - (void)onSearchBtnClicked:(id)sender
 {
-    if ([_nameTextField.text length] == 0) {
-        if ([_courseTextField.text length] == 0 || [_classTextField.text length] == 0 )
+    if ([_nameTextField.text length] == 0)
+    {
+        if ([_courseTextField.text length] == 0)
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"(과정+기수) 또는 (이름)을 검색조건에\n    설정하여 주세요.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"No Search Text", @"검색어가 없습니다.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil];
             
             [alertView show];
-            
             return;
         }
     }
+    else
+    {
+//        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            if ([_nameTextField.text length] < 2)
+            {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"No Search Text 2 Length", @"검색어는 2자 이상 입력하셔야 합니다.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil];
+                
+                [alertView show];
+                return;
+            }
+//        }
+//        else {
+//            if ([_nameTextField.text length] < 4)
+//            {
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"No Search Text 4 Length", @"검색어는 2자 이상 입력하셔야 합니다.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil];
+//                
+//                [alertView show];
+//                return;
+//            }
+//        }
+    }
+    
+//    if ([_nameTextField.text length] == 0) {
+//        if ([_courseTextField.text length] == 0 || [_classTextField.text length] == 0 )
+//        {
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"(과정+기수) 또는 (이름)을 검색조건에\n    설정하여 주세요.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+//            
+//            [alertView show];
+//            
+//            return;
+//        }
+//    }
+    
     // 검색 조건 구성
 //    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
     NSDictionary *info = @{@"course":_courseTextField.text, @"courseclass":_classTextField.text, @"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]};
+    NSLog(@"검색 조건 : %@", info);
     
     SearchResultViewController *viewController = [[SearchResultViewController alloc] initWithInfo:info];
     

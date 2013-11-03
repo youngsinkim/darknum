@@ -285,24 +285,43 @@
         }
         
         NSMutableString *descString = [NSMutableString stringWithFormat:@""];
-        if (_cellInfo[@"company"]) {
-            [descString appendString:_cellInfo[@"company"]];
-        }
-        
-        if (_cellInfo[@"department"]) {
-            if (descString.length > 0) {
-                [descString appendFormat:@" "];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            if (_cellInfo[@"company"]) {
+                [descString appendString:_cellInfo[@"company"]];
             }
-            [descString appendString:_cellInfo[@"department"]];
-        }
-        
-        if (_cellInfo[@"title"]) {
-            if (descString.length > 0) {
-                [descString appendFormat:@" "];
+            
+            if (_cellInfo[@"department"]) {
+                if (descString.length > 0) {
+                    [descString appendFormat:@" "];
+                }
+                [descString appendString:_cellInfo[@"department"]];
             }
-            [descString appendString:_cellInfo[@"title"]];
+            
+            if (_cellInfo[@"title"]) {
+                if (descString.length > 0) {
+                    [descString appendFormat:@" "];
+                }
+                [descString appendString:_cellInfo[@"title"]];
+            }
+        } else {
+            if (_cellInfo[@"company_en"]) {
+                [descString appendString:_cellInfo[@"company_en"]];
+            }
+            
+            if (_cellInfo[@"department_en"]) {
+                if (descString.length > 0) {
+                    [descString appendFormat:@" "];
+                }
+                [descString appendString:_cellInfo[@"department_en"]];
+            }
+            
+            if (_cellInfo[@"title_en"]) {
+                if (descString.length > 0) {
+                    [descString appendFormat:@" "];
+                }
+                [descString appendString:_cellInfo[@"title_en"]];
+            }
         }
-        
         _companyLabel.text = descString;
         if ([_cellInfo[@"share_company"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
             _companyLabel.hidden = NO;

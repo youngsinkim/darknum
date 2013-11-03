@@ -6,9 +6,6 @@
 /// Address Title
 "address_title" = "Favorites list";
 
-/// Login Title
-"login_title" = "LOGIN";
-
 /* Login */
 "Login" = "Log-in";
 
@@ -103,13 +100,13 @@
 "%d student" = "Total of %d members";
 
 /* Take a Photo */
-"Take a Photo" = "Take a Photo";
+"Take a Photo" = "Camera";
 
 /* Photo of Library */
-"Photo of Library" = "Photo of Library";
+"Photo of Library" = "Gallery";
 
 /* Delete Photo */
-"Delete Photo" = "Delete Photo";
+"Delete Photo" = "Delete";
 
 /* update download title */
 "update download title" = "Update Download";
@@ -262,7 +259,31 @@
 "Email Recipients %d" = "Select mail recipient (%d)";
 
 /* Limit Error Msg */
-"Limit Error Msg" = "한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.";
+"Limit Error Msg" = "The number of characters that can be sent at one time is limited to 20 cases.";
 
 /* Search Name */
 "Search Name" = "Search Name";
+
+/* No Search Text */
+"No Search Text" = "There are no search terms.";
+
+/* No Search Text Length */
+"No Search Text %d Length" = "You must enter at least %d letters as a search term.";
+
+/* Auto Login */
+"Auto Login" = "Auto Log-in";
+
+/* Company Korean */
+"Company Korean" = "Company(Korean)";
+
+/* Company English */
+"Company English" = "Company(English)";
+
+/* Company */
+"Company" = "Company";
+
+/* Department */
+"Department" = "Department";
+
+/* Title */
+"Title" = "Title";

@@ -6,9 +6,6 @@
 /// Address Title
 "address_title" = "주소록";
 
-/// Login Title
-"login_title" = "로그인";
-
 /* Login */
 "Login" = "로그인";
 
@@ -103,13 +100,13 @@
 "%d student" = "%d명의 학생 연락처가 있습니다.";
 
 /* Take a Photo */
-"Take a Photo" = "사진 촬영";
+"Take a Photo" = "카메라";
 
 /* from Library */
-"Photo of Library" = "앨범에서 가져오기";
+"Photo of Library" = "갤러리";
 
 /* Delete Photo */
-"Delete Photo" = "사진 삭제";
+"Delete Photo" = "삭제";
 
 /* update download title */
 "update download title" = "업데이트 다운로드";
@@ -266,4 +263,28 @@
 
 /* Search Name */
 "Search Name" = "이름 검색";
+
+/* No Search Text */
+"No Search Text" = "검색어가 없습니다.";
+
+/* No Search Text Length */
+"No Search Text %d Length" = "검색어는 %d자 이상 입력하셔야 합니다.";
+
+/* Auto Login */
+"Auto Login" = "자동 로그인";
+
+/* Company Korean */
+"Company Korean" = "직장(국문)";
+
+/* Company English */
+"Company English" = "직장(영문)";
+
+/* Company */
+"Company" = "직장명";
+
+/* Department */
+"Department" = "부서명";
+
+/* Title */
+"Title" = "직위";
 
