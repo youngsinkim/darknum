@@ -11,7 +11,7 @@
 #import <MBProgressHUD.h>
 #import <MFSideMenu.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, MBProgressHUDDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, MBProgressHUDDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MFSideMenuContainerViewController *container;

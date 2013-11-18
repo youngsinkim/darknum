@@ -50,6 +50,9 @@
 @property (strong, nonatomic) NSString *myClass;                //< 내 기수 정보
 @property (strong, nonatomic) NSString *language;       // 설정 언어 정보
 
+@property (strong, nonatomic) NSString *appUpdateUrl;           //< 업데이트 url 정보 (AppStore Url)
+
+
 @property (assign, nonatomic) BOOL isAutoLogin;         //< 자동 로그인 설정 값 (이 값에 따라 로그인 창을 띄울지 말지를 결정한다.)
 @property (assign, nonatomic) BOOL isAcceptTerms;       //< 약관 동의 설정 값 (약관 동의 안한 경우, 최초나 로그인 시에 약관 동의 화면을 노출하기 위해 사용)
 @property (assign, nonatomic) BOOL isExistProfile;      //< 내 정보 설정 갑시 (내 정보를 설정하지 않은 경우, 최초나 로그인 시에 프로필 화면을 노출하기 위해 사용)

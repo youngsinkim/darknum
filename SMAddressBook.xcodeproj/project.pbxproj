@@ -454,6 +454,7 @@
 		BF5901811826602E00DD6980 /* ic_fn_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5901721826602E00DD6980 /* ic_fn_sms.png */; };
 		BF5901821826602E00DD6980 /* ic_fn_sms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5901731826602E00DD6980 /* ic_fn_sms@2x.png */; };
 		BF5901831826602E00DD6980 /* ic_fn_sms@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5901731826602E00DD6980 /* ic_fn_sms@2x.png */; };
+		BF8E5837183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
 		BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
 		BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
@@ -613,7 +614,6 @@
 		BF177EA917CBBAE700614485 /* CourseClassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseClassCell.h; sourceTree = "<group>"; };
 		BF177EAA17CBBAE700614485 /* CourseClassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseClassCell.m; sourceTree = "<group>"; };
 		BF241D39180931AE001A7AA0 /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF241D3A180931AF001A7AA0 /* SMAddressBook_Adhoc-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SMAddressBook_Adhoc-Info.plist"; path = "/Users/sochae78/Desktop/project/snumba_1012/SMAddressBook_Adhoc-Info.plist"; sourceTree = "<absolute>"; };
 		BF3B465417C64BDA0069AA9A /* SMNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNetworkClient.h; sourceTree = "<group>"; };
 		BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNetworkClient.m; sourceTree = "<group>"; };
 		BF3B466B17C6664F0069AA9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -760,6 +760,7 @@
 		BF5901711826602E00DD6980 /* ic_fn_sms_disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fn_sms_disable@2x.png"; sourceTree = "<group>"; };
 		BF5901721826602E00DD6980 /* ic_fn_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_fn_sms.png; sourceTree = "<group>"; };
 		BF5901731826602E00DD6980 /* ic_fn_sms@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fn_sms@2x.png"; sourceTree = "<group>"; };
+		BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SMAddressBook_Adhoc-Info.plist"; sourceTree = "<group>"; };
 		BF9CC1AF17EE2396000862F0 /* ToolViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewCell.h; sourceTree = "<group>"; };
 		BF9CC1B017EE2396000862F0 /* ToolViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewCell.m; sourceTree = "<group>"; };
 		BFA79CA11819556B005E37FA /* AllFacultyAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllFacultyAddressViewController.h; sourceTree = "<group>"; };
@@ -930,7 +931,7 @@
 				BF3B466C17C6691E0069AA9A /* Localizable.strings */,
 				5062B65317C4D72F00A2495D /* Assets */,
 				5062B62217C4C10400A2495D /* SMAddressBook-Info.plist */,
-				BF241D3A180931AF001A7AA0 /* SMAddressBook_Adhoc-Info.plist */,
+				BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */,
 				5062B62317C4C10400A2495D /* InfoPlist.strings */,
 				5062B62617C4C10400A2495D /* main.m */,
 				5062B62817C4C10400A2495D /* SMAddressBook-Prefix.pch */,
@@ -1492,6 +1493,7 @@
 				5062B69F17C4D72F00A2495D /* btn_menu.png in Resources */,
 				5062B6A017C4D72F00A2495D /* btn_menu@2x.png in Resources */,
 				BF5901301824CD4D00DD6980 /* ic_list_prof.png in Resources */,
+				BF8E5837183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist in Resources */,
 				5062B6A117C4D72F00A2495D /* cell_background.png in Resources */,
 				5062B6A217C4D72F00A2495D /* cell_background@2x.png in Resources */,
 				5062B6A317C4D72F00A2495D /* cell_selected_background.png in Resources */,

@@ -397,13 +397,25 @@
     NSString *crytoMobileNo = [Util phoneNumber];
 //    NSDate *updateTime = [[UserContext shared] updateDate];
     NSString *lastUpdate = [[UserContext shared] lastUpdateDate];
+    NSString *lang = [UserContext shared].language;
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appDisplayName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+    NSString *majorVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *minorVersion = [infoDictionary objectForKey:@"CFBundleVersion"];
+    NSLog(@"app:%@, major:%@, minor:%@", appDisplayName, majorVersion, minorVersion);
     
     // TODO: 업데이트 시간 최초 이회에 마지막 시간 값으로 세팅되도록 수정 필요
     NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
                             @"phone":crytoMobileNo,
                             @"updatedate":lastUpdate,
                             @"userid":_idTextField.text,
-                            @"passwd":_pwdTextField.text};
+                            @"passwd":_pwdTextField.text,
+                            @"lang":lang,
+                            @"os":@"iOS",
+                            @"version":version};
 
     // MARK: 서버로 로그인 요청
     [self requestAPILogin:param];
@@ -554,11 +566,12 @@
                                                         [UserContext shared].isSavedID = YES;
                                                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
                                                     }
+                                                    [UserContext shared].userPwd = [self.pwdTextField text];
+                                                    NSLog(@"비밀번호: %@", [UserContext shared].userPwd);
                                                 
                                                     // 자동 로그인 체크되어 있으면 비밀번호 및 자동 로그인 여부 저장.
                                                     if (self.loginSaveCheckBtn.selected == YES)
                                                     {
-                                                        [UserContext shared].userPwd = dict[kUserPwd];
                                                         [UserContext shared].isAutoLogin = YES;
 
                                                         [[NSUserDefaults standardUserDefaults] setValue:[self.pwdTextField text] forKey:kUserPwd];
@@ -568,6 +581,26 @@
                                                     [[NSUserDefaults standardUserDefaults] synchronize];
                                                     [UserContext shared].isLogined = YES;
 
+                                                    // 업데이트가 존재하면 팝업으로 공지함.
+                                                    if ([dict[@"forceupdate"] isEqualToString:@"y"])
+                                                    {
+                                                        // update url
+                                                        NSString *appUpdateUrl = [NSString stringWithFormat:@"%@", dict[@"updateurl"]];
+                                                        if (appUpdateUrl.length > 0)
+                                                        {
+                                                            [UserContext shared].appUpdateUrl = appUpdateUrl;
+
+                                                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                                                                message:LocalizedString(@"update alert msg", @"업데이트 알림 메시지")
+                                                                                                               delegate:self
+                                                                                                      cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+                                                                                                      otherButtonTitles:LocalizedString(@"Cancel", @"Cancel"),
+                                                                                       nil];
+                                                            alertView.tag = 900;
+                                                            [alertView show];
+                                                            return;
+                                                        }
+                                                    }
                                                 }
                                                 
 
@@ -605,4 +638,25 @@
                                             [self resetUI];
                                         }];
 }
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 900)
+    {
+        /* 업데이트 진행 */
+        if (buttonIndex == alertView.cancelButtonIndex)
+        {
+            NSString *url = [UserContext shared].appUpdateUrl;
+            if (url.length > 0) {
+                // https://itunes.apple.com/kr/app/~
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            }
+        }
+        else {
+            NSLog(@"NONONONONONONONO");
+        }
+    }
+}
+
 @end

@@ -287,3 +287,6 @@
 
 /* Title */
 "Title" = "Title";
+
+/* update alert msg */
+"update alert msg" = "SNU Biz Members has been updated. Do you want to update it?";

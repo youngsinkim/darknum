@@ -52,6 +52,7 @@ static UserContext *_sharedUserContext = nil;
         _sharedUserContext.isSavedID = NO;
 
         _sharedUserContext.language = [TSLanguageManager selectedLanguage];
+        _sharedUserContext.appUpdateUrl = @"";
 
         return _sharedUserContext;
 	}
@@ -136,6 +137,8 @@ static UserContext *_sharedUserContext = nil;
     _language = [TSLanguageManager selectedLanguage];
     NSLog(@"현재 언어 : %@", _language);
     
+    _appUpdateUrl = @"";
+
     NSLog(@"previous AppInfo : \nautoLogin(%d), acceptTerms(%d), isProfile(%d), certno(%@), memtype(%@), updatecnt(%@), updateTime:%@, userID(%@), passWD(%@), userKey(%@)",
           _isAutoLogin, _isAcceptTerms, _isExistProfile, _certNo, _memberType, _updateCount, _lastUpdateDate, _userId, _userPwd, _userKey);
 

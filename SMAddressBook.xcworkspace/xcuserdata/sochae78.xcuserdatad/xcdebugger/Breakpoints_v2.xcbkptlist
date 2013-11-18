@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/LoginViewController.m"
-            timestampString = "403022914.156313"
+            timestampString = "406475616.7503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "501"
+            endingLineNumber = "501"
             landmarkName = "-requestAPILogin:"
             landmarkType = "5">
          </BreakpointContent>
@@ -899,22 +899,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/LoginViewController.m"
-            timestampString = "403022914.156313"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
-            landmarkName = "-onLoginClicked"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
             timestampString = "405170500.466057"
             startingColumnNumber = "9223372036854775807"
@@ -1075,22 +1059,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/LoginViewController.m"
-            timestampString = "403022914.156313"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "549"
-            endingLineNumber = "549"
-            landmarkName = "-requestAPILogin:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
             timestampString = "403538771.698397"
             startingColumnNumber = "9223372036854775807"
@@ -1235,13 +1203,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SearchViewController.m"
-            timestampString = "405166839.56442"
+            filePath = "SMAddressBook/MyInfoViewController.m"
+            timestampString = "406479406.627242"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
-            landmarkName = "-onSearchBtnClicked:"
+            startingLineNumber = "1158"
+            endingLineNumber = "1158"
+            landmarkName = "-onSaveBtnClicked:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

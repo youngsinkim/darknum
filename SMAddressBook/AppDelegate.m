@@ -508,13 +508,19 @@
     NSString *crytoMobileNo = [Util phoneNumber];
     NSString *lastUpdate = [[UserContext shared] lastUpdateDate];
     NSLog(@".......... 마지막 업데이트 시간 : %@ ..........", lastUpdate);
+    NSString *lang = [UserContext shared].language;
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
     
     // TODO: 업데이트 시간 최초 이회에 마지막 시간 값으로 세팅되도록 수정 필요
     NSDictionary *param = @{@"scode":[crytoMobileNo MD5],
                             @"phone":crytoMobileNo,
                             @"updatedate":lastUpdate,
                             @"userid":[UserContext shared].userId,
-                            @"passwd":[UserContext shared].userPwd};
+                            @"passwd":[UserContext shared].userPwd,
+                            @"lang":lang,
+                            @"os":@"iOS",
+                            @"version":version};
+
     NSLog(@"(/fb/login) Request Parameter : %@", param);
 
 //    [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
@@ -570,6 +576,27 @@
                                                     
                                                 }
                                                 
+                                                // 업데이트가 존재하면 팝업으로 공지함.
+                                                if ([dict[@"forceupdate"] isEqualToString:@"y"])
+                                                {
+                                                    // update url
+                                                    NSString *appUpdateUrl = [NSString stringWithFormat:@"%@", dict[@"updateurl"]];
+                                                    if (appUpdateUrl.length > 0)
+                                                    {
+                                                        [UserContext shared].appUpdateUrl = appUpdateUrl;
+                                                        
+                                                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                                                            message:LocalizedString(@"update alert msg", @"업데이트 알림 메시지")
+                                                                                                           delegate:self
+                                                                                                  cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+                                                                                                  otherButtonTitles:LocalizedString(@"Cancel", @"Cancel"),
+                                                                                  nil];
+                                                        alertView.tag = 900;
+                                                        [alertView show];
+                                                        return;
+                                                    }
+                                                }
+
                                                 
                                                 [self.splashViewController dismissViewControllerAnimated:NO completion:nil];
                                                 
@@ -601,6 +628,27 @@
                                             }
                                             
                                         }];
+}
+
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 900)
+    {
+        /* 업데이트 진행 */
+        if (buttonIndex == alertView.cancelButtonIndex)
+        {
+            NSString *url = [UserContext shared].appUpdateUrl;
+            if (url.length > 0) {
+                // https://itunes.apple.com/kr/app/~
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            }
+        }
+        else {
+            NSLog(@"NONONONONONONONO");
+        }
+    }
 }
 
 @end

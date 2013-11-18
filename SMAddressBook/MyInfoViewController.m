@@ -1060,6 +1060,7 @@
 
 }
 
+/// 자동 로그인 옵션
 - (void)onAutoLoginBtnClicked:(UIButton *)sender
 {
     [sender setSelected:![sender isSelected]];
@@ -1143,10 +1144,13 @@
     
     if (isAutoLogin == YES) {
         NSLog(@"아이디도 저장함");
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSavedId];
-        [UserContext shared].isSavedID = YES;
-        
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kAutoLogin];
+//        [UserContext shared].isAutoLogin = YES;
         _chIdSaveBtn.selected = YES;
+        
+        NSLog(@"비밀번호 저장 : %@", [UserContext shared].userPwd);
+        [[NSUserDefaults standardUserDefaults] setValue:[UserContext shared].userPwd forKey:kUserPwd];
+
     }
     
     [[NSUserDefaults standardUserDefaults] setBool:isAutoLogin forKey:kAutoLogin];
