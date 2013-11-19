@@ -290,3 +290,6 @@
 
 /* update alert msg */
 "update alert msg" = "SNU Biz Members의 새버전이 나왔습니다. 업데이트하시겠습니까?";
+
+/* Member Login */
+"Member Login" = "Member Login";

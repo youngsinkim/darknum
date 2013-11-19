@@ -290,3 +290,6 @@
 
 /* update alert msg */
 "update alert msg" = "SNU Biz Members has been updated. Do you want to update it?";
+
+/* Member Login */
+"Member Login" = "Member Login";

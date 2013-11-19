@@ -645,8 +645,34 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             }
         }
-        else {
-            NSLog(@"NONONONONONONONO");
+        else
+        {
+            [self.splashViewController dismissViewControllerAnimated:NO completion:nil];
+            
+            // 로그인 성공 후, 약관 동의를 하지 않았으면 약관동의 화면으로 이동
+            if ([[UserContext shared] isAcceptTerms] == NO)
+            {
+                // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
+                TermsViewController *termsViewController = [[TermsViewController alloc] init];
+                
+                [self.container.centerViewController presentViewController:[self navigationController:termsViewController] animated:NO completion:nil];
+            }
+            else if ([[UserContext shared] isExistProfile] == NO)
+            {
+                // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
+                MenuTableViewController *leftMenuViewController = (MenuTableViewController *)self.container.leftMenuViewController;
+                
+                [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
+            }
+            else
+            {
+                // 로그인 성공하면 즐겨찾기 화면으로 이동
+                //                                                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                //                                                    [appDelegate showMainViewController:self animated:YES];
+                
+                // 메뉴 구성 먼저하고, 로그인 창을 모달로 띄운 시나리오에서는 해당 로그인 창을 닫는 루틴 처리.
+                //                                                    [self.splashViewController.parentViewController dismissViewControllerAnimated:NO completion:nil];
+            }
         }
     }
 }

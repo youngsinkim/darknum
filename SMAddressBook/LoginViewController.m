@@ -21,6 +21,8 @@
 @property (strong, nonatomic) MBProgressHUD *HUD;
 //@property (strong, nonatomic) LoadingView *loading;
 @property (strong, nonatomic) UILabel *infoLabel;
+@property (strong, nonatomic) UILabel *loginLabel;
+@property (strong, nonatomic) UIImageView *titleImgView;
 @property (strong, nonatomic) UITextField *idTextField;
 @property (strong, nonatomic) UITextField *pwdTextField;
 @property (strong, nonatomic) UIButton *loginBtn;
@@ -40,7 +42,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"Login", @"로그인");
+//        self.navigationItem.title = LocalizedString(@"Login", @"로그인");
+        self.navigationItem.title = LocalizedString(@"SNU BIZ members", @"SNU BIZ members");
     }
     return self;
 }
@@ -53,13 +56,14 @@
     // 로그인 화면은 상속받은 네비게이션 버튼 표시 안함.
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil; 
+//    self.navigationController.navigationBarHidden = YES;
     
 //    self.extendedLayoutIncludesOpaqueBars = YES;
 //    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
 //    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
 //    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 //    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x133E89)];
-//    self.view.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2f];
+    self.view.backgroundColor = [UIColor colorWithRed:5/255 green:15/255 blue:28/255 alpha:1.0];
     
 
     // 로그인 화면 구성
@@ -109,27 +113,46 @@
     [self.view addSubview:bgView];
     
     {
-        CGFloat xOffset = 10.0f;
-        CGFloat yOffset = 5.0f;
-        CGFloat startY = 10.0f;
-        
+        CGFloat xOffset = 30.0f;
+        CGFloat yOffset = 10.0f;
+        CGFloat startY = 20.0f;
+
+        // 로그인 제목
+//        startY += 40.0f;
+//        _titleImgView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset + 20, startY, 220.0f, 30.0f)];
+//        _titleImgView.image = [UIImage imageNamed:@"splash_title"];
+//        
+//        [bgView addSubview:_titleImgView];
+//        startY += (_titleImgView.frame.size.height + 10 + yOffset);
+
+        // Member Login
+        _loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, startY, 280.0f, 20.0f)];
+        [_loginLabel setTextAlignment:NSTextAlignmentLeft];
+        [_loginLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        _loginLabel.textColor = UIColorFromRGB(0x00aae2);
+        _loginLabel.backgroundColor = [UIColor clearColor];
+        _loginLabel.text = LocalizedString(@"Member Login", @"Member Login");
+
+        [bgView addSubview:_loginLabel];
+        startY += (_loginLabel.frame.size.height);
+
         // 로그인 안내 문구
-        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, startY, 280.0f, 60.0f)];
-        [_infoLabel setTextAlignment:NSTextAlignmentCenter];
-        [_infoLabel setLineBreakMode:NSLineBreakByWordWrapping];
-        [_infoLabel setNumberOfLines:0];
-        [_infoLabel setFont:[UIFont systemFontOfSize:14.0f]];
-        _infoLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
-        _infoLabel.backgroundColor = [UIColor clearColor];
-        _infoLabel.text = LocalizedString(@"login_info_text", @"로그인 안내 문구");
-        
-        [bgView addSubview:_infoLabel];
-        startY += (_infoLabel.frame.size.height + yOffset);
+//        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, startY, 280.0f, 60.0f)];
+//        [_infoLabel setTextAlignment:NSTextAlignmentCenter];
+//        [_infoLabel setLineBreakMode:NSLineBreakByWordWrapping];
+//        [_infoLabel setNumberOfLines:0];
+//        [_infoLabel setFont:[UIFont systemFontOfSize:14.0f]];
+//        _infoLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
+//        _infoLabel.backgroundColor = [UIColor clearColor];
+//        _infoLabel.text = LocalizedString(@"login_info_text", @"로그인 안내 문구");
+//        
+//        [bgView addSubview:_infoLabel];
+//        startY += (_infoLabel.frame.size.height + yOffset);
         
         
         // 아이디 입력창
-        UIImage *inputBoxBg = [UIImage imageNamed:@"input_text_border"];
-        _idTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 200.0f, 28.0f)];
+        UIImage *inputBoxBg = [[UIImage imageNamed:@"bg_w_round.9.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
+        _idTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 260.0f, 30.0f)];
         _idTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
         _idTextField.delegate = self;
         _idTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
@@ -137,32 +160,19 @@
 //        [_idTextField setBorderStyle:UITextBorderStyleLine];
 //        [_idTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
         [_idTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
-        [_idTextField setTextAlignment:NSTextAlignmentCenter];
+        [_idTextField setTextAlignment:NSTextAlignmentLeft];
         [_idTextField setReturnKeyType:UIReturnKeyNext];
         [_idTextField setKeyboardType:UIKeyboardTypeDefault];
         [_idTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         _idTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _idTextField.font = [UIFont systemFontOfSize:16.0f];
+        _idTextField.font = [UIFont systemFontOfSize:14.0f];
         
         [bgView addSubview:_idTextField];
-        
-        
-        // 로그인 버튼
-        _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loginBtn.frame = CGRectMake(xOffset + _idTextField.frame.size.width + 10.0f, startY, 70.0f, 60.0f);
-        [_loginBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-        [_loginBtn setTitle:LocalizedString(@"Login", @"로그인") forState:UIControlStateNormal];
-        [_loginBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _loginBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        _loginBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_loginBtn addTarget:self action:@selector(onLoginClicked) forControlEvents:UIControlEventTouchUpInside];
-        
-        [bgView addSubview:_loginBtn];
         startY += (_idTextField.frame.size.height + yOffset);
-
+        
         
         // 비밀번호 입력창
-        _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 200.0f, 28.0f)];
+        _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 260.0f, 30.0f)];
         _pwdTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
         _pwdTextField.delegate = self;
         _pwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
@@ -170,17 +180,30 @@
 //        [_pwdTextField setBorderStyle:UITextBorderStyleLine];
 //        [_pwdTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
         [_pwdTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
-        [_pwdTextField setTextAlignment:NSTextAlignmentCenter];
+        [_pwdTextField setTextAlignment:NSTextAlignmentLeft];
         [_pwdTextField setReturnKeyType:UIReturnKeyDone];
         [_pwdTextField setKeyboardType:UIKeyboardTypeDefault];
         [_pwdTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [_pwdTextField setSecureTextEntry:YES];
         _pwdTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _pwdTextField.font = [UIFont systemFontOfSize:16.0f];
+        _pwdTextField.font = [UIFont systemFontOfSize:14.0f];
         
         [bgView addSubview:_pwdTextField];
-        startY += (_pwdTextField.frame.size.height + yOffset + 10);
-                
+        startY += (_pwdTextField.frame.size.height + yOffset);
+
+        // 로그인 버튼
+        _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _loginBtn.frame = CGRectMake(xOffset, startY, 260.0f, 34.0f);
+        [_loginBtn setBackgroundImage:[[UIImage imageNamed:@"btn_login.9.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
+        [_loginBtn setTitle:LocalizedString(@"Login", @"로그인") forState:UIControlStateNormal];
+        [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _loginBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        _loginBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_loginBtn addTarget:self action:@selector(onLoginClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        [bgView addSubview:_loginBtn];
+        startY += (_idTextField.frame.size.height + yOffset);
+
 /* 1차 개박에서 단말 속성 따라가기로 결정하여 제외
         // 한국어 버튼
         _koLanguageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -239,11 +262,13 @@
         [_loginSaveCheckBtn addTarget:self action:@selector(onLoginSaveChecked:) forControlEvents:UIControlEventTouchUpInside];
         
         [bgView addSubview:_loginSaveCheckBtn];
-        
+//        startY += (_loginSaveCheckBtn.frame.size.height + 60);
+        startY = (bgView.frame.origin.y + bgView.frame.size.height + yOffset + 10);
+
         
         /* 아이디 찾기 버튼 */
         _findIdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _findIdBtn.frame = CGRectMake(30.0f, self.view.frame.size.height - 200.0f, 120.0f, 30.0f);
+        _findIdBtn.frame = CGRectMake(30.0f, startY, 120.0f, 30.0f);
         [_findIdBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:4] forState:UIControlStateNormal];
         _findIdBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [_findIdBtn setTitle:LocalizedString(@"id_find_text", @"아이디 찾기") forState:UIControlStateNormal];
@@ -255,7 +280,7 @@
         
         /* 비밀번호 찾기 버튼 */
         _findPasswdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _findPasswdBtn.frame = CGRectMake(self.view.frame.size.width - 150.0f, self.view.frame.size.height - 200.0f, 120.0f, 30.0f);
+        _findPasswdBtn.frame = CGRectMake(self.view.frame.size.width - 150.0f, startY, 120.0f, 30.0f);
         [_findPasswdBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:4] forState:UIControlStateNormal];
         _findPasswdBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [_findPasswdBtn setTitle:LocalizedString(@"password_find_text", @"비밀번호 찾기") forState:UIControlStateNormal];
@@ -653,8 +678,37 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
             }
         }
-        else {
-            NSLog(@"NONONONONONONONO");
+        else
+        {
+            // 로그인 성공 후, 약관 동의 화면 or 즐겨찾기 화면으로 이동
+            NSLog(@"약관 동의 했나? %d", [[UserContext shared] isAcceptTerms]);
+            if ([UserContext shared].isAcceptTerms == NO)
+            {
+                // 약관 동의 하지 않았으면, 약관 동의 화면으로 이동
+                TermsViewController *termsViewController = [[TermsViewController alloc] init];
+                
+                [self.navigationController pushViewController:termsViewController animated:YES];
+            }
+            else
+            {
+                // 로그인 성공하면 즐겨찾기 화면으로 이동
+                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                //                                                    [appDelegate showMainViewController:self animated:YES];
+                
+                // 메뉴 구성 먼저하고, 로그인 창을 모달로 띄운 시나리오에서는 해당 로그인 창을 닫는 루틴 처리.
+                [self.navigationController dismissViewControllerAnimated:NO completion:nil];
+                
+                if ([[UserContext shared] isExistProfile] == NO)
+                {
+                    // 로그인 이후, 최초 프로필 설정이 안되어 있으면 프로필 화면으로 이동
+                    MenuTableViewController *leftMenuViewController = (MenuTableViewController *)appDelegate.container.leftMenuViewController;
+                    
+                    [leftMenuViewController menuNavigationController:MenuViewTypeSettMyInfo withMenuInfo:nil];
+                }
+                
+            }
+            
+            [self resetUI];
         }
     }
 }
