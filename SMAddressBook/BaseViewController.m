@@ -57,23 +57,28 @@
 //    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
 //    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x104E8B)];
     if (IS_LESS_THEN_IOS7) {
-        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
+        [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1]];
     } else {
 //        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
 //        [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
 //        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x0080FF)];
-//        [self.navigationController.navigationBar setTranslucent:NO];
+        [self.navigationController.navigationBar setTranslucent:NO];
 
         
-//        self.navigationController.navigationBar.barTintColor = [UIColor blueColor];
-//        self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];// UIColorFromRGB(0x142c6d);
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        
+        //sets navBar TITLE color and font
+        NSDictionary *textAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        self.navigationController.navigationBar.titleTextAttributes = textAttributes;
     }
     
     // 타이틀 뷰
-    _titleView = [[TitleView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 44.0f)];
+//    _titleView = [[TitleView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
 //    _titleView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5f];
     
 //    [self.navigationItem setTitleView:_titleView];
+//    self.titleLabel.textColor = [UIColor whiteColor];
     
     // 네비게이션 버튼
     [self setupMenuBarButtonItems];

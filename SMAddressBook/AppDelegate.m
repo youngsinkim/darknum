@@ -43,7 +43,9 @@
 
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    
+
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     //-------------------- App 사용 메모리 설정 --------------------
     int cacheSizeMemory = 4 * 1024 * 1024;
 	int cacheSizeDisk	= 32 * 1024 * 1024;
