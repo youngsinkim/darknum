@@ -43,7 +43,7 @@
     if (self) {
         // Custom initialization
 //        self.navigationItem.title = LocalizedString(@"Login", @"로그인");
-        self.navigationItem.title = LocalizedString(@"SNU BIZ members", @"SNU BIZ members");
+        self.navigationItem.title = LocalizedString(@"SNU Biz members", @"SNU Biz members");
     }
     return self;
 }
@@ -57,14 +57,7 @@
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil; 
 //    self.navigationController.navigationBarHidden = YES;
-    
 //    self.extendedLayoutIncludesOpaqueBars = YES;
-//    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-//    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x133E89)];
-    self.view.backgroundColor = [UIColor colorWithRed:5/255 green:15/255 blue:28/255 alpha:1.0];
-    
 
     // 로그인 화면 구성
     [self setupLoginUI];
@@ -95,114 +88,154 @@
 - (void)setupLoginUI
 {
     CGRect rect = self.view.frame;
-    CGFloat yOffset = 0.0f;
+    CGFloat yOffset = 30.0f;
+    CGFloat xOffset = 30.0f;
     
     if (!IS_LESS_THEN_IOS7) {
-        yOffset += 64.0f;
+//        yOffset += 64.0f;
     }
     
-    // 배경 라인 박스
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, yOffset, rect.size.width, 200.0f)];
-    bgView.backgroundColor = [UIColor clearColor];
-//    [bgView.layer setCornerRadius:6.0f];
-//    [bgView.layer setBackgroundColor:[UIColor colorWithRed:135.0f/255.0 green:206.0f/255.0 blue:250.0f/255.0 alpha:0.2f].CGColor];
-//    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.2f].CGColor];
-//    [bgView.layer setBorderWidth:1.0f];
-//    [bgView setUserInteractionEnabled:YES];
+    // Member Login
+    _loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 18.0f)];
+    [_loginLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
+    _loginLabel.textColor = UIColorFromRGB(0x142c6d);
+    _loginLabel.backgroundColor = [UIColor clearColor];
+    _loginLabel.text = LocalizedString(@"Member Login", @"Member Login");
+
+    [self.view addSubview:_loginLabel];
+    yOffset += (_loginLabel.frame.size.height + 5.0f);
+
     
-    [self.view addSubview:bgView];
-    
+    // 아이디 입력창
+    UIImage *inputBgImage = [[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f];
+    _idTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 320.0f - (xOffset * 2), inputBgImage.size.height)];
+    _idTextField.delegate = self;
+    [_idTextField setBackground:inputBgImage];
+    [_idTextField setTextColor:UIColorFromRGB(0x404040)];
+    [_idTextField setReturnKeyType:UIReturnKeyNext];
+    [_idTextField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_idTextField setPlaceholder:LocalizedString(@"user_id_placeholder", @"아이디 빈문자열")];
+    [_idTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     {
-        CGFloat xOffset = 30.0f;
-        CGFloat yOffset = 10.0f;
-        CGFloat startY = 20.0f;
+        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, inputBgImage.size.height)];
+        [_idTextField setLeftView:paddingView];
+        [_idTextField setLeftViewMode:UITextFieldViewModeAlways];
+    }
+    
+    [self.view addSubview:_idTextField];
+    yOffset += (_idTextField.frame.size.height + 10.0f);
+    
+        
+    // 비밀번호 입력창
+    _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 320.0f - (xOffset * 2.0f), inputBgImage.size.height)];
+    _pwdTextField.delegate = self;
+    [_pwdTextField setBackground:inputBgImage];
+    [_pwdTextField setTextColor:UIColorFromRGB(0x404040)];
+    [_pwdTextField setReturnKeyType:UIReturnKeyDone];
+    [_pwdTextField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_pwdTextField setPlaceholder:LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열")];
+    [_pwdTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_pwdTextField setSecureTextEntry:YES];
+    {
+        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, inputBgImage.size.height)];
+        [_pwdTextField setLeftView:paddingView];
+        [_pwdTextField setLeftViewMode:UITextFieldViewModeAlways];
+    }
+    
+    [self.view addSubview:_pwdTextField];
+    yOffset += (_pwdTextField.frame.size.height + 10.0f);
+    
+    
+    // 로그인 button
+    UIImage *btnImage = [UIImage imageNamed:@"btn_cyan"];
+    _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _loginBtn.frame = CGRectMake(xOffset, yOffset, 320.0f - (xOffset * 2.0f), btnImage.size.height);
+    [_loginBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
+    [_loginBtn setTitle:LocalizedString(@"Login", @"로그인") forState:UIControlStateNormal];
+    [_loginBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
+    [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_loginBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [_loginBtn addTarget:self action:@selector(onLoginClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_loginBtn];
+    yOffset += (_loginBtn.frame.size.height + 12.0f);
+    
+    
+    // 아이디 저장 button
+    _idSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _idSaveCheckBtn.frame = CGRectMake(xOffset, yOffset, 90.0f, 20.0f);
+    [_idSaveCheckBtn setTitle:LocalizedString(@"id_save_text", @"아이디 저장") forState:UIControlStateNormal];
+    [_idSaveCheckBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
+    _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    _idSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
+    [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
+    [_idSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_idSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+    [_idSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_idSaveCheckBtn addTarget:self action:@selector(onIdSaveChecked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_idSaveCheckBtn];
+    
+    
+    /* 로그인 유지 버튼 */
+    _loginSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _loginSaveCheckBtn.frame = CGRectMake(320.0f - xOffset - 86.0f, yOffset, 90.0f, 20.0f);
+    [_loginSaveCheckBtn setTitle:LocalizedString(@"login_save_text", @"로그인 유지") forState:UIControlStateNormal];
+    [_loginSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    _loginSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
+    [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
+    [_loginSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_loginSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
+    [_loginSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_loginSaveCheckBtn addTarget:self action:@selector(onLoginSaveChecked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_loginSaveCheckBtn];
+    yOffset += (_loginSaveCheckBtn.frame.size.height + 12.0f);
 
-        // 로그인 제목
-//        startY += 40.0f;
-//        _titleImgView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset + 20, startY, 220.0f, 30.0f)];
-//        _titleImgView.image = [UIImage imageNamed:@"splash_title"];
-//        
-//        [bgView addSubview:_titleImgView];
-//        startY += (_titleImgView.frame.size.height + 10 + yOffset);
-
-        // Member Login
-        _loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, startY, 280.0f, 20.0f)];
-        [_loginLabel setTextAlignment:NSTextAlignmentLeft];
-        [_loginLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        _loginLabel.textColor = UIColorFromRGB(0x00aae2);
-        _loginLabel.backgroundColor = [UIColor clearColor];
-        _loginLabel.text = LocalizedString(@"Member Login", @"Member Login");
-
-        [bgView addSubview:_loginLabel];
-        startY += (_loginLabel.frame.size.height);
-
-        // 로그인 안내 문구
-//        _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, startY, 280.0f, 60.0f)];
-//        [_infoLabel setTextAlignment:NSTextAlignmentCenter];
-//        [_infoLabel setLineBreakMode:NSLineBreakByWordWrapping];
-//        [_infoLabel setNumberOfLines:0];
-//        [_infoLabel setFont:[UIFont systemFontOfSize:14.0f]];
-//        _infoLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
-//        _infoLabel.backgroundColor = [UIColor clearColor];
-//        _infoLabel.text = LocalizedString(@"login_info_text", @"로그인 안내 문구");
-//        
-//        [bgView addSubview:_infoLabel];
-//        startY += (_infoLabel.frame.size.height + yOffset);
-        
-        
-        // 아이디 입력창
-        UIImage *inputBoxBg = [[UIImage imageNamed:@"bg_w_round.9.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0];
-        _idTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 260.0f, 30.0f)];
-        _idTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-        _idTextField.delegate = self;
-        _idTextField.placeholder = LocalizedString(@"user_id_placeholder", @"아이디 빈문자열");
-//        _idTextField.text = @"ztest01";
-//        [_idTextField setBorderStyle:UITextBorderStyleLine];
-//        [_idTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
-        [_idTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
-        [_idTextField setTextAlignment:NSTextAlignmentLeft];
-        [_idTextField setReturnKeyType:UIReturnKeyNext];
-        [_idTextField setKeyboardType:UIKeyboardTypeDefault];
-        [_idTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        _idTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _idTextField.font = [UIFont systemFontOfSize:14.0f];
-        
-        [bgView addSubview:_idTextField];
-        startY += (_idTextField.frame.size.height + yOffset);
-        
-        
-        // 비밀번호 입력창
-        _pwdTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, startY, 260.0f, 30.0f)];
-        _pwdTextField.background = [inputBoxBg stretchableImageWithLeftCapWidth:10 topCapHeight:10];
-        _pwdTextField.delegate = self;
-        _pwdTextField.placeholder = LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열");
-//        _pwdTextField.text = @"1111#";
-//        [_pwdTextField setBorderStyle:UITextBorderStyleLine];
-//        [_pwdTextField.layer setBorderColor:[UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0].CGColor];
-        [_pwdTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
-        [_pwdTextField setTextAlignment:NSTextAlignmentLeft];
-        [_pwdTextField setReturnKeyType:UIReturnKeyDone];
-        [_pwdTextField setKeyboardType:UIKeyboardTypeDefault];
-        [_pwdTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [_pwdTextField setSecureTextEntry:YES];
-        _pwdTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        _pwdTextField.font = [UIFont systemFontOfSize:14.0f];
-        
-        [bgView addSubview:_pwdTextField];
-        startY += (_pwdTextField.frame.size.height + yOffset);
-
-        // 로그인 버튼
-        _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loginBtn.frame = CGRectMake(xOffset, startY, 260.0f, 34.0f);
-        [_loginBtn setBackgroundImage:[[UIImage imageNamed:@"btn_login.9.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:14] forState:UIControlStateNormal];
-        [_loginBtn setTitle:LocalizedString(@"Login", @"로그인") forState:UIControlStateNormal];
-        [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _loginBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        _loginBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [_loginBtn addTarget:self action:@selector(onLoginClicked) forControlEvents:UIControlEventTouchUpInside];
-        
-        [bgView addSubview:_loginBtn];
-        startY += (_idTextField.frame.size.height + yOffset);
+    
+    // 라인
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 1.0f)];
+    line.backgroundColor = UIColorFromRGB(0xbbbbbb);
+    
+    [self.view addSubview:line];
+    yOffset += (line.frame.size.height + 20.0f);
+    
+    
+    /* 아이디 찾기 버튼 */
+    UIImage *grayBtnImage = [UIImage imageNamed:@"btn_gray"];
+    _findIdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _findIdBtn.frame = CGRectMake(xOffset, yOffset, grayBtnImage.size.width, grayBtnImage.size.height);
+    [_findIdBtn setBackgroundImage:grayBtnImage forState:UIControlStateNormal];
+    [_findIdBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_findIdBtn setTitle:LocalizedString(@"id_find_text", @"아이디 찾기") forState:UIControlStateNormal];
+    [_findIdBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateNormal];
+    [_findIdBtn addTarget:self action:@selector(onFindIdClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_findIdBtn];
+    
+    
+    /* 비밀번호 찾기 버튼 */
+    _findPasswdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _findPasswdBtn.frame = CGRectMake(320.0f - xOffset - grayBtnImage.size.width, yOffset, grayBtnImage.size.width, grayBtnImage.size.height);
+    [_findPasswdBtn setBackgroundImage:grayBtnImage forState:UIControlStateNormal];
+    _findPasswdBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    [_findPasswdBtn setTitle:LocalizedString(@"password_find_text", @"비밀번호 찾기") forState:UIControlStateNormal];
+    [_findPasswdBtn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateNormal];
+    [_findPasswdBtn addTarget:self action:@selector(onFindPasswdClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_findPasswdBtn];
+    yOffset += (_findIdBtn.frame.size.height + 20.0f);
+    
+    
+    // 하단 Logo
+    UIImageView *logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_logo"]];
+    logoImageView.frame = CGRectMake(xOffset, yOffset, logoImageView.frame.size.width, logoImageView.frame.size.height);
+    logoImageView.center = CGPointMake(320.0f / 2.0f, yOffset + logoImageView.frame.size.height / 2.0f);
+    
+    [self.view addSubview:logoImageView];
 
 /* 1차 개박에서 단말 속성 따라가기로 결정하여 제외
         // 한국어 버튼
@@ -229,66 +262,6 @@
         
         [bgView addSubview:_enLanguageBtn];
 */
-        
-        /* 아이디 저장 버튼 */
-        _idSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _idSaveCheckBtn.frame = CGRectMake(xOffset + 10, startY, 120.0f, 27.0f);
-        [_idSaveCheckBtn setTitle:LocalizedString(@"id_save_text", @"아이디 저장") forState:UIControlStateNormal];
-        [_idSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        _idSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
-        [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
-        [_idSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [_idSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-        [_idSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-        [_idSaveCheckBtn addTarget:self action:@selector(onIdSaveChecked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [bgView addSubview:_idSaveCheckBtn];
-        
-        
-        /* 로그인 유지 버튼 */
-        _loginSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _loginSaveCheckBtn.frame = CGRectMake(xOffset + _idSaveCheckBtn.frame.size.width + 10.0f, startY, 160.0f, 27.0f);
-        [_loginSaveCheckBtn setTitle:LocalizedString(@"login_save_text", @"로그인 유지") forState:UIControlStateNormal];
-        [_loginSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        _loginSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
-        [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
-        [_loginSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [_loginSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-        [_loginSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-        [_loginSaveCheckBtn addTarget:self action:@selector(onLoginSaveChecked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [bgView addSubview:_loginSaveCheckBtn];
-//        startY += (_loginSaveCheckBtn.frame.size.height + 60);
-        startY = (bgView.frame.origin.y + bgView.frame.size.height + yOffset + 10);
-
-        
-        /* 아이디 찾기 버튼 */
-        _findIdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _findIdBtn.frame = CGRectMake(30.0f, startY, 120.0f, 30.0f);
-        [_findIdBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:4] forState:UIControlStateNormal];
-        _findIdBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        [_findIdBtn setTitle:LocalizedString(@"id_find_text", @"아이디 찾기") forState:UIControlStateNormal];
-        [_findIdBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [_findIdBtn addTarget:self action:@selector(onFindIdClicked) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.view addSubview:_findIdBtn];
-        
-        
-        /* 비밀번호 찾기 버튼 */
-        _findPasswdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _findPasswdBtn.frame = CGRectMake(self.view.frame.size.width - 150.0f, startY, 120.0f, 30.0f);
-        [_findPasswdBtn setBackgroundImage:[[UIImage imageNamed:@"white_btn_bg2"] stretchableImageWithLeftCapWidth:4 topCapHeight:4] forState:UIControlStateNormal];
-        _findPasswdBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-        [_findPasswdBtn setTitle:LocalizedString(@"password_find_text", @"비밀번호 찾기") forState:UIControlStateNormal];
-        [_findPasswdBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [_findPasswdBtn addTarget:self action:@selector(onFindPasswdClicked) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.view addSubview:_findPasswdBtn];
-    }
 }
 
 #pragma mark - ViewController methods
@@ -332,8 +305,12 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [super touchesBegan:touches withEvent:event];
     NSLog(@"Touched!");
     [self.view endEditing:YES];// this will do the trick
+
+    [_idTextField resignFirstResponder];
+    [_pwdTextField resignFirstResponder];
     
     // 로딩 중이면 멈춤
     [self resetUI];
@@ -388,6 +365,10 @@
 
     if ([_idTextField isFirstResponder]) {
         [_idTextField resignFirstResponder];
+    }
+    
+    if ([_pwdTextField isFirstResponder]) {
+        [_pwdTextField resignFirstResponder];
     }
 
     // 아이디 문자열 체크
@@ -574,16 +555,18 @@
                                                     [UserContext shared].certNo     = dict[kCertNo];
                                                     [UserContext shared].memberType = dict[kMemType];
                                                     [UserContext shared].updateCount= dict[kUpdateCount];
-                                                    [UserContext shared].userId     = [self.idTextField text];
                                                     [UserContext shared].myClass    = dict[kMyClass];
                                                     [UserContext shared].userKey    = dict[kUserKey];
+                                                    [UserContext shared].myCourse   = dict[kMyCourse];
+                                                    [UserContext shared].userId     = [self.idTextField text];
                                                 
                                                     [[NSUserDefaults standardUserDefaults] setValue:dict[kCertNo] forKey:kCertNo];
                                                     [[NSUserDefaults standardUserDefaults] setValue:dict[kMemType] forKey:kMemType];
                                                     [[NSUserDefaults standardUserDefaults] setValue:dict[kUpdateCount] forKey:kUpdateCount];
                                                     [[NSUserDefaults standardUserDefaults] setValue: dict[kMyClass] forKey:kMyClass];
-                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
                                                     [[NSUserDefaults standardUserDefaults] setValue:dict[kUserKey] forKey:kUserKey];
+                                                    [[NSUserDefaults standardUserDefaults] setValue: dict[kMyCourse] forKey:kMyCourse];
+                                                    [[NSUserDefaults standardUserDefaults] setValue:[self.idTextField text] forKey:kUserId];
                                                 
                                                     // 아이디 저장 체크되어 있으면 아이디 저장
                                                     if (self.idSaveCheckBtn.selected == YES)

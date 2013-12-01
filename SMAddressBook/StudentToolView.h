@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kStudentToolH       60.0f
+#define kStudentToolH       55.0f
 
 
 @class StudentToolView;

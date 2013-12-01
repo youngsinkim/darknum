@@ -4,7 +4,7 @@
 "Favorites" = "즐겨찾기";
 
 /// Address Title
-"address_title" = "주소록";
+"address_title" = "즐겨찾기 주소록";
 
 /* Login */
 "Login" = "로그인";

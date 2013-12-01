@@ -290,11 +290,17 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row % 2) {
-        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+        [cell setBackgroundColor:UIColorFromRGB(0xe6e6e6)];
+    } else {
+        [cell setBackgroundColor:UIColorFromRGB(0xffffff)];
     }
-    else {
-        [cell setBackgroundColor:[UIColor clearColor]];
-    }
+    
+    // selected cell background color
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = UIColorFromRGB(0xcfd4e4);
+    
+    [cell setSelectedBackgroundView:bgColorView];
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -317,8 +323,7 @@
     if (!cell) {
         cell = [[StudentAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
-//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        tableView.separatorColor = UIColorFromRGB(0xcccccc);
     }
     
     if ([_students count] > 0)
@@ -345,6 +350,16 @@
 
     }
     
+    // accessoryView
+    UIImage *accessoryImage = [UIImage imageNamed:@"ic_list_arrow"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(0.0, 0.0, accessoryImage.size.width, accessoryImage.size.height);
+    button.frame = frame;
+    [button setBackgroundImage:accessoryImage forState:UIControlStateNormal];
+    //    [button addTarget:self action:@selector(checkButtonTapped:event:)  forControlEvents:UIControlEventTouchUpInside];
+    button.backgroundColor = [UIColor clearColor];
+    cell.accessoryView = button;
+
     return cell;
 }
 

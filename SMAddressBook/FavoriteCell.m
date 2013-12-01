@@ -26,30 +26,32 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor clearColor];
+        CGFloat yOffset = 11.0f;
+        CGFloat xOffset = 10.0f;
         
-        _photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 26, 27)];
-        _photoImageView.image = [UIImage imageNamed:@"profile_noimg"];
-//        [_photoImageView.layer setCornerRadius:2.0f];
-//        _photoImageView.contentScaleFactor = 1.0f;
-//        _photoImageView.contentMode = UIViewContentModeCenter;
+        // icon Image
+        UIImage *iconImage = [UIImage imageNamed:@"ic_list_emba"];
+        _photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset, yOffset, iconImage.size.width, iconImage.size.height)];
+        _photoImageView.image = iconImage;
         
         [self.contentView addSubview:_photoImageView];
-        
-        
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(47, 8, 180, 20)];
+        yOffset -= 2.0f;
+
+        // title text
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + iconImage.size.width + 10.0f, yOffset, self.contentView.frame.size.width - xOffset * 2 + iconImage.size.width + 10.0f, 17.0f)];
         _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.textColor = UIColorFromRGB(0x323C73);
-        _titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+        _titleLabel.textColor = UIColorFromRGB(0x142c6d);
+        _titleLabel.font = [UIFont boldSystemFontOfSize:15.0f];
         _titleLabel.text = self.title;
         
         [self.contentView addSubview:_titleLabel];
+        yOffset += 18.0f;
         
         
-        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(47, 25, 270, 20)];
+        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + iconImage.size.width + 10.0f, yOffset, self.contentView.frame.size.width - xOffset * 2 + iconImage.size.width + 10.0f, 14.0f)];
         _countLabel.backgroundColor = [UIColor clearColor];
-        _countLabel.textColor = [UIColor grayColor];
-        _countLabel.font = [UIFont systemFontOfSize:10.0f];
+        _countLabel.textColor = UIColorFromRGB(0x444444);
+        _countLabel.font = [UIFont systemFontOfSize:12.0f];
         _countLabel.text = @"0명의 학생이 있습니다";
         
         [self.contentView addSubview:_countLabel];

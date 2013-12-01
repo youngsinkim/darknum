@@ -23,7 +23,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
 
         [self setupStudentToolUI];
     }
@@ -44,52 +43,47 @@
     CGSize viewSize = self.frame.size;
     //    NSLog(@"size (%f, %f)", viewSize.width, viewSize.height);
     
-    self.backgroundColor = [UIColor blueColor];
+    self.backgroundColor = [UIColor colorWithRed:59.0f/255.0f green:76.0f/255.0f blue:122.0f/255.0f alpha:0.9f];
     
-    // 배경 라인 박스
-//    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 1.0f, 320.0f, viewSize.height)];
-//    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.3f].CGColor];
-//    [bgView.layer setBorderWidth:1.0f];
-//    
-//    [self addSubview:bgView];
-
     
     // 툴 버튼
     NSInteger tag = 300;
     NSArray *buttonList = [NSArray arrayWithObjects:
-                           [NSArray arrayWithObjects:@"ic_fn_sms", @"ic_fn_sms", LocalizedString(@"sms", @"문자"), nil],
-                           [NSArray arrayWithObjects:@"ic_fn_mail", @"ic_fn_mail", LocalizedString(@"email", @"메일"), nil],
+                           [NSArray arrayWithObjects:@"ic_fn_sms", @"ic_fn_sms_press", @"ic_fn_sms_disable", LocalizedString(@"sms", @"문자"), nil],
+                           [NSArray arrayWithObjects:@"ic_fn_mail", @"ic_fn_mail_press", @"ic_fn_mail_disable", LocalizedString(@"email", @"메일"), nil],
 //                           [NSArray arrayWithObjects:@"recommend_icon_adress", @"recommend_icon_adress", nil],
                            nil];
     
-    CGFloat width = 300.0f / [buttonList count];
-    CGPoint point = CGPointMake(100.0f, 10.0f);
+    CGFloat xOffset = (viewSize.width - (64.0f * [buttonList count])) / 2;
     
     for (NSArray *buttons in buttonList)
     {
         UIButton *toolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         toolBtn.tag = tag++;
-        toolBtn.frame = CGRectMake(point.x, point.y, 40.0f, 40.0f);
+        toolBtn.frame = CGRectMake(xOffset, 3.0f, 64.0f, kStudentToolH);
         
         NSString *normalImage = [NSString stringWithFormat:@"%@", [buttons objectAtIndex:0]];
-        //        NSString *pressedImage = [NSString stringWithFormat:@"%@", [postfix objectAtIndex:2]];
-        //        NSString *selectedImage = [NSString stringWithFormat:@"%@", [postfix objectAtIndex:3]];
+        NSString *pressedImage = [NSString stringWithFormat:@"%@", [buttons objectAtIndex:1]];
+        NSString *selectedImage = [NSString stringWithFormat:@"%@", [buttons objectAtIndex:2]];
         
         //taggingButton.center = CGPointMake(point.x, point.y);
         [toolBtn setImage:[UIImage imageNamed:normalImage] forState:UIControlStateNormal];
-        //            [taggingButton setImage:[UIImage imageNamed:pressedImage] forState:UIControlStateHighlighted];
+        [toolBtn setImage:[UIImage imageNamed:pressedImage] forState:UIControlStateHighlighted];
+        [toolBtn setImage:[UIImage imageNamed:selectedImage] forState:UIControlStateDisabled];
         
-//        [toolBtn setTitle:buttons[2] forState:UIControlStateNormal];
-//        [toolBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-//        [toolBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-//        [toolBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        [toolBtn setTitle:buttons[3] forState:UIControlStateNormal];
+        [toolBtn setTitleColor:UIColorFromRGB(0xeeeeee) forState:UIControlStateNormal];
+        [toolBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateHighlighted];
+        [toolBtn setTitleColor:UIColorFromRGB(0xaaaaaa) forState:UIControlStateDisabled];
+        [toolBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+        [toolBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
 
         [toolBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];
-//        [toolBtn centerImageAndTitle:10.0f];
+        [toolBtn centerImageAndTitle:2.0f];
         
         [self addSubview:toolBtn];
         
-        point.x += 80;
+        xOffset += 64.0f;
     }
 //    CGFloat xStart = 5.0f;
 //    CGFloat yOffset = 10.0f;

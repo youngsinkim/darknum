@@ -44,6 +44,7 @@ static UserContext *_sharedUserContext = nil;
         _sharedUserContext.memberType = @"";    // 내 멤버 종류
         _sharedUserContext.updateCount = @"";   // 서버에서 내려주는 업데이트 카운트 
         _sharedUserContext.myClass = @"";       // 나의 기수 과정 정보
+        _sharedUserContext.myCourse = @"";      // 자신 과정 코드
         
         _sharedUserContext.isLogined = NO;      //< 최초 로그인 여부 (NO)
         _sharedUserContext.isAutoLogin = NO;    //< 최초 자동 로그인 값 (NO)
@@ -116,6 +117,10 @@ static UserContext *_sharedUserContext = nil;
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kMyClass]) {
         _myClass = [[NSUserDefaults standardUserDefaults] objectForKey:kMyClass];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kMyCourse]) {
+        _myCourse = [[NSUserDefaults standardUserDefaults] objectForKey:kMyCourse];
     }
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kAutoLogin]) {

@@ -25,7 +25,7 @@
     if (self) {
         // Initialization code
 //        self.backgroundColor = UIColorFromRGB(0xFCFCFA);
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = [UIColor colorWithRed:173.0f/255.0f green:181.0f/255.0f blue:202.0f/255.0f alpha:0.9f];
         
         [self setupFavoriteToolbarUI];
     }
@@ -45,81 +45,60 @@
 - (void)setupFavoriteToolbarUI
 {
     CGSize viewSize = self.frame.size;
-    //    NSLog(@"size (%f, %f)", viewSize.width, viewSize.height);
-    
-    // 배경 라인 박스
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 1.0f, 320.0f, viewSize.height)];
-//    [bgView.layer setCornerRadius:2.0f];
-    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.3f].CGColor];
-    [bgView.layer setBorderWidth:1.0f];
-
-    [self addSubview:bgView];
-    
-    /// 툴바 버튼 설정
-    //    NSArray *btnArray =  @[@[], @[@"friset_btn_block",@"전체보기"], @[@"friset_btn_block",@"도움말"]];
-    //    CGPoint point = CGPointMake(20.0f, 0.0f);
-    //    NSInteger sizeCX = 70.0f;
-    //    NSInteger idx = 0;
-    
-    CGFloat xStart = 5.0f;
     CGFloat yOffset = 10.0f;
+    CGFloat xOffset = 10.0f;
+    
+    // 라인
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, viewSize.width, 1.0f)];
+    line.backgroundColor = UIColorFromRGB(0x8f95a4);
+    
+    [self addSubview:line];
+    
     
     // 즐겨찾기 설정
+    UIImage *btnImage = [UIImage imageNamed:@"btn_darkgray"];
     _favoriteSettBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _favoriteSettBtn.frame = CGRectMake(xStart, yOffset, 100.0f, 30.0f);
+    _favoriteSettBtn.frame = CGRectMake(xOffset, yOffset, btnImage.size.width, btnImage.size.height);
     [_favoriteSettBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Favorite Settings", @"즐겨찾기 설정")] forState:UIControlStateNormal];
-    [_favoriteSettBtn setTitleColor:UIColorFromRGB(0xF0F0F0) forState:UIControlStateNormal];
+    [_favoriteSettBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_favoriteSettBtn setTitleColor:UIColorFromRGB(0x00BFFF) forState:UIControlStateHighlighted];
-    [_favoriteSettBtn setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
-    [_favoriteSettBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-//    [_favoriteSettBtn setImage:[UIImage imageNamed:@"list_photo_on"] forState:UIControlStateNormal];
-////    [_favoriteSettBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateDisabled];
-//    [_favoriteSettBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-//    [_favoriteSettBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
-//    [_favoriteSettBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
-    //    [_favoriteSettBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
+//    [_favoriteSettBtn setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
+    [_favoriteSettBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_favoriteSettBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
     [_favoriteSettBtn addTarget:self action:@selector(onFavoriteSetBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [bgView addSubview:_favoriteSettBtn];
+    [self addSubview:_favoriteSettBtn];
 //    _favoriteSettBtn.enabled = NO;
-    xStart += 105;
     
     
     // 전체보기
     _totalStudentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _totalStudentBtn.frame = CGRectMake(xStart, yOffset, 100.0f, 30.0f);
+    _totalStudentBtn.frame = CGRectMake(xOffset + btnImage.size.width + 3.0f, yOffset, btnImage.size.width, btnImage.size.height);
     [_totalStudentBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Member List", @"전체 주소록")] forState:UIControlStateNormal];
-    [_totalStudentBtn setTitleColor:UIColorFromRGB(0xF0F0F0) forState:UIControlStateNormal];
+    [_totalStudentBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     [_totalStudentBtn setTitleColor:UIColorFromRGB(0x00BFFF) forState:UIControlStateHighlighted];
-    [_totalStudentBtn setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
-    [_totalStudentBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-//    [_totalStudentBtn setImage:[UIImage imageNamed:@"list_photo_on"] forState:UIControlStateNormal];
+    [_totalStudentBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_totalStudentBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
 //    [_totalStudentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 //    [_totalStudentBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
 //    [_totalStudentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
 //    [_totalStudentBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
     [_totalStudentBtn addTarget:self action:@selector(onTotalStudentBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [bgView addSubview:_totalStudentBtn];
-    xStart += 105;
+    [self addSubview:_totalStudentBtn];
 
     
     // 도움말
     _helpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _helpBtn.frame = CGRectMake(xStart, yOffset, 100.0f, 30.0f);
+    _helpBtn.frame = CGRectMake(xOffset + (btnImage.size.width + 3.0f) * 2, yOffset, btnImage.size.width, btnImage.size.height);
     [_helpBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Help", @"도움말")] forState:UIControlStateNormal];
-    [_helpBtn setTitleColor:UIColorFromRGB(0xF0F0F0) forState:UIControlStateNormal];
+    [_helpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_helpBtn setTitleColor:UIColorFromRGB(0x00BFFF) forState:UIControlStateHighlighted];
-    [_helpBtn setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
-    [_helpBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-//    [_helpBtn setImage:[UIImage imageNamed:@"list_photo_on"] forState:UIControlStateNormal];
-//    [_helpBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-//    [_helpBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-//    [_helpBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
-    //    [_helpBtn setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
+    [_helpBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_helpBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
     [_helpBtn addTarget:self action:@selector(onHelpBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [bgView addSubview:_helpBtn];
+    [self addSubview:_helpBtn];
 
 }
 

@@ -24,27 +24,14 @@
     if (self)
     {
         // Initialization code
-//        UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, kCellH)];
-////        [background setImage:[[UIImage imageNamed:@"cell_background"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f]];
-//
-//        self.backgroundView = background;
-//        self.backgroundColor = [UIColor clearColor];
-        self.backgroundColor = UIColorFromRGB(0x323232);
+        CGFloat yOffset = 14.0f;
+        CGFloat xOffset = 10.0f;
+        
+        self.backgroundColor = UIColorFromRGB(0x2b2e31);
 
-//
-        UIImageView *selectedBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, kCellH)];
-        selectedBackground.backgroundColor = UIColorFromRGB(0x282828);
-//        [selectedBackground setImage:[[UIImage imageNamed:@"cell_selected_background"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f]];
-//        
-        self.selectedBackgroundView = selectedBackground;
-
-//        self.imageView.clipsToBounds = YES;
-//        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.contentView.backgroundColor = UIColorFromRGB(0x323232);
-
-
+        // icon
         UIImage *icon = [UIImage imageNamed:@"ic_mf_smba.png"];
-        _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 11.0f, icon.size.width, icon.size.height)];
+        _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset, yOffset, icon.size.width, icon.size.height)];
         _iconImageView.image = icon;
 //        _iconImageView.contentMode = UIViewContentModeCenter;// UIViewContentModeTopLeft;
         
@@ -58,9 +45,9 @@
 //        self.textLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
 //        self.textLabel.backgroundColor = [UIColor clearColor];
 //        self.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
-        _menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.frame.origin.x + _iconImageView.frame.size.width + 5.0f, 0.0f, 180.0f, 40)];
-        [_menuLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        _menuLabel.textColor = [UIColor lightGrayColor];
+        _menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.frame.origin.x + _iconImageView.frame.size.width + 12.0f, yOffset, 200.0f, 16.0f)];
+        [_menuLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        _menuLabel.textColor = UIColorFromRGB(0xccd3e6);
         _menuLabel.backgroundColor = [UIColor clearColor];
         
         [self.contentView addSubview:_menuLabel];
@@ -106,4 +93,14 @@
 //    [_iconImageView setNeedsDisplay];
 //}
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+//    if ([_menuLabel.text isEqualToString:LocalizedString(@"Member List", @"전체보기")]) {
+//        _menuLabel.textColor = UIColorFromRGB(0x000000);
+//    } else {
+//        _menuLabel.textColor = UIColorFromRGB(0xccd3e6);
+//    }
+}
 @end

@@ -28,8 +28,8 @@
 
 #pragma mark - UITableView UI Size Values
 
-#define kHeaderH        62.0f
-#define kSectionH       32.0f
+#define kHeaderH        70.0f
+#define kSectionH       40.0f
 
 
 @interface MenuTableViewController ()
@@ -84,7 +84,9 @@
 
 - (void)setupMenuTableView
 {
-    CGFloat yOffset = 0.0f;
+    CGFloat yOffset = 14.0f;
+    CGFloat xOffset = 10.0f;
+    
     if (!IS_LESS_THEN_IOS7) {
         yOffset = 20.0f;
 
@@ -93,49 +95,68 @@
         self.tableView.separatorInset = edges;
     }
     
-    self.tableView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
+    self.tableView.backgroundColor = UIColorFromRGB(0x2b2e31);
     
     // TODO: 내 프로필 정보에서 헤더 구성 데이터 가져오기
     NSDictionary *profileDict = @{@"name":@"", @"class":@"", @"photourl":@""};
 
     // 내 정보 해더 구성
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kHeaderH + yOffset)];
-    headerView.backgroundColor = [UIColor colorWithRed:43.0f/255.0f green:46.0f/255.0f blue:49.0f/255.0f alpha:1.0f];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kHeaderH)];
+//    headerView.backgroundColor = UIColorFromRGB(0xffffff);
     
     self.tableView.tableHeaderView = headerView;
 
     {
         // 내 프로필 사진
-        _profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, yOffset + 5.0f, 40.0f, 40.0f)];
-        [_profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
+        _profileImgView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset, yOffset, 40.0f, 40.0f)];
+        _profileImgView.image = [UIImage imageNamed:@"ic_noimg_mypage"];
+//        [_profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"ic_noimg_mypage"]];
         
         [headerView addSubview:_profileImgView];
+        xOffset += (40.0f + 15.0f);
+        yOffset += 3.0f;
+        
         
         // 내 이름
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset +7.0f, 150.0f, 16.0f)];
-        _nameLabel.text = profileDict[@"name"];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 150.0f, 17.0f)];
+//        _nameLabel.text = profileDict[@"name"];
+        _nameLabel.text = @"";
         _nameLabel.textColor = [UIColor whiteColor];
-        [_nameLabel setFont:[UIFont systemFontOfSize:15.0f]];
+        [_nameLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
         _nameLabel.backgroundColor = [UIColor clearColor];
         
         [headerView addSubview:_nameLabel];
+        yOffset += (_nameLabel.frame.size.height + 2.0f);
+        
         
         // 내 기수
-        _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(60.0f, yOffset + 25.0f, 150.0f, 14.0f)];
+        _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, 150.0f, 14.0f)];
         _classLabel.text = profileDict[@"class"];
         _classLabel.textColor = [UIColor colorWithRed:170.0f/255.0f green:102.0f/255.0f blue:204.0f/255.0f alpha:1.0f];
-        [_classLabel setFont:[UIFont systemFontOfSize:11.0f]];
+        [_classLabel setFont:[UIFont systemFontOfSize:12.0f]];
         _classLabel.backgroundColor = [UIColor clearColor];
         
         [headerView addSubview:_classLabel];
         
+        
+        // 설정 button
+        UIImage *setImage = [UIImage imageNamed:@"ic_mf_setting"];
         UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        settingBtn.frame = CGRectMake(headerView.frame.size.width - 90.0f, yOffset + 8.0f, 33.0f, 33.0f);
-        [settingBtn setImage:[UIImage imageNamed:@"ic_mf_setting"] forState:UIControlStateNormal];
+        settingBtn.frame = CGRectMake(270.0f - 15.0f - setImage.size.width, _nameLabel.frame.origin.y + 4.0f, setImage.size.width, setImage.size.height);
+        [settingBtn setImage:setImage forState:UIControlStateNormal];
 //        [settingBtn setImage:[UIImage imageNamed:@"menu_img"] forState:UIControlStateHighlighted];
         [settingBtn addTarget:self action:@selector(onMyInfoSettingClicked) forControlEvents:UIControlEventTouchUpInside];
         
         [headerView addSubview:settingBtn];
+        
+        // 라인
+        UILabel *lineUp = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, headerView.frame.size.height - 2, headerView.frame.size.width, 1.0f)];
+        lineUp.backgroundColor = UIColorFromRGB(0x1e2022);
+        [self.view addSubview:lineUp];
+        UILabel *lineDown = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, headerView.frame.size.height - 1, headerView.frame.size.width, 1.0f)];
+        lineDown.backgroundColor = UIColorFromRGB(0x383c40);
+        [self.view addSubview:lineDown];
+
     }
     
     
@@ -181,7 +202,7 @@
 {
     CourseTotalViewController *courseTotalVC = [[CourseTotalViewController alloc] init];
     
-    NSDictionary *courseDict = @{@"title":LocalizedString(@"Member List", @"전체보기"), @"icon":@"ic_mf_all", @"viewController":courseTotalVC};
+    NSDictionary *courseDict = @{@"type":[NSNumber numberWithInt:MenuViewTypeAddrTotalStudent], @"title":LocalizedString(@"Member List", @"전체보기"), @"icon":@"ic_mf_all", @"viewController":courseTotalVC};
     
     return courseDict;
 }
@@ -192,9 +213,9 @@
 {
     NSDictionary *myInfo = [[UserContext shared] profileInfo];
     if ([myInfo[@"photourl"] length] > 0) {
-        [_profileImgView setImageWithURL:[NSURL URLWithString:myInfo[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
+        [_profileImgView setImageWithURL:[NSURL URLWithString:myInfo[@"photourl"]] placeholderImage:[UIImage imageNamed:@"ic_noimg_mypage"]];
     } else {
-        [_profileImgView setImage:[UIImage imageNamed:@"profile_noimg"]];
+        [_profileImgView setImage:[UIImage imageNamed:@"ic_noimg_mypage"]];
     }
     
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {
@@ -258,7 +279,7 @@
     NSString *sectionTitle = nil;
     
     if (section == 0) {
-        sectionTitle = LocalizedString(@"address_title", @"주소록");
+        sectionTitle = LocalizedString(@"address_title", @"즐겨찾기 주소록");
     } else if (section == 1) {
         sectionTitle = LocalizedString(@"setting_title", @"설정");
     }
@@ -284,9 +305,7 @@
     // Configure the cell...
     if (cell == nil) {
         cell = [[MenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//        self.tableView.separatorColor = [UIColor colorWithRed:56.0f/255.0f green:60.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
     }
     
 //    cell.textLabel.text = [NSString stringWithFormat:@"Item %d", indexPath.row];
@@ -408,29 +427,29 @@
         return nil;
 
     UIImageView *sectionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, kSectionH)];
-    sectionImageView.backgroundColor = [UIColor colorWithRed:35.0f/255.0f green:38.0f/255.0f blue:41.0f/255.0f alpha:1.0f];
+    sectionImageView.backgroundColor = UIColorFromRGB(0x232629);
 //    sectionImageView.image = [[UIImage imageNamed:@"section_background"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:0.0f];
     
     // 섹션 타이틀
     UILabel *sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectInset(sectionImageView.frame, 10.0f, 0.0f)];
     sectionTitleLabel.font = [UIFont systemFontOfSize:14.0f];
     sectionTitleLabel.textAlignment = NSTextAlignmentLeft;;
-//    sectionTitleLabel.textColor = [UIColor colorWithRed:125.0f/255.0f green:129.0f/255.0f blue:146.0f/255.0f alpha:1.0f];
-    sectionTitleLabel.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-    sectionTitleLabel.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:45.0f/255.0f blue:57.0f/255.0f alpha:1.0f];
-    sectionTitleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    sectionTitleLabel.textColor = UIColorFromRGB(0xaaaaaa);
+//    sectionTitleLabel.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:45.0f/255.0f blue:57.0f/255.0f alpha:1.0f];
+//    sectionTitleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     sectionTitleLabel.backgroundColor = [UIColor clearColor];
     sectionTitleLabel.text = titleString;
     
     [sectionImageView addSubview:sectionTitleLabel];
-
-    // 섹션 라인 (imsi)
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, sectionImageView.frame.size.height - 1.0f, 320.0f, 1.0f)];
-    [lineV.layer setCornerRadius:2.0f];
-    [lineV.layer setBorderColor:[UIColor colorWithRed:30.0f/255.0f green:32.0f/255.0f blue:34.0f/255.0f alpha:1.0f].CGColor];
-    [lineV.layer setBorderWidth:1.0f];
     
-    [sectionImageView addSubview:lineV];
+    
+    // 라인
+    UILabel *lineUp = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, sectionImageView.frame.size.height - 2, sectionImageView.frame.size.width, 1.0f)];
+    lineUp.backgroundColor = UIColorFromRGB(0x1e2022);
+    [sectionImageView addSubview:lineUp];
+    UILabel *lineDown = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, sectionImageView.frame.size.height - 1, sectionImageView.frame.size.width, 1.0f)];
+    lineDown.backgroundColor = UIColorFromRGB(0x383c40);
+    [sectionImageView addSubview:lineDown];
 
     return sectionImageView;
 }
@@ -438,10 +457,24 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGRect rect = cell.frame;
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 1, rect.size.width, 1.0f)];
-    lineV.backgroundColor = UIColorFromRGB(0x303030);
     
-    [cell.contentView addSubview:lineV];
+    [cell setBackgroundColor:UIColorFromRGB(0x2b2e31)];
+    
+    // selected cell background color
+//    UIView *bgColorView = [[UIView alloc] init];
+//    bgColorView.backgroundColor = UIColorFromRGB(0xcfd4e4);
+//    
+//    [cell setSelectedBackgroundView:bgColorView];
+
+    
+    // 라인
+    UILabel *lineUp = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 2, rect.size.width, 1.0f)];
+    lineUp.backgroundColor = UIColorFromRGB(0x1e2022);
+    [cell addSubview:lineUp];
+    UILabel *lineDown = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 1, rect.size.width, 1.0f)];
+    lineDown.backgroundColor = UIColorFromRGB(0x383c40);
+    [cell addSubview:lineDown];
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

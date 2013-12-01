@@ -47,7 +47,7 @@
 //    self.navigationItem.titleView = _titleLabel;
 
     // 공통 뷰 배경
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
     //   [self setBackgroundImage];
 
 //    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav_title_bg"] forBarMetrics:UIBarMetricsDefault];
@@ -91,11 +91,14 @@
     
     if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
     {
-        _prevButton.hidden = NO;
+        [_prevButton setHidden:NO];
+//        [_homeButton setHidden:YES];
     } else {
         // 최상위 화면이면 이전 버튼 노출 안함
-        _prevButton.hidden = YES;
+        [_prevButton setHidden:YES];
+//        [_homeButton setHidden:NO];
     }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -155,16 +158,27 @@
     self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
     self.navigationItem.rightBarButtonItem = [self rightMenuBarButtonItem];
 //    [self rightMenuBarButtonItem];
+    
+    if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
+    {
+        [_prevButton setHidden:NO];
+//        [_homeButton setHidden:YES];
+    } else {
+        // 최상위 화면이면 이전 버튼 노출 안함
+        [_prevButton setHidden:YES];
+//        [_homeButton setHidden:NO];
+    }
+
 }
 
 /// 네비게이션 왼쪽 [메뉴] 버튼
-- (UIBarButtonItem *)leftMenuBarButtonItem {
+- (UIBarButtonItem *)leftMenuBarButtonItem
+{
     // TODO: 메뉴 버튼 이미지 변경
+    UIImage *menuImage = [UIImage imageNamed:@"nvicon_menu"];
     UIButton *menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    menuButton.frame = CGRectMake(0.0f, 0.0f, 28.0f, 29.0f);
-    
-    [menuButton setImage:[UIImage imageNamed:@"menu_img"] forState:UIControlStateNormal];
-    //    [menuButton setImage:[UIImage imageNamed:@"menu_img"] forState:UIControlStateHighlighted];
+    menuButton.frame = CGRectMake(0.0f, 0.0f, menuImage.size.width, menuImage.size.height);
+    [menuButton setImage:menuImage forState:UIControlStateNormal];
     [menuButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     return [[UIBarButtonItem alloc] initWithCustomView:menuButton];
@@ -196,52 +210,33 @@
 /// 네비게이션 오른쪽 버튼
 - (UIBarButtonItem *)rightMenuBarButtonItem
 {
-//    UIToolbar *tools = [[UIToolbar alloc]
-//                        initWithFrame:CGRectMake(0.0f, 10.0f, 103.0f, 30.01f)]; // 44.01 shifts it up 1px for some reason
-//    tools.clearsContextBeforeDrawing = NO;
-//    tools.clipsToBounds = NO;
-//    tools.tintColor = [UIColor colorWithWhite:0.305f alpha:0.0f]; // closest I could get by eye to black, translucent style.
-    // anyone know how to get it perfect?
-//    tools.barStyle = -1; // clear background
-    UIView *toolbar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 44.0f)];
-//    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 44.0f)]; // 44.01 shifts it up 1px for some reason
-//    [toolbar setBarStyle:UIBarStyleBlackTranslucent];
-//    [toolbar setBackgroundColor:[UIColor whiteColor]];
-//    [toolbar setTintColor:[UIColor whiteColor]];
-//    [toolbar setBarStyle: UIBarStyleBlackOpaque];
-    
-//    toolbar.clearsContextBeforeDrawing = NO;
-//    toolbar.clipsToBounds = NO;
-//    toolbar.tintColor = [UIColor clearColor];
-//    toolbar.tintColor = [UIColor colorWithWhite:0.305f alpha:0.0f]; // closest I could get by eye to black, translucent style.
-    //    tools.tintColor = [UIColor blueColor];
-    //    tools.backgroundColor = [UIColor redColor];
-    // anyone know how to get it perfect?
-//    toolbar.barStyle = -1; // clear background
-    
-    
+    UIImage *backImage = [UIImage imageNamed:@"nvicon_back"];
+    UIImage *homeImage = [UIImage imageNamed:@"nvicon_home"];
+    UIImage *searchImage = [UIImage imageNamed:@"nvicon_search"];
+
+    UIView *toolbar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 90.0f, homeImage.size.height)];
     UIBarButtonItem *barButtonItem = nil;
     
     // create an array for the buttons
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:3];
-    CGFloat size = 40.0f;
-    
+
     /* back 버튼 */
     _prevButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _prevButton.frame = CGRectMake(0.0f, 5.0f, size, size);
-    [_prevButton setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
+    _prevButton.frame = CGRectMake(0.0f, 0.0f, backImage.size.width, backImage.size.height);
+    [_prevButton setImage:backImage forState:UIControlStateNormal];
     [_prevButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_prevButton];
 
     [toolbar addSubview:_prevButton];
     [buttons addObject:barButtonItem];
+//    [_prevButton setHidden:YES];
     
     
     /* 홈 버튼 */
     _homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _homeButton.frame = CGRectMake(40.0f, 5.0f, size, size);
-    [_homeButton setImage:[UIImage imageNamed:@"btn_home"] forState:UIControlStateNormal];
+    _homeButton.frame = CGRectMake(backImage.size.width + 10.0f, 0.0f, homeImage.size.width, homeImage.size.height);
+    [_homeButton setImage:homeImage forState:UIControlStateNormal];
     [_homeButton addTarget:self action:@selector(onHomeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_homeButton];
@@ -252,8 +247,8 @@
     
     /* 검색 버튼 */
     _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _searchButton.frame = CGRectMake(80.0f, 5.0f, size, size);
-    [_searchButton setImage:[UIImage imageNamed:@"btn_filter"] forState:UIControlStateNormal];
+    _searchButton.frame = CGRectMake(backImage.size.width + homeImage.size.width + 20.0f, 0.0f, searchImage.size.width, searchImage.size.height);
+    [_searchButton setImage:searchImage forState:UIControlStateNormal];
     [_searchButton addTarget:self action:@selector(onSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_searchButton];
@@ -283,14 +278,6 @@
     [self.menuContainerViewController toggleLeftSideMenuCompletion:^{
         [self setupMenuBarButtonItems];
         
-        if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
-        {
-            _prevButton.hidden = NO;
-        } else {
-            // 최상위 화면이면 이전 버튼 노출 안함
-            _prevButton.hidden = YES;
-        }
-
     }];
 }
 
@@ -342,7 +329,7 @@
 //        
 ////        nav.viewControllers = @[appDelegate.favoriteViewController];
 //    }
-    
+
 }
 
 /// 네비게이션 [검색] 버튼 선택

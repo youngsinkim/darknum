@@ -25,6 +25,7 @@
 #define kMemType        @"memtype"
 #define kUpdateCount    @"updatecount"
 #define kMyClass        @"myclass"
+#define kMyCourse       @"mycourse"
 
 #define kUserId         @"userId"
 #define kUserPwd        @"userPwd"
@@ -36,19 +37,20 @@
 
 @interface UserContext : NSObject
 
-@property (strong, nonatomic) NSMutableDictionary *profileInfo; // 내 정보(프로필) 데이터
+@property (strong, nonatomic) NSMutableDictionary *profileInfo; //< 내 정보(프로필) 데이터
 @property (strong, nonatomic) NSString *lastUpdateDate;         //< 업데이트 시간 (마지막 서버 연동 시간 저장, 이 시간 값을 기준으로 서버의 새로운 데이터를 받아온다.)
 @property (strong, nonatomic) NSString *userId;
 @property (strong, nonatomic) NSString *userPwd;
-@property (strong, nonatomic) NSString *userKey;
+@property (strong, nonatomic) NSString *userKey;                //< 자싞의 KEY 정보 (학생의 경우 studcode, 교수/교직원의 경우 memberidx값을 Key로 핚다)
 
-@property (strong, nonatomic) NSString *certNo;                 //< 로그인 토큰
+@property (strong, nonatomic) NSString *certNo;                 //< 회원인증코드
 @property (strong, nonatomic) NSString *memberType;             //< 내 멤버 종류 (1:student, 2:faculty, 3:staff)
-@property (strong, nonatomic) NSString *updateCount;            //< 업데이트 카운트
+@property (strong, nonatomic) NSString *updateCount;            //< 즐겨찾기 목록 업데이트된 개수
                                                                 /* (이 값이 0보다 크면 업데이트 항목이 있는 것으로 판단하여,
                                                                     과정별 기수 목록 / 교수 전공 목록 / 즐겨찾기 업데이트 목록을 서버에서 받아온다.) */
-@property (strong, nonatomic) NSString *myClass;                //< 내 기수 정보
-@property (strong, nonatomic) NSString *language;       // 설정 언어 정보
+@property (strong, nonatomic) NSString *myClass;                //< 자싞의 과정기수코드 (학생의 경우만 값이 있으면, 교수/교직원의 경우는 값이 NULL이다.)
+@property (strong, nonatomic) NSString *myCourse;               //< 자싞의 과정코드 (EMBA/GMBA/SMBA 중 하나)
+@property (strong, nonatomic) NSString *language;               // 설정 언어 정보
 
 @property (strong, nonatomic) NSString *appUpdateUrl;           //< 업데이트 url 정보 (AppStore Url)
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kCellH          42.0f
+#define kCellH          45.0f
 
 @interface MenuCell : UITableViewCell
 
