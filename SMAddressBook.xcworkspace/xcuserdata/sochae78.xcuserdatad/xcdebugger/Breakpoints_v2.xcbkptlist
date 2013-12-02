@@ -1187,7 +1187,7 @@
                   symbolName = "-[MenuTableViewController showMenuViewController:]"
                   moduleName = "SMAddressBook"
                   urlString = "file:///Users/sochae78/Desktop/project/snumba_1202/SMAddressBook/MenuTableViewController.m"
-                  timestampString = "407698703.198293"
+                  timestampString = "407699343.625163"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "604"
@@ -1201,7 +1201,7 @@
                   symbolName = "-[MenuTableViewController showMenuViewController:]"
                   moduleName = "SMAddressBook"
                   urlString = "file:///Users/sochae78/Desktop/project/snumba_1202/SMAddressBook/MenuTableViewController.m"
-                  timestampString = "407698703.198618"
+                  timestampString = "407699343.625327"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "604"
@@ -1209,22 +1209,6 @@
                   offsetFromSymbolStart = "2661">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/MenuTableViewController.m"
-            timestampString = "407688255.910142"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "740"
-            endingLineNumber = "740"
-            landmarkName = "-menuNavigationController:withMenuInfo:"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1249,13 +1233,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/StaffAddressViewController.m"
-            timestampString = "407697404.838272"
+            filePath = "SMAddressBook/MyInfoViewController.m"
+            timestampString = "407699117.088851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "-setupStaffUI"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "-setupMyInfoUI"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1265,13 +1249,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/StaffAddressViewController.m"
-            timestampString = "407697481.23171"
+            filePath = "SMAddressBook/MyInfoViewController.m"
+            timestampString = "407699118.185844"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-setupStaffUI"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "-setupMyInfoUI"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

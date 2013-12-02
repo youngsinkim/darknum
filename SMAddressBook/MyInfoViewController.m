@@ -294,7 +294,7 @@
     }
     else {
         scrolViewHeight -= 0.0f;
-        bottomOffset = (-64.0f + 60.0f);
+        bottomOffset = (-64.0f + 88.0f);
         
         if ([[UIScreen mainScreen] bounds].size.height < 568) {
             bottomOffset += 88.0f;
@@ -684,8 +684,8 @@
             [_chIdSaveBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
             [_chIdSaveBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
             [_chIdSaveBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-            [_chIdSaveBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
-            [_chIdSaveBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+            [_chIdSaveBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
+            [_chIdSaveBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
             [_chIdSaveBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
             [_chIdSaveBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
             [_chIdSaveBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
@@ -701,8 +701,8 @@
             [_chAutoLoginBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
             [_chAutoLoginBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
             [_chAutoLoginBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-            [_chAutoLoginBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
-            [_chAutoLoginBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+            [_chAutoLoginBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
+            [_chAutoLoginBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
             [_chAutoLoginBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
             [_chAutoLoginBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
             [_chAutoLoginBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
