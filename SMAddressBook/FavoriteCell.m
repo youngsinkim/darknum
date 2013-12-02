@@ -35,23 +35,23 @@
         _photoImageView.image = iconImage;
         
         [self.contentView addSubview:_photoImageView];
-        yOffset -= 2.0f;
+        yOffset -= 1.0f;
 
         // title text
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + iconImage.size.width + 10.0f, yOffset, self.contentView.frame.size.width - xOffset * 2 + iconImage.size.width + 10.0f, 17.0f)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + iconImage.size.width + 10.0f, yOffset, self.contentView.frame.size.width - xOffset * 2 + iconImage.size.width + 10.0f, 16.0f)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.textColor = UIColorFromRGB(0x142c6d);
-        _titleLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:13.0f];
         _titleLabel.text = self.title;
         
         [self.contentView addSubview:_titleLabel];
-        yOffset += 18.0f;
+        yOffset += (_titleLabel.frame.size.height);
         
         
-        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + iconImage.size.width + 10.0f, yOffset, self.contentView.frame.size.width - xOffset * 2 + iconImage.size.width + 10.0f, 14.0f)];
+        _countLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + iconImage.size.width + 10.0f, yOffset, self.contentView.frame.size.width - xOffset * 2 + iconImage.size.width + 10.0f, 12.0f)];
         _countLabel.backgroundColor = [UIColor clearColor];
         _countLabel.textColor = UIColorFromRGB(0x444444);
-        _countLabel.font = [UIFont systemFontOfSize:12.0f];
+        _countLabel.font = [UIFont systemFontOfSize:10.5f];
         _countLabel.text = @"0명의 학생이 있습니다";
         
         [self.contentView addSubview:_countLabel];

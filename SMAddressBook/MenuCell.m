@@ -46,7 +46,7 @@
 //        self.textLabel.backgroundColor = [UIColor clearColor];
 //        self.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14.0f];
         _menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.frame.origin.x + _iconImageView.frame.size.width + 12.0f, yOffset, 200.0f, 16.0f)];
-        [_menuLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_menuLabel setFont:[UIFont systemFontOfSize:13.0f]];
         _menuLabel.textColor = UIColorFromRGB(0xccd3e6);
         _menuLabel.backgroundColor = [UIColor clearColor];
         

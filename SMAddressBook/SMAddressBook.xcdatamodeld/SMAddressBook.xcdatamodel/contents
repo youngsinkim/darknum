@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Course" representedClassName="Course" syncable="YES">
         <attribute name="count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,6 +12,7 @@
     </entity>
     <entity name="Faculty" representedClassName="Faculty" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hasapp" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="memberidx" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,6 +33,7 @@
     </entity>
     <entity name="Staff" representedClassName="Staff" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hasapp" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="memberidx" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -46,6 +48,7 @@
         <attribute name="work_en" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Student" representedClassName="Student" syncable="YES">
+        <attribute name="birth" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="classtitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="classtitle_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
@@ -53,6 +56,8 @@
         <attribute name="department" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="department_en" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hasapp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="iscurrent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name_en" optional="YES" attributeType="String" syncable="YES"/>

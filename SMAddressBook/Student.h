@@ -2,7 +2,7 @@
 //  Student.h
 //  SMAddressBook
 //
-//  Created by 선옥 채 on 13. 9. 29..
+//  Created by 선옥 채 on 2013. 12. 3..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
@@ -34,6 +34,9 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * title_en;
 @property (nonatomic, retain) NSString * viewphotourl;
+@property (nonatomic, retain) NSString * hasapp;
+@property (nonatomic, retain) NSString * iscurrent;
+@property (nonatomic, retain) NSString * birth;
 @property (nonatomic, retain) Course *course;
 
 @end

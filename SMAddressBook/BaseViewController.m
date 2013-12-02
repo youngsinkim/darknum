@@ -26,6 +26,22 @@
     return (MFSideMenuContainerViewController *)self.navigationController.parentViewController;
 }
 
+- (void)sideMenuEvent:(NSNotification *)notification
+{
+//    NSNumber *menuEventType = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    MFSideMenuStateEvent event = [menuEventType intValue];
+//    if (event == MFSideMenuStateEventMenuWillClose)
+    {
+        if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
+        {
+            [_prevButton setHidden:NO];
+        } else {
+            // 최상위 화면이면 이전 버튼 노출 안함
+            [_prevButton setHidden:YES];
+        }
+    }
+}
+
 #pragma mark - ViewController lifecycle's
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,6 +99,8 @@
     // 네비게이션 버튼
     [self setupMenuBarButtonItems];
 
+    // 메뉴 이벤트 수신
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sideMenuEvent:) name:MFSideMenuStateNotificationEvent object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -214,7 +232,7 @@
     UIImage *homeImage = [UIImage imageNamed:@"nvicon_home"];
     UIImage *searchImage = [UIImage imageNamed:@"nvicon_search"];
 
-    UIView *toolbar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 90.0f, homeImage.size.height)];
+    UIView *toolbar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, (backImage.size.width * 3 + 40.0f), homeImage.size.height)];
     UIBarButtonItem *barButtonItem = nil;
     
     // create an array for the buttons

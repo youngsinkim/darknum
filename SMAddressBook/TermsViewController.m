@@ -106,14 +106,15 @@
     CGFloat yOffset = 20.0f;
     CGFloat xOffset = 10.0f;
     
-    if (!IS_LESS_THEN_IOS7) {
-        yOffset += 64.0f;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenHeight = screenRect.size.height;
+    if (screenHeight > 480.0f) {
         sizeHeight = 142.0f;
     }
     
     // 이용약관 text
-    _termsTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2.0f), 17.0f)];
-    [_termsTitleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
+    _termsTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2.0f), 16.0f)];
+    [_termsTitleLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
     _termsTitleLabel.textColor = UIColorFromRGB(0x142c6d);
     _termsTitleLabel.backgroundColor = [UIColor clearColor];
     _termsTitleLabel.text = LocalizedString(@"terms policy", @"이용 약과");
@@ -141,17 +142,19 @@
     
     // 서비스 약관동의 버튼
     _acceptBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn1.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 20.0f);
+    _acceptBtn1.frame = CGRectMake(xOffset - 5.0f, yOffset, rect.size.width - (xOffset * 2), 20.0f);
     [_acceptBtn1 setTitle:LocalizedString(@"agree terms", @"약관 동의함") forState:UIControlStateNormal];
     [_acceptBtn1 setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
 //    [_acceptBtn1 setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
 //    [_acceptBtn1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
-    [_acceptBtn1.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_acceptBtn1.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [_acceptBtn1 setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
     [_acceptBtn1 setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
     [_acceptBtn1 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_acceptBtn1 setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_acceptBtn1 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-    [_acceptBtn1 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_acceptBtn1 setTitleEdgeInsets:UIEdgeInsetsMake(2, 5, 0, 0)];
+    [_acceptBtn1 setContentEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [_acceptBtn1 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_acceptBtn1];
@@ -159,8 +162,8 @@
 
 
     // 개인정보보호방침 text
-    _personalTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 17.0f)];
-    [_personalTitleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
+    _personalTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 16.0f)];
+    [_personalTitleLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
     _personalTitleLabel.textColor = UIColorFromRGB(0x142c6d);
     _personalTitleLabel.backgroundColor = [UIColor clearColor];
     _personalTitleLabel.text = LocalizedString(@"personal policy", @"개인정보보호방침");
@@ -188,21 +191,23 @@
     
     // 개인보호 정책동의 버튼
     _acceptBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    _acceptBtn2.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 20.0f);
+    _acceptBtn2.frame = CGRectMake(xOffset - 5.0f, yOffset, rect.size.width - (xOffset * 2), 20.0f);
     [_acceptBtn2 setTitle:LocalizedString(@"agree personal", @"개인정책 동의함") forState:UIControlStateNormal];
     [_acceptBtn2 setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
 //    [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
 //    [_acceptBtn2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateSelected];
-    [_acceptBtn2.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_acceptBtn2.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [_acceptBtn2 setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
     [_acceptBtn2 setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
     [_acceptBtn2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_acceptBtn2 setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_acceptBtn2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
-    [_acceptBtn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
+    [_acceptBtn2 setTitleEdgeInsets:UIEdgeInsetsMake(2, 5, 0, 0)];
+    [_acceptBtn2 setContentEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [_acceptBtn2 addTarget:self action:@selector(onAcceptClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_acceptBtn2];
-    yOffset += (_acceptBtn2.frame.size.height + 30.0f);
+    yOffset += (_acceptBtn2.frame.size.height + 20.0f);
 
     
     // 라인
@@ -222,7 +227,7 @@
     [_nextBtn setTitle:LocalizedString(@"Agree", @"동의함") forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_nextBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    _nextBtn.titleLabel.font = [UIFont systemFontOfSize:26.0f];
+    _nextBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
     _nextBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_nextBtn addTarget:self action:@selector(onAcceptBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     _nextBtn.enabled = NO;

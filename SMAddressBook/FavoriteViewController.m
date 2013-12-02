@@ -323,7 +323,10 @@
     
     if (IS_LESS_THEN_IOS7) {
         sizeY += 44.0f;
+    } else {
+        sizeY += 64.0f;
     }
+//    NSLog(@"rect height = %f", rect.size.height);
     
     // 즐겨찾기 테이블 뷰
     _favoriteTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, rect.size.height - sizeY) style:UITableViewStylePlain];
@@ -332,6 +335,7 @@
     
     [self.view addSubview:_favoriteTableView];
     
+    
     if (!IS_LESS_THEN_IOS7) {
         UIEdgeInsets edges;
         edges.left = 0;
@@ -339,7 +343,7 @@
     }
     
     // 하단 버튼 툴바
-    _favoriteToolbar = [[FavoriteToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - sizeY, 320, kFvToolH)];
+    _favoriteToolbar = [[FavoriteToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - sizeY, 320.0f, kFvToolH)];
     _favoriteToolbar.delegate = self;
 
     [self.view addSubview:_favoriteToolbar];
@@ -2840,15 +2844,15 @@
         }
     }
     
-    // accessoryView
-    UIImage *accessoryImage = [UIImage imageNamed:@"ic_list_arrow"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGRect frame = CGRectMake(0.0, 0.0, accessoryImage.size.width, accessoryImage.size.height);
-    button.frame = frame;
-    [button setBackgroundImage:accessoryImage forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(checkButtonTapped:event:)  forControlEvents:UIControlEventTouchUpInside];
-    button.backgroundColor = [UIColor clearColor];
-    cell.accessoryView = button;
+//    // accessoryView
+//    UIImage *accessoryImage = [UIImage imageNamed:@"ic_list_arrow"];
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    CGRect frame = CGRectMake(10.0, 0.0, accessoryImage.size.width, accessoryImage.size.height);
+//    button.frame = frame;
+//    [button setBackgroundImage:accessoryImage forState:UIControlStateNormal];
+////    [button addTarget:self action:@selector(checkButtonTapped:event:)  forControlEvents:UIControlEventTouchUpInside];
+//    button.backgroundColor = [UIColor clearColor];
+//    cell.accessoryView = button;
     
     return cell;
 }

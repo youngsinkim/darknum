@@ -75,7 +75,7 @@
         [toolBtn setTitleColor:UIColorFromRGB(0xeeeeee) forState:UIControlStateNormal];
         [toolBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateHighlighted];
         [toolBtn setTitleColor:UIColorFromRGB(0xaaaaaa) forState:UIControlStateDisabled];
-        [toolBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+        [toolBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
         [toolBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
 
         [toolBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];

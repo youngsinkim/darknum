@@ -111,15 +111,17 @@
 // 해당 기수별 학생 목록 화면
 - (void)setupStudentAddressUI
 {
-    CGRect rect = self.view.bounds;
+    CGRect rect = self.view.frame;
     rect.size.height -= kStudentToolH;
     
     if (IS_LESS_THEN_IOS7) {
         rect.size.height -= 44.0f;
+    } else {
+        rect.size.height -= 64.0f;
     }
     
     // 학생 테이블 뷰
-    _studentTableView = [[UITableView alloc] initWithFrame:rect];
+    _studentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height)];
 //    _studentTableView = [UIColor greenColor];
     _studentTableView.dataSource = self;
     _studentTableView.delegate = self;
@@ -350,15 +352,15 @@
 
     }
     
-    // accessoryView
-    UIImage *accessoryImage = [UIImage imageNamed:@"ic_list_arrow"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGRect frame = CGRectMake(0.0, 0.0, accessoryImage.size.width, accessoryImage.size.height);
-    button.frame = frame;
-    [button setBackgroundImage:accessoryImage forState:UIControlStateNormal];
-    //    [button addTarget:self action:@selector(checkButtonTapped:event:)  forControlEvents:UIControlEventTouchUpInside];
-    button.backgroundColor = [UIColor clearColor];
-    cell.accessoryView = button;
+//    // accessoryView
+//    UIImage *accessoryImage = [UIImage imageNamed:@"ic_list_arrow"];
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    CGRect frame = CGRectMake(0.0, 0.0, accessoryImage.size.width, accessoryImage.size.height);
+//    button.frame = frame;
+//    [button setBackgroundImage:accessoryImage forState:UIControlStateNormal];
+//    //    [button addTarget:self action:@selector(checkButtonTapped:event:)  forControlEvents:UIControlEventTouchUpInside];
+//    button.backgroundColor = [UIColor clearColor];
+//    cell.accessoryView = button;
 
     return cell;
 }

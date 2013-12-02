@@ -2,7 +2,7 @@
 //  Staff.m
 //  SMAddressBook
 //
-//  Created by 선옥 채 on 13. 10. 9..
+//  Created by 선옥 채 on 2013. 12. 3..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
@@ -24,5 +24,6 @@
 @dynamic viewphotourl;
 @dynamic work;
 @dynamic work_en;
+@dynamic hasapp;
 
 @end

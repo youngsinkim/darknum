@@ -53,7 +53,6 @@
 		BF241C82180931AE001A7AA0 /* DetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3E747517E21001006AAF8D /* DetailToolView.m */; };
 		BF241C83180931AE001A7AA0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B65017C4D24700A2495D /* LoginViewController.m */; };
 		BF241C84180931AE001A7AA0 /* NSURLRequest+SSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */; };
-		BF241C85180931AE001A7AA0 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01E17F761EA0018D236 /* Student.m */; };
 		BF241C86180931AE001A7AA0 /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
 		BF241C87180931AE001A7AA0 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
 		BF241C88180931AE001A7AA0 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467E17C86E680069AA9A /* LoadingView.m */; };
@@ -62,7 +61,6 @@
 		BF241C8B180931AE001A7AA0 /* FavoriteSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */; };
 		BF241C8C180931AE001A7AA0 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
 		BF241C8D180931AE001A7AA0 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8117C9BAB000614485 /* HelpViewController.m */; };
-		BF241C8E180931AE001A7AA0 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885E17F1BDBD0045CA75 /* Faculty.m */; };
 		BF241C8F180931AE001A7AA0 /* CourseTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */; };
 		BF241C90180931AE001A7AA0 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9617CA277C00614485 /* MenuCell.m */; };
 		BF241C91180931AE001A7AA0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
@@ -100,7 +98,6 @@
 		BF241CB1180931AE001A7AA0 /* SmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39417D79CD400B39C03 /* SmsViewController.m */; };
 		BF241CB2180931AE001A7AA0 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39717D79D0D00B39C03 /* ToolViewController.m */; };
 		BF241CB3180931AE001A7AA0 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
-		BF241CB4180931AE001A7AA0 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3518059DBE00AB8DF3 /* Staff.m */; };
 		BF241CB5180931AE001A7AA0 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C4A2D217D87B86006DEC43 /* Util.m */; };
 		BF241CB6180931AE001A7AA0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */; };
 		BF241CB7180931AE001A7AA0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A217DB754400B39C03 /* SearchViewController.m */; };
@@ -137,7 +134,6 @@
 		BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
 		BF4D51091849919200648119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF4D51081849919200648119 /* Images.xcassets */; };
 		BF4D510A1849919200648119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF4D51081849919200648119 /* Images.xcassets */; };
-		BF53FD3618059DBE00AB8DF3 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3518059DBE00AB8DF3 /* Staff.m */; };
 		BF53FD3C18083E1100AB8DF3 /* DBMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3B18083E1100AB8DF3 /* DBMethod.m */; };
 		BF57B2DD17CF824A00B39C03 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */; };
 		BF57B2EC17CFA40F00B39C03 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2EB17CFA40F00B39C03 /* Major.m */; };
@@ -180,7 +176,12 @@
 		BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
 		BFA89612180329C500869FB8 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
 		BFABB01C17F75AE50018D236 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
-		BFABB01F17F761EA0018D236 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01E17F761EA0018D236 /* Student.m */; };
+		BFBF58E2184CE51A0057A4C5 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E1184CE51A0057A4C5 /* Student.m */; };
+		BFBF58E3184CE51A0057A4C5 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E1184CE51A0057A4C5 /* Student.m */; };
+		BFBF58E6184CE51A0057A4C5 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E5184CE51A0057A4C5 /* Faculty.m */; };
+		BFBF58E7184CE51A0057A4C5 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E5184CE51A0057A4C5 /* Faculty.m */; };
+		BFBF58EA184CE51A0057A4C5 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E9184CE51A0057A4C5 /* Staff.m */; };
+		BFBF58EB184CE51A0057A4C5 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E9184CE51A0057A4C5 /* Staff.m */; };
 		BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
 		BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
 		BFDEBEC718010A2C00F7409F /* KakaoLinkCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */; };
@@ -189,7 +190,6 @@
 		BFDEBED91801670600F7409F /* UIButton+UIButtonExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */; };
 		BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
 		BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
-		BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEB885E17F1BDBD0045CA75 /* Faculty.m */; };
 		BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -270,8 +270,6 @@
 		BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		BF3E747D17E2223F006AAF8D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		BF4D51081849919200648119 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		BF53FD3418059DBE00AB8DF3 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
-		BF53FD3518059DBE00AB8DF3 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
 		BF53FD3A18083E1100AB8DF3 /* DBMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBMethod.h; sourceTree = "<group>"; };
 		BF53FD3B18083E1100AB8DF3 /* DBMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBMethod.m; sourceTree = "<group>"; };
 		BF57B2DB17CF824A00B39C03 /* FavoriteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteCell.h; sourceTree = "<group>"; };
@@ -346,8 +344,12 @@
 		BFA89611180329C500869FB8 /* FindWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWebViewController.m; sourceTree = "<group>"; };
 		BFABB01A17F75AE50018D236 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
 		BFABB01B17F75AE50018D236 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
-		BFABB01D17F761EA0018D236 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
-		BFABB01E17F761EA0018D236 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
+		BFBF58E0184CE51A0057A4C5 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		BFBF58E1184CE51A0057A4C5 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
+		BFBF58E4184CE51A0057A4C5 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
+		BFBF58E5184CE51A0057A4C5 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
+		BFBF58E8184CE51A0057A4C5 /* Staff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Staff.h; sourceTree = "<group>"; };
+		BFBF58E9184CE51A0057A4C5 /* Staff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Staff.m; sourceTree = "<group>"; };
 		BFCA0C4417E4BD4600E750E7 /* ToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolView.h; sourceTree = "<group>"; };
 		BFCA0C4517E4BD4600E750E7 /* ToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolView.m; sourceTree = "<group>"; };
 		BFCA0C4717E4DEFF00E750E7 /* NSString+UrlEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UrlEncoding.h"; sourceTree = "<group>"; };
@@ -362,8 +364,6 @@
 		BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+UIButtonExt.m"; sourceTree = "<group>"; };
 		BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_kakaotalk_logo_iphone.png; sourceTree = "<group>"; };
 		BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_kakaotalk_logo_iphone@2x.png"; sourceTree = "<group>"; };
-		BFEB885D17F1BDBD0045CA75 /* Faculty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faculty.h; sourceTree = "<group>"; };
-		BFEB885E17F1BDBD0045CA75 /* Faculty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faculty.m; sourceTree = "<group>"; };
 		BFFB2BC617E8AFD600721ACE /* NSDictionary+UTF8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+UTF8.h"; sourceTree = "<group>"; };
 		BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+UTF8.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -410,12 +410,12 @@
 				BFABB01A17F75AE50018D236 /* Course.h */,
 				BFABB01B17F75AE50018D236 /* Course.m */,
 				5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */,
-				BF53FD3418059DBE00AB8DF3 /* Staff.h */,
-				BF53FD3518059DBE00AB8DF3 /* Staff.m */,
-				BFABB01D17F761EA0018D236 /* Student.h */,
-				BFABB01E17F761EA0018D236 /* Student.m */,
-				BFEB885D17F1BDBD0045CA75 /* Faculty.h */,
-				BFEB885E17F1BDBD0045CA75 /* Faculty.m */,
+				BFBF58E8184CE51A0057A4C5 /* Staff.h */,
+				BFBF58E9184CE51A0057A4C5 /* Staff.m */,
+				BFBF58E4184CE51A0057A4C5 /* Faculty.h */,
+				BFBF58E5184CE51A0057A4C5 /* Faculty.m */,
+				BFBF58E0184CE51A0057A4C5 /* Student.h */,
+				BFBF58E1184CE51A0057A4C5 /* Student.m */,
 				BF57B2EA17CFA40F00B39C03 /* Major.h */,
 				BF57B2EB17CFA40F00B39C03 /* Major.m */,
 				50B14F0017F522B600FCC662 /* Major+Methods.h */,
@@ -997,6 +997,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5062B62717C4C10400A2495D /* main.m in Sources */,
+				BFBF58E2184CE51A0057A4C5 /* Student.m in Sources */,
 				5062B62B17C4C10400A2495D /* AppDelegate.m in Sources */,
 				5062B63417C4C10400A2495D /* SMAddressBook.xcdatamodeld in Sources */,
 				BF53FD3C18083E1100AB8DF3 /* DBMethod.m in Sources */,
@@ -1013,7 +1014,6 @@
 				BF5900A71822BB8000DD6980 /* TitleView.m in Sources */,
 				50D134D017F97A1200F27231 /* NSURLRequest+SSL.m in Sources */,
 				BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */,
-				BFABB01F17F761EA0018D236 /* Student.m in Sources */,
 				BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */,
 				BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */,
 				BF3B467F17C86E680069AA9A /* LoadingView.m in Sources */,
@@ -1022,12 +1022,12 @@
 				BF177E7F17C9BA9F00614485 /* FavoriteSettingViewController.m in Sources */,
 				5052F0E217E6F1C700CB41D3 /* LoadingProgressView.m in Sources */,
 				BF177E8217C9BAB000614485 /* HelpViewController.m in Sources */,
-				BFEB885F17F1BDBD0045CA75 /* Faculty.m in Sources */,
 				BF177E8C17C9BC3D00614485 /* CourseTotalViewController.m in Sources */,
 				BF177E9717CA277C00614485 /* MenuCell.m in Sources */,
 				BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */,
 				BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */,
 				BF57B2DD17CF824A00B39C03 /* FavoriteCell.m in Sources */,
+				BFBF58E6184CE51A0057A4C5 /* Faculty.m in Sources */,
 				BF57B2EC17CFA40F00B39C03 /* Major.m in Sources */,
 				BF57B30517D1CC2D00B39C03 /* NSString+MD5.m in Sources */,
 				BF57B30617D1CC2D00B39C03 /* UIView+Shadow.m in Sources */,
@@ -1060,7 +1060,7 @@
 				BF57B39517D79CD400B39C03 /* SmsViewController.m in Sources */,
 				BF57B39817D79D0D00B39C03 /* ToolViewController.m in Sources */,
 				BFABB01C17F75AE50018D236 /* Course.m in Sources */,
-				BF53FD3618059DBE00AB8DF3 /* Staff.m in Sources */,
+				BFBF58EA184CE51A0057A4C5 /* Staff.m in Sources */,
 				50C4A2D317D87B86006DEC43 /* Util.m in Sources */,
 				BF57B39B17D8B90200B39C03 /* NSDate+Helper.m in Sources */,
 				BF57B3A317DB754400B39C03 /* SearchViewController.m in Sources */,
@@ -1077,6 +1077,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF241C78180931AE001A7AA0 /* main.m in Sources */,
+				BFBF58E3184CE51A0057A4C5 /* Student.m in Sources */,
 				BF241C79180931AE001A7AA0 /* AppDelegate.m in Sources */,
 				BF241C7A180931AE001A7AA0 /* SMAddressBook.xcdatamodeld in Sources */,
 				BF241C7B180931AE001A7AA0 /* DBMethod.m in Sources */,
@@ -1093,7 +1094,6 @@
 				BF5900A81822BB8000DD6980 /* TitleView.m in Sources */,
 				BF241C84180931AE001A7AA0 /* NSURLRequest+SSL.m in Sources */,
 				BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */,
-				BF241C85180931AE001A7AA0 /* Student.m in Sources */,
 				BF241C86180931AE001A7AA0 /* SMNetworkClient.m in Sources */,
 				BF241C87180931AE001A7AA0 /* FavoriteViewController.m in Sources */,
 				BF241C88180931AE001A7AA0 /* LoadingView.m in Sources */,
@@ -1102,12 +1102,12 @@
 				BF241C8B180931AE001A7AA0 /* FavoriteSettingViewController.m in Sources */,
 				BF241C8C180931AE001A7AA0 /* LoadingProgressView.m in Sources */,
 				BF241C8D180931AE001A7AA0 /* HelpViewController.m in Sources */,
-				BF241C8E180931AE001A7AA0 /* Faculty.m in Sources */,
 				BF241C8F180931AE001A7AA0 /* CourseTotalViewController.m in Sources */,
 				BF241C90180931AE001A7AA0 /* MenuCell.m in Sources */,
 				BF241C91180931AE001A7AA0 /* DetailViewController.m in Sources */,
 				BF241C92180931AE001A7AA0 /* CourseClassCell.m in Sources */,
 				BF241C93180931AE001A7AA0 /* FavoriteCell.m in Sources */,
+				BFBF58E7184CE51A0057A4C5 /* Faculty.m in Sources */,
 				BF241C94180931AE001A7AA0 /* Major.m in Sources */,
 				BF241C95180931AE001A7AA0 /* NSString+MD5.m in Sources */,
 				BF241C96180931AE001A7AA0 /* UIView+Shadow.m in Sources */,
@@ -1140,7 +1140,7 @@
 				BF241CB1180931AE001A7AA0 /* SmsViewController.m in Sources */,
 				BF241CB2180931AE001A7AA0 /* ToolViewController.m in Sources */,
 				BF241CB3180931AE001A7AA0 /* Course.m in Sources */,
-				BF241CB4180931AE001A7AA0 /* Staff.m in Sources */,
+				BFBF58EB184CE51A0057A4C5 /* Staff.m in Sources */,
 				BF241CB5180931AE001A7AA0 /* Util.m in Sources */,
 				BF241CB6180931AE001A7AA0 /* NSDate+Helper.m in Sources */,
 				BF241CB7180931AE001A7AA0 /* SearchViewController.m in Sources */,

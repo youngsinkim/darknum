@@ -706,6 +706,7 @@
                         student.title = info[@"title"];
                         student.title_en = info[@"title_en"];
                         student.viewphotourl = info[@"viewphotourl"];
+                        student.iscurrent = info[@"iscurrent"];
                         //                        student.course;
                     }
                 }

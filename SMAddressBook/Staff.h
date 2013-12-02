@@ -2,7 +2,7 @@
 //  Staff.h
 //  SMAddressBook
 //
-//  Created by 선옥 채 on 13. 10. 9..
+//  Created by 선옥 채 on 2013. 12. 3..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
@@ -25,5 +25,6 @@
 @property (nonatomic, retain) NSString * viewphotourl;
 @property (nonatomic, retain) NSString * work;
 @property (nonatomic, retain) NSString * work_en;
+@property (nonatomic, retain) NSString * hasapp;
 
 @end

@@ -96,14 +96,14 @@
     }
     
     // Member Login
-    _loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 18.0f)];
-    [_loginLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
+    _loginLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 16.0f)];
+    [_loginLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
     _loginLabel.textColor = UIColorFromRGB(0x142c6d);
     _loginLabel.backgroundColor = [UIColor clearColor];
     _loginLabel.text = LocalizedString(@"Member Login", @"Member Login");
 
     [self.view addSubview:_loginLabel];
-    yOffset += (_loginLabel.frame.size.height + 5.0f);
+    yOffset += (_loginLabel.frame.size.height + 3.0f);
 
     
     // 아이디 입력창
@@ -113,7 +113,7 @@
     [_idTextField setBackground:inputBgImage];
     [_idTextField setTextColor:UIColorFromRGB(0x404040)];
     [_idTextField setReturnKeyType:UIReturnKeyNext];
-    [_idTextField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_idTextField setFont:[UIFont systemFontOfSize:13.0f]];
     [_idTextField setPlaceholder:LocalizedString(@"user_id_placeholder", @"아이디 빈문자열")];
     [_idTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     {
@@ -132,7 +132,7 @@
     [_pwdTextField setBackground:inputBgImage];
     [_pwdTextField setTextColor:UIColorFromRGB(0x404040)];
     [_pwdTextField setReturnKeyType:UIReturnKeyDone];
-    [_pwdTextField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_pwdTextField setFont:[UIFont systemFontOfSize:13.0f]];
     [_pwdTextField setPlaceholder:LocalizedString(@"user_pwd_placeholder", @"비밀번호 빈문자열")];
     [_pwdTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     [_pwdTextField setSecureTextEntry:YES];
@@ -153,7 +153,7 @@
     [_loginBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
     [_loginBtn setTitle:LocalizedString(@"Login", @"로그인") forState:UIControlStateNormal];
     [_loginBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
-    [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_loginBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
     [_loginBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [_loginBtn addTarget:self action:@selector(onLoginClicked) forControlEvents:UIControlEventTouchUpInside];
     
@@ -166,7 +166,7 @@
     _idSaveCheckBtn.frame = CGRectMake(xOffset, yOffset, 90.0f, 20.0f);
     [_idSaveCheckBtn setTitle:LocalizedString(@"id_save_text", @"아이디 저장") forState:UIControlStateNormal];
     [_idSaveCheckBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     _idSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
     [_idSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
@@ -183,7 +183,7 @@
     _loginSaveCheckBtn.frame = CGRectMake(320.0f - xOffset - 86.0f, yOffset, 90.0f, 20.0f);
     [_loginSaveCheckBtn setTitle:LocalizedString(@"login_save_text", @"로그인 유지") forState:UIControlStateNormal];
     [_loginSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     _loginSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
     [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];

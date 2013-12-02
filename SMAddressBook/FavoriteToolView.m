@@ -63,7 +63,7 @@
     [_favoriteSettBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_favoriteSettBtn setTitleColor:UIColorFromRGB(0x00BFFF) forState:UIControlStateHighlighted];
 //    [_favoriteSettBtn setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
-    [_favoriteSettBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_favoriteSettBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [_favoriteSettBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
     [_favoriteSettBtn addTarget:self action:@selector(onFavoriteSetBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -77,7 +77,7 @@
     [_totalStudentBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Member List", @"전체 주소록")] forState:UIControlStateNormal];
     [_totalStudentBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     [_totalStudentBtn setTitleColor:UIColorFromRGB(0x00BFFF) forState:UIControlStateHighlighted];
-    [_totalStudentBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_totalStudentBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [_totalStudentBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
 //    [_totalStudentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 //    [_totalStudentBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
@@ -94,7 +94,7 @@
     [_helpBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Help", @"도움말")] forState:UIControlStateNormal];
     [_helpBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_helpBtn setTitleColor:UIColorFromRGB(0x00BFFF) forState:UIControlStateHighlighted];
-    [_helpBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_helpBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [_helpBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
     [_helpBtn addTarget:self action:@selector(onHelpBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     

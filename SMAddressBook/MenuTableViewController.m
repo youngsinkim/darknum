@@ -86,9 +86,11 @@
 {
     CGFloat yOffset = 14.0f;
     CGFloat xOffset = 10.0f;
+    CGFloat headerCY = kHeaderH;
     
     if (!IS_LESS_THEN_IOS7) {
-        yOffset = 20.0f;
+        yOffset += 20.0f;
+        headerCY += 20.0f;
 
         UIEdgeInsets edges;
         edges.left = 0;
@@ -101,7 +103,7 @@
     NSDictionary *profileDict = @{@"name":@"", @"class":@"", @"photourl":@""};
 
     // 내 정보 해더 구성
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, kHeaderH)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, headerCY)];
 //    headerView.backgroundColor = UIColorFromRGB(0xffffff);
     
     self.tableView.tableHeaderView = headerView;
@@ -113,7 +115,7 @@
 //        [_profileImgView setImageWithURL:[NSURL URLWithString:profileDict[@"photourl"]] placeholderImage:[UIImage imageNamed:@"ic_noimg_mypage"]];
         
         [headerView addSubview:_profileImgView];
-        xOffset += (40.0f + 15.0f);
+        xOffset += (_profileImgView.frame.size.width + 15.0f);
         yOffset += 3.0f;
         
         
@@ -432,7 +434,7 @@
     
     // 섹션 타이틀
     UILabel *sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectInset(sectionImageView.frame, 10.0f, 0.0f)];
-    sectionTitleLabel.font = [UIFont systemFontOfSize:14.0f];
+    sectionTitleLabel.font = [UIFont systemFontOfSize:13.0f];
     sectionTitleLabel.textAlignment = NSTextAlignmentLeft;;
     sectionTitleLabel.textColor = UIColorFromRGB(0xaaaaaa);
 //    sectionTitleLabel.shadowColor = [UIColor colorWithRed:40.0f/255.0f green:45.0f/255.0f blue:57.0f/255.0f alpha:1.0f];

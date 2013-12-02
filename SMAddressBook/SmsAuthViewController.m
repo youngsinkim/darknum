@@ -67,29 +67,29 @@
     CGFloat xOffset = 24.0f;
     
     // 본인인증 안내 문구
-    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 34.0f)];
+    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 30.0f)];
     [_infoLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [_infoLabel setNumberOfLines:0];
-    [_infoLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_infoLabel setFont:[UIFont systemFontOfSize:13.0f]];
     _infoLabel.textColor = UIColorFromRGB(0x333333);
     _infoLabel.backgroundColor = [UIColor clearColor];
     _infoLabel.text = LocalizedString(@"Athentication Description", @"본인인증 안내");
     
     [self.view addSubview:_infoLabel];
-    yOffset += (_infoLabel.frame.size.height + 10.0f);
+    yOffset += (_infoLabel.frame.size.height + 5.0f);
     
 
     // 휴대전화번호
-    _phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 16.0f)];
+    _phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 15.0f)];
     [_phoneLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [_phoneLabel setNumberOfLines:0];
-    [_phoneLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [_phoneLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
     _phoneLabel.textColor = UIColorFromRGB(0x142c6d);
     _phoneLabel.backgroundColor = [UIColor clearColor];
     _phoneLabel.text = LocalizedString(@"cell phone no.", @"휴대전화번호");
     
     [self.view addSubview:_phoneLabel];
-    yOffset += (_phoneLabel.frame.size.height + 2.0f);
+    yOffset += (_phoneLabel.frame.size.height + 3.0f);
 
     
     // 전화번호 text
@@ -100,7 +100,7 @@
     [_phoneNumberField setTextColor:UIColorFromRGB(0x404040)];
     [_phoneNumberField setReturnKeyType:UIReturnKeyNext];
     [_phoneNumberField setKeyboardType:UIKeyboardTypePhonePad];
-    [_phoneNumberField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_phoneNumberField setFont:[UIFont systemFontOfSize:13.0f]];
     [_phoneNumberField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     {
         UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, inputBgImage.size.height)];
@@ -122,7 +122,7 @@
     [_smsBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
     [_smsBtn setTitle:LocalizedString(@"Send Verification Code", @"인증번호받기") forState:UIControlStateNormal];
     [_smsBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
-    [_smsBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_smsBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
     [_smsBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [_smsBtn addTarget:self action:@selector(onSmsBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     
@@ -131,16 +131,16 @@
     
     
     // 인증번호
-    _authLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.height - (xOffset * 2), 16.0f)];
+    _authLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.height - (xOffset * 2), 15.0f)];
     [_authLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [_authLabel setNumberOfLines:0];
-    [_authLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    [_authLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
     _authLabel.textColor = UIColorFromRGB(0x142c6d);
     _authLabel.backgroundColor = [UIColor clearColor];
     _authLabel.text = LocalizedString(@"Verification code", @"인증번호");
     
     [self.view addSubview:_authLabel];
-    yOffset += (_authLabel.frame.size.height + 2.0f);
+    yOffset += (_authLabel.frame.size.height + 3.0f);
     
     
     // 전화번호 입력창
@@ -150,7 +150,7 @@
     [_smsNumberField setTextColor:UIColorFromRGB(0x404040)];
     [_smsNumberField setReturnKeyType:UIReturnKeyDone];
     [_smsNumberField setKeyboardType:UIKeyboardTypeNumberPad];
-    [_smsNumberField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_smsNumberField setFont:[UIFont systemFontOfSize:13.0f]];
     [_smsNumberField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
     {
         UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, inputBgImage.size.height)];
@@ -167,13 +167,13 @@
     [_confirmBtn setBackgroundImage:btnImage forState:UIControlStateNormal];
     [_confirmBtn setTitle:LocalizedString(@"Submit", @"확인") forState:UIControlStateNormal];
     [_confirmBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
-    [_confirmBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_confirmBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
     [_confirmBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [_confirmBtn addTarget:self action:@selector(onConfirmBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_confirmBtn];
 
-}
+}   
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

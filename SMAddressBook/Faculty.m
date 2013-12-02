@@ -2,7 +2,7 @@
 //  Faculty.m
 //  SMAddressBook
 //
-//  Created by 선옥 채 on 13. 9. 24..
+//  Created by 선옥 채 on 2013. 12. 3..
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
@@ -23,6 +23,7 @@
 @dynamic remove;
 @dynamic tel;
 @dynamic viewphotourl;
+@dynamic hasapp;
 @dynamic major;
 
 @end
