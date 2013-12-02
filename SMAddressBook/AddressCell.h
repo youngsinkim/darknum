@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kAddressCellH   60.0f
+#define kAddressCellH   65.0f
 
 typedef enum {
     AddressCellTypeNormal,

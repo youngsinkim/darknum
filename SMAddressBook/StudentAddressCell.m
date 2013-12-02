@@ -25,10 +25,8 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-//        self.backgroundColor = [UIColor whiteColor];
-        
+    if (self)
+    {
         CGFloat xOffset = 0.0f;
         CGFloat yOffset = 0.0f;
         

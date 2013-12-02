@@ -22,49 +22,51 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-//        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-        //        self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2];
-        
+    if (self)
+    {
+        CGFloat xOffset = 0.0f;
+        CGFloat yOffset = 0.0f;
+
         _cellType = AddressCellTypeNormal;
         
         // 프로필 사진
-        _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 5.0f, 50.0f, 50.0f)];
-        _profileImageView.image = [UIImage imageNamed:@"placeholder"];
+        UIImage *proImage = [UIImage imageNamed:@"ic_noimg_list"];
+        _profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset, yOffset, proImage.size.width, proImage.size.height)];
+        _profileImageView.image = proImage;
         
         [self.contentView addSubview:_profileImageView];
+        xOffset += (_profileImageView.frame.size.width + 10.0f);
+        yOffset += 10.0f;
+
         
-        
-        // 이름
+        // 이름 text
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.textColor = [UIColor darkGrayColor];
+        _nameLabel.textColor = UIColorFromRGB(0x333333);
         _nameLabel.backgroundColor = [UIColor clearColor];
-        [_nameLabel setFont:[UIFont systemFontOfSize:15.0f]];
+        [_nameLabel setFont:[UIFont systemFontOfSize:14.0f]];
         
         [self.contentView addSubview:_nameLabel];
+        yOffset += (_nameLabel.frame.size.height + 5.0f);
+        
 
         // 설명
         _descLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _descLabel.textColor = [UIColor lightGrayColor];
-        [_descLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        _descLabel.textColor = UIColorFromRGB(0x555555);
+        _descLabel.backgroundColor = [UIColor clearColor];
+        [_descLabel setFont:[UIFont systemFontOfSize:11.0f]];
         
         [self.contentView addSubview:_descLabel];
+        yOffset += (_descLabel.frame.size.height + 1.0f);
 
         
         // 이메일
         _emailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _emailLabel.textColor = [UIColor lightGrayColor];
-        [_emailLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        _emailLabel.textColor = UIColorFromRGB(0x142c6d);
+        _emailLabel.backgroundColor = [UIColor clearColor];
+        [_emailLabel setFont:[UIFont systemFontOfSize:10.0f]];
         
         [self.contentView addSubview:_emailLabel];
         
-        
-        // 라인
-//        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 65 - 1, self.contentView.frame.size.width, 1.0f)];
-//        line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-//        
-//        [self.contentView addSubview:line];
     }
     return self;
 }
@@ -75,7 +77,6 @@
 
     // Configure the view for the selected state
 }
-
 
 
 - (void)setCellInfo:(NSDictionary *)cellInfo
@@ -141,36 +142,41 @@
     [super layoutSubviews];
     
     CGRect viewRect = self.bounds;
-    CGFloat xOffset = 60.0f;
-    CGFloat yOffset = 5.0f;
+    CGFloat xOffset = 0.0f;
+    CGFloat yOffset = 10.0f;
     
-    _nameLabel.frame = CGRectMake(60.0f, 8.0f, 200.0f, 20.0f);
-    _emailLabel.frame = CGRectMake(60.0f, 36.0f, 200.0f, 20.0f);
+    // profile image
+    xOffset += (_profileImageView.frame.size.width + 10.0f);
+
+    CGFloat cellWidth = (viewRect.size.width - xOffset - 20.0f);
+
+    _nameLabel.frame = CGRectMake(xOffset, 8.0f, 200.0f, 20.0f);
+    _emailLabel.frame = CGRectMake(xOffset, 36.0f, 200.0f, 20.0f);
     
 //    if (_memType == MemberTypeStaff)
     if ([_descLabel.text length] > 0)
     {
         if (_nameLabel.text.length > 0 && _descLabel.text.length > 0 && _emailLabel.text.length > 0)
         {
-            yOffset = 3.0f;
-            _nameLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
-            yOffset += 18.0f;
-            _descLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
-            yOffset += 18.0f;
-            _emailLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+//            yOffset = 3.0f;
+            _nameLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 16.0f);
+            yOffset += 21.0f;
+            _descLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 13.0f);
+            yOffset += 14.0f;
+            _emailLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 12.0f);
         }
         else if(_nameLabel.text.length > 0 && _descLabel.text.length > 0)
         {
             yOffset = 7.0f;
-            _nameLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            _nameLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 16.0f);
             yOffset += 24.0f;
-            _descLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            _descLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 13.0f);
         }
         else if(_nameLabel.text.length > 0 && _emailLabel.text.length > 0) {
             yOffset = 7.0f;
-            _nameLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            _nameLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 16.0f);
             yOffset += 24.0f;
-            _emailLabel.frame = CGRectMake(xOffset, yOffset, (viewRect.size.width - xOffset - 20), 18.0f);
+            _emailLabel.frame = CGRectMake(xOffset, yOffset, cellWidth, 13.0f);
         }
     }
 }

@@ -85,17 +85,18 @@
 
     if (IS_LESS_THEN_IOS7) {
         viewRect.size.height -= 44.0f;
+    } else {
+        viewRect.size.height -= 64.0f;
     }
     
-    _addressTableView = [[UITableView alloc] initWithFrame:viewRect];
+    _addressTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, viewRect.size.width, viewRect.size.height)];
     _addressTableView.dataSource = self;
     _addressTableView.delegate = self;
     
     [self.view addSubview:_addressTableView];
 
     
-    if (!IS_LESS_THEN_IOS7)
-    {
+    if (!IS_LESS_THEN_IOS7) {
         UIEdgeInsets edges;
         edges.left = 0;
         _addressTableView.separatorInset = edges;
@@ -174,11 +175,16 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row % 2) {
-        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+        [cell setBackgroundColor:UIColorFromRGB(0xe6e6e6)];
+    } else {
+        [cell setBackgroundColor:UIColorFromRGB(0xffffff)];
     }
-    else {
-        [cell setBackgroundColor:[UIColor clearColor]];
-    }
+    
+    // selected cell background color
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = UIColorFromRGB(0xcfd4e4);
+    
+    [cell setSelectedBackgroundView:bgColorView];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -201,7 +207,7 @@
     if (!cell) {
         cell = [[AddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
+        tableView.separatorColor = UIColorFromRGB(0xcccccc);
     }
     
     if ([_faculties count] > 0)

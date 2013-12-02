@@ -406,11 +406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FacultyAddressViewController.m"
-            timestampString = "403120970.823351"
+            timestampString = "407697925.703656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "-didSelectedToolTag:"
             landmarkType = "5">
          </BreakpointContent>
@@ -868,11 +868,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FacultyAddressViewController.m"
-            timestampString = "403120970.823351"
+            timestampString = "407697925.703656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "-didSelectedToolTag:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1186,8 +1186,8 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[MenuTableViewController showMenuViewController:]"
                   moduleName = "SMAddressBook"
-                  urlString = "file:///Users/sochae78/Desktop/project/snumba_1129/SMAddressBook/MenuTableViewController.m"
-                  timestampString = "407692598.042155"
+                  urlString = "file:///Users/sochae78/Desktop/project/snumba_1202/SMAddressBook/MenuTableViewController.m"
+                  timestampString = "407698703.198293"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "604"
@@ -1200,8 +1200,8 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[MenuTableViewController showMenuViewController:]"
                   moduleName = "SMAddressBook"
-                  urlString = "file:///Users/sochae78/Desktop/project/snumba_1129/SMAddressBook/MenuTableViewController.m"
-                  timestampString = "407692598.042422"
+                  urlString = "file:///Users/sochae78/Desktop/project/snumba_1202/SMAddressBook/MenuTableViewController.m"
+                  timestampString = "407698703.198618"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "604"
@@ -1240,6 +1240,38 @@
             startingLineNumber = "709"
             endingLineNumber = "709"
             landmarkName = "-saveDBFavoriteStudent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMAddressBook/StaffAddressViewController.m"
+            timestampString = "407697404.838272"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-setupStaffUI"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMAddressBook/StaffAddressViewController.m"
+            timestampString = "407697481.23171"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "-setupStaffUI"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
