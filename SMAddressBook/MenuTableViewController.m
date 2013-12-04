@@ -308,6 +308,7 @@
     if (cell == nil) {
         cell = [[MenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
 //    cell.textLabel.text = [NSString stringWithFormat:@"Item %d", indexPath.row];

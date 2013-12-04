@@ -157,12 +157,21 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 2) {
-        [cell setBackgroundColor:[UIColor colorWithRed:.9 green:.9 blue:0.9 alpha:1]];
+    if (indexPath.section == 0) {
+        [cell setBackgroundColor:UIColorFromRGB(0xffffff)];
+    } else {
+        if (indexPath.row % 2) {
+            [cell setBackgroundColor:UIColorFromRGB(0xffffff)];
+        } else {
+            [cell setBackgroundColor:UIColorFromRGB(0xe6e6e6)];
+        }
     }
-    else {
-        [cell setBackgroundColor:[UIColor clearColor]];
-    }
+    
+    // selected cell background color
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = UIColorFromRGB(0xcfd4e4);
+    
+    [cell setSelectedBackgroundView:bgColorView];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -175,7 +184,7 @@
         if (!cell) {
             cell = [[MajorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
+            tableView.separatorColor = UIColorFromRGB(0xcccccc);
         }
 
 //        NSDictionary *majorInfo = _majors[indexPath.row];
@@ -184,7 +193,8 @@
 //        } else {
 //            cell.textLabel.text = majorInfo[@"title_en"];
 //        }
-        cell.textLabel.text = LocalizedString(@"All faculties", @"전체 교수");
+//        cell.textLabel.text = LocalizedString(@"All faculties", @"전체 교수");
+        cell.majorText = LocalizedString(@"All faculties", @"전체 교수");
         
         return cell;
     }
@@ -214,20 +224,13 @@
         
         if ([_majors count] > 0)
         {
-#if (1)
             NSDictionary *majorInfo = _majors[indexPath.row];
 
             if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-                cell.textLabel.text = majorInfo[@"title"];
+                cell.majorText = majorInfo[@"title"];
             } else {
-                cell.textLabel.text = majorInfo[@"title_en"];
+                cell.majorText = majorInfo[@"title_en"];
             }
-#else
-            // db에서 가져오면 managedObject로 받음
-            Major *major = _majors[indexPath.row];
-        NSLog(@"major (%d) : %@, %@", indexPath.row, major.title, major);
-            cell.textLabel.text = major.title;
-#endif
         }
         
         return cell;

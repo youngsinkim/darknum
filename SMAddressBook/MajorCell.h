@@ -12,4 +12,7 @@
 
 @interface MajorCell : UITableViewCell
 
+//@property (strong, nonatomic) NSDictionary *cellInfo;
+@property (strong, nonatomic) NSString *majorText;
+
 @end

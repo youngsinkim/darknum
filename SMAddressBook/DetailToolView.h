@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kDetailViewH    55.0f
+
 @class DetailToolView;
 
 @protocol DetailToolViewDelegate <NSObject>
@@ -24,7 +26,7 @@
 @property (strong, nonatomic) UIButton *smsBtn;
 @property (strong, nonatomic) UIButton *emailBtn;
 @property (strong, nonatomic) UIButton *saveBtn;
-@property (strong, nonatomic) UIButton *kakaoBtn;
+//@property (strong, nonatomic) UIButton *kakaoBtn;
 
 - (id)initWithFrame:(CGRect)frame type:(MemberType)type;
 

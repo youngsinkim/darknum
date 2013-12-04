@@ -1545,6 +1545,9 @@
                                    student.share_mobile = dict[@"share_mobile"];
                                    student.photourl = dict[@"photourl"];
                                    student.viewphotourl = dict[@"viewphotourl"];
+                                   student.iscurrent = dict[@"iscurrent"];
+                                   student.hasapp = dict[@"hasapp"];
+                                   student.birth = dict[@"birth"];
                                    
                                    [course addStudentsObject:student];
                                }
@@ -1688,6 +1691,9 @@
                         student.title = info[@"title"];
                         student.title_en = info[@"title_en"];
                         student.viewphotourl = info[@"viewphotourl"];
+                        student.iscurrent = info[@"iscurrent"];
+                        student.hasapp = info[@"hasapp"];
+                        student.birth = info[@"birth"];
 //                        student.course;
                     }
                 }
@@ -1747,6 +1753,9 @@
                     newStudent.title = info[@"title"];
                     newStudent.title_en = info[@"title_en"];
                     newStudent.viewphotourl = info[@"viewphotourl"];
+                    newStudent.iscurrent = info[@"iscurrent"];
+                    newStudent.hasapp = info[@"hasapp"];
+                    newStudent.birth = info[@"birth"];
                     
                     newStudent.course = course;
 //                        [newStudent setCourse:course];
@@ -1883,6 +1892,9 @@
         student.share_mobile = dict[@"share_mobile"];
         student.photourl = dict[@"photourl"];
         student.viewphotourl = dict[@"viewphotourl"];
+        student.iscurrent = dict[@"iscurrent"];
+        student.hasapp = dict[@"hasapp"];
+        student.birth = dict[@"birth"];
         
         [course addStudentsObject:student];
     }
@@ -1985,15 +1997,16 @@
                     else {
                         // 등록된 사용자이므로 정보만 업데이트
                         NSLog(@"(%@)교수 업데이트 : %@", faculty.name, faculty.memberidx);
-                        faculty.email = info[@"email"];
-                        faculty.mobile = info[@"mobile"];
-                        faculty.name = info[@"name"];
-                        faculty.name_en = info[@"name_en"];
-                        faculty.office = info[@"office"];
-                        faculty.office_en = info[@"office_en"];
-                        faculty.photourl = info[@"photourl"];
-                        faculty.tel = info[@"tel"];
-                        faculty.viewphotourl = info[@"viewphotourl"];
+                        faculty.email       = info[@"email"];
+                        faculty.mobile      = info[@"mobile"];
+                        faculty.name        = info[@"name"];
+                        faculty.name_en     = info[@"name_en"];
+                        faculty.office      = info[@"office"];
+                        faculty.office_en   = info[@"office_en"];
+                        faculty.photourl    = info[@"photourl"];
+                        faculty.tel         = info[@"tel"];
+                        faculty.viewphotourl= info[@"viewphotourl"];
+                        faculty.hasapp      = info[@"hasapp"];
                     }
                 }
                 else
@@ -2028,15 +2041,16 @@
                     newFaculty.memberidx = info[@"memberidx"];
                     NSLog(@"해당 전공에 교수(%@) 추가 : %@", info[@"name"], newFaculty.memberidx);
                     
-                    newFaculty.email = info[@"email"];
-                    newFaculty.mobile = info[@"mobile"];
-                    newFaculty.name = info[@"name"];
-                    newFaculty.name_en = info[@"name_en"];
-                    newFaculty.office = info[@"office"];
-                    newFaculty.office_en = info[@"office_en"];
+                    newFaculty.email    = info[@"email"];
+                    newFaculty.mobile   = info[@"mobile"];
+                    newFaculty.name     = info[@"name"];
+                    newFaculty.name_en  = info[@"name_en"];
+                    newFaculty.office   = info[@"office"];
+                    newFaculty.office_en= info[@"office_en"];
                     newFaculty.photourl = info[@"photourl"];
-                    newFaculty.tel = info[@"tel"];
+                    newFaculty.tel      = info[@"tel"];
                     newFaculty.viewphotourl = info[@"viewphotourl"];
+                    newFaculty.hasapp   = info[@"hasapp"];
                     newFaculty.major = major;
 
                     NSLog(@"전공 컨텍스트로 저장 (%@ ======= %@)", context, childContext);
@@ -2190,6 +2204,7 @@
                     staff.photourl  = info[@"photourl"];
                     staff.tel       = info[@"tel"];
                     staff.viewphotourl = info[@"viewphotourl"];
+                    staff.hasapp    = info[@"hasapp"];
                 }
             }
             else
@@ -2209,6 +2224,7 @@
                 newStaff.photourl   = info[@"photourl"];
                 newStaff.tel        = info[@"tel"];
                 newStaff.viewphotourl = info[@"viewphotourl"];
+                newStaff.hasapp     = info[@"hasapp"];
             }
             
             _cur += 1;
@@ -2389,6 +2405,9 @@
             student.share_mobile = dict[@"share_mobile"];
             student.photourl = dict[@"photourl"];
             student.viewphotourl = dict[@"viewphotourl"];
+            student.iscurrent = dict[@"iscurrent"];
+            student.hasapp = dict[@"hasapp"];
+            student.birth = dict[@"birth"];
 
             [course addStudentsObject:student];
             
@@ -2469,6 +2488,7 @@
             faculty.office_en = dict[@"office_en"];
             faculty.photourl = dict[@"photourl"];
             faculty.viewphotourl = dict[@"viewphotourl"];
+            faculty.hasapp  = dict[@"hasapp"];]
 
             [major addFacultysObject:faculty];
             
@@ -2525,6 +2545,7 @@
             mo.office_en= dict[@"office_en"];
             mo.photourl = dict[@"photourl"];
             mo.viewphotourl = dict[@"viewphotourl"];
+            mo.hasmapp  = dict[@"hasapp"];
             
             NSLog(@"UPDATE 즐겨찾기 교직원 : memberIdx(%@), name(%@), name_en(%@), tel(%@)", mo.memberidx, mo.name, mo.name_en, mo.tel);
             

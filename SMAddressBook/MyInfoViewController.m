@@ -1584,6 +1584,7 @@
             mo.share_mobile = _myInfo[@"share_mobile"];
             mo.photourl = _myInfo[@"photourl"];
             mo.viewphotourl = _myInfo[@"viewphotourl"];
+            mo.iscurrent = _myInfo[@"iscurrent"];
         }
 
         NSError *error;
@@ -1903,6 +1904,7 @@
                         student.title = info[@"title"];
                         student.title_en = info[@"title_en"];
                         student.viewphotourl = info[@"viewphotourl"];
+                        student.iscurrent = info[@"iscurrent"];
                         //                        student.course;
                     }
                 }
@@ -1962,9 +1964,9 @@
                     newStudent.title = info[@"title"];
                     newStudent.title_en = info[@"title_en"];
                     newStudent.viewphotourl = info[@"viewphotourl"];
-                    
+                    newStudent.iscurrent = info[@"iscurrent"];
                     newStudent.course = course;
-                    //                        [newStudent setCourse:course];
+//                    [newStudent setCourse:course];
                     
                     NSLog(@"과정의 컨텍스트로 (%@)학생 저장 (%@ === %@)", newStudent.name, context, childContext);
                     [context save:nil];

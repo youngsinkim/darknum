@@ -11,6 +11,11 @@
 
 @interface DetailViewCell ()
 
+@property (strong, nonatomic) UIView *bgView;
+@property (strong, nonatomic) UILabel *hasAppLabel; // App 설치 여부 표시
+@property (strong, nonatomic) UILabel *borderLabel;
+@property (strong, nonatomic) UILabel *line;
+
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *statusLabel;
 @property (strong, nonatomic) UILabel *classTitleLabel;
@@ -39,15 +44,44 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-//        self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5f];
+        self.backgroundColor = UIColorFromRGB(0xf0f0f0);
         
+        _bgView = [[UIView alloc] initWithFrame:CGRectZero];
+        [_bgView setBackgroundColor:UIColorFromRGB(0xa6b7d6)];
+        
+        [self addSubview:_bgView];
+        
+        
+        _hasAppLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_hasAppLabel setBackgroundColor:[UIColor colorWithRed:20.0f/255.0f green:44.0f/255.0f blue:109.0f/255.0f alpha:0.8]];
+        [_hasAppLabel setTextColor:UIColorFromRGB(0xffffff)];
+        [_hasAppLabel setFont:[UIFont systemFontOfSize:10.0f]];
+        [_hasAppLabel setTextAlignment:NSTextAlignmentCenter];
+        [_hasAppLabel setText:LocalizedString(@"has App Message", @"앱 미설치 문구")];
+        
+        [_bgView addSubview:_hasAppLabel];
+        
+        
+        _borderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _borderLabel.backgroundColor = UIColorFromRGB(0x7d8aa2);
+        
+        [_bgView addSubview:_borderLabel];
+        
+
         _profileImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         [_profileImage setImage:[UIImage imageNamed:@"placeholder"]];
         [_profileImage setContentMode:UIViewContentModeScaleAspectFit];
-        [_profileImage setBackgroundColor:[UIColor whiteColor]];
+        [_profileImage setBackgroundColor:[UIColor clearColor]];
         
-        [self addSubview:_profileImage];
+        [_bgView addSubview:_profileImage];
         
+        
+        // 라인
+        _line = [[UILabel alloc] initWithFrame:CGRectZero];
+        _line.backgroundColor = UIColorFromRGB(0xcad8f1);
+        
+        [self addSubview:_line];
+
 
         // 이름
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -244,11 +278,13 @@
     NSLog(@"셀 정보: %@", _cellInfo[@"name_en"]);
  
     // 프로필 사진
-    if (_cellInfo[@"viewphotourl"]) {
+//    if (_cellInfo[@"viewphotourl"]) {
         NSLog(@"프로필 이미지 : %@", _cellInfo[@"viewphotourl"]);
         [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"viewphotourl"]]]
-                      placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    }
+                      placeholderImage:[UIImage imageNamed:@"ic_noimg_info"]];
+//    } else {
+//        [_profileImage setImage:[UIImage imageNamed:@"ic_noimg_info"]];
+//    }
     
     // 이름 표시 (국문 / 영문)
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {
@@ -397,32 +433,42 @@
 {
     [super layoutSubviews];
 
-    // 멤버 타입별로 셀 내용 다르게 노출
-    CGRect viewFrame = self.bounds;
-    CGFloat width = 240.0f;
+    CGRect rect = self.frame;
+    CGFloat yOffset = 0.0f;
+    CGFloat xOffset = 15.0f;
+    CGFloat height = 235.0f;
+    CGFloat width = rect.size.width - (xOffset * 2);
+    CGFloat borderArea = 200.0f;
     
-    CGFloat yOffset = 10.0f;
-    CGFloat xOffset = (viewFrame.size.width - width) / 2;
-
-    // 프로필 사진
-    _profileImage.frame = CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f);
-    if (IS_LESS_THEN_IOS7) {
-        yOffset += _profileImage.frame.size.height;
-    } else {
-        yOffset += (_profileImage.frame.size.height + 30);
+    if (([[UIScreen mainScreen] bounds].size.height < 568)) {
+        height = 175.0f;
+        borderArea = 143.0f;
     }
+    
+    // 사진 영역
+    _bgView.frame = CGRectMake(0.0f, yOffset, rect.size.width, height);
+    
+    // 앱 설치 text
+    _hasAppLabel.frame = CGRectMake(0.0f, 0.0f, rect.size.width, 20.0f);
+    
+    // 프로필 사진
+    _profileImage.frame = CGRectMake((rect.size.width - borderArea) / 2, _hasAppLabel.frame.origin.y + _hasAppLabel.frame.size.height + 2.0f, borderArea, borderArea);
+
+    // 사진 테두리
+    _borderLabel.frame = CGRectInset(_profileImage.frame, -2, -2);
+    
+    // 라인
+    _line.frame = CGRectMake(0.0f, _bgView.frame.origin.y + _bgView.frame.size.height, rect.size.width, 2.0f);
+
+    yOffset += (height + 15.0f);
+    
 
     // 이름
-    _nameLabel.frame = CGRectMake(xOffset, yOffset, width, 24.0f);
-    yOffset += 26.0f;
+    _nameLabel.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 18.0f);
+    yOffset += 10.0f;
 
     if (_memType == MemberTypeStudent)
     {
-//        _profileImage.frame = CGRectMake(0.0f, yOffset, viewFrame.size.width, 200.0f);
-//        yOffset += (_profileImage.frame.size.height + 30);
-//        _nameLabel.frame = CGRectMake(xOffset, yOffset, width, 24.0f);
-//        yOffset += 26.0f;
-        
         _statusLabel.frame = CGRectMake(xOffset, yOffset, 40.0f, 20.0f);
         _classTitleLabel.frame = CGRectMake(xOffset + 45.0f, yOffset, 150.0f, 20.0f);
         if (_statusLabel.hidden) {
@@ -483,6 +529,6 @@
         yOffset += 20.0f;
 
     }
-    
+
 }
 @end

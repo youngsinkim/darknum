@@ -17,7 +17,6 @@
 #import "KakaoMessageViewController.h"
 #import "DetailGuideViewController.h"
 
-#define kDetailViewH    60.0f
 
 @interface DetailViewController ()
 
@@ -72,28 +71,26 @@
 //    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 //    self.navigationController.navigationBar.opaque = NO;
     
-    CGFloat height = self.view.frame.size.height - kDetailViewH;
-    NSLog(@"sub 뷰 생성 높이 : %f", height);
+    CGRect rect = self.view.frame;
+    rect.size.height -= kDetailViewH;
+    
     if (IS_LESS_THEN_IOS7) {
-        height -= 44.0f;
+        rect.size.height -= 44.0f;
+    } else {
+        rect.size.height -= 64.0f;
     }
-
-//    // 배경 뷰
-//    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
-//    _bgView.backgroundColor = [UIColor greenColor];
-//    [self.view addSubview:_bgView];
-
-
-    // 하단 툴바 뷰
-    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH) type:_memType];
-    _toolbar.delegate = self;
-    
-    [self.view addSubview:_toolbar];
-    
 
     // 세로 테이블 뷰
     [self setupHorizontalView];
 //    [self setupContactTableView];
+
+
+    // 하단 툴바 뷰
+    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height, rect.size.width, kDetailViewH) type:_memType];
+    _toolbar.delegate = self;
+    
+    [self.view addSubview:_toolbar];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -130,27 +127,30 @@
 
 - (void)setupHorizontalView
 {
-    CGFloat yOffset = 44.0f;
-    CGFloat height = self.view.frame.size.height - 44.0f - kDetailViewH;
-    NSLog(@"테이블 뷰 높이 : %f", height);
+    CGRect rect = self.view.frame;
+    rect.size.height -= kDetailViewH;
     
-    if (!IS_LESS_THEN_IOS7) {
-//        yOffset += 44.0f;
+    CGFloat yOffset = 0.0f;
+    
+    if (IS_LESS_THEN_IOS7) {
+        yOffset += 44.0f;
+    } else {
+        yOffset += 44.0f;
+        rect.size.height -= yOffset;
     }
     
-//    CGRect frameRect	= CGRectMake(0, LANDSCAPE_HEIGHT - HORIZONTAL_TABLEVIEW_HEIGHT, PORTRAIT_WIDTH, HORIZONTAL_TABLEVIEW_HEIGHT);
-    CGRect frameRect = CGRectMake(0.0f, yOffset, 320.0f, height);
-	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:1 ofWidth:320];
+    CGRect frameRect = CGRectMake(-1.0f, yOffset, rect.size.width+1, rect.size.height);
+	EasyTableView *view	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:1 ofWidth:321.0f];
     
 	self.horListView = view;
 	
 	self.horListView.delegate					= self;
-	self.horListView.tableView.backgroundColor	= [UIColor whiteColor]; // 테이블 뷰 배경
+	self.horListView.tableView.backgroundColor	= UIColorFromRGB(0xf0f0f0); // 테이블 뷰 배경
 	self.horListView.tableView.allowsSelection	= NO;
     self.horListView.tableView.separatorStyle   = UITableViewCellSeparatorStyleNone;
 //	self.horListView.tableView.separatorColor	= [UIColor darkGrayColor];
-	self.horListView.cellBackgroundColor		= [UIColor whiteColor];// [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
-	self.horListView.autoresizingMask			=  UIViewAutoresizingFlexibleTopMargin;
+	self.horListView.cellBackgroundColor		= [UIColor clearColor];
+	self.horListView.autoresizingMask			= UIViewAutoresizingFlexibleTopMargin;
     
     self.horListView.tableView.pagingEnabled    = YES;
 	

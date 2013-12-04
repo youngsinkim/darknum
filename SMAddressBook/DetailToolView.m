@@ -30,7 +30,6 @@
     if (self) {
         // Initialization code
         _memType = MemberTypeUnknown;
-        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
         
         [self setupToolbarUI];
     }
@@ -43,7 +42,9 @@
     if (self) {
         // Initialization code
         _memType = type;
-        self.backgroundColor = UIColorFromRGB(0xFBFAF3);
+
+        self.backgroundColor = [UIColor colorWithRed:59.0f/255.0f green:76.0f/255.0f blue:122.0f/255.0f alpha:0.9f];
+
         [self setupToolbarUI];
     }
     return self;
@@ -64,22 +65,15 @@
     CGSize viewSize = self.frame.size;
 //    NSLog(@"size (%f, %f)", viewSize.width, viewSize.height);
     
-    // 배경 라인 박스
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 1.0f, 320.0f, viewSize.height)];
-    [bgView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.3f].CGColor];
-    [bgView.layer setBorderWidth:1.0f];
-    
-    [self addSubview:bgView];
-    
-
-//    CGFloat width =  300.0f / [buttonList count];
-    CGFloat width =  300.0f / 4;
-    CGPoint point = CGPointMake(10.0f, 10.0f);
-    
+    NSInteger btnCount = 4;
     if (_memType != MemberTypeStudent) {
-        width = 300.0f / 3;
-        point = CGPointMake(10.0f, 10.0f);
+        btnCount = 3;
     }
+
+    CGFloat btnWidth = 64.0f;
+    CGFloat yOffset = 3.0f;
+    CGFloat xOffset = (viewSize.width - (btnWidth * btnCount)) / 2;
+    
     // 툴 버튼
     NSInteger tag = 500;
 //    NSArray *buttonList = nil;
@@ -130,74 +124,82 @@
     // 전화 버튼
     _telBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _telBtn.tag = tag++;
-    _telBtn.frame = CGRectMake(point.x, point.y, 50.0f, 50.0f);
+    _telBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
     
     [_telBtn setTitle:LocalizedString(@"Phone Call", @"전화") forState:UIControlStateNormal];
     [_telBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_telBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-    [_telBtn setImage:[UIImage imageNamed:@"icon_send_"] forState:UIControlStateNormal];
+    [_telBtn setImage:[UIImage imageNamed:@"ic_fn_phone"] forState:UIControlStateNormal];
+    [_telBtn setImage:[UIImage imageNamed:@"ic_fn_phone_press"] forState:UIControlStateHighlighted];
+    [_telBtn setImage:[UIImage imageNamed:@"ic_fn_phone_disable"] forState:UIControlStateDisabled];
     [_telBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     
     [_telBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];
     [_telBtn centerImageAndTitle:1.0f];
     
     [self addSubview:_telBtn];
-    point.x += width;
+    xOffset += btnWidth;
     
     
     // 문자 버튼
     if (_memType == MemberTypeStudent) {
         _smsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _smsBtn.tag = tag++;
-        _smsBtn.frame = CGRectMake(point.x, point.y, 50.0f, 50.0f);
+        _smsBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
         
         [_smsBtn setTitle:LocalizedString(@"sms", @"문자") forState:UIControlStateNormal];
         [_smsBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_smsBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        [_smsBtn setImage:[UIImage imageNamed:@"icon_suggest"] forState:UIControlStateNormal];
+        [_smsBtn setImage:[UIImage imageNamed:@"ic_fn_sms"] forState:UIControlStateNormal];
+        [_smsBtn setImage:[UIImage imageNamed:@"ic_fn_sms_press"] forState:UIControlStateHighlighted];
+        [_smsBtn setImage:[UIImage imageNamed:@"ic_fn_sms_disable"] forState:UIControlStateDisabled];
         [_smsBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         
         [_smsBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];
         [_smsBtn centerImageAndTitle:1.0f];
         
         [self addSubview:_smsBtn];
-        point.x += width;
+        xOffset += btnWidth;
     }
     
     // 이메일 버튼
     _emailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _emailBtn.tag = tag++;
-    _emailBtn.frame = CGRectMake(point.x, point.y, 50.0f, 50.0f);
+    _emailBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
     
     [_emailBtn setTitle:LocalizedString(@"email", @"이메일") forState:UIControlStateNormal];
     [_emailBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_emailBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-    [_emailBtn setImage:[UIImage imageNamed:@"tag_@_icon"] forState:UIControlStateNormal];
+    [_emailBtn setImage:[UIImage imageNamed:@"ic_fn_mail"] forState:UIControlStateNormal];
+    [_emailBtn setImage:[UIImage imageNamed:@"ic_fn_mail_press"] forState:UIControlStateHighlighted];
+    [_emailBtn setImage:[UIImage imageNamed:@"ic_fn_mail_disable"] forState:UIControlStateDisabled];
     [_emailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     
     [_emailBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];
     [_emailBtn centerImageAndTitle:1.0f];
     
     [self addSubview:_emailBtn];
-    point.x += width;
+    xOffset += btnWidth;
     
     
     // 저장 버튼
     _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _saveBtn.tag = tag++;
-    _saveBtn.frame = CGRectMake(point.x, point.y, 50.0f, 50.0f);
+    _saveBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
     
     [_saveBtn setTitle:LocalizedString(@"save", @"저장") forState:UIControlStateNormal];
     [_saveBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [_saveBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-    [_saveBtn setImage:[UIImage imageNamed:@"friend_search_contact_on"] forState:UIControlStateNormal];
+    [_saveBtn setImage:[UIImage imageNamed:@"ic_fn_save"] forState:UIControlStateNormal];
+    [_saveBtn setImage:[UIImage imageNamed:@"ic_fn_save_press"] forState:UIControlStateHighlighted];
+    [_saveBtn setImage:[UIImage imageNamed:@"ic_fn_save_disable"] forState:UIControlStateDisabled];
     [_saveBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
     
     [_saveBtn addTarget:self action:@selector(onBtnTag:) forControlEvents:UIControlEventTouchUpInside];
     [_saveBtn centerImageAndTitle:1.0f];
     
     [self addSubview:_saveBtn];
-    point.x += width;
+
     
 // 기능 삭제
 //    if (_memType == MemberTypeStudent) {

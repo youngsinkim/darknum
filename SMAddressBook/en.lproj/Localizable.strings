@@ -293,3 +293,6 @@
 
 /* Member Login */
 "Member Login" = "Member Login";
+
+/* has App Message */
+"has App Message" = "주소록 앱을 아직 설치하지 않았습니다. 초대해주세요!";

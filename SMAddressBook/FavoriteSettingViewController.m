@@ -56,6 +56,8 @@
 {
     [super viewDidLoad];
     
+//    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
+    
     // CoreData 컨텍스트 지정
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     if (self.managedObjectContext == nil)
@@ -131,11 +133,14 @@
     CGRect rect = self.view.frame;
     if (IS_LESS_THEN_IOS7) {
         rect.size.height -= 44.0f;
+    } else {
+        rect.size.height -= 64.0f;
     }
     
     _fvSettTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height) style:UITableViewStyleGrouped];
     _fvSettTableView.dataSource = self;
     _fvSettTableView.delegate = self;
+    _fvSettTableView.backgroundColor = UIColorFromRGB(0xf0f0f0);
     
     [self.view addSubview:_fvSettTableView];
 
