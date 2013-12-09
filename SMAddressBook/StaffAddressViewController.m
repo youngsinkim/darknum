@@ -164,6 +164,14 @@
     [fetchRequest setEntity:entity];
     
     [fetchRequest setResultType:NSDictionaryResultType];
+//    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"major"]];
+//    NSDictionary *properties = [entity propertiesByName];
+//    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
+//    [propertiesToFetch addObject:@"major.title"];
+//    [propertiesToFetch addObject:@"major.title_en"];
+//    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
+//    [fetchRequest setReturnsObjectsAsFaults:NO];
+
 
     NSSortDescriptor *sortDescriptor;
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kFavoriteCellH  50
+#define kFavoriteCellH  50.0f
 @interface FavoriteCell : UITableViewCell
 
 @property (strong, nonatomic) NSString *title;

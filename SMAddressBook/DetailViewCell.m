@@ -19,16 +19,26 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *statusLabel;
 @property (strong, nonatomic) UILabel *classTitleLabel;
+@property (strong, nonatomic) UILabel *deliLabel;
+@property (strong, nonatomic) UILabel *birthLabel;
+@property (strong, nonatomic) UILabel *currentLabel;
 @property (strong, nonatomic) UILabel *companyLabel;
-@property (strong, nonatomic) UILabel *mobileLabel;
+
+@property (strong, nonatomic) UIImageView *mobilebgView;
+@property (strong, nonatomic) UIImageView *mobileIconView;
 @property (strong, nonatomic) UILabel *mobileValueLabel;
 
 @property (strong, nonatomic) UILabel *majorLabel;
 @property (strong, nonatomic) UILabel *majorValueLabel;
-@property (strong, nonatomic) UILabel *telLabel;
+
+@property (strong, nonatomic) UIImageView *telbgView;
+@property (strong, nonatomic) UIImageView *telIconView;
 @property (strong, nonatomic) UILabel *telValueLabel;
-@property (strong, nonatomic) UILabel *emailLabel;
+
+@property (strong, nonatomic) UIImageView *emailbgView;
+@property (strong, nonatomic) UIImageView *emilIconView;
 @property (strong, nonatomic) UILabel *emailValueLabel;
+
 @property (strong, nonatomic) UILabel *officeLabel;
 @property (strong, nonatomic) UILabel *officeValueLabel;
 @property (strong, nonatomic) UILabel *workLabel;
@@ -85,9 +95,9 @@
 
         // 이름
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-//        [_nameLabel setBackgroundColor:[UIColor clearColor]];
+        [_nameLabel setBackgroundColor:[UIColor clearColor]];
         [_nameLabel setTextColor:UIColorFromRGB(0x142c6d)];
-        [_nameLabel setFont:[UIFont boldSystemFontOfSize:22.0f]];
+        [_nameLabel setFont:[UIFont boldSystemFontOfSize:18.0f]];
         [_nameLabel setTextAlignment:NSTextAlignmentLeft];
 //        _nameLabel.clipsToBounds = YES;
 //        _nameLabel.opaque = YES;
@@ -99,72 +109,105 @@
         
         // 상태 (재학/졸업)
         _statusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_statusLabel setBackgroundColor:UIColorFromRGB(0x669900)];
-        [_statusLabel setTextColor:[UIColor whiteColor]];
-        [_statusLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
+        [_statusLabel setBackgroundColor:UIColorFromRGB(0x0099cc)];
+        [_statusLabel setTextColor:UIColorFromRGB(0xffffff)];
+        [_statusLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
         [_statusLabel setTextAlignment:NSTextAlignmentCenter];
         
         [self addSubview:_statusLabel];
-        _statusLabel.hidden = YES;
+//        _statusLabel.hidden = YES;
         
         
         // 기수
         _classTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_classTitleLabel setBackgroundColor:[UIColor clearColor]];
-        [_classTitleLabel setTextColor:UIColorFromRGB(0x669900)];
-        [_classTitleLabel setFont:[UIFont systemFontOfSize:16.0f]];
+        [_classTitleLabel setTextColor:UIColorFromRGB(0x0099cc)];
+        [_classTitleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         [_classTitleLabel setTextAlignment:NSTextAlignmentLeft];
         
         [self addSubview:_classTitleLabel];
 
+
+        // (/)
+        _deliLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_deliLabel setBackgroundColor:[UIColor clearColor]];
+        [_deliLabel setTextColor:UIColorFromRGB(0x0099cc)];
+        [_deliLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+        [_deliLabel setTextAlignment:NSTextAlignmentCenter];
+        [_deliLabel setText:@" / "];
         
+        [self addSubview:_deliLabel];
+
+        
+        // 생년월일
+        _birthLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_birthLabel setBackgroundColor:[UIColor clearColor]];
+        [_birthLabel setTextColor:UIColorFromRGB(0x142c6d)];
+        [_birthLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+        [_birthLabel setTextAlignment:NSTextAlignmentLeft];
+        
+        [self addSubview:_birthLabel];
+
+        
+        // 현직/전직
+        _currentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [_currentLabel setBackgroundColor:[UIColor clearColor]];
+        [_currentLabel setTextColor:UIColorFromRGB(0x000000)];
+        [_currentLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
+        [_currentLabel setTextAlignment:NSTextAlignmentLeft];
+        
+        [self addSubview:_currentLabel];
+        
+
         // 직장
         _companyLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_companyLabel setBackgroundColor:[UIColor clearColor]];
-        [_companyLabel setTextColor:UIColorFromRGB(0x555555)];
-        [_companyLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+        [_companyLabel setTextColor:UIColorFromRGB(0x444444)];
+        [_companyLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
         [_companyLabel setTextAlignment:NSTextAlignmentLeft];
         
         [self addSubview:_companyLabel];
 
         
-        // 모바일 텍스트
-        _mobileLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_mobileLabel setBackgroundColor:[UIColor clearColor]];
-        [_mobileLabel setTextColor:UIColorFromRGB(0x46515f)];
-        [_mobileLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        [_mobileLabel setTextAlignment:NSTextAlignmentLeft];
-        [_mobileLabel setText:@"Mobile Phone"];
+        // 모바일 background
+        _mobilebgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f]];
         
-        [self addSubview:_mobileLabel];
+        [self addSubview:_mobilebgView];
+
         
+        // 모바일 icon
+        _mobileIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_view_mphone"]];
+        
+        [self addSubview:_mobileIconView];
+
         
         // 모바일
         _mobileValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_mobileValueLabel setBackgroundColor:[UIColor clearColor]];
         [_mobileValueLabel setTextColor:UIColorFromRGB(0x555555)];
-        [_mobileValueLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+        [_mobileValueLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
         [_mobileValueLabel setTextAlignment:NSTextAlignmentLeft];
         
         [self addSubview:_mobileValueLabel];
         
         
         // 이메일 텍스트
-        _emailLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_emailLabel setBackgroundColor:[UIColor clearColor]];
-        [_emailLabel setTextColor:UIColorFromRGB(0x46515f)];
-        [_emailLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        [_emailLabel setTextAlignment:NSTextAlignmentLeft];
-        [_emailLabel setText:@"E - Mail"];
+        _emailbgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f]];
         
-        [self addSubview:_emailLabel];
+        [self addSubview:_emailbgView];
         
+        
+        // 이메일 icon
+        _emilIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_view_email"]];
+        
+        [self addSubview:_emilIconView];
+
         
         // 이메일
         _emailValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_emailValueLabel setBackgroundColor:[UIColor clearColor]];
         [_emailValueLabel setTextColor:UIColorFromRGB(0x555555)];
-        [_emailValueLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+        [_emailValueLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
         [_emailValueLabel setTextAlignment:NSTextAlignmentLeft];
         
         [self addSubview:_emailValueLabel];
@@ -172,8 +215,8 @@
 
         _majorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_majorLabel setBackgroundColor:[UIColor clearColor]];
-        [_majorLabel setTextColor:[UIColor darkGrayColor]];
-        [_majorLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
+        [_majorLabel setTextColor:UIColorFromRGB(0x444444)];
+        [_majorLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
         [_majorLabel setTextAlignment:NSTextAlignmentRight];
         [_majorLabel setText:@"전공"];
         
@@ -182,35 +225,37 @@
         
         _majorValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_majorValueLabel setBackgroundColor:[UIColor clearColor]];
-        [_majorValueLabel setTextColor:[UIColor grayColor]];
-        [_majorValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
+        [_majorValueLabel setTextColor:UIColorFromRGB(0x444444)];
+        [_majorValueLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
         [self addSubview:_majorValueLabel];
 
         
-        _telLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [_telLabel setBackgroundColor:[UIColor clearColor]];
-        [_telLabel setTextColor:[UIColor darkGrayColor]];
-        [_telLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
-        [_telLabel setTextAlignment:NSTextAlignmentRight];
-        [_telLabel setText:@"전화"];
+        // 전화 background
+        _telbgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f]];
 
-        [self addSubview:_telLabel];
+        [self addSubview:_telbgView];
         
         
+        // 전화 icon
+        _telIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_view_phone"]];
+        
+        [self addSubview:_telIconView];
+
+        
+        // 전화
         _telValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_telValueLabel setBackgroundColor:[UIColor clearColor]];
-        [_telValueLabel setTextColor:[UIColor grayColor]];
-        [_telValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
+        [_telValueLabel setTextColor:UIColorFromRGB(0x444444)];
+        [_telValueLabel setFont:[UIFont systemFontOfSize:13.0f]];
         
         [self addSubview:_telValueLabel];
 
         
-        
         _officeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_officeLabel setBackgroundColor:[UIColor clearColor]];
         [_officeLabel setTextColor:[UIColor darkGrayColor]];
-        [_officeLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
+        [_officeLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
         [_officeLabel setTextAlignment:NSTextAlignmentRight];
         [_officeLabel setText:@"사무실"];
 
@@ -219,8 +264,8 @@
         
         _officeValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_officeValueLabel setBackgroundColor:[UIColor clearColor]];
-        [_officeValueLabel setTextColor:[UIColor grayColor]];
-        [_officeValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
+        [_officeValueLabel setTextColor:UIColorFromRGB(0x444444)];
+        [_officeValueLabel setFont:[UIFont systemFontOfSize:11.0f]];
         
         [self addSubview:_officeValueLabel];
 
@@ -228,7 +273,7 @@
         _workLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_workLabel setBackgroundColor:[UIColor clearColor]];
         [_workLabel setTextColor:[UIColor darkGrayColor]];
-        [_workLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
+        [_workLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
         [_workLabel setTextAlignment:NSTextAlignmentRight];
         [_workLabel setText:@"담당업무"];
         
@@ -237,8 +282,8 @@
         
         _workValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [_workValueLabel setBackgroundColor:[UIColor clearColor]];
-        [_workValueLabel setTextColor:[UIColor grayColor]];
-        [_workValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
+        [_workValueLabel setTextColor:UIColorFromRGB(0x444444)];
+        [_workValueLabel setFont:[UIFont systemFontOfSize:12.0f]];
         
         [self addSubview:_workValueLabel];
 
@@ -306,6 +351,26 @@
     if (_cellInfo[@"mobile"]) {
         _mobileValueLabel.text = _cellInfo[@"mobile"];
     }
+
+    // 전직/현직 표시
+    if ([_cellInfo[@"iscurrent"] isEqualToString:@"y"]) {
+        _currentLabel.text = [NSString stringWithString:LocalizedString(@"currented", nil)];
+    } else {
+        _currentLabel.text = [NSString stringWithString:LocalizedString(@"not currented", nil)];
+    }
+
+    
+    if (_cellInfo[@"tel"]) {
+        _telValueLabel.text = _cellInfo[@"tel"];
+        _telbgView.hidden = NO;
+        _telIconView.hidden = NO;
+        _telValueLabel.hidden = NO;
+    } else {
+        _telValueLabel.text = @"";
+        _telbgView.hidden = YES;
+        _telIconView.hidden = YES;
+        _telValueLabel.hidden = YES;
+    }
     
     // 로그인 유저 타입
     MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
@@ -319,7 +384,11 @@
         if (_cellInfo[@"classtitle"]) {
             _classTitleLabel.text = _cellInfo[@"classtitle"];
         }
-        
+
+        if (_cellInfo[@"birth"]) {
+            _birthLabel.text = [NSString stringWithFormat:LocalizedString(@"%@ birth", @"생년월일"), _cellInfo[@"birth"]];
+        }
+
         NSMutableString *descString = [NSMutableString stringWithFormat:@""];
         if ([[UserContext shared].language isEqualToString:kLMKorean]) {
             if (_cellInfo[@"company"]) {
@@ -367,18 +436,22 @@
         
         // 모바일 번호 표시
         if ([_cellInfo[@"share_mobile"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
-            _mobileLabel.hidden = NO;
+            _mobilebgView.hidden = NO;
+            _mobileIconView.hidden = NO;
             _mobileValueLabel.hidden = NO;
         } else {
-            _mobileLabel.hidden = YES;
+            _mobilebgView.hidden = YES;
+            _mobileIconView.hidden = YES;
             _mobileValueLabel.hidden = YES;
         }
         
         if ([_cellInfo[@"share_email"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
-            _emailLabel.hidden = NO;
+            _emailbgView.hidden = NO;
+            _emilIconView.hidden = NO;
             _emailValueLabel.hidden = NO;
         } else {
-            _emailLabel.hidden = YES;
+            _emailbgView.hidden = YES;
+            _emilIconView.hidden = YES;
             _emailValueLabel.hidden = YES;
         }
         
@@ -386,7 +459,7 @@
 //        if (_cellInfo[@"photourl"]) {
 //            NSLog(@"프로필 이미지 : %@", _cellInfo[@"photourl"]);
 //            [_profileImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"photourl"]]]
-//                          placeholderImage:[UIImage imageNamed:@"placeholder"]];
+//                          placeholderImage:[UIImage imageNamed:@"ic_noimg_info"]];
 //        }
 //        
 //        if (_cellInfo[@"name"]) {
@@ -412,14 +485,15 @@
         }
         
         if (myType == MemberTypeStudent) {
-            _mobileLabel.hidden = YES;
+            _mobilebgView.hidden = YES;
+            _mobileIconView.hidden = YES;
             _mobileValueLabel.hidden = YES;
         } else {
-            _mobileLabel.hidden = NO;
+            _mobilebgView.hidden = NO;
+            _mobileIconView.hidden = NO;
             _mobileValueLabel.hidden = NO;
         }
 
-        _telValueLabel.text = _cellInfo[@"tel"];
 //        _emailValueLabel.text = _cellInfo[@"email"];
         _officeValueLabel.text = _cellInfo[@"office"];
     }
@@ -463,35 +537,53 @@
     yOffset += (height + 15.0f);
     
 
-    // 이름
-    _nameLabel.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 18.0f);
-    yOffset += 10.0f;
+    // 1_line (이름)
+    _nameLabel.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 20.0f);
+    yOffset += (_nameLabel.frame.size.height + 5.0f);
 
+    CGFloat statusHeight = 14.0f;
+    
     if (_memType == MemberTypeStudent)
     {
-        _statusLabel.frame = CGRectMake(xOffset, yOffset, 40.0f, 20.0f);
-        _classTitleLabel.frame = CGRectMake(xOffset + 45.0f, yOffset, 150.0f, 20.0f);
-        if (_statusLabel.hidden) {
-            _classTitleLabel.frame = CGRectMake(xOffset, yOffset, 150.0f, 20.0f);
-        }
-        yOffset += 22.0f;
-        _companyLabel.frame = CGRectMake(xOffset, yOffset, width, 16.0f);
-        yOffset += (18.0f + 5.0f);
+        // 2_line
+        _statusLabel.frame = CGRectMake(xOffset, yOffset, 32.0f, statusHeight);
+//        switch (<#expression#>) {
+//            case <#constant#>:
+//                <#statements#>
+//                break;
+//                
+//            default:
+//                break;
+//        }
+        [_statusLabel setBackgroundColor:UIColorFromRGB(0x0099cc)];
+
+        _classTitleLabel.frame = CGRectMake(xOffset + _statusLabel.frame.size.width + 5.0f, yOffset, 60.0f, statusHeight);
+        _deliLabel.frame = CGRectMake(xOffset + _statusLabel.frame.size.width + _classTitleLabel.frame.size.width + 5.0f, yOffset, 20.0f, statusHeight);
+        _birthLabel.frame = CGRectMake(xOffset + _statusLabel.frame.size.width + _classTitleLabel.frame.size.width + _deliLabel.frame.size.width + 5.0f, yOffset, 100.0f, statusHeight);
         
-        if (!_mobileLabel.hidden) {
-            _mobileLabel.frame = CGRectMake(xOffset, yOffset, width, 14.0f);
-            yOffset += 16.0f;
+        if (_statusLabel.hidden) {
+            _classTitleLabel.frame = CGRectMake(xOffset, yOffset, 150.0f, statusHeight);
+            _deliLabel.frame = CGRectMake(xOffset + _classTitleLabel.frame.size.width + 5.0f, yOffset, 20.0f, statusHeight);
+            _birthLabel.frame = CGRectMake(xOffset + _classTitleLabel.frame.size.width + _deliLabel.frame.size.width + 5.0f, yOffset, 100.0f, statusHeight);
         }
+        yOffset += (_statusLabel.frame.size.height + 5.0f);
+        
+        // 3_line
+        _currentLabel.frame = CGRectMake(xOffset, yOffset, 28.0f, 14.0f);
+        _companyLabel.frame = CGRectMake(xOffset + _currentLabel.frame.size.width + 5.0f, yOffset, (width - _currentLabel.frame.size.width), 16.0f);
+        yOffset += (_companyLabel.frame.size.height + 10.0f);
+        
         if (!_mobileValueLabel.hidden) {
-            _mobileValueLabel.frame = CGRectMake(xOffset, yOffset, width, 16.0f);
-            yOffset += (18.0f + 10.0f);
+            _mobilebgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
+            _mobileIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
+            _mobileValueLabel.frame = CGRectMake(xOffset + 8.0f + _mobileIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);
+            yOffset += (_mobilebgView.frame.size.height + 5.0f);
         }
-        if (!_emailLabel.hidden) {
-            _emailLabel.frame = CGRectMake(xOffset, yOffset, width, 14.0f);
-            yOffset += 16.0f;
-        }
+        
         if (!_emailValueLabel.hidden) {
-            _emailValueLabel.frame = CGRectMake(xOffset, yOffset, width, 16.0f);
+            _emailbgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
+            _emilIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
+            _emailValueLabel.frame = CGRectMake(xOffset + 8.0f + _emilIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);
 //            yOffset += (18.0f + 10.0f);
         }
         //        _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);
@@ -502,33 +594,48 @@
     }
     else
     {
+        CGSize textSize = CGSizeZero;
         if (_memType == MemberTypeFaculty) {
-            _majorValueLabel.frame = CGRectMake(xOffset, yOffset, width, 18.0f);
-            yOffset += 20.0f;
+            textSize = [_majorValueLabel.text sizeWithFont:_majorValueLabel.font];
+            _majorValueLabel.frame = CGRectMake(xOffset, yOffset, textSize.width, 14.0f);
+            yOffset += (_majorValueLabel.frame.size.height + 5.0f);
         } else if (_memType == MemberTypeStaff) {
-            _workValueLabel.frame = CGRectMake(xOffset, yOffset, width, 18.0f);
-            yOffset += 20.0f;
+            textSize = [_workValueLabel.text sizeWithFont:_workValueLabel.font];
+            _workValueLabel.frame = CGRectMake(xOffset, yOffset, textSize.width, 13.0f);
+//            _officeValueLabel.frame = CGRectMake(xOffset + _workValueLabel.frame.size.width + 5.0f, yOffset, width, 14.0f);
+            yOffset += (_workLabel.frame.size.height + 5.0f);
         }
 
-        _telValueLabel.frame = CGRectMake(xOffset, yOffset, width, 20.0f);
-        yOffset += 24.0f;
+//        _deliLabel.frame = CGRectMake(xOffset + textSize.width, yOffset, 10.0f, 14.0f);
+//        _officeValueLabel.frame = CGRectMake(xOffset + textSize.width + _deliLabel.frame.size.width + 5.0f, yOffset, width, 14.0f);
+        _officeValueLabel.frame = CGRectMake(xOffset, yOffset, width, 14.0f);
+        yOffset += (_officeValueLabel.frame.size.height + 5.0f);
+
+        if ([_telValueLabel.text length] > 0) {
+//        if (!_telValueLabel.hidden) {
+            NSLog(@"tel : %@", _telValueLabel.text);
+            _telbgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
+            _telIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
+            _telValueLabel.frame = CGRectMake(xOffset + 8.0f + _telIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);
+            yOffset += (_telbgView.frame.size.height + 5.0f);
+        }
         
-        if (!_mobileLabel.hidden) {
-            _mobileLabel.frame = CGRectMake(xOffset, yOffset, width, 14.0f);
-            yOffset += 16.0f;
-        }
         if (!_mobileValueLabel.hidden) {
-            _mobileValueLabel.frame = CGRectMake(xOffset, yOffset, width, 16.0f);
-            yOffset += 18.0f;
+            _mobilebgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
+            _mobileIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
+            _mobileValueLabel.frame = CGRectMake(xOffset + 8.0f + _mobileIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);
+            yOffset += (_mobilebgView.frame.size.height + 5.0f);
         }
+        
         if (!_emailValueLabel.hidden) {
-            _emailValueLabel.frame = CGRectMake(xOffset, yOffset, width, 18.0f);
+            _emailbgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
+            _emilIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
+            _emailValueLabel.frame = CGRectMake(xOffset + 8.0f + _emilIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);
             yOffset += 20.0f;
         }
-        _officeValueLabel.frame = CGRectMake(xOffset, yOffset, width, 18.0f);
-        yOffset += 20.0f;
 
     }
 
 }
+
 @end

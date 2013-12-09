@@ -87,7 +87,7 @@
     if (_cellInfo[@"photourl"]) {
 //        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", _cellInfo[@"photourl"]]]
         [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"photourl"]]]
-                          placeholderImage:[UIImage imageNamed:@"placeholder"]];
+                          placeholderImage:[UIImage imageNamed:@"ic_noimg_list"]];
     }
     
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {

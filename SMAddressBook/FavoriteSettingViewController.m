@@ -137,12 +137,18 @@
         rect.size.height -= 64.0f;
     }
     
-    _fvSettTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height) style:UITableViewStyleGrouped];
+    _fvSettTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height)];
     _fvSettTableView.dataSource = self;
     _fvSettTableView.delegate = self;
-    _fvSettTableView.backgroundColor = UIColorFromRGB(0xf0f0f0);
-    
+//    _fvSettTableView.backgroundColor = UIColorFromRGB(0xf0f0f0);
+
     [self.view addSubview:_fvSettTableView];
+
+    if (!IS_LESS_THEN_IOS7) {
+        UIEdgeInsets edges;
+        edges.left = 0;
+        _fvSettTableView.separatorInset = edges;
+    }
 
 }
 
@@ -840,13 +846,13 @@
     return ([_courses count] > 0)? [_courses count] : 1;   // 교수,교직 / EMBA / GMBA / SMBA;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *sectionName = _courses[section][@"course"];
-    NSLog(@"섹션 이름 : %@", sectionName);
-    
-    return sectionName;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSString *sectionName = _courses[section][@"course"];
+//    NSLog(@"섹션 이름 : %@", sectionName);
+//    
+//    return sectionName;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -859,16 +865,51 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40.0f;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return ([_courses count] > 0)? FavoriteSettCellH : self.view.frame.size.height;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+//    NSString *titleString = [self tableView:tableView titleForHeaderInSection:section];
+    NSString *titleString = _courses[section][@"course"];
+    NSLog(@"섹션 이름 : %@", titleString);
+
+    if (!titleString)
+        return nil;
+
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableView.frame.size.width, 40.0f)];
+    view.backgroundColor = UIColorFromRGB(0xf0f0f0);
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, 0.0f, tableView.frame.size.width, 40.0f)];
+    [label setBackgroundColor:[UIColor clearColor]];
+    [label setTextColor:UIColorFromRGB(0x142c6d)];
+    [label setFont:[UIFont boldSystemFontOfSize:16.0f]];
+    [label setText:titleString];
+    
+    [view addSubview:label];
+    
+    
+    // 라인
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, view.frame.size.height - 0.5f, view.frame.size.width, 0.5f)];
+    line.backgroundColor = UIColorFromRGB(0xcccccc);
+
+    [view addSubview:line];
+    
+    return view;
+}
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGRect rect = cell.frame;
-    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(10.0f, rect.size.height - 0.5f, rect.size.width - 20.0f, 0.5f)];
-    lineV.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.4f];
+    UIView *lineV = [[UIView alloc] initWithFrame:CGRectMake(0.0f, rect.size.height - 0.5f, rect.size.width, 0.5f)];
+    lineV.backgroundColor = UIColorFromRGB(0xcccccc);
     
     [cell.contentView addSubview:lineV];
 }
@@ -899,6 +940,7 @@
         cell = [[FavoriteSettCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        tableView.separatorColor = UIColorFromRGB(0xcccccc);
 
         cell.delegate = self;
     }

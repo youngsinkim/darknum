@@ -8,6 +8,7 @@
 
 #import "CourseTotalViewController.h"
 #import "CourseClassCell.h"
+#import "FavoriteCell.h"
 #import "StudentAddressViewController.h"
 //#import <HMSegmentedControl.h>
 #import <PPiFlatSegmentedControl.h>
@@ -100,10 +101,6 @@
     CGFloat yOffset = 0.0f;
     CGFloat yBottom = 0.0f;
     
-    if (!IS_LESS_THEN_IOS7) {
-        yOffset += 64.0f;
-    }
-    
     // 과정 탭 컨트롤
 //    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"EMBA", @"GMBA", @"SMBA"]];
 //    [segmentedControl setFrame:CGRectMake(0.0f, 4.0f, 320.0f, 40)];
@@ -135,20 +132,22 @@
 //                                                                              [self onSegmentChangedValue:segmentIndex];
                                                                           }];
     
-    courseSegment.color = [UIColor colorWithRed:88.0f/255.0 green:88.0f/255.0 blue:88.0f/255.0 alpha:0.6];
+    courseSegment.color = UIColorFromRGB(0xa8afc5);
 //    courseSegment.color = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2];
     courseSegment.borderWidth = 0.5;
-    courseSegment.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5f];
-    courseSegment.selectedColor = [UIColor colorWithRed:200.0f/255.0 green:200.0f/255.0 blue:200.0f/255.0 alpha:1];
-    courseSegment.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:13],
-                               NSForegroundColorAttributeName:[UIColor grayColor]};
-    courseSegment.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                       NSForegroundColorAttributeName:[UIColor whiteColor]};
+    courseSegment.borderColor = UIColorFromRGB(0xdce1f1);
+    courseSegment.selectedColor = UIColorFromRGB(0x0099cc);
+    courseSegment.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],
+                                     NSForegroundColorAttributeName:UIColorFromRGB(0x545966)};
+    courseSegment.selectedTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],
+                                             NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.view addSubview:courseSegment];
     yOffset += 30.0f;
     
     if (IS_LESS_THEN_IOS7) {
-        yBottom = 44.0f;
+        yBottom += 44.0f;
+    } else {
+        yBottom += 64.0f;
     }
     
     // 라인 (imsi)
@@ -161,15 +160,16 @@
     _totalTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, yOffset, rect.size.width, rect.size.height - yOffset - yBottom) style:UITableViewStylePlain];
     _totalTableView.dataSource = self;
     _totalTableView.delegate = self;
-//    _totalTableView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-    _totalTableView.backgroundColor = [UIColor clearColor];
+//    _totalTableView.backgroundColor = [UIColor whiteColor];
+    
+    [self.view addSubview:_totalTableView];
+    
     if (!IS_LESS_THEN_IOS7) {
         UIEdgeInsets edges;
         edges.left = 0;
         _totalTableView.separatorInset = edges;
     }
-    [self.view addSubview:_totalTableView];
-    
+
 }
 
 #pragma mark - UI Control Callbacks
@@ -280,6 +280,29 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *courseClasses = _courses[_tabIndex];
+
+    return ([courseClasses count] > 0)? kFavoriteCellH : self.view.frame.size.height;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2) {
+        [cell setBackgroundColor:UIColorFromRGB(0xe6e6e6)];
+    }
+    else {
+        [cell setBackgroundColor:[UIColor whiteColor]];
+    }
+    
+    // selected cell background color
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = UIColorFromRGB(0xcfd4e4);
+    
+    [cell setSelectedBackgroundView:bgColorView];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *list = _courses[_tabIndex];
@@ -300,13 +323,13 @@
     }
     
     static NSString *identifier = @"TotalStudentCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    FavoriteCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[FavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        tableView.separatorColor = UIColorFromRGB(0xdcdcdc);
+        tableView.separatorColor = UIColorFromRGB(0xcccccc);
     }
     
     if ([list count] > 0)
@@ -316,9 +339,29 @@
         NSLog(@"즐겨찾기 셀(%d) : %@", indexPath.row, course.title);
         
         if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-            cell.textLabel.text = course.title;
+//            cell.textLabel.text = course.title;
+            cell.title = course.title;
         } else {
-            cell.textLabel.text = course.title_en;
+//            cell.textLabel.text = course.title_en;
+            cell.title = course.title_en;
+        }
+        
+        [cell setMemType:[course.type integerValue] WidhCount:[course.count integerValue]];
+        
+        if ([course.type integerValue] == 2) {
+            cell.iconName = @"ic_list_prof";
+        } else if ([course.type integerValue] == 3) {
+            cell.iconName = @"ic_list_staff";
+        } else {
+            if ([course.course isEqualToString:@"EMBA"]) {
+                cell.iconName = @"ic_list_emba";
+            }
+            else if ([course.course isEqualToString:@"GMBA"]) {
+                cell.iconName = @"ic_list_gmba";
+            }
+            else {
+                cell.iconName = @"ic_list_smba";
+            }
         }
 //        cell.cellInfo = cellInfo;
     }

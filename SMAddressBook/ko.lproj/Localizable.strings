@@ -193,10 +193,10 @@
 "All faculties" = "전체교수";
 
 /* All Classes */
-"All classes" = "전체";
+"All classes" = "기수를 선택하십시오.";
 
-/* Search name */
-"Search name" = "이름 검색";
+/* Search Name Text */
+"Search Name Text" = "이름또는 전화번호 검색";
 
 /* Athentication Description */
 "Athentication Description" = "본인인증을 위해 휴대전화번호와 인증번호를 입력하세요.";
@@ -235,10 +235,10 @@
 "option string" = "즐겨찾기 내에서 검색";
 
 /* Personal information */
-"Personal information" = "개인 정보";
+"Personal information" = "소속정보";
 
 /* Other setup */
-"Other setup" = "기타 설정";
+"Other setup" = "기타설정";
 
 /* Disclosure */
 "Disclosure" = "공개";
@@ -274,10 +274,10 @@
 "Auto Login" = "자동 로그인";
 
 /* Company Korean */
-"Company Korean" = "직장(국문)";
+"Company Korean" = "국문";
 
 /* Company English */
-"Company English" = "직장(영문)";
+"Company English" = "영문";
 
 /* Company */
 "Company" = "직장명";
@@ -296,3 +296,30 @@
 
 /* has App Message */
 "has App Message" = "주소록 앱을 아직 설치하지 않았습니다. 초대해주세요!";
+
+/* student status */
+"student status" = "재학";
+
+/* %d birth */
+"%@ birth" = "%@년생";
+
+/* currented */
+"currented" = "[현직]";
+
+/* not currented */
+"not currented" = "[전직]";
+
+/* Search Result Not Founded */
+"Search Result Not Founded" = "검색된 결과가 없습니다.";
+
+/* Not Current */
+"Not Current" = "전직";
+
+/* Currented */
+"Currented" = "현직";
+
+/* Share Info */
+"Share Info" = "정보공개";
+
+/* Tel */
+"Tel" = "전화";

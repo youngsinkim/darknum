@@ -170,6 +170,12 @@
 		BF5900A41821363A00DD6980 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
 		BF5900A71822BB8000DD6980 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A61822BB8000DD6980 /* TitleView.m */; };
 		BF5900A81822BB8000DD6980 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A61822BB8000DD6980 /* TitleView.m */; };
+		BF8BE0AC1855E1B1004BF3DF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */; };
+		BF8BE0AD1855E1B1004BF3DF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */; };
+		BF8BE0AE1855E1B1004BF3DF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AA1855E1B1004BF3DF /* Default.png */; };
+		BF8BE0AF1855E1B1004BF3DF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AA1855E1B1004BF3DF /* Default.png */; };
+		BF8BE0B01855E1B1004BF3DF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */; };
+		BF8BE0B11855E1B1004BF3DF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */; };
 		BF8E5837183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
 		BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
@@ -190,6 +196,7 @@
 		BFDEBED91801670600F7409F /* UIButton+UIButtonExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */; };
 		BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
 		BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
+		BFF98DD318555BD800A96878 /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
 		BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -335,6 +342,9 @@
 		BF5900A21821363A00DD6980 /* DetailGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailGuideViewController.m; sourceTree = "<group>"; };
 		BF5900A51822BB8000DD6980 /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
 		BF5900A61822BB8000DD6980 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
+		BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		BF8BE0AA1855E1B1004BF3DF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SMAddressBook_Adhoc-Info.plist"; sourceTree = "<group>"; };
 		BF9CC1AF17EE2396000862F0 /* ToolViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewCell.h; sourceTree = "<group>"; };
 		BF9CC1B017EE2396000862F0 /* ToolViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewCell.m; sourceTree = "<group>"; };
@@ -497,6 +507,9 @@
 		5062B62117C4C10400A2495D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */,
+				BF8BE0AA1855E1B1004BF3DF /* Default.png */,
+				BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */,
 				BF16C5EA17F88DD000C308DD /* ResImages */,
 				BF57B39C17D8F72B00B39C03 /* serviceTerms.html */,
 				BF57B39D17D8F72B00B39C03 /* personTerms.html */,
@@ -898,14 +911,17 @@
 				5062B62517C4C10400A2495D /* InfoPlist.strings in Resources */,
 				5062B63B17C4C12800A2495D /* Podfile in Resources */,
 				BF8E5837183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist in Resources */,
-				BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
 				BF4D51091849919200648119 /* Images.xcassets in Resources */,
+				BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
+				BF8BE0AC1855E1B1004BF3DF /* Default-568h@2x.png in Resources */,
+				BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */,
+				BF8BE0AE1855E1B1004BF3DF /* Default.png in Resources */,
 				BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */,
 				5052623417C72ACC004C4724 /* http_sample_data in Resources */,
 				BF57B32217D210E300B39C03 /* Readme.md in Resources */,
 				BF57B39E17D8F72B00B39C03 /* serviceTerms.html in Resources */,
+				BF8BE0B01855E1B1004BF3DF /* Default@2x.png in Resources */,
 				BF57B39F17D8F72B00B39C03 /* personTerms.html in Resources */,
-				BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,16 +929,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF4D510A1849919200648119 /* Images.xcassets in Resources */,
 				BF241CC8180931AE001A7AA0 /* InfoPlist.strings in Resources */,
 				BF241CCC180931AE001A7AA0 /* Podfile in Resources */,
+				BFF98DD318555BD800A96878 /* SMAddressBook_Adhoc-Info.plist in Resources */,
+				BF4D510A1849919200648119 /* Images.xcassets in Resources */,
 				BF241CD8180931AE001A7AA0 /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
+				BF8BE0AD1855E1B1004BF3DF /* Default-568h@2x.png in Resources */,
+				BF241D2D180931AE001A7AA0 /* btn_kakaotalk_logo_iphone.png in Resources */,
+				BF8BE0AF1855E1B1004BF3DF /* Default.png in Resources */,
 				BF241D14180931AE001A7AA0 /* Localizable.strings in Resources */,
 				BF241D15180931AE001A7AA0 /* http_sample_data in Resources */,
 				BF241D29180931AE001A7AA0 /* Readme.md in Resources */,
 				BF241D2B180931AE001A7AA0 /* serviceTerms.html in Resources */,
+				BF8BE0B11855E1B1004BF3DF /* Default@2x.png in Resources */,
 				BF241D2C180931AE001A7AA0 /* personTerms.html in Resources */,
-				BF241D2D180931AE001A7AA0 /* btn_kakaotalk_logo_iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

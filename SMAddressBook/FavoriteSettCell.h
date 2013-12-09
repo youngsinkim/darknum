@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define FavoriteSettCellH   42.0f
+#define FavoriteSettCellH   30.0f
 
 @class FavoriteSettCell;
 

@@ -162,6 +162,15 @@
 //    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
 //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
 //    [fetchRequest setResultType:NSDictionaryResultType];
+//    [fetchRequest setResultType:NSDictionaryResultType];
+//    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"major"]];
+//    NSDictionary *properties = [entity propertiesByName];
+//    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
+//    [propertiesToFetch addObject:@"major.title"];
+//    [propertiesToFetch addObject:@"major.title_en"];
+//    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
+//    [fetchRequest setReturnsObjectsAsFaults:NO];
+
 
     NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass == %@", _info[@"courseclass"]];

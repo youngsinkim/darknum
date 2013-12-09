@@ -70,7 +70,7 @@
 // 교수 전공 목록 화면 구성
 - (void)setupMajorUI
 {
-    CGRect viewRect = self.view.bounds;
+    CGRect viewRect = self.view.frame;
         
     _majorTableView = [[UITableView alloc] initWithFrame:viewRect];
 //    _majorTableView.backgroundColor = [UIColor greenColor];
@@ -80,7 +80,6 @@
     [self.view addSubview:_majorTableView];
     
     if (!IS_LESS_THEN_IOS7) {
-//        if ([[UIScreen mainScreen] bounds].size.height < 568) {
         UIEdgeInsets edges;
         edges.left = 0;
         _majorTableView.separatorInset = edges;

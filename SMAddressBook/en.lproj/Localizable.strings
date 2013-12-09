@@ -195,8 +195,8 @@
 /* All Classes */
 "All classes" = "All classes";
 
-/* Search name */
-"Search name" = "Search name";
+/* Search Name Text */
+"Search Name Text" = "Name or Phone number";
 
 /* Athentication Description */
 "Athentication Description" = "Athentication: Please enter your cell phone no. and verification code";
@@ -274,10 +274,10 @@
 "Auto Login" = "Auto Log-in";
 
 /* Company Korean */
-"Company Korean" = "Company(Korean)";
+"Company Korean" = "Korean";
 
 /* Company English */
-"Company English" = "Company(English)";
+"Company English" = "English";
 
 /* Company */
 "Company" = "Company";
@@ -296,3 +296,30 @@
 
 /* has App Message */
 "has App Message" = "주소록 앱을 아직 설치하지 않았습니다. 초대해주세요!";
+
+/* student status */
+"student status" ="enroll";
+
+/* %d birth */
+"%@ birth" = "born in %@";
+
+/* currented */
+"currented" = "[Current]";
+
+/* not currented */
+"not currented" = "[Previous]";
+
+/* Search Result Not Founded */
+"Search Result Not Founded" = "검색된 결과가 없습니다.";
+
+/* Not Current */
+"Not Current" = "전직";
+
+/* Currented */
+"Currented" = "현직";
+
+/* Share Info */
+"Share Info" = "정보공개";
+
+/* Tel */
+"Tel" = "Tel.";

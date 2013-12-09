@@ -75,17 +75,20 @@
 	// Do any additional setup after loading the view.
     if (IS_LESS_THEN_IOS7) {
         [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
+    } else {
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];
+        [self.navigationController.navigationBar setTranslucent:NO];
     }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onClose)];
     
     // 보내기 버튼
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0.0f, 0.0f, 49.0f, 30.0f);
+    button.frame = CGRectMake(0.0f, 0.0f, 46.0f, 30.0f);
     [button setTitle:LocalizedString(@"send", @"보내기") forState:UIControlStateNormal];
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [button.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
-//    [button setBackgroundImage:[[UIImage imageNamed:@"btn_white"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -97,7 +100,7 @@
     [self setupToolUI];
     
     [_searchBar becomeFirstResponder];
-//    [_searchBar resignFirstResponder];
+
     [_searchResults setArray:_members];
     [_memberTableView reloadData];
 }
@@ -140,8 +143,7 @@
     yOffset += kSearchBarH;
     
     
-    _searchDisplay = [[UISearchDisplayController alloc]
-                      initWithSearchBar:_searchBar contentsController:self];
+    _searchDisplay = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
     _searchDisplay.delegate = self;
     _searchDisplay.searchResultsDataSource = self;
     _searchDisplay.searchResultsDelegate = self;
@@ -585,7 +587,6 @@
 
 - (void)filterListForSearchText:(NSString *)searchText
 {
-    
     if ([searchText length] > 0) {
         
         if ([searchText length] > MAX_LENGTH) {
@@ -597,14 +598,19 @@
         
         for (NSDictionary *dict in _members)
         {
-//            NSLog(@"찾기(%@ == %@)", dict[@"name"], searchText);
+//            NSLog(@"찾기(%@, %@, %@ == %@)", dict[@"name"], dict[@"mobile"], dict[@"tel"], searchText);
             //            NSComparisonResult result = [dict[@"name"] compare:searchText options:0 range:NSMakeRange(0, [searchText length])];
-            NSRange rSearch = [dict[@"name"] rangeOfString:searchText options:NSCaseInsensitiveSearch];
+            NSRange nameSearchRange = [dict[@"name"] rangeOfString:searchText options:NSCaseInsensitiveSearch];
+            NSRange phoneSearchRange = [dict[@"mobile"] rangeOfString:searchText options:NSCaseInsensitiveSearch];
             //            if (result == NSOrderedSame)
-            if (rSearch.location != NSNotFound)
+            if (nameSearchRange.location != NSNotFound)
             {
                 [_searchResults addObject:dict];
-//                NSLog(@"찾기 : %@", _searchResults);
+//                NSLog(@"이름으로 찾기 : %@", _searchResults);
+            }
+            else if (phoneSearchRange.location != NSNotFound) {
+                [_searchResults addObject:dict];
+//                NSLog(@"전화 번호로 찾기 : %@", _searchResults);
             }
         }
     }
@@ -617,7 +623,8 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     NSLog(@"검색 문자열 찾기 : %@", searchString);
-    [self filterListForSearchText:searchString]; // The method we made in step 7
+    [self performSelector:@selector(filterListForSearchText:) withObject:searchString];
+//    [self filterListForSearchText:searchString]; // The method we made in step 7
     
     // Return YES to cause the search result table view to be reloaded.
     return YES;
@@ -690,18 +697,17 @@
     
     if (tableView != _searchDisplay.searchResultsTableView) {
         headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, tableFrame.size.width, kTableHeaderH)];
-        headerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3f];
-        [headerView.layer setBorderColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.3f].CGColor];
+        headerView.backgroundColor = UIColorFromRGB(0xf0f0f0);
+        [headerView.layer setBorderColor:UIColorFromRGB(0xbbbbbb).CGColor];
         [headerView.layer setBorderWidth:1.0f];
         
         
         CGFloat yOffset = 0.0f;
 
         _sectionTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, yOffset, 200, kTableHeaderH)];
-        _sectionTitleLabel.textColor = [UIColor darkGrayColor];
+        _sectionTitleLabel.textColor = UIColorFromRGB(0x555555);
         _sectionTitleLabel.backgroundColor = [UIColor clearColor];
-        [_sectionTitleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-//        [sectionTitleLabel setText:@"메일 수신자 선택"];
+        [_sectionTitleLabel setFont:[UIFont systemFontOfSize:11.0f]];
         
         if (_viewType == ToolViewTypeSms) {
             _sectionTitleLabel.text = NSLocalizedString(@"Select Message Recipients", nil);
@@ -714,13 +720,13 @@
         if (!_allSelectedBtn)
         {
             _allSelectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            _allSelectedBtn.frame = CGRectMake(tableFrame.size.width - 120.0f, yOffset, 100.0f, 30.0f);
+            _allSelectedBtn.frame = CGRectMake(tableFrame.size.width - 100.0f - 5.0f, 0.0f, 100.0f, kTableHeaderH);
             [_allSelectedBtn setTitle:LocalizedString(@"전체 선택", @"전체 선택") forState:UIControlStateNormal];
-            [_allSelectedBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-            _allSelectedBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+            [_allSelectedBtn setTitleColor:UIColorFromRGB(0x142c6d) forState:UIControlStateNormal];
+            _allSelectedBtn.titleLabel.font = [UIFont systemFontOfSize:11.0f];
             _allSelectedBtn.titleLabel.textAlignment = NSTextAlignmentRight;
-            [_allSelectedBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
-            [_allSelectedBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
+            [_allSelectedBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
+            [_allSelectedBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
             [_allSelectedBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
             [_allSelectedBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 80, 0, 0)];
             [_allSelectedBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 26)];

@@ -103,38 +103,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/AppDelegate.m"
-            timestampString = "407691775.06138"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
-            landmarkName = "@implementation AppDelegate"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/LoginViewController.m"
-            timestampString = "407510553.299628"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
-            landmarkName = "-requestAPILogin:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
             timestampString = "407679868.325252"
             startingColumnNumber = "9223372036854775807"
@@ -168,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/StudentAddressViewController.m"
-            timestampString = "407687747.387935"
+            timestampString = "408202985.604752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
             landmarkName = "-onSmsViewController"
             landmarkType = "5">
          </BreakpointContent>
@@ -184,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/StudentAddressViewController.m"
-            timestampString = "407687747.387935"
+            timestampString = "408202985.604752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "-didSelectedToolTag:"
             landmarkType = "5">
          </BreakpointContent>
@@ -216,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/StudentAddressViewController.m"
-            timestampString = "407687747.387935"
+            timestampString = "408202985.604752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
             landmarkName = "@implementation StudentAddressViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -232,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchViewController.m"
-            timestampString = "403025692.734212"
+            timestampString = "408219040.510335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -248,45 +216,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404830780.378365"
+            timestampString = "408281466.63293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
             landmarkName = "@implementation ToolViewController"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "405092962.631338"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "793"
-            endingLineNumber = "793"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "405092962.631338"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "778"
-            endingLineNumber = "778"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -344,11 +280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FacultyMajorViewController.m"
-            timestampString = "407777984.479823"
+            timestampString = "408213614.387997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
             <Locations>
@@ -470,11 +406,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/StudentAddressViewController.m"
-            timestampString = "407687747.387935"
+            timestampString = "408202985.604752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "-requestAPIStudents"
             landmarkType = "5">
             <Locations>
@@ -516,11 +452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "405170500.466057"
+            timestampString = "408304309.399925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "996"
-            endingLineNumber = "996"
+            startingLineNumber = "1219"
+            endingLineNumber = "1219"
             landmarkName = "-disappearKeyboard:"
             landmarkType = "5">
          </BreakpointContent>
@@ -532,11 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "405170500.466057"
+            timestampString = "408304309.399925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "978"
-            endingLineNumber = "978"
+            startingLineNumber = "1201"
+            endingLineNumber = "1201"
             landmarkName = "-disappearKeyboard:"
             landmarkType = "5">
          </BreakpointContent>
@@ -548,11 +484,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "405170500.466057"
+            timestampString = "408304309.399925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1001"
-            endingLineNumber = "1001"
+            startingLineNumber = "1224"
+            endingLineNumber = "1224"
             landmarkName = "-disappearKeyboard:"
             landmarkType = "5">
          </BreakpointContent>
@@ -868,11 +804,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "405170500.466057"
+            timestampString = "408304309.399925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "847"
-            endingLineNumber = "847"
+            startingLineNumber = "1070"
+            endingLineNumber = "1070"
             landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -884,11 +820,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchResultViewController.m"
-            timestampString = "403540877.97171"
+            timestampString = "408222437.620023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "-searchLocalDB"
             landmarkType = "5">
          </BreakpointContent>
@@ -896,47 +832,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404830780.378365"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "640"
-            endingLineNumber = "640"
-            landmarkName = "-searchDisplayController:shouldReloadTableForSearchString:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404753154.32733"
+            timestampString = "408281466.63293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "-setupToolUI"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "404830780.378365"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "548"
-            endingLineNumber = "548"
+            startingLineNumber = "916"
+            endingLineNumber = "916"
             landmarkName = "@implementation ToolViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -948,27 +852,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "405092962.631338"
+            timestampString = "408281466.63293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "909"
-            endingLineNumber = "909"
-            landmarkName = "@implementation ToolViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/ToolViewController.m"
-            timestampString = "405092962.631338"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "906"
-            endingLineNumber = "906"
+            startingLineNumber = "913"
+            endingLineNumber = "913"
             landmarkName = "@implementation ToolViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1018,22 +906,6 @@
             startingLineNumber = "151"
             endingLineNumber = "151"
             landmarkName = "-onSend"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "403538771.698397"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
-            landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1108,11 +980,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteSettingViewController.m"
-            timestampString = "407873643.035253"
+            timestampString = "407951526.41047"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "-updateFavoriteData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1156,11 +1028,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "407699117.088851"
+            timestampString = "408304309.399925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "-setupMyInfoUI"
             landmarkType = "5">
          </BreakpointContent>
@@ -1172,11 +1044,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "407699118.185844"
+            timestampString = "408304309.399925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
+            startingLineNumber = "302"
+            endingLineNumber = "302"
             landmarkName = "-setupMyInfoUI"
             landmarkType = "5">
          </BreakpointContent>
@@ -1194,6 +1066,54 @@
             startingLineNumber = "1549"
             endingLineNumber = "1549"
             landmarkName = "-setFavoriteStudent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMAddressBook/StudentProfileViewController.m"
+            timestampString = "408205341.624478"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "-initWithNibName:bundle:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMAddressBook/StaffProfileViewController.m"
+            timestampString = "408205344.053485"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "-initWithNibName:bundle:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMAddressBook/ToolViewController.m"
+            timestampString = "408281466.63293"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
+            landmarkName = "-filterContentForSearchText:scope:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

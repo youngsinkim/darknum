@@ -41,6 +41,12 @@ typedef enum {
     MemberTypeUnknown
 } MemberType;
 
+typedef enum    {
+    LoadingStatusBefore = 0,
+    LoadingStatusLoading,
+    LoadingStatusLoaded,
+} LoadingStatus;
+
 ///////////////////////////////////////////////////////////////
 #ifdef DEBUG
 #define NSLog( s, ... ) NSLog((@"%s(%d) " s), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);

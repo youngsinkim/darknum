@@ -60,6 +60,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // CoreData 컨텍스트 지정
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -110,25 +111,26 @@
 
 - (void)setupSearchUI
 {
-    CGRect rect = self.view.bounds;
-    CGFloat yOffset = 15.0f;
-    CGFloat xOffset = 75.0f;
+    CGRect rect = self.view.frame;
+    CGFloat yOffset = 10.0f;
+    CGFloat xOffset1 = 15.0f;
+    CGFloat xOffset2 = 65.0f;
     
     if (!IS_LESS_THEN_IOS7) {
-        yOffset += 64.0f;
+//        yOffset += 64.0f;
     }
     
     // 검색 조건 배경 뷰
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, 205.0f)];
-    bgView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1f];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, 170.0f)];
+    bgView.backgroundColor = UIColorFromRGB(0xf0f0f0);
     
     [self.view addSubview:bgView];
     
     // 과정 text
-    _courseLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0f, yOffset, 70.0f, 22.0f)];
-    [_courseLabel setTextColor:[UIColor darkGrayColor]];
+    _courseLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset1, yOffset, 50.0f, 24.0f)];
+    [_courseLabel setTextColor:UIColorFromRGB(0x333333)];
     [_courseLabel setBackgroundColor:[UIColor clearColor]];
-    [_courseLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_courseLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [_courseLabel setTextAlignment:NSTextAlignmentLeft];
     [_courseLabel setText:LocalizedString(@"Program", @"과정")];
     
@@ -136,37 +138,36 @@
     
 
     // 과정 선택
-    _courseTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 22.0f)];
+    _courseTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset2, yOffset, rect.size.width - xOffset2 - xOffset1, 24.0f)];
     _courseTextField.tag = 300;
-    _courseTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
+//    _courseTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
+    _courseTextField.backgroundColor = [UIColor clearColor];
     _courseTextField.delegate = self;
     _courseTextField.placeholder = LocalizedString(@"Program place holder", @"과정을 선택하세요");
     _courseTextField.text = @"";
-    [_courseTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
+    [_courseTextField setTextColor:UIColorFromRGB(0x555555)];
     [_courseTextField setTextAlignment:NSTextAlignmentLeft];
-    [_courseTextField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_courseTextField setFont:[UIFont systemFontOfSize:11.0f]];
     [_courseTextField addTarget:self action:@selector(onCourseTextFieldTouched:) forControlEvents:UIControlEventTouchDown];
     [_courseTextField setClearButtonMode:UITextFieldViewModeUnlessEditing];
     
     [bgView addSubview:_courseTextField];
+    yOffset += _courseTextField.frame.size.height;
     
     
-    // 과정명 삭제 버튼
-//    _courseDelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_courseDelBtn setFrame:CGRectMake(_courseTextField.frame.origin.x + _courseTextField.frame.size.width - 18, yOffset + 4, 14, 14.0f)];
-//    [_courseDelBtn setBackgroundImage:[UIImage imageNamed:@"search_xbtn"] forState:UIControlStateNormal];
-//    [_courseDelBtn addTarget:self action:@selector(onCourseDelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.view addSubview:_courseDelBtn];
-//    [_courseDelBtn setHidden:YES];
-    yOffset += 30.0f;
+    // 라인
+    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(xOffset2, yOffset, _courseTextField.frame.size.width, 1.0f)];
+    line1.backgroundColor = UIColorFromRGB(0xcccccc);
+    
+    [self.view addSubview:line1];
+    yOffset += (line1.frame.size.height + 10.0f);
 
     
     // 기수 text
-    _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0f, yOffset, 70.0f, 22.0f)];
-    [_classLabel setTextColor:[UIColor darkGrayColor]];
+    _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset1, yOffset, _courseLabel.frame.size.width, 24.0f)];
+    [_classLabel setTextColor:UIColorFromRGB(0x333333)];
     [_classLabel setBackgroundColor:[UIColor clearColor]];
-    [_classLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_classLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [_classLabel setTextAlignment:NSTextAlignmentLeft];
     [_classLabel setText:LocalizedString(@"classes", @"기수")];
     
@@ -174,30 +175,28 @@
 
     
     // 기수 선택
-    _classTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 22.0f)];
+    _classTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset2, yOffset, rect.size.width - xOffset2 - xOffset1, 24.0f)];
     _classTextField.tag = 301;
-    _classTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
+    _courseTextField.backgroundColor = [UIColor clearColor];
     _classTextField.delegate = self;
     _classTextField.placeholder = LocalizedString(@"All classes", @"기수 선택 안내");
     _classTextField.text = @"";
-    [_classTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
+    [_classTextField setTextColor:UIColorFromRGB(0x555555)];
     [_classTextField setTextAlignment:NSTextAlignmentLeft];
-    [_classTextField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_classTextField setFont:[UIFont systemFontOfSize:11.0f]];
     [_classTextField addTarget:self action:@selector(onClassTextFieldTouched:) forControlEvents:UIControlEventTouchDown];
     [_classTextField setClearButtonMode:UITextFieldViewModeUnlessEditing];
 
     [bgView addSubview:_classTextField];
+    yOffset += _classTextField.frame.size.height;
     
-    // 과정명 삭제 버튼
-//    _classDelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_classDelBtn setFrame:CGRectMake(_classTextField.frame.origin.x + _classTextField.frame.size.width - 18, yOffset + 4, 14, 14.0f)];
-//    [_classDelBtn setBackgroundImage:[UIImage imageNamed:@"search_xbtn"] forState:UIControlStateNormal];
-//    [_classDelBtn addTarget:self action:@selector(onClassDelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [self.view addSubview:_classDelBtn];
-//    [_classDelBtn setHidden:YES];
-    yOffset += 30.0f;
-
+    // 라인
+    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(xOffset2, yOffset, _classTextField.frame.size.width, 1.0f)];
+    line2.backgroundColor = UIColorFromRGB(0xcccccc);
+    
+    [self.view addSubview:line2];
+    yOffset += (line2.frame.size.height + 10.0f);
+    
     
 //    _coursePicker = [[UIPickerView alloc] initWithFrame:CGRectMake(xOffset, yOffset + 10.0f, 200.0f, 40.0f)];
 //    _coursePicker.dataSource = self;
@@ -217,11 +216,12 @@
 //    [bgView addSubview:_classPicker];
 //    yOffset += 40.0f;
     
+    
     // 이름 text
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0f, yOffset, 70.0f, 22.0f)];
-    [_nameLabel setTextColor:[UIColor darkGrayColor]];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset1, yOffset, _courseLabel.frame.size.width, 24.0f)];
+    [_nameLabel setTextColor:UIColorFromRGB(0x333333)];
     [_nameLabel setBackgroundColor:[UIColor clearColor]];
-    [_nameLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_nameLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [_nameLabel setTextAlignment:NSTextAlignmentLeft];
     [_nameLabel setText:LocalizedString(@"name", @"이름")];
     
@@ -229,26 +229,33 @@
 
     
     // 이름
-    _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset, yOffset, 200.0f, 22.0f)];
+    _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset2, yOffset, rect.size.width - xOffset2 - xOffset1, 24.0f)];
     _nameTextField.tag = 400;
-    _nameTextField.background = [[UIImage imageNamed:@"input_text_border"] stretchableImageWithLeftCapWidth:20 topCapHeight:0];
+    _nameTextField.backgroundColor = [UIColor clearColor];
     _nameTextField.delegate = self;
-    _nameTextField.placeholder = LocalizedString(@"Search name", @"이름 검색");
+    _nameTextField.placeholder = LocalizedString(@"Search Name Text", @"이름 검색 문자열");
     _nameTextField.text = @"";
-    [_nameTextField setTextColor:[UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f]];
+    [_nameTextField setTextColor:UIColorFromRGB(0x555555)];
     [_nameTextField setTextAlignment:NSTextAlignmentLeft];
-    [_nameTextField setFont:[UIFont systemFontOfSize:14.0f]];
+    [_nameTextField setFont:[UIFont systemFontOfSize:11.0f]];
 //    [_nameTextField addTarget:self action:@selector(onClassTextFieldTouched:) forControlEvents:UIControlEventTouchDown];
     
     [bgView addSubview:_nameTextField];
-    yOffset += 30.0f;
+    yOffset += _nameTextField.frame.size.height;
     
+    // 라인
+    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(xOffset2, yOffset, _nameTextField.frame.size.width, 1.0f)];
+    line3.backgroundColor = UIColorFromRGB(0xcccccc);
+    
+    [self.view addSubview:line3];
+    yOffset += (line3.frame.size.height + 10.0f);
+
     
     // 옵션 text
-    _optionLabel = [[UILabel alloc] initWithFrame:CGRectMake(8.0f, yOffset, 70.0f, 27.0f)];
-    [_optionLabel setTextColor:[UIColor darkGrayColor]];
+    _optionLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset1, yOffset, _courseLabel.frame.size.width, 24.0f)];
+    [_optionLabel setTextColor:UIColorFromRGB(0x333333)];
     [_optionLabel setBackgroundColor:[UIColor clearColor]];
-    [_optionLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_optionLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
     [_optionLabel setTextAlignment:NSTextAlignmentLeft];
     [_optionLabel setText:LocalizedString(@"option", @"옵션")];
     
@@ -257,10 +264,10 @@
     
     // 옵션 버튼
     _optionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _optionBtn.frame = CGRectMake(xOffset, yOffset, 200.0f, 27.0f);
+    _optionBtn.frame = CGRectMake(xOffset2, yOffset, rect.size.width - xOffset2 - xOffset1, 24.0f);
     [_optionBtn setTitle:LocalizedString(@"option string", @"즐겨찾기 내에서 검색") forState:UIControlStateNormal];
     [_optionBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [_optionBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_optionBtn.titleLabel setFont:[UIFont systemFontOfSize:11.0f]];
     [_optionBtn.titleLabel setTextAlignment:NSTextAlignmentLeft];
     [_optionBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
     [_optionBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
@@ -271,18 +278,29 @@
     [_optionBtn addTarget:self action:@selector(onOptionBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [bgView addSubview:_optionBtn];
-    yOffset += 50.0f;
+    yOffset += (_optionBtn.frame.size.height + 30.0f + 10.0f);
+
+    
+    // 라인
+//    UIView *line4 = [[UIView alloc] initWithFrame:CGRectMake(xOffset2, yOffset, _optionBtn.frame.size.width, 1.0f)];
+//    line4.backgroundColor = UIColorFromRGB(0xcccccc);
+//    
+//    [self.view addSubview:line4];
+//    yOffset += (line4.frame.size.height + 10.0f);
 
     
     // 검색 버튼
     _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_searchBtn setFrame:CGRectMake((rect.size.width - 100.0f) / 2.0f, yOffset, 100.0f, 26.0f)];
-    [_searchBtn setBackgroundImage:[[UIImage imageNamed:@"btn_white"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f] forState:UIControlStateNormal];
-    [_searchBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_searchBtn setFrame:CGRectMake((rect.size.width - 98.0f) / 2.0f, yOffset, 98.0f, 30.0f)];
+    [_searchBtn setBackgroundImage:[UIImage imageNamed:@"btn_darkgray.png"] forState:UIControlStateNormal];
+    [_searchBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     [_searchBtn setTitle:LocalizedString(@"Search", @"검색") forState:UIControlStateNormal];
+    [_searchBtn.titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+    [_searchBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [_searchBtn addTarget:self action:@selector(onSearchBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_searchBtn];
+    
 }
 
 

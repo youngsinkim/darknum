@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define ToolViewCellH   75.0f
+#define ToolViewCellH   65.0f
 
 typedef enum {
     ToolViewCellTypeNormal,

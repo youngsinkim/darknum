@@ -253,7 +253,7 @@
     _profileImgView.image = image;
 //    NSDictionary *myInfo = [[UserContext shared] profileInfo];
 //    if ([myInfo[@"photourl"] length] > 0) {
-//        [_profileImgView setImageWithURL:[NSURL URLWithString:myInfo[@"photourl"]] placeholderImage:[UIImage imageNamed:@"profile_noimg"]];
+//        [_profileImgView setImageWithURL:[NSURL URLWithString:myInfo[@"photourl"]] placeholderImage:[UIImage imageNamed:@"ic_noimg_mypage"]];
 //    }
 }
 

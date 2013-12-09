@@ -10,6 +10,7 @@
 
 @interface FavoriteSettCell ()
 
+@property (strong, nonatomic) UIImageView *fvIconView;
 @property (strong, nonatomic) UIButton *favoriteBtn;
 
 @end
@@ -21,10 +22,17 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        CGRect rect = self.bounds;
+        CGRect rect = self.frame;
+        CGFloat xOffset = 15.0f;
         
-        _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 200.0f, 22.0f)];
-        [_classLabel setTextColor:[UIColor darkGrayColor]];
+        _fvIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_bookmark"]];
+        _fvIconView.frame = CGRectMake(xOffset, 7.0f, 14.0f, 14.0f);
+        
+        [self.contentView addSubview:_fvIconView];
+        
+        
+        _classLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset + _fvIconView.frame.size.width + 10.0f, 0.0f, 240.0f, 30.0f)];
+        [_classLabel setTextColor:UIColorFromRGB(0x555555)];
         [_classLabel setBackgroundColor:[UIColor clearColor]];
         [_classLabel setFont:[UIFont systemFontOfSize:14.0f]];
         
@@ -33,14 +41,15 @@
         
         _favoriteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _favoriteBtn.tag = 300;
-        _favoriteBtn.frame = CGRectMake(rect.size.width - 60.0f, 10.0f, 21.0f, 22.0f);
-        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox"] forState:UIControlStateNormal];
-        [_favoriteBtn setImage:[UIImage imageNamed:@"join_agreebox_ch"] forState:UIControlStateSelected];
-        [_favoriteBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateSelected|UIControlStateDisabled];
+        _favoriteBtn.frame = CGRectMake(rect.size.width - 10.0f - 30.0f, 0.0f, 30.0f, 28.0f);
+        [_favoriteBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
+        [_favoriteBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
+        [_favoriteBtn setImage:[UIImage imageNamed:@"check_disable"] forState:UIControlStateSelected|UIControlStateDisabled];
         
         [_favoriteBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.contentView addSubview:_favoriteBtn];
+
     }
     return self;
 }

@@ -20,6 +20,9 @@
 #import "DetailViewController.h"
 
 @interface SearchResultViewController ()
+{
+    LoadingStatus _loadingStatus;
+}
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) StudentToolView *footerToolView;
@@ -37,7 +40,8 @@
     if (self) {
         // Custom initialization
         self.navigationItem.title = LocalizedString(@"Search Result", @"검색 결과");
-        
+        _loadingStatus = LoadingStatusBefore;
+
     }
     return self;
 }
@@ -62,6 +66,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+//    self.view.backgroundColor = UIColorFromRGB(0xf0f0f0);
     
     // CoreData 컨텍스트 지정
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -113,6 +118,7 @@
     
     // 검색결과 테이블 뷰
     _resultTableView = [[UITableView alloc] initWithFrame:rect];
+    _resultTableView.backgroundColor = [UIColor whiteColor];
     _resultTableView.dataSource = self;
     _resultTableView.delegate = self;
     
@@ -220,7 +226,7 @@
                                                [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
                                                
                                                NSLog(@"결과 : %@", result);
-                                               
+
                                                if (error) {
                                                    [[SMNetworkClient sharedClient] showNetworkError:error];
                                                }
@@ -230,13 +236,15 @@
                                                    [_results setArray:result];
                                                    
                                                    NSLog(@"(%@)기수 학생 수 : %d", _info[@"courseclass"], [_results count]);
-                                                   
-                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                       //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
-                                                       [_resultTableView reloadData];
-                                                   });
-                                                   
                                                }
+                                               
+                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                   //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                                                   _loadingStatus = LoadingStatusLoaded;
+
+                                                   [_resultTableView reloadData];
+                                               });
+
                                                
                                            }];
 }
@@ -254,18 +262,74 @@
     return ([_results count] > 0)? kStudAddressCellH : self.view.frame.size.height;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row % 2) {
+        [cell setBackgroundColor:UIColorFromRGB(0xe6e6e6)];
+    }
+    else {
+        [cell setBackgroundColor:[UIColor whiteColor]];
+    }
+    
+    // selected cell background color
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = UIColorFromRGB(0xcfd4e4);
+    
+    [cell setSelectedBackgroundView:bgColorView];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([_results count] == 0)
     {
-        static NSString *identifier = @"NoResultCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        if (_loadingStatus == LoadingStatusLoaded)
+        {
+            static NSString *identifier = @"NotResultCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                cell.contentView.backgroundColor = UIColorFromRGB(0xf0f0f0);
+                
+                UIImageView *noDataImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search_no"]];
+                noDataImageView.tag = 600;
+                noDataImageView.center = CGPointMake(320.0f / 2, 200.0f / 2);
+                
+                [cell.contentView addSubview:noDataImageView];
+                
+                
+                // 검색 결과가 없습니다.
+                UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, noDataImageView.frame.origin.y + noDataImageView.frame.size.height + 10.0f, 320.0f, 20.0f)];
+                noDataImageView.tag = 601;
+                [noDataLabel setTextColor:UIColorFromRGB(0x555555)];
+                [noDataLabel setBackgroundColor:[UIColor clearColor]];
+                [noDataLabel setFont:[UIFont systemFontOfSize:13.0f]];
+                [noDataLabel setTextAlignment:NSTextAlignmentCenter];
+                [noDataLabel setText:LocalizedString(@"Search Result Not Founded", "검색된 결과가 없습니다.")];
+
+                [cell.contentView addSubview:noDataLabel];
+            }
+            
+//            UIImageView *imgaeView = (UIImageView *)[cell.contentView viewWithTag:600];
+//            if (imgaeView != nil) {
+//                imgaeView.center = CGPointMake(320.0f / 2, 200.0f / 2);
+//            }
+            
+            tableView.scrollEnabled = NO;
+            return cell;
         }
-        
-        return cell;
+        else
+        {
+            static NSString *identifier = @"NoResultCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                cell.contentView.backgroundColor = UIColorFromRGB(0xf0f0f0);
+            }
+            
+            return cell;
+        }
     }
     
     static NSString *identifier = @"ResultCell";

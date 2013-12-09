@@ -33,9 +33,9 @@
     _guideImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
 
     if ([[UIScreen mainScreen] bounds].size.height < 568) {
-        _guideImageView.image = [UIImage imageNamed:@"Default.png"];
+        _guideImageView.image = [UIImage imageNamed:@"Default"];
     } else {
-        _guideImageView.image = [UIImage imageNamed:@"Default-568h.png"];
+        _guideImageView.image = [UIImage imageNamed:@"Default-568h"];
     }
 
     [self.view addSubview:_guideImageView];

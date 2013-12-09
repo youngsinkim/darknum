@@ -21,7 +21,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        CGFloat xOffset = 20.0f;
+        CGFloat xOffset = 15.0f;
         CGFloat yOffset = 11.0f;
         
         // 전공 text
