@@ -295,7 +295,7 @@
 "Member Login" = "Member Login";
 
 /* has App Message */
-"has App Message" = "주소록 앱을 아직 설치하지 않았습니다. 초대해주세요!";
+"has App Message" = "해당 멤버는 주소록 앱을 설치하지 않았습니다.";
 
 /* student status */
 "student status" = "재학";
@@ -312,14 +312,17 @@
 /* Search Result Not Founded */
 "Search Result Not Founded" = "검색된 결과가 없습니다.";
 
-/* Not Current */
-"Not Current" = "전직";
-
-/* Currented */
-"Currented" = "현직";
-
 /* Share Info */
 "Share Info" = "정보공개";
 
 /* Tel */
 "Tel" = "전화";
+
+/* Major */
+"Major" = "전공";
+
+/* Work */
+"Work" = "담당업무";
+
+/* Office */
+"Office" = "Office :";

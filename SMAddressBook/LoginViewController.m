@@ -163,7 +163,7 @@
     
     // 아이디 저장 button
     _idSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _idSaveCheckBtn.frame = CGRectMake(xOffset, yOffset, 90.0f, 20.0f);
+    _idSaveCheckBtn.frame = CGRectMake(xOffset, yOffset, 110.0f, 20.0f);
     [_idSaveCheckBtn setTitle:LocalizedString(@"id_save_text", @"아이디 저장") forState:UIControlStateNormal];
     [_idSaveCheckBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
     _idSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
@@ -180,14 +180,14 @@
     
     /* 로그인 유지 버튼 */
     _loginSaveCheckBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _loginSaveCheckBtn.frame = CGRectMake(320.0f - xOffset - 86.0f, yOffset, 90.0f, 20.0f);
+    _loginSaveCheckBtn.frame = CGRectMake(320.0f - xOffset - 140.0f, yOffset, 140.0f, 20.0f);
     [_loginSaveCheckBtn setTitle:LocalizedString(@"login_save_text", @"로그인 유지") forState:UIControlStateNormal];
     [_loginSaveCheckBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     _loginSaveCheckBtn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     _loginSaveCheckBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_off.png"] forState:UIControlStateNormal];
     [_loginSaveCheckBtn setImage:[UIImage imageNamed:@"check_on.png"] forState:UIControlStateSelected];
-    [_loginSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [_loginSaveCheckBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     [_loginSaveCheckBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 5)];
     [_loginSaveCheckBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     [_loginSaveCheckBtn addTarget:self action:@selector(onLoginSaveChecked:) forControlEvents:UIControlEventTouchUpInside];

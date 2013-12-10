@@ -154,28 +154,23 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
-    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Student" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    // * (column)
-//    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
-//    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
-//    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
-//    [fetchRequest setResultType:NSDictionaryResultType];
-//    [fetchRequest setResultType:NSDictionaryResultType];
-//    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"major"]];
-//    NSDictionary *properties = [entity propertiesByName];
-//    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
-//    [propertiesToFetch addObject:@"major.title"];
-//    [propertiesToFetch addObject:@"major.title_en"];
-//    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
-//    [fetchRequest setReturnsObjectsAsFaults:NO];
-
+    // coure 정보 추가
+    [fetchRequest setResultType:NSDictionaryResultType];
+    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"course"]];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    NSDictionary *properties = [entity propertiesByName];
+    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
+    [propertiesToFetch addObject:@"course.course"];
+    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
 
     NSLog(@"찾을 기수 : %@", _info[@"courseclass"]);
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass == %@", _info[@"courseclass"]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course.courseclass == %@", _info[@"courseclass"]];
     [fetchRequest setPredicate:predicate];
     
+
 //    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
 //    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
@@ -185,6 +180,10 @@
     
     if (fetchedObjects && [fetchedObjects count] > 0)
     {
+        for (NSDictionary *info in fetchedObjects) {
+            NSLog(@"DB에서 읽은 학생 정보 : %@", info);
+        }
+        
 //        for (Course *info in fetchedObjects) {
 //            NSLog(@"Name: %@", info.courseclass);
 //            Student * = info.students;
@@ -195,37 +194,28 @@
 //        NSDictionary *dict = fetchedObjects[0];
 //        NSLog(@"기수 학생 : %@\n%@", dict, dict[@"students"]);
 //        return dict[@"students"];
-        
-        Course *class = fetchedObjects[0];
-        if (class)
-        {
-//            for (NSManagedObject *info in fetchedObjects) {
-//                NSLog(@"Name: %@", [info valueForKey:@"name"]);
-//            NSDictionary *classInfo = [class valueForKey:@"student"];
-//            NSLog(@"class info : %@", classInfo);
-            
-            NSMutableArray *classStudents = [[NSMutableArray alloc] init];
-            NSArray *list = (NSArray *)class.students;
-            
-            for (Student *student in list)
-            {
-                // DB에서 읽으면 NSManagedObject
-//                Student *student = _students[indexPath.row];
-                
-                // ( NSDictionary <- NSManagedObject )
-                NSArray *keys = [[[student entity] attributesByName] allKeys];
-//                [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
-                NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[student dictionaryWithValuesForKeys:keys]];
-                NSLog(@"dict : %@", dict);
-                [classStudents addObject:dict];
-            }
-            
-//            NSMutableArray *classStudents = [[class.students allObjects] mutableCopy];
-            NSLog(@"student count : %d, %d", [class.students count], [classStudents count]);
 
-            return classStudents;
-        }
-//        return fetchedObjects;
+//        NSMutableArray *classStudents = [fetchedObjects mutableCopy];
+//        Course *class = fetchedObjects[0];
+//        if (class)
+//        {
+//            NSMutableArray *classStudents = [[NSMutableArray alloc] init];
+//            NSArray *list = (NSArray *)class.students;
+//            
+//            for (Student *student in list)
+//            {
+//                // ( NSDictionary <- NSManagedObject )
+//                NSArray *keys = [[[student entity] attributesByName] allKeys];
+//                NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[student dictionaryWithValuesForKeys:keys]];
+//                NSLog(@"dict : %@", dict);
+//                [classStudents addObject:dict];
+//            }
+//            
+//            NSLog(@"student count : %d, %d", [class.students count], [classStudents count]);
+//
+//            return classStudents;
+//        }
+        return fetchedObjects;
     }
     return nil;
 }

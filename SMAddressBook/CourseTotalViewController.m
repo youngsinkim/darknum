@@ -136,11 +136,11 @@
 //    courseSegment.color = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2];
     courseSegment.borderWidth = 0.5;
     courseSegment.borderColor = UIColorFromRGB(0xdce1f1);
-    courseSegment.selectedColor = UIColorFromRGB(0x0099cc);
+    courseSegment.selectedColor = UIColorFromRGB(0xdce1f1);
     courseSegment.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],
                                      NSForegroundColorAttributeName:UIColorFromRGB(0x545966)};
     courseSegment.selectedTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],
-                                             NSForegroundColorAttributeName:[UIColor whiteColor]};
+                                             NSForegroundColorAttributeName:UIColorFromRGB(0x2d364e)};
     [self.view addSubview:courseSegment];
     yOffset += 30.0f;
     

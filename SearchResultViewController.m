@@ -154,12 +154,13 @@
     [fetchRequest setEntity:entity];
     
     // * (column)
-    //    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"course"];
-    //    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, nil]];
-    //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
     [fetchRequest setResultType:NSDictionaryResultType];
     [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"course"]];
     [fetchRequest setReturnsObjectsAsFaults:NO];
+    NSDictionary *properties = [entity propertiesByName];
+    NSMutableArray *propertiesToFetch = [NSMutableArray arrayWithArray:[properties allValues]];// arrayWithObject:[properties allValues], @"major.title", nil];
+    [propertiesToFetch addObject:@"course.course"];
+    [fetchRequest setPropertiesToFetch:[propertiesToFetch mutableCopy]];
     
     NSLog(@"찾을 기수 : %@", _info);
     NSPredicate *predicate = nil;
@@ -193,6 +194,10 @@
     
     if (fetchedObjects && [fetchedObjects count] > 0)
     {
+        for (NSDictionary *info in fetchedObjects) {
+            NSLog(@"DB에서 읽은 학생 정보 : %@", info);
+        }
+
         // 검색된 학생 목록 저장
         return fetchedObjects;
     }

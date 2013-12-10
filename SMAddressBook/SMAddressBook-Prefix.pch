@@ -35,6 +35,13 @@
 #import "TSLanguageManager.h"   //< 다국어 모듈
 
 typedef enum {
+    CourseTypeEMBA = 1,
+    CourseTypeGMBA = 2,
+    CourseTypeSMBA = 3,
+    CourseTypeUnknown
+} CourseType;
+
+typedef enum {
     MemberTypeStudent = 1,
     MemberTypeFaculty = 2,
     MemberTypeStaff = 3,

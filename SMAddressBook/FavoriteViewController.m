@@ -2919,6 +2919,9 @@
                 case MemberTypeStudent: // 학생
                     {
                         NSArray *keys = [[[courseClass entity] attributesByName] allKeys];
+                        for (id key in keys){
+                            NSLog(@"학생 정보( %@ ) : %@", key, [courseClass dictionaryWithValuesForKeys:keys]);
+                        }
                         NSDictionary *dict = [courseClass dictionaryWithValuesForKeys:keys];
                         NSLog(@"학생 셀 정보 : %@", dict);
                         
