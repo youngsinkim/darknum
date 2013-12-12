@@ -489,8 +489,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1224"
             endingLineNumber = "1224"
-            landmarkName = "-disappearKeyboard:"
-            landmarkType = "5">
+            landmarkName = "@implementation MyInfoViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -809,7 +809,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1070"
             endingLineNumber = "1070"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
+            landmarkName = "-textFieldShouldClear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1002,54 +1002,6 @@
             startingLineNumber = "152"
             endingLineNumber = "152"
             landmarkName = "-viewWillAppear:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/FavoriteViewController.m"
-            timestampString = "407679745.728607"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
-            landmarkName = "-setupFavoriteUI"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "408304309.399925"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
-            landmarkName = "-setupMyInfoUI"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "408304309.399925"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "-setupMyInfoUI"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

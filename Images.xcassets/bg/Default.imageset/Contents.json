@@ -1,19 +1,18 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "scale" : "1x",
       "filename" : "Default.png"
     },
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "scale" : "2x",
       "filename" : "Default@2x.png"
     },
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "filename" : "Default-568h@2x.png",
-      "unassigned" : true,
       "subtype" : "retina4",
       "scale" : "2x"
     }

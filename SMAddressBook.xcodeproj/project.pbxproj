@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		503D546D181146C10046E0C5 /* SmsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503D546C181146C10046E0C5 /* SmsAuthViewController.m */; };
-		503D546E181146C10046E0C5 /* SmsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503D546C181146C10046E0C5 /* SmsAuthViewController.m */; };
 		5052623417C72ACC004C4724 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
 		5052F0E217E6F1C700CB41D3 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
 		5062B61917C4C10400A2495D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
@@ -40,90 +39,6 @@
 		BF177E9717CA277C00614485 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9617CA277C00614485 /* MenuCell.m */; };
 		BF177EA117CA70AF00614485 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
 		BF177EAB17CBBAE700614485 /* CourseClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EAA17CBBAE700614485 /* CourseClassCell.m */; };
-		BF241C78180931AE001A7AA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62617C4C10400A2495D /* main.m */; };
-		BF241C79180931AE001A7AA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62A17C4C10400A2495D /* AppDelegate.m */; };
-		BF241C7A180931AE001A7AA0 /* SMAddressBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */; };
-		BF241C7B180931AE001A7AA0 /* DBMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3B18083E1100AB8DF3 /* DBMethod.m */; };
-		BF241C7C180931AE001A7AA0 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64217C4CC0400A2495D /* MenuTableViewController.m */; };
-		BF241C7D180931AE001A7AA0 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64517C4CC2600A2495D /* BaseViewController.m */; };
-		BF241C7E180931AE001A7AA0 /* PortraitNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64917C4CCEE00A2495D /* PortraitNavigationController.m */; };
-		BF241C7F180931AE001A7AA0 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
-		BF241C80180931AE001A7AA0 /* UserContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64D17C4CDDC00A2495D /* UserContext.m */; };
-		BF241C81180931AE001A7AA0 /* Major+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14F0117F522B600FCC662 /* Major+Methods.m */; };
-		BF241C82180931AE001A7AA0 /* DetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3E747517E21001006AAF8D /* DetailToolView.m */; };
-		BF241C83180931AE001A7AA0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B65017C4D24700A2495D /* LoginViewController.m */; };
-		BF241C84180931AE001A7AA0 /* NSURLRequest+SSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */; };
-		BF241C86180931AE001A7AA0 /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
-		BF241C87180931AE001A7AA0 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
-		BF241C88180931AE001A7AA0 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467E17C86E680069AA9A /* LoadingView.m */; };
-		BF241C89180931AE001A7AA0 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B468917C8DE660069AA9A /* TermsViewController.m */; };
-		BF241C8A180931AE001A7AA0 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
-		BF241C8B180931AE001A7AA0 /* FavoriteSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */; };
-		BF241C8C180931AE001A7AA0 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
-		BF241C8D180931AE001A7AA0 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8117C9BAB000614485 /* HelpViewController.m */; };
-		BF241C8F180931AE001A7AA0 /* CourseTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */; };
-		BF241C90180931AE001A7AA0 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9617CA277C00614485 /* MenuCell.m */; };
-		BF241C91180931AE001A7AA0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
-		BF241C92180931AE001A7AA0 /* CourseClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EAA17CBBAE700614485 /* CourseClassCell.m */; };
-		BF241C93180931AE001A7AA0 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */; };
-		BF241C94180931AE001A7AA0 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2EB17CFA40F00B39C03 /* Major.m */; };
-		BF241C95180931AE001A7AA0 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30217D1CC2D00B39C03 /* NSString+MD5.m */; };
-		BF241C96180931AE001A7AA0 /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30417D1CC2D00B39C03 /* UIView+Shadow.m */; };
-		BF241C97180931AE001A7AA0 /* MMHorizontalListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30A17D1CC3D00B39C03 /* MMHorizontalListView.m */; };
-		BF241C98180931AE001A7AA0 /* MMHorizontalListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30C17D1CC3D00B39C03 /* MMHorizontalListViewCell.m */; };
-		BF241C99180931AE001A7AA0 /* TSLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30F17D1CC3D00B39C03 /* TSLanguageManager.m */; };
-		BF241C9A180931AE001A7AA0 /* UIViewController+LoadingProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31417D1CE3B00B39C03 /* UIViewController+LoadingProgress.m */; };
-		BF241C9B180931AE001A7AA0 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
-		BF241C9C180931AE001A7AA0 /* FavoriteToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32417D24DD900B39C03 /* FavoriteToolView.m */; };
-		BF241C9D180931AE001A7AA0 /* StudentProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */; };
-		BF241C9E180931AE001A7AA0 /* StaffProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32A17D2E77400B39C03 /* StaffProfileViewController.m */; };
-		BF241C9F180931AE001A7AA0 /* UIButton+UIButtonExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */; };
-		BF241CA0180931AE001A7AA0 /* FacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */; };
-		BF241CA1180931AE001A7AA0 /* FacultyMajorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */; };
-		BF241CA2180931AE001A7AA0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
-		BF241CA3180931AE001A7AA0 /* StaffAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */; };
-		BF241CA4180931AE001A7AA0 /* StudentAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */; };
-		BF241CA5180931AE001A7AA0 /* SSLWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134D217F9800C00F27231 /* SSLWebView.m */; };
-		BF241CA6180931AE001A7AA0 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
-		BF241CA7180931AE001A7AA0 /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
-		BF241CA8180931AE001A7AA0 /* MajorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34A17D34A0200B39C03 /* MajorCell.m */; };
-		BF241CA9180931AE001A7AA0 /* KakaoMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */; };
-		BF241CAA180931AE001A7AA0 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35317D38E8200B39C03 /* AddressCell.m */; };
-		BF241CAB180931AE001A7AA0 /* StudentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35617D38EC600B39C03 /* StudentAddressCell.m */; };
-		BF241CAC180931AE001A7AA0 /* StudentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38A17D78C2000B39C03 /* StudentDetailViewController.m */; };
-		BF241CAD180931AE001A7AA0 /* StudentDetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38D17D7928300B39C03 /* StudentDetailToolView.m */; };
-		BF241CAE180931AE001A7AA0 /* ModelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EF817F517F200FCC662 /* ModelUtil.m */; };
-		BF241CAF180931AE001A7AA0 /* HorImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED518015B9600F7409F /* HorImageButton.m */; };
-		BF241CB0180931AE001A7AA0 /* StudentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39017D7996400B39C03 /* StudentToolView.m */; };
-		BF241CB1180931AE001A7AA0 /* SmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39417D79CD400B39C03 /* SmsViewController.m */; };
-		BF241CB2180931AE001A7AA0 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39717D79D0D00B39C03 /* ToolViewController.m */; };
-		BF241CB3180931AE001A7AA0 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
-		BF241CB5180931AE001A7AA0 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C4A2D217D87B86006DEC43 /* Util.m */; };
-		BF241CB6180931AE001A7AA0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */; };
-		BF241CB7180931AE001A7AA0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A217DB754400B39C03 /* SearchViewController.m */; };
-		BF241CB8180931AE001A7AA0 /* NSManagedObjectContext+AsyncFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */; };
-		BF241CB9180931AE001A7AA0 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */; };
-		BF241CBA180931AE001A7AA0 /* FavoriteSettCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3AC17DC28A800B39C03 /* FavoriteSettCell.m */; };
-		BF241CBB180931AE001A7AA0 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
-		BF241CBC180931AE001A7AA0 /* KakaoLinkCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */; };
-		BF241CBE180931AE001A7AA0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D134D417F9967A00F27231 /* MessageUI.framework */; };
-		BF241CBF180931AE001A7AA0 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
-		BF241CC0180931AE001A7AA0 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */; };
-		BF241CC1180931AE001A7AA0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */; };
-		BF241CC2180931AE001A7AA0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
-		BF241CC3180931AE001A7AA0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
-		BF241CC4180931AE001A7AA0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61C17C4C10400A2495D /* CoreGraphics.framework */; };
-		BF241CC5180931AE001A7AA0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61E17C4C10400A2495D /* CoreData.framework */; };
-		BF241CC6180931AE001A7AA0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
-		BF241CC8180931AE001A7AA0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5062B62317C4C10400A2495D /* InfoPlist.strings */; };
-		BF241CCC180931AE001A7AA0 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 5062B63A17C4C12800A2495D /* Podfile */; };
-		BF241CD8180931AE001A7AA0 /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
-		BF241D14180931AE001A7AA0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF3B466C17C6691E0069AA9A /* Localizable.strings */; };
-		BF241D15180931AE001A7AA0 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
-		BF241D29180931AE001A7AA0 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = BF57B32117D210E200B39C03 /* Readme.md */; };
-		BF241D2B180931AE001A7AA0 /* serviceTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39C17D8F72B00B39C03 /* serviceTerms.html */; };
-		BF241D2C180931AE001A7AA0 /* personTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39D17D8F72B00B39C03 /* personTerms.html */; };
-		BF241D2D180931AE001A7AA0 /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
 		BF3B465617C64BDA0069AA9A /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
 		BF3B466E17C6691E0069AA9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF3B466C17C6691E0069AA9A /* Localizable.strings */; };
 		BF3B467217C67C180069AA9A /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
@@ -133,7 +48,6 @@
 		BF3E747C17E21F0D006AAF8D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */; };
 		BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
 		BF4D51091849919200648119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF4D51081849919200648119 /* Images.xcassets */; };
-		BF4D510A1849919200648119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF4D51081849919200648119 /* Images.xcassets */; };
 		BF53FD3C18083E1100AB8DF3 /* DBMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3B18083E1100AB8DF3 /* DBMethod.m */; };
 		BF57B2DD17CF824A00B39C03 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */; };
 		BF57B2EC17CFA40F00B39C03 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2EB17CFA40F00B39C03 /* Major.m */; };
@@ -167,27 +81,210 @@
 		BF57B3AD17DC28A800B39C03 /* FavoriteSettCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3AC17DC28A800B39C03 /* FavoriteSettCell.m */; };
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
 		BF5900A31821363A00DD6980 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
-		BF5900A41821363A00DD6980 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
 		BF5900A71822BB8000DD6980 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A61822BB8000DD6980 /* TitleView.m */; };
-		BF5900A81822BB8000DD6980 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A61822BB8000DD6980 /* TitleView.m */; };
+		BF83D4B418596B50002C1AB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62617C4C10400A2495D /* main.m */; };
+		BF83D4B518596B50002C1AB3 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E1184CE51A0057A4C5 /* Student.m */; };
+		BF83D4B618596B50002C1AB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62A17C4C10400A2495D /* AppDelegate.m */; };
+		BF83D4B718596B50002C1AB3 /* SMAddressBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */; };
+		BF83D4B818596B50002C1AB3 /* DBMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3B18083E1100AB8DF3 /* DBMethod.m */; };
+		BF83D4B918596B50002C1AB3 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64217C4CC0400A2495D /* MenuTableViewController.m */; };
+		BF83D4BA18596B50002C1AB3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64517C4CC2600A2495D /* BaseViewController.m */; };
+		BF83D4BB18596B50002C1AB3 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
+		BF83D4BC18596B50002C1AB3 /* PortraitNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64917C4CCEE00A2495D /* PortraitNavigationController.m */; };
+		BF83D4BD18596B50002C1AB3 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
+		BF83D4BE18596B50002C1AB3 /* UserContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64D17C4CDDC00A2495D /* UserContext.m */; };
+		BF83D4BF18596B50002C1AB3 /* Major+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14F0117F522B600FCC662 /* Major+Methods.m */; };
+		BF83D4C018596B50002C1AB3 /* DetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3E747517E21001006AAF8D /* DetailToolView.m */; };
+		BF83D4C118596B50002C1AB3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B65017C4D24700A2495D /* LoginViewController.m */; };
+		BF83D4C218596B50002C1AB3 /* SmsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503D546C181146C10046E0C5 /* SmsAuthViewController.m */; };
+		BF83D4C318596B50002C1AB3 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A61822BB8000DD6980 /* TitleView.m */; };
+		BF83D4C418596B50002C1AB3 /* NSURLRequest+SSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */; };
+		BF83D4C518596B50002C1AB3 /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
+		BF83D4C618596B50002C1AB3 /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
+		BF83D4C718596B50002C1AB3 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
+		BF83D4C818596B50002C1AB3 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467E17C86E680069AA9A /* LoadingView.m */; };
+		BF83D4C918596B50002C1AB3 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B468917C8DE660069AA9A /* TermsViewController.m */; };
+		BF83D4CA18596B50002C1AB3 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
+		BF83D4CB18596B50002C1AB3 /* FavoriteSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */; };
+		BF83D4CC18596B50002C1AB3 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
+		BF83D4CD18596B50002C1AB3 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8117C9BAB000614485 /* HelpViewController.m */; };
+		BF83D4CE18596B50002C1AB3 /* CourseTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */; };
+		BF83D4CF18596B50002C1AB3 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9617CA277C00614485 /* MenuCell.m */; };
+		BF83D4D018596B50002C1AB3 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
+		BF83D4D118596B50002C1AB3 /* CourseClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EAA17CBBAE700614485 /* CourseClassCell.m */; };
+		BF83D4D218596B50002C1AB3 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */; };
+		BF83D4D318596B50002C1AB3 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E5184CE51A0057A4C5 /* Faculty.m */; };
+		BF83D4D418596B50002C1AB3 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2EB17CFA40F00B39C03 /* Major.m */; };
+		BF83D4D518596B50002C1AB3 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30217D1CC2D00B39C03 /* NSString+MD5.m */; };
+		BF83D4D618596B50002C1AB3 /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30417D1CC2D00B39C03 /* UIView+Shadow.m */; };
+		BF83D4D718596B50002C1AB3 /* MMHorizontalListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30A17D1CC3D00B39C03 /* MMHorizontalListView.m */; };
+		BF83D4D818596B50002C1AB3 /* MMHorizontalListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30C17D1CC3D00B39C03 /* MMHorizontalListViewCell.m */; };
+		BF83D4D918596B50002C1AB3 /* TSLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30F17D1CC3D00B39C03 /* TSLanguageManager.m */; };
+		BF83D4DA18596B50002C1AB3 /* UIViewController+LoadingProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31417D1CE3B00B39C03 /* UIViewController+LoadingProgress.m */; };
+		BF83D4DB18596B50002C1AB3 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
+		BF83D4DC18596B50002C1AB3 /* FavoriteToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32417D24DD900B39C03 /* FavoriteToolView.m */; };
+		BF83D4DD18596B50002C1AB3 /* StudentProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */; };
+		BF83D4DE18596B50002C1AB3 /* StaffProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32A17D2E77400B39C03 /* StaffProfileViewController.m */; };
+		BF83D4DF18596B50002C1AB3 /* UIButton+UIButtonExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */; };
+		BF83D4E018596B50002C1AB3 /* FacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */; };
+		BF83D4E118596B50002C1AB3 /* FacultyMajorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */; };
+		BF83D4E218596B50002C1AB3 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
+		BF83D4E318596B50002C1AB3 /* StaffAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */; };
+		BF83D4E418596B50002C1AB3 /* StudentAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */; };
+		BF83D4E518596B50002C1AB3 /* SSLWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134D217F9800C00F27231 /* SSLWebView.m */; };
+		BF83D4E618596B50002C1AB3 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
+		BF83D4E718596B50002C1AB3 /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
+		BF83D4E818596B50002C1AB3 /* MajorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34A17D34A0200B39C03 /* MajorCell.m */; };
+		BF83D4E918596B50002C1AB3 /* KakaoMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */; };
+		BF83D4EA18596B50002C1AB3 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35317D38E8200B39C03 /* AddressCell.m */; };
+		BF83D4EB18596B50002C1AB3 /* StudentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35617D38EC600B39C03 /* StudentAddressCell.m */; };
+		BF83D4EC18596B50002C1AB3 /* StudentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38A17D78C2000B39C03 /* StudentDetailViewController.m */; };
+		BF83D4ED18596B50002C1AB3 /* StudentDetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38D17D7928300B39C03 /* StudentDetailToolView.m */; };
+		BF83D4EE18596B50002C1AB3 /* ModelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EF817F517F200FCC662 /* ModelUtil.m */; };
+		BF83D4EF18596B50002C1AB3 /* HorImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED518015B9600F7409F /* HorImageButton.m */; };
+		BF83D4F018596B50002C1AB3 /* StudentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39017D7996400B39C03 /* StudentToolView.m */; };
+		BF83D4F118596B50002C1AB3 /* SmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39417D79CD400B39C03 /* SmsViewController.m */; };
+		BF83D4F218596B50002C1AB3 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39717D79D0D00B39C03 /* ToolViewController.m */; };
+		BF83D4F318596B50002C1AB3 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
+		BF83D4F418596B50002C1AB3 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E9184CE51A0057A4C5 /* Staff.m */; };
+		BF83D4F518596B50002C1AB3 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C4A2D217D87B86006DEC43 /* Util.m */; };
+		BF83D4F618596B50002C1AB3 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */; };
+		BF83D4F718596B50002C1AB3 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A217DB754400B39C03 /* SearchViewController.m */; };
+		BF83D4F818596B50002C1AB3 /* NSManagedObjectContext+AsyncFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */; };
+		BF83D4F918596B50002C1AB3 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */; };
+		BF83D4FA18596B50002C1AB3 /* FavoriteSettCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3AC17DC28A800B39C03 /* FavoriteSettCell.m */; };
+		BF83D4FB18596B50002C1AB3 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
+		BF83D4FC18596B50002C1AB3 /* KakaoLinkCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */; };
+		BF83D4FE18596B50002C1AB3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D134D417F9967A00F27231 /* MessageUI.framework */; };
+		BF83D4FF18596B50002C1AB3 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
+		BF83D50018596B50002C1AB3 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */; };
+		BF83D50118596B50002C1AB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */; };
+		BF83D50218596B50002C1AB3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
+		BF83D50318596B50002C1AB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
+		BF83D50418596B50002C1AB3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61C17C4C10400A2495D /* CoreGraphics.framework */; };
+		BF83D50518596B50002C1AB3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61E17C4C10400A2495D /* CoreData.framework */; };
+		BF83D50618596B50002C1AB3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
+		BF83D50818596B50002C1AB3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5062B62317C4C10400A2495D /* InfoPlist.strings */; };
+		BF83D50918596B50002C1AB3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 5062B63A17C4C12800A2495D /* Podfile */; };
+		BF83D50A18596B50002C1AB3 /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
+		BF83D50B18596B50002C1AB3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF4D51081849919200648119 /* Images.xcassets */; };
+		BF83D50C18596B50002C1AB3 /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
+		BF83D50D18596B50002C1AB3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */; };
+		BF83D50E18596B50002C1AB3 /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
+		BF83D50F18596B50002C1AB3 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AA1855E1B1004BF3DF /* Default.png */; };
+		BF83D51018596B50002C1AB3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF3B466C17C6691E0069AA9A /* Localizable.strings */; };
+		BF83D51118596B50002C1AB3 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
+		BF83D51218596B50002C1AB3 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = BF57B32117D210E200B39C03 /* Readme.md */; };
+		BF83D51318596B50002C1AB3 /* serviceTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39C17D8F72B00B39C03 /* serviceTerms.html */; };
+		BF83D51418596B50002C1AB3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */; };
+		BF83D51518596B50002C1AB3 /* personTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39D17D8F72B00B39C03 /* personTerms.html */; };
+		BF83D51F18596C9A002C1AB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62617C4C10400A2495D /* main.m */; };
+		BF83D52018596C9A002C1AB3 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E1184CE51A0057A4C5 /* Student.m */; };
+		BF83D52118596C9A002C1AB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62A17C4C10400A2495D /* AppDelegate.m */; };
+		BF83D52218596C9A002C1AB3 /* SMAddressBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5062B63217C4C10400A2495D /* SMAddressBook.xcdatamodeld */; };
+		BF83D52318596C9A002C1AB3 /* DBMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = BF53FD3B18083E1100AB8DF3 /* DBMethod.m */; };
+		BF83D52418596C9A002C1AB3 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64217C4CC0400A2495D /* MenuTableViewController.m */; };
+		BF83D52518596C9A002C1AB3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64517C4CC2600A2495D /* BaseViewController.m */; };
+		BF83D52618596C9A002C1AB3 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
+		BF83D52718596C9A002C1AB3 /* PortraitNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64917C4CCEE00A2495D /* PortraitNavigationController.m */; };
+		BF83D52818596C9A002C1AB3 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
+		BF83D52918596C9A002C1AB3 /* UserContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B64D17C4CDDC00A2495D /* UserContext.m */; };
+		BF83D52A18596C9A002C1AB3 /* Major+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14F0117F522B600FCC662 /* Major+Methods.m */; };
+		BF83D52B18596C9A002C1AB3 /* DetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3E747517E21001006AAF8D /* DetailToolView.m */; };
+		BF83D52C18596C9A002C1AB3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B65017C4D24700A2495D /* LoginViewController.m */; };
+		BF83D52D18596C9A002C1AB3 /* SmsAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 503D546C181146C10046E0C5 /* SmsAuthViewController.m */; };
+		BF83D52E18596C9A002C1AB3 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A61822BB8000DD6980 /* TitleView.m */; };
+		BF83D52F18596C9A002C1AB3 /* NSURLRequest+SSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134CF17F97A1200F27231 /* NSURLRequest+SSL.m */; };
+		BF83D53018596C9A002C1AB3 /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
+		BF83D53118596C9A002C1AB3 /* SMNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */; };
+		BF83D53218596C9A002C1AB3 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467117C67C180069AA9A /* FavoriteViewController.m */; };
+		BF83D53318596C9A002C1AB3 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B467E17C86E680069AA9A /* LoadingView.m */; };
+		BF83D53418596C9A002C1AB3 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3B468917C8DE660069AA9A /* TermsViewController.m */; };
+		BF83D53518596C9A002C1AB3 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7B17C9BA8300614485 /* MyInfoViewController.m */; };
+		BF83D53618596C9A002C1AB3 /* FavoriteSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E7E17C9BA9F00614485 /* FavoriteSettingViewController.m */; };
+		BF83D53718596C9A002C1AB3 /* LoadingProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5052F0E117E6F1C700CB41D3 /* LoadingProgressView.m */; };
+		BF83D53818596C9A002C1AB3 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8117C9BAB000614485 /* HelpViewController.m */; };
+		BF83D53918596C9A002C1AB3 /* CourseTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E8B17C9BC3D00614485 /* CourseTotalViewController.m */; };
+		BF83D53A18596C9A002C1AB3 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177E9617CA277C00614485 /* MenuCell.m */; };
+		BF83D53B18596C9A002C1AB3 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EA017CA70AF00614485 /* DetailViewController.m */; };
+		BF83D53C18596C9A002C1AB3 /* CourseClassCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF177EAA17CBBAE700614485 /* CourseClassCell.m */; };
+		BF83D53D18596C9A002C1AB3 /* FavoriteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2DC17CF824A00B39C03 /* FavoriteCell.m */; };
+		BF83D53E18596C9A002C1AB3 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E5184CE51A0057A4C5 /* Faculty.m */; };
+		BF83D53F18596C9A002C1AB3 /* Major.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B2EB17CFA40F00B39C03 /* Major.m */; };
+		BF83D54018596C9A002C1AB3 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30217D1CC2D00B39C03 /* NSString+MD5.m */; };
+		BF83D54118596C9A002C1AB3 /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30417D1CC2D00B39C03 /* UIView+Shadow.m */; };
+		BF83D54218596C9A002C1AB3 /* MMHorizontalListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30A17D1CC3D00B39C03 /* MMHorizontalListView.m */; };
+		BF83D54318596C9A002C1AB3 /* MMHorizontalListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30C17D1CC3D00B39C03 /* MMHorizontalListViewCell.m */; };
+		BF83D54418596C9A002C1AB3 /* TSLanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B30F17D1CC3D00B39C03 /* TSLanguageManager.m */; };
+		BF83D54518596C9A002C1AB3 /* UIViewController+LoadingProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B31417D1CE3B00B39C03 /* UIViewController+LoadingProgress.m */; };
+		BF83D54618596C9A002C1AB3 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
+		BF83D54718596C9A002C1AB3 /* FavoriteToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32417D24DD900B39C03 /* FavoriteToolView.m */; };
+		BF83D54818596C9A002C1AB3 /* StudentProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32717D2E6E800B39C03 /* StudentProfileViewController.m */; };
+		BF83D54918596C9A002C1AB3 /* StaffProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32A17D2E77400B39C03 /* StaffProfileViewController.m */; };
+		BF83D54A18596C9A002C1AB3 /* UIButton+UIButtonExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */; };
+		BF83D54B18596C9A002C1AB3 /* FacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B32D17D2ED5900B39C03 /* FacultyAddressViewController.m */; };
+		BF83D54C18596C9A002C1AB3 /* FacultyMajorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33117D2EDD700B39C03 /* FacultyMajorViewController.m */; };
+		BF83D54D18596C9A002C1AB3 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
+		BF83D54E18596C9A002C1AB3 /* StaffAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33417D2EDED00B39C03 /* StaffAddressViewController.m */; };
+		BF83D54F18596C9A002C1AB3 /* StudentAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B33817D2EE1100B39C03 /* StudentAddressViewController.m */; };
+		BF83D55018596C9A002C1AB3 /* SSLWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50D134D217F9800C00F27231 /* SSLWebView.m */; };
+		BF83D55118596C9A002C1AB3 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
+		BF83D55218596C9A002C1AB3 /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
+		BF83D55318596C9A002C1AB3 /* MajorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B34A17D34A0200B39C03 /* MajorCell.m */; };
+		BF83D55418596C9A002C1AB3 /* KakaoMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC91801149700F7409F /* KakaoMessageViewController.m */; };
+		BF83D55518596C9A002C1AB3 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35317D38E8200B39C03 /* AddressCell.m */; };
+		BF83D55618596C9A002C1AB3 /* StudentAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B35617D38EC600B39C03 /* StudentAddressCell.m */; };
+		BF83D55718596C9A002C1AB3 /* StudentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38A17D78C2000B39C03 /* StudentDetailViewController.m */; };
+		BF83D55818596C9A002C1AB3 /* StudentDetailToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B38D17D7928300B39C03 /* StudentDetailToolView.m */; };
+		BF83D55918596C9A002C1AB3 /* ModelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EF817F517F200FCC662 /* ModelUtil.m */; };
+		BF83D55A18596C9A002C1AB3 /* HorImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED518015B9600F7409F /* HorImageButton.m */; };
+		BF83D55B18596C9A002C1AB3 /* StudentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39017D7996400B39C03 /* StudentToolView.m */; };
+		BF83D55C18596C9A002C1AB3 /* SmsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39417D79CD400B39C03 /* SmsViewController.m */; };
+		BF83D55D18596C9A002C1AB3 /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39717D79D0D00B39C03 /* ToolViewController.m */; };
+		BF83D55E18596C9A002C1AB3 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
+		BF83D55F18596C9A002C1AB3 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E9184CE51A0057A4C5 /* Staff.m */; };
+		BF83D56018596C9A002C1AB3 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C4A2D217D87B86006DEC43 /* Util.m */; };
+		BF83D56118596C9A002C1AB3 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B39A17D8B90200B39C03 /* NSDate+Helper.m */; };
+		BF83D56218596C9A002C1AB3 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A217DB754400B39C03 /* SearchViewController.m */; };
+		BF83D56318596C9A002C1AB3 /* NSManagedObjectContext+AsyncFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B14EFE17F51A5700FCC662 /* NSManagedObjectContext+AsyncFetch.m */; };
+		BF83D56418596C9A002C1AB3 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3A917DB7A4200B39C03 /* SearchResultViewController.m */; };
+		BF83D56518596C9A002C1AB3 /* FavoriteSettCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3AC17DC28A800B39C03 /* FavoriteSettCell.m */; };
+		BF83D56618596C9A002C1AB3 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
+		BF83D56718596C9A002C1AB3 /* KakaoLinkCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */; };
+		BF83D56918596C9A002C1AB3 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D134D417F9967A00F27231 /* MessageUI.framework */; };
+		BF83D56A18596C9A002C1AB3 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747D17E2223F006AAF8D /* AddressBook.framework */; };
+		BF83D56B18596C9A002C1AB3 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */; };
+		BF83D56C18596C9A002C1AB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C4A2D417D87BC1006DEC43 /* CoreTelephony.framework */; };
+		BF83D56D18596C9A002C1AB3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61817C4C10400A2495D /* UIKit.framework */; };
+		BF83D56E18596C9A002C1AB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61A17C4C10400A2495D /* Foundation.framework */; };
+		BF83D56F18596C9A002C1AB3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61C17C4C10400A2495D /* CoreGraphics.framework */; };
+		BF83D57018596C9A002C1AB3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5062B61E17C4C10400A2495D /* CoreData.framework */; };
+		BF83D57118596C9A002C1AB3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
+		BF83D57318596C9A002C1AB3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5062B62317C4C10400A2495D /* InfoPlist.strings */; };
+		BF83D57418596C9A002C1AB3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 5062B63A17C4C12800A2495D /* Podfile */; };
+		BF83D57518596C9A002C1AB3 /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
+		BF83D57618596C9A002C1AB3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF4D51081849919200648119 /* Images.xcassets */; };
+		BF83D57718596C9A002C1AB3 /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
+		BF83D57818596C9A002C1AB3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */; };
+		BF83D57918596C9A002C1AB3 /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
+		BF83D57A18596C9A002C1AB3 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AA1855E1B1004BF3DF /* Default.png */; };
+		BF83D57B18596C9A002C1AB3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BF3B466C17C6691E0069AA9A /* Localizable.strings */; };
+		BF83D57C18596C9A002C1AB3 /* http_sample_data in Resources */ = {isa = PBXBuildFile; fileRef = 5052623317C72ACC004C4724 /* http_sample_data */; };
+		BF83D57D18596C9A002C1AB3 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = BF57B32117D210E200B39C03 /* Readme.md */; };
+		BF83D57E18596C9A002C1AB3 /* serviceTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39C17D8F72B00B39C03 /* serviceTerms.html */; };
+		BF83D57F18596C9A002C1AB3 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */; };
+		BF83D58018596C9A002C1AB3 /* personTerms.html in Resources */ = {isa = PBXBuildFile; fileRef = BF57B39D17D8F72B00B39C03 /* personTerms.html */; };
 		BF8BE0AC1855E1B1004BF3DF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */; };
-		BF8BE0AD1855E1B1004BF3DF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */; };
 		BF8BE0AE1855E1B1004BF3DF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AA1855E1B1004BF3DF /* Default.png */; };
-		BF8BE0AF1855E1B1004BF3DF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AA1855E1B1004BF3DF /* Default.png */; };
 		BF8BE0B01855E1B1004BF3DF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */; };
-		BF8BE0B11855E1B1004BF3DF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */; };
 		BF8E5837183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
 		BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
-		BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
 		BFA89612180329C500869FB8 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
 		BFABB01C17F75AE50018D236 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
 		BFBF58E2184CE51A0057A4C5 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E1184CE51A0057A4C5 /* Student.m */; };
-		BFBF58E3184CE51A0057A4C5 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E1184CE51A0057A4C5 /* Student.m */; };
 		BFBF58E6184CE51A0057A4C5 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E5184CE51A0057A4C5 /* Faculty.m */; };
-		BFBF58E7184CE51A0057A4C5 /* Faculty.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E5184CE51A0057A4C5 /* Faculty.m */; };
 		BFBF58EA184CE51A0057A4C5 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E9184CE51A0057A4C5 /* Staff.m */; };
-		BFBF58EB184CE51A0057A4C5 /* Staff.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E9184CE51A0057A4C5 /* Staff.m */; };
 		BFCA0C4617E4BD4600E750E7 /* ToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4517E4BD4600E750E7 /* ToolView.m */; };
 		BFCA0C4917E4DEFF00E750E7 /* NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCA0C4817E4DEFF00E750E7 /* NSString+UrlEncoding.m */; };
 		BFDEBEC718010A2C00F7409F /* KakaoLinkCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBEC618010A2C00F7409F /* KakaoLinkCenter.m */; };
@@ -196,7 +293,6 @@
 		BFDEBED91801670600F7409F /* UIButton+UIButtonExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDEBED81801670600F7409F /* UIButton+UIButtonExt.m */; };
 		BFDEBEDC180168BC00F7409F /* btn_kakaotalk_logo_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDA180168BC00F7409F /* btn_kakaotalk_logo_iphone.png */; };
 		BFDEBEDD180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
-		BFF98DD318555BD800A96878 /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
 		BFFB2BC817E8AFD600721ACE /* NSDictionary+UTF8.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFB2BC717E8AFD600721ACE /* NSDictionary+UTF8.m */; };
 		C473C86C32064D5EBC3D25E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -260,7 +356,6 @@
 		BF177EA017CA70AF00614485 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		BF177EA917CBBAE700614485 /* CourseClassCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseClassCell.h; sourceTree = "<group>"; };
 		BF177EAA17CBBAE700614485 /* CourseClassCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseClassCell.m; sourceTree = "<group>"; };
-		BF241D39180931AE001A7AA0 /* SMAddressBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMAddressBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF3B465417C64BDA0069AA9A /* SMNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMNetworkClient.h; sourceTree = "<group>"; };
 		BF3B465517C64BDA0069AA9A /* SMNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMNetworkClient.m; sourceTree = "<group>"; };
 		BF3B466B17C6664F0069AA9A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -342,6 +437,9 @@
 		BF5900A21821363A00DD6980 /* DetailGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailGuideViewController.m; sourceTree = "<group>"; };
 		BF5900A51822BB8000DD6980 /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
 		BF5900A61822BB8000DD6980 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
+		BF83D4B0185965C2002C1AB3 /* SMAddressBook_AppStore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SMAddressBook_AppStore-Info.plist"; path = "/Users/sochae78/Desktop/project/snumba_1202/SMAddressBook_AppStore-Info.plist"; sourceTree = "<absolute>"; };
+		BF83D51A18596B50002C1AB3 /* SNU BIZ Adhoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SNU BIZ Adhoc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF83D58518596C9A002C1AB3 /* SNU BIZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SNU BIZ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BF8BE0AA1855E1B1004BF3DF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -395,19 +493,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF241CBD180931AE001A7AA0 /* Frameworks */ = {
+		BF83D4FD18596B50002C1AB3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF241CBE180931AE001A7AA0 /* MessageUI.framework in Frameworks */,
-				BF241CBF180931AE001A7AA0 /* AddressBook.framework in Frameworks */,
-				BF241CC0180931AE001A7AA0 /* AddressBookUI.framework in Frameworks */,
-				BF241CC1180931AE001A7AA0 /* CoreTelephony.framework in Frameworks */,
-				BF241CC2180931AE001A7AA0 /* UIKit.framework in Frameworks */,
-				BF241CC3180931AE001A7AA0 /* Foundation.framework in Frameworks */,
-				BF241CC4180931AE001A7AA0 /* CoreGraphics.framework in Frameworks */,
-				BF241CC5180931AE001A7AA0 /* CoreData.framework in Frameworks */,
-				BF241CC6180931AE001A7AA0 /* libPods.a in Frameworks */,
+				BF83D4FE18596B50002C1AB3 /* MessageUI.framework in Frameworks */,
+				BF83D4FF18596B50002C1AB3 /* AddressBook.framework in Frameworks */,
+				BF83D50018596B50002C1AB3 /* AddressBookUI.framework in Frameworks */,
+				BF83D50118596B50002C1AB3 /* CoreTelephony.framework in Frameworks */,
+				BF83D50218596B50002C1AB3 /* UIKit.framework in Frameworks */,
+				BF83D50318596B50002C1AB3 /* Foundation.framework in Frameworks */,
+				BF83D50418596B50002C1AB3 /* CoreGraphics.framework in Frameworks */,
+				BF83D50518596B50002C1AB3 /* CoreData.framework in Frameworks */,
+				BF83D50618596B50002C1AB3 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF83D56818596C9A002C1AB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF83D56918596C9A002C1AB3 /* MessageUI.framework in Frameworks */,
+				BF83D56A18596C9A002C1AB3 /* AddressBook.framework in Frameworks */,
+				BF83D56B18596C9A002C1AB3 /* AddressBookUI.framework in Frameworks */,
+				BF83D56C18596C9A002C1AB3 /* CoreTelephony.framework in Frameworks */,
+				BF83D56D18596C9A002C1AB3 /* UIKit.framework in Frameworks */,
+				BF83D56E18596C9A002C1AB3 /* Foundation.framework in Frameworks */,
+				BF83D56F18596C9A002C1AB3 /* CoreGraphics.framework in Frameworks */,
+				BF83D57018596C9A002C1AB3 /* CoreData.framework in Frameworks */,
+				BF83D57118596C9A002C1AB3 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,7 +569,8 @@
 			isa = PBXGroup;
 			children = (
 				5062B61517C4C10400A2495D /* SMAddressBook.app */,
-				BF241D39180931AE001A7AA0 /* SMAddressBook.app */,
+				BF83D51A18596B50002C1AB3 /* SNU BIZ Adhoc.app */,
+				BF83D58518596C9A002C1AB3 /* SNU BIZ.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -516,6 +631,7 @@
 				BF3B466C17C6691E0069AA9A /* Localizable.strings */,
 				5062B62217C4C10400A2495D /* SMAddressBook-Info.plist */,
 				BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */,
+				BF83D4B0185965C2002C1AB3 /* SMAddressBook_AppStore-Info.plist */,
 				5062B62317C4C10400A2495D /* InfoPlist.strings */,
 				5062B62617C4C10400A2495D /* main.m */,
 				5062B62817C4C10400A2495D /* SMAddressBook-Prefix.pch */,
@@ -848,15 +964,15 @@
 			productReference = 5062B61517C4C10400A2495D /* SMAddressBook.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BF241C75180931AE001A7AA0 /* SMAddressBook_Adhoc */ = {
+		BF83D4B118596B50002C1AB3 /* SMAddressBook_Adhoc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BF241D36180931AE001A7AA0 /* Build configuration list for PBXNativeTarget "SMAddressBook_Adhoc" */;
+			buildConfigurationList = BF83D51718596B50002C1AB3 /* Build configuration list for PBXNativeTarget "SMAddressBook_Adhoc" */;
 			buildPhases = (
-				BF241C76180931AE001A7AA0 /* Check Pods Manifest.lock */,
-				BF241C77180931AE001A7AA0 /* Sources */,
-				BF241CBD180931AE001A7AA0 /* Frameworks */,
-				BF241CC7180931AE001A7AA0 /* Resources */,
-				BF241D35180931AE001A7AA0 /* Copy Pods Resources */,
+				BF83D4B218596B50002C1AB3 /* Check Pods Manifest.lock */,
+				BF83D4B318596B50002C1AB3 /* Sources */,
+				BF83D4FD18596B50002C1AB3 /* Frameworks */,
+				BF83D50718596B50002C1AB3 /* Resources */,
+				BF83D51618596B50002C1AB3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -864,7 +980,26 @@
 			);
 			name = SMAddressBook_Adhoc;
 			productName = SMAddressBook;
-			productReference = BF241D39180931AE001A7AA0 /* SMAddressBook.app */;
+			productReference = BF83D51A18596B50002C1AB3 /* SNU BIZ Adhoc.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BF83D51C18596C9A002C1AB3 /* SMAddressBook_AppStore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF83D58218596C9A002C1AB3 /* Build configuration list for PBXNativeTarget "SMAddressBook_AppStore" */;
+			buildPhases = (
+				BF83D51D18596C9A002C1AB3 /* Check Pods Manifest.lock */,
+				BF83D51E18596C9A002C1AB3 /* Sources */,
+				BF83D56818596C9A002C1AB3 /* Frameworks */,
+				BF83D57218596C9A002C1AB3 /* Resources */,
+				BF83D58118596C9A002C1AB3 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SMAddressBook_AppStore;
+			productName = SMAddressBook;
+			productReference = BF83D58518596C9A002C1AB3 /* SNU BIZ.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -879,7 +1014,10 @@
 					5062B61417C4C10400A2495D = {
 						DevelopmentTeam = KGA775A3LM;
 					};
-					BF241C75180931AE001A7AA0 = {
+					BF83D4B118596B50002C1AB3 = {
+						DevelopmentTeam = KGA775A3LM;
+					};
+					BF83D51C18596C9A002C1AB3 = {
 						DevelopmentTeam = KGA775A3LM;
 					};
 				};
@@ -898,7 +1036,8 @@
 			projectRoot = "";
 			targets = (
 				5062B61417C4C10400A2495D /* SMAddressBook */,
-				BF241C75180931AE001A7AA0 /* SMAddressBook_Adhoc */,
+				BF83D4B118596B50002C1AB3 /* SMAddressBook_Adhoc */,
+				BF83D51C18596C9A002C1AB3 /* SMAddressBook_AppStore */,
 			);
 		};
 /* End PBXProject section */
@@ -925,24 +1064,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF241CC7180931AE001A7AA0 /* Resources */ = {
+		BF83D50718596B50002C1AB3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF241CC8180931AE001A7AA0 /* InfoPlist.strings in Resources */,
-				BF241CCC180931AE001A7AA0 /* Podfile in Resources */,
-				BFF98DD318555BD800A96878 /* SMAddressBook_Adhoc-Info.plist in Resources */,
-				BF4D510A1849919200648119 /* Images.xcassets in Resources */,
-				BF241CD8180931AE001A7AA0 /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
-				BF8BE0AD1855E1B1004BF3DF /* Default-568h@2x.png in Resources */,
-				BF241D2D180931AE001A7AA0 /* btn_kakaotalk_logo_iphone.png in Resources */,
-				BF8BE0AF1855E1B1004BF3DF /* Default.png in Resources */,
-				BF241D14180931AE001A7AA0 /* Localizable.strings in Resources */,
-				BF241D15180931AE001A7AA0 /* http_sample_data in Resources */,
-				BF241D29180931AE001A7AA0 /* Readme.md in Resources */,
-				BF241D2B180931AE001A7AA0 /* serviceTerms.html in Resources */,
-				BF8BE0B11855E1B1004BF3DF /* Default@2x.png in Resources */,
-				BF241D2C180931AE001A7AA0 /* personTerms.html in Resources */,
+				BF83D50818596B50002C1AB3 /* InfoPlist.strings in Resources */,
+				BF83D50918596B50002C1AB3 /* Podfile in Resources */,
+				BF83D50A18596B50002C1AB3 /* SMAddressBook_Adhoc-Info.plist in Resources */,
+				BF83D50B18596B50002C1AB3 /* Images.xcassets in Resources */,
+				BF83D50C18596B50002C1AB3 /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
+				BF83D50D18596B50002C1AB3 /* Default-568h@2x.png in Resources */,
+				BF83D50E18596B50002C1AB3 /* btn_kakaotalk_logo_iphone.png in Resources */,
+				BF83D50F18596B50002C1AB3 /* Default.png in Resources */,
+				BF83D51018596B50002C1AB3 /* Localizable.strings in Resources */,
+				BF83D51118596B50002C1AB3 /* http_sample_data in Resources */,
+				BF83D51218596B50002C1AB3 /* Readme.md in Resources */,
+				BF83D51318596B50002C1AB3 /* serviceTerms.html in Resources */,
+				BF83D51418596B50002C1AB3 /* Default@2x.png in Resources */,
+				BF83D51518596B50002C1AB3 /* personTerms.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF83D57218596C9A002C1AB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF83D57318596C9A002C1AB3 /* InfoPlist.strings in Resources */,
+				BF83D57418596C9A002C1AB3 /* Podfile in Resources */,
+				BF83D57518596C9A002C1AB3 /* SMAddressBook_Adhoc-Info.plist in Resources */,
+				BF83D57618596C9A002C1AB3 /* Images.xcassets in Resources */,
+				BF83D57718596C9A002C1AB3 /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
+				BF83D57818596C9A002C1AB3 /* Default-568h@2x.png in Resources */,
+				BF83D57918596C9A002C1AB3 /* btn_kakaotalk_logo_iphone.png in Resources */,
+				BF83D57A18596C9A002C1AB3 /* Default.png in Resources */,
+				BF83D57B18596C9A002C1AB3 /* Localizable.strings in Resources */,
+				BF83D57C18596C9A002C1AB3 /* http_sample_data in Resources */,
+				BF83D57D18596C9A002C1AB3 /* Readme.md in Resources */,
+				BF83D57E18596C9A002C1AB3 /* serviceTerms.html in Resources */,
+				BF83D57F18596C9A002C1AB3 /* Default@2x.png in Resources */,
+				BF83D58018596C9A002C1AB3 /* personTerms.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -979,7 +1139,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		BF241C76180931AE001A7AA0 /* Check Pods Manifest.lock */ = {
+		BF83D4B218596B50002C1AB3 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -994,7 +1154,37 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		BF241D35180931AE001A7AA0 /* Copy Pods Resources */ = {
+		BF83D51618596B50002C1AB3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF83D51D18596C9A002C1AB3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BF83D58118596C9A002C1AB3 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1092,83 +1282,163 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF241C77180931AE001A7AA0 /* Sources */ = {
+		BF83D4B318596B50002C1AB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF241C78180931AE001A7AA0 /* main.m in Sources */,
-				BFBF58E3184CE51A0057A4C5 /* Student.m in Sources */,
-				BF241C79180931AE001A7AA0 /* AppDelegate.m in Sources */,
-				BF241C7A180931AE001A7AA0 /* SMAddressBook.xcdatamodeld in Sources */,
-				BF241C7B180931AE001A7AA0 /* DBMethod.m in Sources */,
-				BF241C7C180931AE001A7AA0 /* MenuTableViewController.m in Sources */,
-				BF241C7D180931AE001A7AA0 /* BaseViewController.m in Sources */,
-				BF5900A41821363A00DD6980 /* DetailGuideViewController.m in Sources */,
-				BF241C7E180931AE001A7AA0 /* PortraitNavigationController.m in Sources */,
-				BF241C7F180931AE001A7AA0 /* NSString+UrlEncoding.m in Sources */,
-				BF241C80180931AE001A7AA0 /* UserContext.m in Sources */,
-				BF241C81180931AE001A7AA0 /* Major+Methods.m in Sources */,
-				BF241C82180931AE001A7AA0 /* DetailToolView.m in Sources */,
-				BF241C83180931AE001A7AA0 /* LoginViewController.m in Sources */,
-				503D546E181146C10046E0C5 /* SmsAuthViewController.m in Sources */,
-				BF5900A81822BB8000DD6980 /* TitleView.m in Sources */,
-				BF241C84180931AE001A7AA0 /* NSURLRequest+SSL.m in Sources */,
-				BFA79CA41819556B005E37FA /* AllFacultyAddressViewController.m in Sources */,
-				BF241C86180931AE001A7AA0 /* SMNetworkClient.m in Sources */,
-				BF241C87180931AE001A7AA0 /* FavoriteViewController.m in Sources */,
-				BF241C88180931AE001A7AA0 /* LoadingView.m in Sources */,
-				BF241C89180931AE001A7AA0 /* TermsViewController.m in Sources */,
-				BF241C8A180931AE001A7AA0 /* MyInfoViewController.m in Sources */,
-				BF241C8B180931AE001A7AA0 /* FavoriteSettingViewController.m in Sources */,
-				BF241C8C180931AE001A7AA0 /* LoadingProgressView.m in Sources */,
-				BF241C8D180931AE001A7AA0 /* HelpViewController.m in Sources */,
-				BF241C8F180931AE001A7AA0 /* CourseTotalViewController.m in Sources */,
-				BF241C90180931AE001A7AA0 /* MenuCell.m in Sources */,
-				BF241C91180931AE001A7AA0 /* DetailViewController.m in Sources */,
-				BF241C92180931AE001A7AA0 /* CourseClassCell.m in Sources */,
-				BF241C93180931AE001A7AA0 /* FavoriteCell.m in Sources */,
-				BFBF58E7184CE51A0057A4C5 /* Faculty.m in Sources */,
-				BF241C94180931AE001A7AA0 /* Major.m in Sources */,
-				BF241C95180931AE001A7AA0 /* NSString+MD5.m in Sources */,
-				BF241C96180931AE001A7AA0 /* UIView+Shadow.m in Sources */,
-				BF241C97180931AE001A7AA0 /* MMHorizontalListView.m in Sources */,
-				BF241C98180931AE001A7AA0 /* MMHorizontalListViewCell.m in Sources */,
-				BF241C99180931AE001A7AA0 /* TSLanguageManager.m in Sources */,
-				BF241C9A180931AE001A7AA0 /* UIViewController+LoadingProgress.m in Sources */,
-				BF241C9B180931AE001A7AA0 /* FindWebViewController.m in Sources */,
-				BF241C9C180931AE001A7AA0 /* FavoriteToolView.m in Sources */,
-				BF241C9D180931AE001A7AA0 /* StudentProfileViewController.m in Sources */,
-				BF241C9E180931AE001A7AA0 /* StaffProfileViewController.m in Sources */,
-				BF241C9F180931AE001A7AA0 /* UIButton+UIButtonExt.m in Sources */,
-				BF241CA0180931AE001A7AA0 /* FacultyAddressViewController.m in Sources */,
-				BF241CA1180931AE001A7AA0 /* FacultyMajorViewController.m in Sources */,
-				BF241CA2180931AE001A7AA0 /* ToolViewCell.m in Sources */,
-				BF241CA3180931AE001A7AA0 /* StaffAddressViewController.m in Sources */,
-				BF241CA4180931AE001A7AA0 /* StudentAddressViewController.m in Sources */,
-				BF241CA5180931AE001A7AA0 /* SSLWebView.m in Sources */,
-				BF241CA6180931AE001A7AA0 /* ToolView.m in Sources */,
-				BF241CA7180931AE001A7AA0 /* NSDictionary+UTF8.m in Sources */,
-				BF241CA8180931AE001A7AA0 /* MajorCell.m in Sources */,
-				BF241CA9180931AE001A7AA0 /* KakaoMessageViewController.m in Sources */,
-				BF241CAA180931AE001A7AA0 /* AddressCell.m in Sources */,
-				BF241CAB180931AE001A7AA0 /* StudentAddressCell.m in Sources */,
-				BF241CAC180931AE001A7AA0 /* StudentDetailViewController.m in Sources */,
-				BF241CAD180931AE001A7AA0 /* StudentDetailToolView.m in Sources */,
-				BF241CAE180931AE001A7AA0 /* ModelUtil.m in Sources */,
-				BF241CAF180931AE001A7AA0 /* HorImageButton.m in Sources */,
-				BF241CB0180931AE001A7AA0 /* StudentToolView.m in Sources */,
-				BF241CB1180931AE001A7AA0 /* SmsViewController.m in Sources */,
-				BF241CB2180931AE001A7AA0 /* ToolViewController.m in Sources */,
-				BF241CB3180931AE001A7AA0 /* Course.m in Sources */,
-				BFBF58EB184CE51A0057A4C5 /* Staff.m in Sources */,
-				BF241CB5180931AE001A7AA0 /* Util.m in Sources */,
-				BF241CB6180931AE001A7AA0 /* NSDate+Helper.m in Sources */,
-				BF241CB7180931AE001A7AA0 /* SearchViewController.m in Sources */,
-				BF241CB8180931AE001A7AA0 /* NSManagedObjectContext+AsyncFetch.m in Sources */,
-				BF241CB9180931AE001A7AA0 /* SearchResultViewController.m in Sources */,
-				BF241CBA180931AE001A7AA0 /* FavoriteSettCell.m in Sources */,
-				BF241CBB180931AE001A7AA0 /* DetailViewCell.m in Sources */,
-				BF241CBC180931AE001A7AA0 /* KakaoLinkCenter.m in Sources */,
+				BF83D4B418596B50002C1AB3 /* main.m in Sources */,
+				BF83D4B518596B50002C1AB3 /* Student.m in Sources */,
+				BF83D4B618596B50002C1AB3 /* AppDelegate.m in Sources */,
+				BF83D4B718596B50002C1AB3 /* SMAddressBook.xcdatamodeld in Sources */,
+				BF83D4B818596B50002C1AB3 /* DBMethod.m in Sources */,
+				BF83D4B918596B50002C1AB3 /* MenuTableViewController.m in Sources */,
+				BF83D4BA18596B50002C1AB3 /* BaseViewController.m in Sources */,
+				BF83D4BB18596B50002C1AB3 /* DetailGuideViewController.m in Sources */,
+				BF83D4BC18596B50002C1AB3 /* PortraitNavigationController.m in Sources */,
+				BF83D4BD18596B50002C1AB3 /* NSString+UrlEncoding.m in Sources */,
+				BF83D4BE18596B50002C1AB3 /* UserContext.m in Sources */,
+				BF83D4BF18596B50002C1AB3 /* Major+Methods.m in Sources */,
+				BF83D4C018596B50002C1AB3 /* DetailToolView.m in Sources */,
+				BF83D4C118596B50002C1AB3 /* LoginViewController.m in Sources */,
+				BF83D4C218596B50002C1AB3 /* SmsAuthViewController.m in Sources */,
+				BF83D4C318596B50002C1AB3 /* TitleView.m in Sources */,
+				BF83D4C418596B50002C1AB3 /* NSURLRequest+SSL.m in Sources */,
+				BF83D4C518596B50002C1AB3 /* AllFacultyAddressViewController.m in Sources */,
+				BF83D4C618596B50002C1AB3 /* SMNetworkClient.m in Sources */,
+				BF83D4C718596B50002C1AB3 /* FavoriteViewController.m in Sources */,
+				BF83D4C818596B50002C1AB3 /* LoadingView.m in Sources */,
+				BF83D4C918596B50002C1AB3 /* TermsViewController.m in Sources */,
+				BF83D4CA18596B50002C1AB3 /* MyInfoViewController.m in Sources */,
+				BF83D4CB18596B50002C1AB3 /* FavoriteSettingViewController.m in Sources */,
+				BF83D4CC18596B50002C1AB3 /* LoadingProgressView.m in Sources */,
+				BF83D4CD18596B50002C1AB3 /* HelpViewController.m in Sources */,
+				BF83D4CE18596B50002C1AB3 /* CourseTotalViewController.m in Sources */,
+				BF83D4CF18596B50002C1AB3 /* MenuCell.m in Sources */,
+				BF83D4D018596B50002C1AB3 /* DetailViewController.m in Sources */,
+				BF83D4D118596B50002C1AB3 /* CourseClassCell.m in Sources */,
+				BF83D4D218596B50002C1AB3 /* FavoriteCell.m in Sources */,
+				BF83D4D318596B50002C1AB3 /* Faculty.m in Sources */,
+				BF83D4D418596B50002C1AB3 /* Major.m in Sources */,
+				BF83D4D518596B50002C1AB3 /* NSString+MD5.m in Sources */,
+				BF83D4D618596B50002C1AB3 /* UIView+Shadow.m in Sources */,
+				BF83D4D718596B50002C1AB3 /* MMHorizontalListView.m in Sources */,
+				BF83D4D818596B50002C1AB3 /* MMHorizontalListViewCell.m in Sources */,
+				BF83D4D918596B50002C1AB3 /* TSLanguageManager.m in Sources */,
+				BF83D4DA18596B50002C1AB3 /* UIViewController+LoadingProgress.m in Sources */,
+				BF83D4DB18596B50002C1AB3 /* FindWebViewController.m in Sources */,
+				BF83D4DC18596B50002C1AB3 /* FavoriteToolView.m in Sources */,
+				BF83D4DD18596B50002C1AB3 /* StudentProfileViewController.m in Sources */,
+				BF83D4DE18596B50002C1AB3 /* StaffProfileViewController.m in Sources */,
+				BF83D4DF18596B50002C1AB3 /* UIButton+UIButtonExt.m in Sources */,
+				BF83D4E018596B50002C1AB3 /* FacultyAddressViewController.m in Sources */,
+				BF83D4E118596B50002C1AB3 /* FacultyMajorViewController.m in Sources */,
+				BF83D4E218596B50002C1AB3 /* ToolViewCell.m in Sources */,
+				BF83D4E318596B50002C1AB3 /* StaffAddressViewController.m in Sources */,
+				BF83D4E418596B50002C1AB3 /* StudentAddressViewController.m in Sources */,
+				BF83D4E518596B50002C1AB3 /* SSLWebView.m in Sources */,
+				BF83D4E618596B50002C1AB3 /* ToolView.m in Sources */,
+				BF83D4E718596B50002C1AB3 /* NSDictionary+UTF8.m in Sources */,
+				BF83D4E818596B50002C1AB3 /* MajorCell.m in Sources */,
+				BF83D4E918596B50002C1AB3 /* KakaoMessageViewController.m in Sources */,
+				BF83D4EA18596B50002C1AB3 /* AddressCell.m in Sources */,
+				BF83D4EB18596B50002C1AB3 /* StudentAddressCell.m in Sources */,
+				BF83D4EC18596B50002C1AB3 /* StudentDetailViewController.m in Sources */,
+				BF83D4ED18596B50002C1AB3 /* StudentDetailToolView.m in Sources */,
+				BF83D4EE18596B50002C1AB3 /* ModelUtil.m in Sources */,
+				BF83D4EF18596B50002C1AB3 /* HorImageButton.m in Sources */,
+				BF83D4F018596B50002C1AB3 /* StudentToolView.m in Sources */,
+				BF83D4F118596B50002C1AB3 /* SmsViewController.m in Sources */,
+				BF83D4F218596B50002C1AB3 /* ToolViewController.m in Sources */,
+				BF83D4F318596B50002C1AB3 /* Course.m in Sources */,
+				BF83D4F418596B50002C1AB3 /* Staff.m in Sources */,
+				BF83D4F518596B50002C1AB3 /* Util.m in Sources */,
+				BF83D4F618596B50002C1AB3 /* NSDate+Helper.m in Sources */,
+				BF83D4F718596B50002C1AB3 /* SearchViewController.m in Sources */,
+				BF83D4F818596B50002C1AB3 /* NSManagedObjectContext+AsyncFetch.m in Sources */,
+				BF83D4F918596B50002C1AB3 /* SearchResultViewController.m in Sources */,
+				BF83D4FA18596B50002C1AB3 /* FavoriteSettCell.m in Sources */,
+				BF83D4FB18596B50002C1AB3 /* DetailViewCell.m in Sources */,
+				BF83D4FC18596B50002C1AB3 /* KakaoLinkCenter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF83D51E18596C9A002C1AB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF83D51F18596C9A002C1AB3 /* main.m in Sources */,
+				BF83D52018596C9A002C1AB3 /* Student.m in Sources */,
+				BF83D52118596C9A002C1AB3 /* AppDelegate.m in Sources */,
+				BF83D52218596C9A002C1AB3 /* SMAddressBook.xcdatamodeld in Sources */,
+				BF83D52318596C9A002C1AB3 /* DBMethod.m in Sources */,
+				BF83D52418596C9A002C1AB3 /* MenuTableViewController.m in Sources */,
+				BF83D52518596C9A002C1AB3 /* BaseViewController.m in Sources */,
+				BF83D52618596C9A002C1AB3 /* DetailGuideViewController.m in Sources */,
+				BF83D52718596C9A002C1AB3 /* PortraitNavigationController.m in Sources */,
+				BF83D52818596C9A002C1AB3 /* NSString+UrlEncoding.m in Sources */,
+				BF83D52918596C9A002C1AB3 /* UserContext.m in Sources */,
+				BF83D52A18596C9A002C1AB3 /* Major+Methods.m in Sources */,
+				BF83D52B18596C9A002C1AB3 /* DetailToolView.m in Sources */,
+				BF83D52C18596C9A002C1AB3 /* LoginViewController.m in Sources */,
+				BF83D52D18596C9A002C1AB3 /* SmsAuthViewController.m in Sources */,
+				BF83D52E18596C9A002C1AB3 /* TitleView.m in Sources */,
+				BF83D52F18596C9A002C1AB3 /* NSURLRequest+SSL.m in Sources */,
+				BF83D53018596C9A002C1AB3 /* AllFacultyAddressViewController.m in Sources */,
+				BF83D53118596C9A002C1AB3 /* SMNetworkClient.m in Sources */,
+				BF83D53218596C9A002C1AB3 /* FavoriteViewController.m in Sources */,
+				BF83D53318596C9A002C1AB3 /* LoadingView.m in Sources */,
+				BF83D53418596C9A002C1AB3 /* TermsViewController.m in Sources */,
+				BF83D53518596C9A002C1AB3 /* MyInfoViewController.m in Sources */,
+				BF83D53618596C9A002C1AB3 /* FavoriteSettingViewController.m in Sources */,
+				BF83D53718596C9A002C1AB3 /* LoadingProgressView.m in Sources */,
+				BF83D53818596C9A002C1AB3 /* HelpViewController.m in Sources */,
+				BF83D53918596C9A002C1AB3 /* CourseTotalViewController.m in Sources */,
+				BF83D53A18596C9A002C1AB3 /* MenuCell.m in Sources */,
+				BF83D53B18596C9A002C1AB3 /* DetailViewController.m in Sources */,
+				BF83D53C18596C9A002C1AB3 /* CourseClassCell.m in Sources */,
+				BF83D53D18596C9A002C1AB3 /* FavoriteCell.m in Sources */,
+				BF83D53E18596C9A002C1AB3 /* Faculty.m in Sources */,
+				BF83D53F18596C9A002C1AB3 /* Major.m in Sources */,
+				BF83D54018596C9A002C1AB3 /* NSString+MD5.m in Sources */,
+				BF83D54118596C9A002C1AB3 /* UIView+Shadow.m in Sources */,
+				BF83D54218596C9A002C1AB3 /* MMHorizontalListView.m in Sources */,
+				BF83D54318596C9A002C1AB3 /* MMHorizontalListViewCell.m in Sources */,
+				BF83D54418596C9A002C1AB3 /* TSLanguageManager.m in Sources */,
+				BF83D54518596C9A002C1AB3 /* UIViewController+LoadingProgress.m in Sources */,
+				BF83D54618596C9A002C1AB3 /* FindWebViewController.m in Sources */,
+				BF83D54718596C9A002C1AB3 /* FavoriteToolView.m in Sources */,
+				BF83D54818596C9A002C1AB3 /* StudentProfileViewController.m in Sources */,
+				BF83D54918596C9A002C1AB3 /* StaffProfileViewController.m in Sources */,
+				BF83D54A18596C9A002C1AB3 /* UIButton+UIButtonExt.m in Sources */,
+				BF83D54B18596C9A002C1AB3 /* FacultyAddressViewController.m in Sources */,
+				BF83D54C18596C9A002C1AB3 /* FacultyMajorViewController.m in Sources */,
+				BF83D54D18596C9A002C1AB3 /* ToolViewCell.m in Sources */,
+				BF83D54E18596C9A002C1AB3 /* StaffAddressViewController.m in Sources */,
+				BF83D54F18596C9A002C1AB3 /* StudentAddressViewController.m in Sources */,
+				BF83D55018596C9A002C1AB3 /* SSLWebView.m in Sources */,
+				BF83D55118596C9A002C1AB3 /* ToolView.m in Sources */,
+				BF83D55218596C9A002C1AB3 /* NSDictionary+UTF8.m in Sources */,
+				BF83D55318596C9A002C1AB3 /* MajorCell.m in Sources */,
+				BF83D55418596C9A002C1AB3 /* KakaoMessageViewController.m in Sources */,
+				BF83D55518596C9A002C1AB3 /* AddressCell.m in Sources */,
+				BF83D55618596C9A002C1AB3 /* StudentAddressCell.m in Sources */,
+				BF83D55718596C9A002C1AB3 /* StudentDetailViewController.m in Sources */,
+				BF83D55818596C9A002C1AB3 /* StudentDetailToolView.m in Sources */,
+				BF83D55918596C9A002C1AB3 /* ModelUtil.m in Sources */,
+				BF83D55A18596C9A002C1AB3 /* HorImageButton.m in Sources */,
+				BF83D55B18596C9A002C1AB3 /* StudentToolView.m in Sources */,
+				BF83D55C18596C9A002C1AB3 /* SmsViewController.m in Sources */,
+				BF83D55D18596C9A002C1AB3 /* ToolViewController.m in Sources */,
+				BF83D55E18596C9A002C1AB3 /* Course.m in Sources */,
+				BF83D55F18596C9A002C1AB3 /* Staff.m in Sources */,
+				BF83D56018596C9A002C1AB3 /* Util.m in Sources */,
+				BF83D56118596C9A002C1AB3 /* NSDate+Helper.m in Sources */,
+				BF83D56218596C9A002C1AB3 /* SearchViewController.m in Sources */,
+				BF83D56318596C9A002C1AB3 /* NSManagedObjectContext+AsyncFetch.m in Sources */,
+				BF83D56418596C9A002C1AB3 /* SearchResultViewController.m in Sources */,
+				BF83D56518596C9A002C1AB3 /* FavoriteSettCell.m in Sources */,
+				BF83D56618596C9A002C1AB3 /* DetailViewCell.m in Sources */,
+				BF83D56718596C9A002C1AB3 /* KakaoLinkCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1258,14 +1528,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jieun Lee (H2Q9S36L2D)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jieun Lee (H2Q9S36L2D)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
 				INFOPLIST_FILE = "SMAddressBook/SMAddressBook-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "A70725F0-8BE7-48CC-B201-F9FEDD82CE30";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1276,50 +1546,86 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jieun Lee (H2Q9S36L2D)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jieun Lee (H2Q9S36L2D)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
 				INFOPLIST_FILE = "SMAddressBook/SMAddressBook-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "A70725F0-8BE7-48CC-B201-F9FEDD82CE30";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
-		BF241D37180931AE001A7AA0 /* Debug */ = {
+		BF83D51818596B50002C1AB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/SMAddressBook_Adhoc-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = SMAddressBook;
-				PROVISIONING_PROFILE = "";
+				INFOPLIST_FILE = "SMAddressBook_Adhoc-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "SNU BIZ Adhoc";
+				PROVISIONING_PROFILE = "4D03AF55-D676-4B85-A147-2420046D1B15";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		BF241D38180931AE001A7AA0 /* Release */ = {
+		BF83D51918596B50002C1AB3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/SMAddressBook_Adhoc-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = SMAddressBook;
-				PROVISIONING_PROFILE = "";
+				INFOPLIST_FILE = "SMAddressBook_Adhoc-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "SNU BIZ Adhoc";
+				PROVISIONING_PROFILE = "4D03AF55-D676-4B85-A147-2420046D1B15";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		BF83D58318596C9A002C1AB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
+				INFOPLIST_FILE = "SMAddressBook_AppStore-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "SNU BIZ";
+				PROVISIONING_PROFILE = "51A0AC5C-413D-4398-AD96-121726EB9CD8";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BF83D58418596C9A002C1AB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5FD54E7A9D24C3F9CB8849F /* Pods/Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
+				INFOPLIST_FILE = "SMAddressBook_AppStore-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = "SNU BIZ";
+				PROVISIONING_PROFILE = "51A0AC5C-413D-4398-AD96-121726EB9CD8";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1345,11 +1651,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BF241D36180931AE001A7AA0 /* Build configuration list for PBXNativeTarget "SMAddressBook_Adhoc" */ = {
+		BF83D51718596B50002C1AB3 /* Build configuration list for PBXNativeTarget "SMAddressBook_Adhoc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BF241D37180931AE001A7AA0 /* Debug */,
-				BF241D38180931AE001A7AA0 /* Release */,
+				BF83D51818596B50002C1AB3 /* Debug */,
+				BF83D51918596B50002C1AB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF83D58218596C9A002C1AB3 /* Build configuration list for PBXNativeTarget "SMAddressBook_AppStore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF83D58318596C9A002C1AB3 /* Debug */,
+				BF83D58418596C9A002C1AB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
