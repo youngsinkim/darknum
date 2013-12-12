@@ -32,11 +32,16 @@
     
     _guideImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
 
-    if ([[UIScreen mainScreen] bounds].size.height < 568) {
-        _guideImageView.image = [UIImage imageNamed:@"Default"];
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        _guideImageView.image = [UIImage imageNamed:@"img-ko-guide"];
     } else {
-        _guideImageView.image = [UIImage imageNamed:@"Default-568h"];
+        _guideImageView.image = [UIImage imageNamed:@"img-en-guide"];
     }
+//    if ([[UIScreen mainScreen] bounds].size.height < 568) {
+//        _guideImageView.image = [UIImage imageNamed:@"Default"];
+//    } else {
+//        _guideImageView.image = [UIImage imageNamed:@"Default-568h"];
+//    }
 
     [self.view addSubview:_guideImageView];
 

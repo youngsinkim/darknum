@@ -82,6 +82,10 @@
     {
         _iconImageView.image = [UIImage imageNamed:_iconName];
         [_iconImageView setNeedsDisplay];
+        
+        if ([_iconName isEqualToString:@"ic_mf_all"]) {
+            _menuLabel.textColor = UIColorFromRGB(0xcd5734);
+        }
     }
 }
 

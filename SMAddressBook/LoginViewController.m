@@ -398,6 +398,15 @@
         return;
     }
     
+    // *** 저장된 아이디가 아닌 다른 아이디로 로그인한 경우, DB 초기화를 위해 마지막 업데이트 날짜를 초기화해서 로그인 요청 한다.
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserId]) {
+        NSString *prevLoginId = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUserId]];
+        if (![_idTextField.text isEqualToString:prevLoginId])
+        {
+            // 다른 아이디로 로그인한 경우, 이전 로그인 정보 삭제.
+            [UserContext shared].lastUpdateDate = @"0000-00-00 00:00:00";
+        }
+    }
     
     // TODO: 단말 전화번호 가져오기 기능 추가 필요
     NSString *crytoMobileNo = [Util phoneNumber];
@@ -541,7 +550,8 @@
                                                 {
                                                     if ([[NSUserDefaults standardUserDefaults] objectForKey:kUserId]) {
                                                         NSString *prevLoginId = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults] objectForKey:kUserId]];
-                                                        if (![_idTextField.text isEqualToString:prevLoginId]) {
+                                                        if (![_idTextField.text isEqualToString:prevLoginId])
+                                                        {
                                                             // 다른 아이디로 로그인한 경우, 이전 로그인 정보 삭제.
                                                             [[UserContext shared].profileInfo removeAllObjects];
                                                             [UserContext shared].isExistProfile = NO;
@@ -549,6 +559,8 @@
                                                             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kSetProfile];
                                                             [[NSUserDefaults standardUserDefaults] synchronize];
 
+                                                            // 데이터베이스 초기화.
+                                                            [DBMethod resetDatabase];
                                                         }
                                                     }
 

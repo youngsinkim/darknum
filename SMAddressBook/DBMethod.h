@@ -28,4 +28,7 @@
 /// 사용자 정보 조회
 + (NSArray *)findDBMyInfo;
 
+// 데이터베이스 초기화
++ (void)resetDatabase;
+
 @end

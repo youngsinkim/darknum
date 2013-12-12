@@ -425,4 +425,31 @@
     return filtered;
 }
 
++ (void)resetDatabase
+{
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    NSManagedObjectContext *moc = [appDelegate managedObjectContext];
+//    if (moc == nil) {
+//        NSLog(@"After managedObjectContext: %@", moc);
+//        return;
+//    }
+
+    NSLog(@"reset CoreData..");
+    
+    //Erase the persistent store from coordinator and also file manager.
+    NSPersistentStore *store = [appDelegate.persistentStoreCoordinator.persistentStores lastObject];
+    NSError *error = nil;
+    NSURL *storeURL = store.URL;
+    [appDelegate.persistentStoreCoordinator removePersistentStore:store error:&error];
+    [[NSFileManager defaultManager] removeItemAtURL:storeURL error:&error];
+    
+    NSLog(@"Data Reset");
+    
+    //Make new persistent store for future saves   (Taken From Above Answer)
+    if (![appDelegate.persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        // do something with the error
+    }
+    
+}
+
 @end

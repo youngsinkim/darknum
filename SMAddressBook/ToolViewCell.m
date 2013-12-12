@@ -100,6 +100,45 @@
 - (void)setInfo:(NSDictionary *)info
 {
     _info = info;
+    
+    // 로그인 유저 타입
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+    
+    // 로그인 교육 과정
+    CourseType myClassType = CourseTypeUnknown;
+    NSString *myCourseStr = [[UserContext shared] myCourse];
+    if ([myCourseStr isEqualToString:@"EMBA"]) {
+        myClassType = CourseTypeEMBA;
+    } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+        myClassType = CourseTypeGMBA;
+    } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+        myClassType = CourseTypeSMBA;
+    }
+    
+    CourseType cellClassType = CourseTypeUnknown;
+    NSString *courseStr = @"";
+    
+    if ([_info[@"course.course"] isKindOfClass:[NSString class]]) {
+        courseStr = _info[@"course.course"];
+    } else if ([_info[@"course"] isKindOfClass:[NSString class]]) {
+        courseStr = _info[@"course"];
+    }
+    
+    if (courseStr.length > 0) {
+        //            if (_memType == MemberTypeFaculty) {
+        //            } else if (_memType == MemberTypeStaff) {
+        //            } else
+        if (_memType == MemberTypeStudent)
+        {
+            if ([courseStr isEqualToString:@"EMBA"]) {
+                cellClassType = CourseTypeEMBA;
+            } else if ([courseStr isEqualToString:@"GMBA"]) {
+                cellClassType = CourseTypeGMBA;
+            } else if ([courseStr isEqualToString:@"SMBA"]) {
+                cellClassType = CourseTypeSMBA;
+            }
+        }
+    }
 
     if (_info[@"photourl"]) {
         [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _info[@"photourl"]]]
@@ -126,10 +165,12 @@
     //
     if (_memType == MemberTypeStudent)
     {
-        if ([_info[@"share_email"] isEqualToString:@"y"]) {
-            _emailLabel.hidden = NO;
-        } else {
+        if (myType == MemberTypeStudent && ([info[@"share_email"] isEqualToString:@"n"] ||
+                                            ([info[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                            ([info[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
             _emailLabel.hidden = YES;
+        } else {
+            _emailLabel.hidden = NO;
         }
 
         if ([[UserContext shared].language isEqualToString:kLMKorean])

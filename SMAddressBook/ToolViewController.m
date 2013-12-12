@@ -86,8 +86,8 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0.0f, 0.0f, 46.0f, 30.0f);
     [button setTitle:LocalizedString(@"send", @"보내기") forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+//    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     [button.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
     [button addTarget:self action:@selector(onSend) forControlEvents:UIControlEventTouchUpInside];
     
@@ -257,6 +257,21 @@
 {
     UIButton *btnSection = sender;
     
+    // 로그인 유저 타입
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+    
+    // 로그인 교육 과정
+    CourseType myClassType = CourseTypeUnknown;
+    NSString *myCourseStr = [[UserContext shared] myCourse];
+    if ([myCourseStr isEqualToString:@"EMBA"]) {
+        myClassType = CourseTypeEMBA;
+    } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+        myClassType = CourseTypeGMBA;
+    } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+        myClassType = CourseTypeSMBA;
+    }
+    
+    
     if(btnSection.tag == 0)
     {
 //        NSLog(@"버튼 값 : %d", sender.selected);
@@ -275,7 +290,32 @@
                 
                 for (NSDictionary *dict in _members)
                 {
-                    if (![dict[@"share_mobile"] isEqualToString:@"n"]) {
+                    CourseType cellClassType = CourseTypeUnknown;
+                    NSString *courseStr = @"";
+                    
+                    if ([dict[@"course.course"] isKindOfClass:[NSString class]]) {
+                        courseStr = dict[@"course.course"];
+                    } else if ([dict[@"course"] isKindOfClass:[NSString class]]) {
+                        courseStr = dict[@"course"];
+                    }
+                    
+                    if (courseStr.length > 0) {
+                        if (_memType == MemberTypeStudent)
+                        {
+                            if ([courseStr isEqualToString:@"EMBA"]) {
+                                cellClassType = CourseTypeEMBA;
+                            } else if ([courseStr isEqualToString:@"GMBA"]) {
+                                cellClassType = CourseTypeGMBA;
+                            } else if ([courseStr isEqualToString:@"SMBA"]) {
+                                cellClassType = CourseTypeSMBA;
+                            }
+                        }
+                    }
+
+                    if (!(myType == MemberTypeStudent && ([dict[@"share_mobile"] isEqualToString:@"n"] ||
+                                                        ([dict[@"share_mobile"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                                        ([dict[@"share_mobile"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown)))) {
+//                    if (![dict[@"share_mobile"] isEqualToString:@"n"]) {
                         _selectArray[count] = _members[i];
                         count++;
                     }
@@ -319,6 +359,14 @@
 //    [self performSelector:@selector(updateTablewView) withObject:nil];
         [self.memberTableView reloadData];
 //    });
+    
+    // 보내기 버튼은 선택된 항목이 있을 때만 활성화 시키기.
+    if ([_selectArray count] > 0) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+
 }
 
 - (void)updateTablewView
@@ -721,7 +769,7 @@
         {
             _allSelectedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             _allSelectedBtn.frame = CGRectMake(tableFrame.size.width - 100.0f - 5.0f, 0.0f, 100.0f, kTableHeaderH);
-            [_allSelectedBtn setTitle:LocalizedString(@"전체 선택", @"전체 선택") forState:UIControlStateNormal];
+            [_allSelectedBtn setTitle:LocalizedString(@"Select all", @"전체 선택") forState:UIControlStateNormal];
             [_allSelectedBtn setTitleColor:UIColorFromRGB(0x142c6d) forState:UIControlStateNormal];
             _allSelectedBtn.titleLabel.font = [UIFont systemFontOfSize:11.0f];
             _allSelectedBtn.titleLabel.textAlignment = NSTextAlignmentRight;
@@ -876,14 +924,58 @@
         NSLog(@"cell dict : %@", dict);
         cell.info = [dict mutableCopy];
 
+        // 로그인 유저 타입
+        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+        
+        // 로그인 교육 과정
+        CourseType myClassType = CourseTypeUnknown;
+        NSString *myCourseStr = [[UserContext shared] myCourse];
+        if ([myCourseStr isEqualToString:@"EMBA"]) {
+            myClassType = CourseTypeEMBA;
+        } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+            myClassType = CourseTypeGMBA;
+        } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+            myClassType = CourseTypeSMBA;
+        }
+        
+        CourseType cellClassType = CourseTypeUnknown;
+        NSString *courseStr = @"";
+        
+        if ([dict[@"course.course"] isKindOfClass:[NSString class]]) {
+            courseStr = dict[@"course.course"];
+        } else if ([dict[@"course"] isKindOfClass:[NSString class]]) {
+            courseStr = dict[@"course"];
+        }
+        
+        if (courseStr.length > 0) {
+            //            if (_memType == MemberTypeFaculty) {
+            //            } else if (_memType == MemberTypeStaff) {
+            //            } else
+            if (_memType == MemberTypeStudent)
+            {
+                if ([courseStr isEqualToString:@"EMBA"]) {
+                    cellClassType = CourseTypeEMBA;
+                } else if ([courseStr isEqualToString:@"GMBA"]) {
+                    cellClassType = CourseTypeGMBA;
+                } else if ([courseStr isEqualToString:@"SMBA"]) {
+                    cellClassType = CourseTypeSMBA;
+                }
+            }
+        }
+        
         if (_viewType == ToolViewTypeSms) {
-            if ([dict[@"share_mobile"] isEqualToString:@"n"]) {
+            if (myType == MemberTypeStudent && ([dict[@"share_mobile"] isEqualToString:@"n"] ||
+                                                ([dict[@"share_mobile"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                                ([dict[@"share_mobile"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
                 [cell.checkBtn setEnabled:NO];
             } else {
                 [cell.checkBtn setEnabled:YES];
             }
         } else if (_viewType == ToolViewTypeEmail) {
-            if ([dict[@"share_email"] isEqualToString:@"n"]) {
+            // 이메일 공개 표시
+            if (myType == MemberTypeStudent && ([dict[@"share_email"] isEqualToString:@"n"] ||
+                                                ([dict[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                                ([dict[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
                 [cell.checkBtn setEnabled:NO];
             } else {
                 [cell.checkBtn setEnabled:YES];

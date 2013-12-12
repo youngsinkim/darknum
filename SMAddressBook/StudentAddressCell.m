@@ -84,19 +84,19 @@
 {
     _cellInfo = cellInfo;
     
-    if (cellInfo[@"photourl"]) {
+    if (_cellInfo[@"photourl"]) {
 //        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://biz.snu.ac.kr/webdata%@", cellInfo[@"photourl"]]]
-        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", cellInfo[@"photourl"]]]
+        [_profileImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _cellInfo[@"photourl"]]]
                           placeholderImage:[UIImage imageNamed:@"ic_noimg_list"]];
     }
     
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-        if (cellInfo[@"name"]) {
-            _nameLabel.text = cellInfo[@"name"];
+        if (_cellInfo[@"name"]) {
+            _nameLabel.text = _cellInfo[@"name"];
         }
         
-        if ([cellInfo[@"company"] length] > 0 && [cellInfo[@"department"] length] > 0) {
-            NSString *description = [NSString stringWithFormat:@"%@ | %@ %@", cellInfo[@"company"], cellInfo[@"department"], cellInfo[@"title"]];
+        if ([_cellInfo[@"company"] length] > 0 && [_cellInfo[@"department"] length] > 0) {
+            NSString *description = [NSString stringWithFormat:@"%@ | %@ %@", _cellInfo[@"company"], _cellInfo[@"department"], _cellInfo[@"title"]];
             _memberLabel.text = description;// cellInfo[@"desc"];
         }
         else {
@@ -104,12 +104,12 @@
         }
     }
     else {
-        if (cellInfo[@"name_en"]) {
-            _nameLabel.text = cellInfo[@"name_en"];
+        if (_cellInfo[@"name_en"]) {
+            _nameLabel.text = _cellInfo[@"name_en"];
         }
         
-        if ([cellInfo[@"company_en"] length] > 0 && [cellInfo[@"department_en"] length] > 0) {
-            NSString *description = [NSString stringWithFormat:@" %@ | %@ %@", cellInfo[@"company_en"], cellInfo[@"department_en"], cellInfo[@"title_en"]];
+        if ([_cellInfo[@"company_en"] length] > 0 && [_cellInfo[@"department_en"] length] > 0) {
+            NSString *description = [NSString stringWithFormat:@" %@ | %@ %@", _cellInfo[@"company_en"], _cellInfo[@"department_en"], _cellInfo[@"title_en"]];
             _memberLabel.text = description;// cellInfo[@"desc"];
         }
         else {
@@ -119,16 +119,65 @@
     
     // 로그인 유저 타입
     MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+    
+    // 로그인 교육 과정
+    CourseType myClassType = CourseTypeUnknown;
+    NSString *myCourseStr = [[UserContext shared] myCourse];
+    if ([myCourseStr isEqualToString:@"EMBA"]) {
+        myClassType = CourseTypeEMBA;
+    } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+        myClassType = CourseTypeGMBA;
+    } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+        myClassType = CourseTypeSMBA;
+    }
+    
+    CourseType cellClassType = CourseTypeUnknown;
+    NSString *courseStr = @"";
+    
+    if ([_cellInfo[@"course.course"] isKindOfClass:[NSString class]]) {
+        courseStr = _cellInfo[@"course.course"];
+    } else if ([_cellInfo[@"course"] isKindOfClass:[NSString class]]) {
+        courseStr = _cellInfo[@"course"];
+    }
+    
+    if (courseStr.length > 0) {
+        //            if (_memType == MemberTypeFaculty) {
+        //            } else if (_memType == MemberTypeStaff) {
+        //            } else
+//        if (_memType == MemberTypeStudent)
+        {
+            if ([courseStr isEqualToString:@"EMBA"]) {
+                cellClassType = CourseTypeEMBA;
+            } else if ([courseStr isEqualToString:@"GMBA"]) {
+                cellClassType = CourseTypeGMBA;
+            } else if ([courseStr isEqualToString:@"SMBA"]) {
+                cellClassType = CourseTypeSMBA;
+            }
+        }
+    }
 
     NSLog(@"직장 정보 길이 : %d", _memberLabel.text.length);
-    if ([cellInfo[@"share_company"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
-        if (_memberLabel.text.length > 0)
-            _memberLabel.hidden = NO;
-        else
+    if (myType == MemberTypeStudent &&
+        ([_cellInfo[@"share_company"] isEqualToString:@"n"] ||
+         ([_cellInfo[@"share_company"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+         ([_cellInfo[@"share_company"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
             _memberLabel.hidden = YES;
-    } else {
-        _memberLabel.hidden = YES;
-    }
+        } else {
+            if (_memberLabel.text.length > 0) {
+                _memberLabel.hidden = NO;
+            } else {
+                _memberLabel.hidden = YES;
+            }
+        }
+    
+//    if ([cellInfo[@"share_company"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
+//        if (_memberLabel.text.length > 0)
+//            _memberLabel.hidden = NO;
+//        else
+//            _memberLabel.hidden = YES;
+//    } else {
+//        _memberLabel.hidden = YES;
+//    }
 
 //    if (cellInfo[@"mobile"]) {
 //        _mobileLabel.text = cellInfo[@"mobile"];
@@ -144,12 +193,20 @@
     if (cellInfo[@"email"]) {
         _emailLabel.text = cellInfo[@"email"];
     }
-    
-    if ([cellInfo[@"share_email"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
-        _emailLabel.hidden = NO;
-    } else {
-        _emailLabel.hidden = YES;
-    }
+
+    if (myType == MemberTypeStudent &&
+        ([_cellInfo[@"share_email"] isEqualToString:@"n"] ||
+         ([_cellInfo[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+         ([_cellInfo[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
+            _emailLabel.hidden = YES;
+        } else {
+            _emailLabel.hidden = NO;
+        }
+//    if ([cellInfo[@"share_email"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
+//        _emailLabel.hidden = NO;
+//    } else {
+//        _emailLabel.hidden = YES;
+//    }
 
     [self layoutSubviews];
 }

@@ -45,14 +45,20 @@
 @property (strong, nonatomic) UILabel *mobileValueLabel;
 
 @property (strong, nonatomic) UILabel *emailLabel;
+@property (strong, nonatomic) UIImageView *emailbgView;
+@property (strong, nonatomic) UIImageView *emailIconView;
+@property (strong, nonatomic) UITextField *emailTextField;
+
+@property (strong, nonatomic) UILabel *telLabel;
+@property (strong, nonatomic) UIImageView *telbgView;
+@property (strong, nonatomic) UIImageView *telIconView;
+@property (strong, nonatomic) UITextField *telTextField;
+
 @property (strong, nonatomic) UILabel *officeKoLabel;
 @property (strong, nonatomic) UILabel *officeEnLabel;
 
 @property (strong, nonatomic) UILabel *idValueLabel;
 @property (strong, nonatomic) UILabel *nameValueLabel;
-@property (strong, nonatomic) UILabel *telLabel;
-@property (strong, nonatomic) UITextField *emailTextField;
-@property (strong, nonatomic) UITextField *telTextField;
 
 @property (strong, nonatomic) UIImageView *workBgView;              // 소속정보 뷰
 @property (strong, nonatomic) UITextField *companyKoTextField;      // 직장명
@@ -80,6 +86,7 @@
 
 @property (strong, nonatomic) UIView *bottomBgView;
 @property (strong, nonatomic) UIButton *saveBtn;
+@property (strong, nonatomic) UIButton *cancelBtn;
 
 @property (assign) CGFloat focusY;
 @property (assign) CGRect prevRect;
@@ -188,7 +195,7 @@
     
     // 멤버 타입에 따른 컨트롤 표시 및 위치 조정
 //    CGRect viewFrame = self.view.bounds;
-    CGFloat yOffset = 0.0f;
+    CGFloat yOffset = 35.0f;
     CGRect frame;
     
     if ([UserContext shared].isExistProfile != YES) {
@@ -210,43 +217,73 @@
     if (_memType != MemberTypeStudent)
     {
         _telLabel.hidden = NO;
+        _telbgView.hidden = NO;
+        _telIconView.hidden = NO;
         _telTextField.hidden = NO;
         
         _shareMobileBtn.hidden = YES;
         _shareEmailBtn.hidden = YES;
         _shareOfficeBtn.hidden = YES;
-        _workBgView.hidden = YES;
+        
+        _personalInfoLabel.hidden = YES;    // 소속정보 text
+        _workBgView.hidden = YES;           // 소속정보 area
 //        _saveBtn.hidden = YES;
         
-        if (_workBgView.hidden == YES) {
-            [_saveBtn setCenter:CGPointMake(_bottomBgView.frame.size.width / 2, _bottomBgView.frame.size.height / 2)];
-        }
+//        if (_workBgView.hidden == YES) {
+//            [_saveBtn setCenter:CGPointMake(_bottomBgView.frame.size.width / 2, _bottomBgView.frame.size.height / 2)];
+//        }
         
-        // tel label
+        // 전화 text
         frame = _telLabel.frame;
         frame.origin.y += yOffset;
         _telLabel.frame = frame;
+        yOffset += 15.0f;
         
-        // tel textField
+        // 전화 bg
+        frame = _telbgView.frame;
+        frame.origin.y += yOffset;
+        _telbgView.frame = frame;
+        
+        // 전화 icon
+        frame = _telIconView.frame;
+        frame.origin.y += yOffset;
+        _telIconView.frame = frame;
+        
+        // 전화 textField
         frame = _telTextField.frame;
         frame.origin.y += yOffset;
         _telTextField.frame = frame;
-        yOffset += 24.0f;
+        yOffset -= 5.0f;
         
         // email label
         frame = _emailLabel.frame;
         frame.origin.y += yOffset;
         _emailLabel.frame = frame;
-        
+
+        // email bg
+        frame = _emailbgView.frame;
+        frame.origin.y += yOffset;
+        _emailbgView.frame = frame;
+
+        // email icon
+        frame = _emailIconView.frame;
+        frame.origin.y += yOffset;
+        _emailIconView.frame = frame;
+
         // email textField
         frame = _emailTextField.frame;
         frame.origin.y += yOffset;
         _emailTextField.frame = frame;
-        yOffset += (24.0f + 30.0f);
-        
+        yOffset -= (_personalInfoLabel.frame.size.height + _workBgView.frame.size.height + 15.0f);
+
+        // 기타설정 text
+        frame = _otherInfoLabel.frame;
+        frame.origin.y += yOffset;
+        _otherInfoLabel.frame = frame;
+
         // other back view
         frame = _otherBgView.frame;
-        frame.origin.y -= (_workBgView.frame.size.height - 30.0f);
+        frame.origin.y += yOffset;
         _otherBgView.frame = frame;
         
     }
@@ -290,21 +327,22 @@
     
     if (IS_LESS_THEN_IOS7) {
         if ([[UIScreen mainScreen] bounds].size.height < 568) {
-            scrolViewHeight -= 44.0f;
-            bottomOffset = (60.0f + 88.0f);
-        } else {
-            scrolViewHeight -= 44.0f;
-            bottomOffset = 60.0f;
+            scrolViewHeight -= (44.0f + bottomHeight);
+            bottomOffset += 288.0f;
+        } else {    // iOS 6
+            scrolViewHeight -= (44.0f + bottomHeight);
+            bottomOffset += 200.0f;
         }
     }
     else {
 //        bottomOffset = (-64.0f + 88.0f + 100.0f);
         
         if ([[UIScreen mainScreen] bounds].size.height < 568) {
-            bottomOffset += 88.0f;
+            scrolViewHeight -= (64.0f + bottomHeight);
+            bottomOffset += 288.0f;
         } else {
             scrolViewHeight -= (64.0f + bottomHeight);
-            bottomOffset += (-64.0f + 260.0f);
+            bottomOffset += 200.0f;
         }
     }
     
@@ -399,17 +437,6 @@
     [self.mobileLabel setText:LocalizedString(@"Mobile Phone", @"전화")];
     
     [_scrollView addSubview:self.mobileLabel];
-    {
-        // Tel text
-        self.telLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 13.0f)];
-        [self.telLabel setTextColor:UIColorFromRGB(0x353d48)];
-        [self.telLabel setBackgroundColor:[UIColor clearColor]];
-        [self.telLabel setFont:[UIFont systemFontOfSize:11.0f]];
-        [self.telLabel setText:LocalizedString(@"Tel", @"Tel")];
-        
-        [_scrollView addSubview:self.telLabel];
-        self.telLabel.hidden = YES;
-    }
     yOffset += (self.mobileLabel.frame.size.height + 3.0f);
     
     
@@ -432,8 +459,49 @@
     [self.mobileValueLabel setFont:[UIFont systemFontOfSize:14.0f]];
     
     [_scrollView addSubview:self.mobileValueLabel];
+    
+    
+    // 전화 공개 체크버튼
+    _shareMobileBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_shareMobileBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Disclosure", @"공개 여부")] forState:UIControlStateNormal];
+    [_shareMobileBtn setFrame:CGRectMake(viewFrame.size.width - xOffset - 72.0f - 6.0f, yOffset, 72.0f, 29.0f)];
+    [_shareMobileBtn.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
+    [_shareMobileBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
+    [_shareMobileBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateHighlighted];
+    [_shareMobileBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
+    [_shareMobileBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
+    [_shareMobileBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+    [_shareMobileBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
+    [_shareMobileBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
+    [_shareMobileBtn addTarget:self action:@selector(onSharedMobileBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_scrollView addSubview:_shareMobileBtn];
     {
-        // Tel value
+        // 전화 text
+        _telLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 13.0f)];
+        [_telLabel setTextColor:UIColorFromRGB(0x353d48)];
+        [_telLabel setBackgroundColor:[UIColor clearColor]];
+        [_telLabel setFont:[UIFont systemFontOfSize:11.0f]];
+        [_telLabel setText:LocalizedString(@"Tel", @"Tel")];
+        
+        [_scrollView addSubview:_telLabel];
+//        yOffset += (self.telLabel.frame.size.height + 3.0f);
+        _telLabel.hidden = YES;
+        
+        // 메일 background
+        self.telbgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f]];
+        self.telbgView.frame = CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 30.0f);
+        [_scrollView addSubview:self.telbgView];
+        self.telbgView.hidden = YES;
+        
+        
+        // 메일 icon
+        self.telIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_view_email"]];
+        self.telIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
+        [_scrollView addSubview:self.telIconView];
+        self.telIconView.hidden = YES;
+
+        // 전화 value
         self.telTextField = [[UITextField alloc] initWithFrame:CGRectMake(xOffset + 8.0f + mobileIconView.frame.size.width + 12.0f, yOffset, 180.0f, 30.0f)];
         self.telTextField.delegate = self;
         [self.telTextField setTextColor:UIColorFromRGB(0x555555)];
@@ -443,51 +511,34 @@
         [self.telTextField setKeyboardType:UIKeyboardTypeNumberPad];
         [self.telTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         self.telTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        
         [_scrollView addSubview:self.telTextField];
+//        yOffset += (self.telTextField.frame.size.height + 10.0f);
         self.telTextField.hidden = YES;
     }
-    
-    // 전화 공개 체크버튼
-    _shareMobileBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_shareMobileBtn setFrame:CGRectMake(viewFrame.size.width - xOffset - 60.0f - 6.0f, yOffset, 60.0f, 29.0f)];
-    [_shareMobileBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Disclosure", @"공개 여부")] forState:UIControlStateNormal];
-    [_shareMobileBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    [_shareMobileBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateHighlighted];
-    [_shareMobileBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-    [_shareMobileBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
-    [_shareMobileBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
-    [_shareMobileBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    [_shareMobileBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
-    [_shareMobileBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
-    [_shareMobileBtn addTarget:self action:@selector(onSharedMobileBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_scrollView addSubview:_shareMobileBtn];
     yOffset += (_shareMobileBtn.frame.size.height + 10.0f);
 
-    
     // Email text
     self.emailLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 13.0f)];
     [self.emailLabel setTextColor:UIColorFromRGB(0x353d48)];
     [self.emailLabel setBackgroundColor:[UIColor clearColor]];
     [self.emailLabel setFont:[UIFont systemFontOfSize:11.0f]];
     [self.emailLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.emailLabel setText:LocalizedString(@"email", @"메일")];
+    [self.emailLabel setText:LocalizedString(@"E-Mail", @"메일")];
     
     [_scrollView addSubview:self.emailLabel];
     yOffset += (self.emailLabel.frame.size.height + 3.0f);
 
 
     // 메일 background
-    UIImageView *emailbgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f]];
-    emailbgView.frame = CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 30.0f);
-    [_scrollView addSubview:emailbgView];
+    _emailbgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:0.0f]];
+    _emailbgView.frame = CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 30.0f);
+    [_scrollView addSubview:_emailbgView];
     
     
     // 메일 icon
-    UIImageView *emailIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_view_email"]];
-    emailIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
-    [_scrollView addSubview:emailIconView];
+    _emailIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_view_email"]];
+    _emailIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
+    [_scrollView addSubview:_emailIconView];
     
 
     // 메일 value
@@ -506,11 +557,11 @@
     
     // Email check button
     _shareEmailBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_shareEmailBtn setFrame:CGRectMake(viewFrame.size.width - xOffset - 62.0f - 6.0f, yOffset, 62.0f, 29.0f)];
     [_shareEmailBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Disclosure", @"공개 여부")] forState:UIControlStateNormal];
+    [_shareEmailBtn setFrame:CGRectMake(viewFrame.size.width - xOffset - 72.0f - 6.0f, yOffset, 72.0f, 29.0f)];
+    [_shareEmailBtn.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
     [_shareEmailBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
     [_shareEmailBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateHighlighted];
-    [_shareEmailBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
     [_shareEmailBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
     [_shareEmailBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
     [_shareEmailBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -544,7 +595,7 @@
     {
         CGFloat xOffset1 = 5.0f;
         CGFloat yOffset1 = 10.0f;
-        CGFloat labelWidth = 60.0f;
+        CGFloat labelWidth = 64.0f;
         CGFloat valueWidth = 215.0f;
         
         // 국문 text
@@ -595,7 +646,7 @@
         UILabel *dptLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset1, yOffset1, labelWidth, 24.0f)];
         [dptLabel setTextColor:UIColorFromRGB(0x555555)];
         [dptLabel setBackgroundColor:[UIColor clearColor]];
-        [dptLabel setFont:[UIFont systemFontOfSize:11.0f]];
+        [dptLabel setFont:[UIFont systemFontOfSize:10.0f]];
         [dptLabel setText:LocalizedString(@"Department", @"부서명")];
         
         [_workBgView addSubview:dptLabel];
@@ -779,16 +830,16 @@
         
         // 전직 check
         _noCurrentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_noCurrentBtn setFrame:CGRectMake(xOffset1 + labelWidth, yOffset1, 50.0f, 24.0f)];
-        [_noCurrentBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Not Current", @"전직")] forState:UIControlStateNormal];
+        [_noCurrentBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"not currented", @"전직")] forState:UIControlStateNormal];
+        [_noCurrentBtn setFrame:CGRectMake(xOffset1 + labelWidth, yOffset1, 70.0f, 24.0f)];
+        [_noCurrentBtn.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
         [_noCurrentBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
         [_noCurrentBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateHighlighted];
-        [_noCurrentBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         [_noCurrentBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
         [_noCurrentBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
         [_noCurrentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [_noCurrentBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 3)];
-        [_noCurrentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 3, 0, 0)];
+        [_noCurrentBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
+        [_noCurrentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
         [_noCurrentBtn addTarget:self action:@selector(onNotCurrentBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [_workBgView addSubview:_noCurrentBtn];
@@ -796,16 +847,16 @@
         
         // 현직 check
         _currentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_currentBtn setFrame:CGRectMake(_noCurrentBtn.frame.origin.x + _noCurrentBtn.frame.size.width, yOffset1, 50.0f, 24.0f)];
-        [_currentBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Not Current", @"전직")] forState:UIControlStateNormal];
+        [_currentBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"currented", @"현직")] forState:UIControlStateNormal];
+        [_currentBtn setFrame:CGRectMake(_noCurrentBtn.frame.origin.x + 70.0f, yOffset1, 70.0f, 24.0f)];
+        [_currentBtn.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
         [_currentBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
         [_currentBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateHighlighted];
-        [_currentBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
         [_currentBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
         [_currentBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
         [_currentBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        [_currentBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 3)];
-        [_currentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 3, 0, 0)];
+        [_currentBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
+        [_currentBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
         [_currentBtn addTarget:self action:@selector(onCurrentedBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [_workBgView addSubview:_currentBtn];
@@ -813,17 +864,17 @@
         
         // 공개 check button
         _shareOfficeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_shareOfficeBtn setFrame:CGRectMake(_currentBtn.frame.origin.x + _currentBtn.frame.size.width + 5.0f, yOffset1, 110.0f, 24.0f)];
-        [_shareOfficeBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Share Info", @"정보공개")] forState:UIControlStateNormal];
+        [_shareOfficeBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Disclosure", @"공개")] forState:UIControlStateNormal];
+        [_shareOfficeBtn setFrame:CGRectMake(_workBgView.frame.size.width - 10.0f - 72.0f, yOffset1, 72.0f, 24.0f)];
         [_shareOfficeBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
         [_shareOfficeBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateHighlighted];
-        [_shareOfficeBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        [_shareOfficeBtn.titleLabel setFont:[UIFont systemFontOfSize:10.0f]];
         [_shareOfficeBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
         [_shareOfficeBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
         [_shareOfficeBtn setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
         [_shareOfficeBtn setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        [_shareOfficeBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 3)];
-        [_shareOfficeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 3, 0, 0)];
+        [_shareOfficeBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 2)];
+        [_shareOfficeBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
         [_shareOfficeBtn addTarget:self action:@selector(onSharedOfficeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [_workBgView addSubview:_shareOfficeBtn];
@@ -840,27 +891,27 @@
     
     
     // 기타설정 text
-    self.otherInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 13.0f)];
-    [self.otherInfoLabel setTextColor:UIColorFromRGB(0x353d48)];
-    [self.otherInfoLabel setBackgroundColor:[UIColor clearColor]];
-    [self.otherInfoLabel setFont:[UIFont systemFontOfSize:11.0f]];
-    [self.otherInfoLabel setTextAlignment:NSTextAlignmentLeft];
-    [self.otherInfoLabel setText:LocalizedString(@"Other setup", @"기타 설정")];
+    _otherInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 13.0f)];
+    [_otherInfoLabel setTextColor:UIColorFromRGB(0x353d48)];
+    [_otherInfoLabel setBackgroundColor:[UIColor clearColor]];
+    [_otherInfoLabel setFont:[UIFont systemFontOfSize:11.0f]];
+    [_otherInfoLabel setTextAlignment:NSTextAlignmentLeft];
+    [_otherInfoLabel setText:LocalizedString(@"Other setup", @"기타 설정")];
     
-    [_scrollView addSubview:self.otherInfoLabel];
-    yOffset += (self.otherInfoLabel.frame.size.height + 3.0f);
+    [_scrollView addSubview:_otherInfoLabel];
+    yOffset += (_otherInfoLabel.frame.size.height + 3.0f);
     
     
     // 기타설정 배경 image
     _otherBgView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"t_field"] stretchableImageWithLeftCapWidth:5.0f topCapHeight:5.0f]];
-    _otherBgView.frame = CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 44.0f);
+    _otherBgView.frame = CGRectMake(xOffset, yOffset, viewFrame.size.width - (xOffset * 2.0f), 34.0f);
     _otherBgView.userInteractionEnabled = YES;
     
     [_scrollView addSubview:_otherBgView];
 
     {
         CGFloat xOffset1 = 5.0f;
-        CGFloat yOffset1 = 10.0f;
+        CGFloat yOffset1 = 5.0f;
         CGFloat labelWidth = 60.0f;
 //        CGFloat valueWidth = 215.0f;
         
@@ -914,7 +965,9 @@
 
 
     CGFloat bottomY = (viewFrame.size.height - bottomHeight);
-    if (!IS_LESS_THEN_IOS7) {
+    if (IS_LESS_THEN_IOS7) {
+        bottomY -= 44.0f;
+    } else {
         bottomY -= 64.0f;
     }
     
@@ -934,9 +987,8 @@
     // 저장 버튼
     UIImage *saveImage = [UIImage imageNamed:@"btn_darkgray.png"];
     _saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_saveBtn setFrame:CGRectMake(0.0f, 0.0f, saveImage.size.width, saveImage.size.height)];
-    [_saveBtn setCenter:CGPointMake(_bottomBgView.frame.size.width / 2, _bottomBgView.frame.size.height / 2)];
-    [_saveBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"저장", @"저장")] forState:UIControlStateNormal];
+    [_saveBtn setFrame:CGRectMake((_bottomBgView.frame.size.width / 2) - 5.0f - saveImage.size.width, 10.0f, saveImage.size.width, saveImage.size.height)];
+    [_saveBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"save", @"저장")] forState:UIControlStateNormal];
     [_saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [_saveBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
@@ -946,7 +998,21 @@
     [_saveBtn addTarget:self action:@selector(onSaveBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [_bottomBgView addSubview:_saveBtn];
+
     
+    // 취소 버튼
+    _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_cancelBtn setFrame:CGRectMake((_bottomBgView.frame.size.width / 2) + 5.0f, 10.0f, saveImage.size.width, saveImage.size.height)];
+    [_cancelBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Cancel", @"취소")] forState:UIControlStateNormal];
+    [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [_cancelBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+    [_cancelBtn setBackgroundImage:saveImage forState:UIControlStateNormal];
+    [_cancelBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [_cancelBtn addTarget:self action:@selector(onCancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_bottomBgView addSubview:_cancelBtn];
+
 }
 
 /// 화면 클릭 이벤트
@@ -1316,6 +1382,7 @@
 //    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
 /// 프로필 저장 버튼
 - (void)onSaveBtnClicked:(id)sender
 {
@@ -1395,6 +1462,13 @@
 //    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetProfile];
 //    [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"변경 프로필 : %@", [[NSUserDefaults standardUserDefaults] objectForKey:kProfileInfo]);
+}
+
+// 취소 버튼
+- (void)onCancelBtnClicked:(id)sender
+{
+    // 내 정보 설정 취소 선택 시, 저장은 하지 않고 홈 화면으로 이동
+    [self onHomeButtonClicked:sender];
 }
 
 #pragma mark - UIScrollViewDelegate methods
@@ -1612,23 +1686,32 @@
         _titleKoTextField.text = _myInfo[@"title"];
         _titleEnTextField.text = _myInfo[@"title_en"];
         
-        if ([_myInfo[@"share_mobile"] isEqualToString:@"y"]) {
-            _shareMobileBtn.selected = YES;
-        } else {
+        if ([_myInfo[@"share_mobile"] isEqualToString:@"n"]) {
             _shareMobileBtn.selected = NO;
+        } else {
+            _shareMobileBtn.selected = YES;
         }
         
-        if ([_myInfo[@"share_email"] isEqualToString:@"y"]) {
-            _shareEmailBtn.selected = YES;
-        } else {
+        if ([_myInfo[@"share_email"] isEqualToString:@"n"]) {
             _shareEmailBtn.selected = NO;
+        } else {
+            _shareEmailBtn.selected = YES;
         }
         
-        if ([_myInfo[@"share_company"] isEqualToString:@"y"]) {
-            _shareOfficeBtn.selected = YES;
-        } else {
+        if ([_myInfo[@"share_company"] isEqualToString:@"n"]) {
             _shareOfficeBtn.selected = NO;
+        } else {
+            _shareOfficeBtn.selected = YES;
         }
+        
+        if ([_myInfo[@"iscurrent"] isEqualToString:@"n"]) {
+            _currentBtn.selected = NO;
+            _noCurrentBtn.selected = YES;
+        } else {
+            _currentBtn.selected = YES;
+            _noCurrentBtn.selected = NO;
+        }
+
     }
     else
     {
@@ -1715,13 +1798,21 @@
         return;
     }
     
-    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo,
-                            @"lang":lang, @"email":_myInfo[@"email"],
-                            @"company":_myInfo[@"company"], @"department":_myInfo[@"department"], @"title":_myInfo[@"title"],
-                            @"company_en":_myInfo[@"company_en"], @"department_en":_myInfo[@"department_en"], @"title_en":_myInfo[@"title_en"],
+    NSLog(@"myInfo : %@", _myInfo);
+    NSMutableDictionary *param = nil;
+
+    if (_memType == MemberTypeStudent) {
+        param = [@{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang,
+                   @"email":_myInfo[@"email"],
+                  @"company":_myInfo[@"company"], @"department":_myInfo[@"department"], @"title":_myInfo[@"title"],
+                  @"company_en":_myInfo[@"company_en"], @"department_en":_myInfo[@"department_en"], @"title_en":_myInfo[@"title_en"],
 //                            @"photo":photoFileName, @"photoData":imageData,
-                            @"share_email":_myInfo[@"share_email"], @"share_mobile":_myInfo[@"share_mobile"], @"share_company":_myInfo[@"share_company"]};
-    
+                  @"share_email":_myInfo[@"share_email"], @"share_mobile":_myInfo[@"share_mobile"], @"share_company":_myInfo[@"share_company"],
+                   @"iscurrent":_myInfo[@"iscurrent"]} mutableCopy];
+    } else {
+        param = [@{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang,
+                   @"tel":_myInfo[@"tel"], @"email":_myInfo[@"email"]} mutableCopy];
+    }
 //    NSLog(@"MyInfo Request Parameter : %@", param);
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     

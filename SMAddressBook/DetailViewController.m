@@ -901,21 +901,67 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         [(DetailViewCell *)cell setMemType:MemberTypeFaculty];
     } else if (_memType == MemberTypeStaff) {
         [(DetailViewCell *)cell setMemType:MemberTypeStaff];
-    } else if (_memType == MemberTypeStudent) {
+    }
+    else if (_memType == MemberTypeStudent)
+    {
         [(DetailViewCell *)cell setMemType:MemberTypeStudent];
         
-        if ([info[@"share_email"] isEqualToString:@"y"]) {
-            _toolbar.emailBtn.enabled = YES;
-        } else {
-            _toolbar.emailBtn.enabled = NO;
+        // 로그인 유저 타입
+        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+        
+        // 로그인 교육 과정
+        CourseType myClassType = CourseTypeUnknown;
+        NSString *myCourseStr = [[UserContext shared] myCourse];
+        if ([myCourseStr isEqualToString:@"EMBA"]) {
+            myClassType = CourseTypeEMBA;
+        } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+            myClassType = CourseTypeGMBA;
+        } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+            myClassType = CourseTypeSMBA;
         }
         
-        if ([info[@"share_mobile"] isEqualToString:@"y"]) {
-            _toolbar.telBtn.enabled = YES;
-            _toolbar.smsBtn.enabled = YES;
+        CourseType cellClassType = CourseTypeUnknown;
+        NSString *courseStr = @"";
+        
+        if ([info[@"course.course"] isKindOfClass:[NSString class]]) {
+            courseStr = info[@"course.course"];
+        } else if ([info[@"course"] isKindOfClass:[NSString class]]) {
+            courseStr = info[@"course"];
+        }
+        
+        if (courseStr.length > 0) {
+            //            if (_memType == MemberTypeFaculty) {
+            //            } else if (_memType == MemberTypeStaff) {
+            //            } else
+            if (_memType == MemberTypeStudent)
+            {
+                if ([courseStr isEqualToString:@"EMBA"]) {
+                    cellClassType = CourseTypeEMBA;
+                } else if ([courseStr isEqualToString:@"GMBA"]) {
+                    cellClassType = CourseTypeGMBA;
+                } else if ([courseStr isEqualToString:@"SMBA"]) {
+                    cellClassType = CourseTypeSMBA;
+                }
+            }
+        }
+
+        // 이메일 공개 표시
+        if (myType == MemberTypeStudent && ([info[@"share_email"] isEqualToString:@"n"] ||
+                                            ([info[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                            ([info[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
+            _toolbar.emailBtn.enabled = NO;
         } else {
+            _toolbar.emailBtn.enabled = YES;
+        }
+        
+        if (myType == MemberTypeStudent && ([info[@"share_mobile"] isEqualToString:@"n"] ||
+                                            ([info[@"share_mobile"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                            ([info[@"share_mobile"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
             _toolbar.telBtn.enabled = NO;
             _toolbar.smsBtn.enabled = NO;
+        } else {
+            _toolbar.telBtn.enabled = YES;
+            _toolbar.smsBtn.enabled = YES;
         }
 
     } else {

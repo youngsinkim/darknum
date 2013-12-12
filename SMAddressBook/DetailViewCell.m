@@ -432,10 +432,14 @@
         }
         
         if (_cellInfo[@"classtitle"]) {
-            _classTitleLabel.text = _cellInfo[@"classtitle"];
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                _classTitleLabel.text = _cellInfo[@"classtitle"];
+            } else {
+                _classTitleLabel.text = _cellInfo[@"classtitle_en"];
+            }
         }
 
-        if (_cellInfo[@"birth"]) {
+        if (_cellInfo[@"birth"] && [_cellInfo[@"birth"] length] > 0) {
             _birthLabel.text = [NSString stringWithFormat:LocalizedString(@"%@ birth", @"생년월일"), _cellInfo[@"birth"]];
         }
 
@@ -480,9 +484,11 @@
         
         // 소속 정보 표시
         _companyLabel.text = descString;
-        if (myType == MemberTypeStudent && ([_cellInfo[@"share_company"] isEqualToString:@"n"] ||
-                                            ([_cellInfo[@"share_company"] isEqualToString:@"q"] && myClassType != cellClassType) ||
-                                            ([_cellInfo[@"share_company"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
+        NSLog(@"소속 정보 : %@", _companyLabel.text);
+        if (_companyLabel.text.length == 0 || (myType == MemberTypeStudent &&
+            ([_cellInfo[@"share_company"] isEqualToString:@"n"] ||
+             ([_cellInfo[@"share_company"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+             ([_cellInfo[@"share_company"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown)))) {
             _currentLabel.hidden = YES;
             _companyLabel.hidden = YES;
         } else {
@@ -518,6 +524,7 @@
 //        }
         
         // 이메일 공개 표시
+        NSLog(@"이메일 : %@", _cellInfo[@"share_email"]);
         if (myType == MemberTypeStudent && ([_cellInfo[@"share_email"] isEqualToString:@"n"] ||
                                             ([_cellInfo[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
                                             ([_cellInfo[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
@@ -586,7 +593,16 @@
         }
 
 //        _emailValueLabel.text = _cellInfo[@"email"];
-        _officeValueLabel.text = _cellInfo[@"office"];
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            _officeValueLabel.text = _cellInfo[@"office"];
+        } else {
+            _officeValueLabel.text = _cellInfo[@"office_en"];
+        }
+        if (_officeValueLabel.text.length > 0) {
+            _officeLabel.hidden = NO;
+        } else {
+            _officeLabel.hidden = YES;
+        }
     }
     
 //    [self setNeedsDisplay];

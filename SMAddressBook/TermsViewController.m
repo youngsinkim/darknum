@@ -24,6 +24,7 @@
 @property (strong, nonatomic) UIWebView *webView2;
 @property (strong, nonatomic) UIButton *acceptBtn1;
 @property (strong, nonatomic) UIButton *acceptBtn2;
+@property (strong, nonatomic) UILabel *line;
 @property (strong, nonatomic) UIButton *nextBtn;
 @property (assign) BOOL isFinished;
 @end
@@ -67,14 +68,34 @@
     
     if (self.isByMenu)
     {
+        CGRect rect = self.view.frame;
+        CGFloat sizeHeight = 164.0f;
+        CGFloat yOffset = 40.0f;
+        CGFloat xOffset = 10.0f;
+        
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenHeight = screenRect.size.height;
+
+        if (screenHeight > 480.0f) {
+            sizeHeight = 210.0f;
+        }
+
+        _webView1.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), sizeHeight);
+        yOffset += (sizeHeight + 15.0f);
+        _personalTitleLabel.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 16.0f);
+        yOffset += (_personalTitleLabel.frame.size.height + 5.0f);
+        _webView2.frame = CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), sizeHeight);
+
         _acceptBtn1.hidden = YES;
         _acceptBtn2.hidden = YES;
+        _line.hidden = YES;
         _nextBtn.hidden = YES;
     }
     else
     {
         _acceptBtn1.hidden = NO;
         _acceptBtn2.hidden = NO;
+        _line.hidden = NO;
         _nextBtn.hidden = NO;
         
         self.navigationItem.leftBarButtonItem = nil;
@@ -82,6 +103,7 @@
         self.navigationItem.rightBarButtonItem = nil;
     }
 
+    [self.view setNeedsLayout];
 }
 
 - (void)didReceiveMemoryWarning
@@ -211,11 +233,11 @@
 
     
     // 라인
-    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 1.0f)];
-    line.backgroundColor = UIColorFromRGB(0xbbbbbb);
+    _line = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 1.0f)];
+    _line.backgroundColor = UIColorFromRGB(0xbbbbbb);
     
-    [self.view addSubview:line];
-    yOffset += (line.frame.size.height + 20.0f);
+    [self.view addSubview:_line];
+    yOffset += (_line.frame.size.height + 20.0f);
 
     
     // 약관동의 버튼

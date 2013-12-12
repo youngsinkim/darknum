@@ -31,10 +31,10 @@
 "terms_and_policy" = "Terms and Personal Information Protection Guidelines";
 
 /* terms text */
-"terms policy" = "User agreement";
+"terms policy" = "Terms of Use";
 
 /* personal policy */
-"personal policy" = "Personal Privacy Policy";
+"personal policy" = "Privacy Policy";
 
 /* Help */
 "Help" = "Help";
@@ -304,19 +304,19 @@
 "%@ birth" = "born in %@";
 
 /* currented */
-"currented" = "[Current]";
+"currented" = "Current";
 
 /* not currented */
-"not currented" = "[Previous]";
+"not currented" = "Previous";
 
 /* Search Result Not Founded */
-"Search Result Not Founded" = "검색된 결과가 없습니다.";
+"Search Result Not Founded" = "There are no search results.";
 
 /* Share Info */
-"Share Info" = "정보공개";
+"Share Info" = "Disclosure";
 
 /* Tel */
-"Tel" = "Tel.";
+"Tel" = "Phone";
 
 /* Major */
 "Major" = "Major";
@@ -326,3 +326,9 @@
 
 /* Office */
 "Office" = "Office :";
+
+/* Select all */
+"Select all" = "Select All";
+
+/* E-Mail */
+"E-Mail" = "E-Mail";

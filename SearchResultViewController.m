@@ -109,15 +109,17 @@
 /// 검색 결과 화면
 - (void)setupSearchResultUI
 {
-    CGRect rect = self.view.bounds;
+    CGRect rect = self.view.frame;
     rect.size.height -= kStudentToolH;
     
     if (IS_LESS_THEN_IOS7) {
         rect.size.height -= 44.0f;
+    } else {
+        rect.size.height -= 64.0f;
     }
     
     // 검색결과 테이블 뷰
-    _resultTableView = [[UITableView alloc] initWithFrame:rect];
+    _resultTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height)];
     _resultTableView.backgroundColor = [UIColor whiteColor];
     _resultTableView.dataSource = self;
     _resultTableView.delegate = self;
@@ -295,6 +297,7 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                 cell.contentView.backgroundColor = UIColorFromRGB(0xf0f0f0);
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 UIImageView *noDataImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_search_no"]];
                 noDataImageView.tag = 600;

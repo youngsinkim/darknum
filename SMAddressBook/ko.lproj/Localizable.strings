@@ -244,7 +244,7 @@
 "Disclosure" = "공개";
 
 /* Mobile Phone */
-"Mobile Phone" = "전화";
+"Mobile Phone" = "Mobile Phone";
 
 /* Select Message Recipients */
 "Select Message Recipients" = "SMS 수신자 선택";
@@ -304,10 +304,10 @@
 "%@ birth" = "%@년생";
 
 /* currented */
-"currented" = "[현직]";
+"currented" = "현직";
 
 /* not currented */
-"not currented" = "[전직]";
+"not currented" = "전직";
 
 /* Search Result Not Founded */
 "Search Result Not Founded" = "검색된 결과가 없습니다.";
@@ -316,7 +316,7 @@
 "Share Info" = "정보공개";
 
 /* Tel */
-"Tel" = "전화";
+"Tel" = "Phone";
 
 /* Major */
 "Major" = "전공";
@@ -326,3 +326,9 @@
 
 /* Office */
 "Office" = "Office :";
+
+/* Select all */
+"Select all" = "전체 선택";
+
+/* E-Mail */
+"E-Mail" = "E-Mail";
