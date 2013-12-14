@@ -213,6 +213,7 @@
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange {
     NSLog(@"shouldInteractWithTextAttachment");
+    return YES;
 }
 
 

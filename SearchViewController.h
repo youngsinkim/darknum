@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchViewController : BaseViewController <UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+@interface SearchViewController : BaseViewController <UITextFieldDelegate>
 
 @end

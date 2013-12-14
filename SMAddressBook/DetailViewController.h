@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
-#import "MMHorizontalListView.h"
+//#import "MMHorizontalListView.h"
 #import "DetailToolView.h"
 #import <EasyTableView.h>
 
-@interface DetailViewController : UIViewController <EasyTableViewDelegate, MMHorizontalListViewDataSource, MMHorizontalListViewDelegate, DetailToolViewDelegate, ABNewPersonViewControllerDelegate, ABPersonViewControllerDelegate, UIActionSheetDelegate>
+@interface DetailViewController : UIViewController <EasyTableViewDelegate, DetailToolViewDelegate, ABNewPersonViewControllerDelegate, ABPersonViewControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSMutableArray *contacts;         //< 주소록 목록
 @property (assign, nonatomic) NSInteger currentIdx;

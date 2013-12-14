@@ -9,38 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "407865961.536028"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "774"
-            endingLineNumber = "774"
-            landmarkName = "-MMHorizontalListView:cellAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "407865961.536028"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "787"
-            endingLineNumber = "787"
-            landmarkName = "-MMHorizontalListView:cellAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMAddressBook/FavoriteViewController.m"
             timestampString = "407679868.325252"
             startingColumnNumber = "9223372036854775807"
@@ -348,22 +316,6 @@
             startingLineNumber = "149"
             endingLineNumber = "149"
             landmarkName = "-didSelectedToolTag:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "407865961.536028"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "762"
-            endingLineNumber = "762"
-            landmarkName = "-MMHorizontalListView:cellAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

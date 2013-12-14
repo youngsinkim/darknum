@@ -1,19 +1,18 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "scale" : "1x",
       "filename" : "img-ko-guide.png"
     },
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "scale" : "2x",
       "filename" : "img-ko-guide@2x.png"
     },
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "filename" : "img-ko-guide-568h@2x.png",
-      "unassigned" : true,
       "subtype" : "retina4",
       "scale" : "2x"
     }

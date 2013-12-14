@@ -17,6 +17,7 @@
 
 - (void)didSelectedToolTag:(NSNumber *)type;
 
+@optional
 /// SMS 버튼
 - (void)onTouchedSmsBtn:(id)sender;
 

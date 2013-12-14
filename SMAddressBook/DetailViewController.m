@@ -167,63 +167,63 @@
 
 #if 0
 /// 주소록 테이블 뷰
-- (void)setupContactTableView
-{
-    //    _contactTableView = [[ContactTableView alloc] initWithFrame:CGRectMake(20.0f, 20.0f, 200.0f, 200.0f) style:UITableViewStylePlain];
-    //    _contactTableView.dataSource = self;
-    //    _contactTableView.delegate = self;
-    //    _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //
-    //    [parentView addSubview:_contactTableView];
-    
-    CGFloat height = self.view.frame.size.height - 44.0f - kDetailViewH;
-    NSLog(@"sub 뷰 생성 높이 : %f", height);
-    
-    // 툴바 뷰
-    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH) type:_memType];
-    _toolbar.delegate = self;
-    
-    [self.view addSubview:_toolbar];
-    
-    
-    // 배경 뷰
-    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
-    _bgView.backgroundColor = [UIColor clearColor];
-    
-    [self.view addSubview:_bgView];
-    
-
-    // 세로 테이블 뷰
-    _horListView = [[MMHorizontalListView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, _bgView.frame.size.height)];
-    _horListView.backgroundColor = [UIColor orangeColor];
-//    _horListView.backgroundColor = [UIColor whiteColor];// colorWithAlphaComponent:0.6];
-    //    _horListView.alpha = 1;
-    //    _horListView.opaque = YES;
-    _horListView.dataSource = self;
-    _horListView.delegate = self;
-    _horListView.cellSpacing = 0;
-    _horListView.pagingEnabled = YES;
-//    _horListView.showsHorizontalScrollIndicator = NO;
-//    _horListView.showsVerticalScrollIndicator = NO;
-    _horListView.contentSize = CGSizeMake(_horListView.frame.size.width * _contacts.count, _bgView.frame.size.height);
-    
-//    _horListView.pageControl.currentPage = 0;
-//    _horListView.pageControl.numberOfPages = _contacts.count;
-    
-//    [UIView roundedLayer:_horContactTableView radius:5.0f shadow:YES];
-    
-    [self.view addSubview:_horListView];
-    
-    [self.horListView reloadData];
-    
-    //    UILabel *label = [[UILabel alloc] init];
-    //    label.text = @"Modal View";
-    //    label.textColor = [UIColor whiteColor];
-    //    label.backgroundColor = [UIColor blackColor];
-    //    label.opaque = YES;
-    //    [label setFrame:_horListView.frame];
-    //    [_horListView addSubview:label];
-}
+//- (void)setupContactTableView
+//{
+//    //    _contactTableView = [[ContactTableView alloc] initWithFrame:CGRectMake(20.0f, 20.0f, 200.0f, 200.0f) style:UITableViewStylePlain];
+//    //    _contactTableView.dataSource = self;
+//    //    _contactTableView.delegate = self;
+//    //    _contactTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    //
+//    //    [parentView addSubview:_contactTableView];
+//    
+//    CGFloat height = self.view.frame.size.height - 44.0f - kDetailViewH;
+//    NSLog(@"sub 뷰 생성 높이 : %f", height);
+//    
+//    // 툴바 뷰
+//    _toolbar = [[DetailToolView alloc] initWithFrame:CGRectMake(0.0f, height, 320.0f, kDetailViewH) type:_memType];
+//    _toolbar.delegate = self;
+//    
+//    [self.view addSubview:_toolbar];
+//    
+//    
+//    // 배경 뷰
+//    _bgView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
+//    _bgView.backgroundColor = [UIColor clearColor];
+//    
+//    [self.view addSubview:_bgView];
+//    
+//
+//    // 세로 테이블 뷰
+//    _horListView = [[MMHorizontalListView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, _bgView.frame.size.height)];
+//    _horListView.backgroundColor = [UIColor orangeColor];
+////    _horListView.backgroundColor = [UIColor whiteColor];// colorWithAlphaComponent:0.6];
+//    //    _horListView.alpha = 1;
+//    //    _horListView.opaque = YES;
+//    _horListView.dataSource = self;
+//    _horListView.delegate = self;
+//    _horListView.cellSpacing = 0;
+//    _horListView.pagingEnabled = YES;
+////    _horListView.showsHorizontalScrollIndicator = NO;
+////    _horListView.showsVerticalScrollIndicator = NO;
+//    _horListView.contentSize = CGSizeMake(_horListView.frame.size.width * _contacts.count, _bgView.frame.size.height);
+//    
+////    _horListView.pageControl.currentPage = 0;
+////    _horListView.pageControl.numberOfPages = _contacts.count;
+//    
+////    [UIView roundedLayer:_horContactTableView radius:5.0f shadow:YES];
+//    
+//    [self.view addSubview:_horListView];
+//    
+//    [self.horListView reloadData];
+//    
+//    //    UILabel *label = [[UILabel alloc] init];
+//    //    label.text = @"Modal View";
+//    //    label.textColor = [UIColor whiteColor];
+//    //    label.backgroundColor = [UIColor blackColor];
+//    //    label.opaque = YES;
+//    //    [label setFrame:_horListView.frame];
+//    //    [_horListView addSubview:label];
+//}
 #endif
 
 - (void)setContacts:(NSMutableArray *)contacts
@@ -721,99 +721,99 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 //    [[self navigationController] popViewControllerAnimated:YES];
 }
 
-#pragma mark - MMHorizontalListViewDatasource methods
-
-- (NSInteger)MMHorizontalListViewNumberOfCells:(MMHorizontalListView *)horizontalListView
-{
-    NSInteger count = ([_contacts count] > 0)? [_contacts count] : 1;
-    return count;
-}
-
-- (CGFloat)MMHorizontalListView:(MMHorizontalListView *)horizontalListView widthForCellAtIndex:(NSInteger)index
-{
-    return 320;
-}
-
-- (MMHorizontalListViewCell*)MMHorizontalListView:(MMHorizontalListView *)horizontalListView cellAtIndex:(NSInteger)index
-{
-    // dequeue cell for reusability
-    DetailViewCell *cell = (DetailViewCell *)[horizontalListView dequeueCellWithReusableIdentifier:@"test"];
-
-    if (!cell) {
-//        CGFloat height = [[UIScreen mainScreen] applicationFrame].size.height - 44.0f;
-        CGFloat height = _bgView.frame.size.height;
-        NSLog(@"셀 생성 높이 : %f", height);
-        
-        cell = [[DetailViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
-//        cell.reusableIdentifier = @"test";  // assign the cell identifier for reusability
-    }
-
-    [cell setBackgroundColor:[UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:0.5]];
-
-    if ([_contacts count] > 0)
-    {
-        _currentIdx = index;
-        NSLog(@"현재 셀 인덱스 : %d", _currentIdx);
-        
-        if (_memType == MemberTypeFaculty) {
-            Faculty *faculty = _contacts[index];
-
-            // ( NSDictionary <- NSManagedObject )
-            NSArray *keys = [[[faculty entity] attributesByName] allKeys];
-            NSDictionary *info = [faculty dictionaryWithValuesForKeys:keys];
-        
-            cell.memType = MemberTypeFaculty;
-            [(DetailViewCell *)cell setCellInfo:info];
-        }
-        else if (_memType == MemberTypeStaff) {
-            
-        }
-        else if (_memType == MemberTypeStudent)
-        {
-//            Student *mo = _contacts[index];
-//            
+//#pragma mark - MMHorizontalListViewDatasource methods
+//
+//- (NSInteger)MMHorizontalListViewNumberOfCells:(MMHorizontalListView *)horizontalListView
+//{
+//    NSInteger count = ([_contacts count] > 0)? [_contacts count] : 1;
+//    return count;
+//}
+//
+//- (CGFloat)MMHorizontalListView:(MMHorizontalListView *)horizontalListView widthForCellAtIndex:(NSInteger)index
+//{
+//    return 320;
+//}
+//
+//- (MMHorizontalListViewCell*)MMHorizontalListView:(MMHorizontalListView *)horizontalListView cellAtIndex:(NSInteger)index
+//{
+//    // dequeue cell for reusability
+//    DetailViewCell *cell = (DetailViewCell *)[horizontalListView dequeueCellWithReusableIdentifier:@"test"];
+//
+//    if (!cell) {
+////        CGFloat height = [[UIScreen mainScreen] applicationFrame].size.height - 44.0f;
+//        CGFloat height = _bgView.frame.size.height;
+//        NSLog(@"셀 생성 높이 : %f", height);
+//        
+//        cell = [[DetailViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, height)];
+////        cell.reusableIdentifier = @"test";  // assign the cell identifier for reusability
+//    }
+//
+//    [cell setBackgroundColor:[UIColor colorWithRed:(arc4random() % 255)/255.0 green:(arc4random() % 255)/255.0 blue:(arc4random() % 255)/255.0 alpha:0.5]];
+//
+//    if ([_contacts count] > 0)
+//    {
+//        _currentIdx = index;
+//        NSLog(@"현재 셀 인덱스 : %d", _currentIdx);
+//        
+//        if (_memType == MemberTypeFaculty) {
+//            Faculty *faculty = _contacts[index];
+//
 //            // ( NSDictionary <- NSManagedObject )
-//            NSArray *keys = [[[mo entity] attributesByName] allKeys];
-//            NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
-            NSDictionary *info = _contacts[_currentIdx];
-            NSLog(@"찾는 셀 정보: %@", info);
-            
-            cell.memType = MemberTypeStudent;
-            [(DetailViewCell *)cell setCellInfo:info];
-            
-//            UIImage *image = [cell.profileImage image];
-            NSLog(@"상세정보 셀 : (%d), %@", index, info[@"name_en"]);
-//            NSLog(@"상세정보 이미지 : %@", image);
-        }
-        
-    }
-#if (0)
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 300)];
-    Faculty *faculty = _contacts[index];
+//            NSArray *keys = [[[faculty entity] attributesByName] allKeys];
+//            NSDictionary *info = [faculty dictionaryWithValuesForKeys:keys];
+//        
+//            cell.memType = MemberTypeFaculty;
+//            [(DetailViewCell *)cell setCellInfo:info];
+//        }
+//        else if (_memType == MemberTypeStaff) {
+//            
+//        }
+//        else if (_memType == MemberTypeStudent)
+//        {
+////            Student *mo = _contacts[index];
+////            
+////            // ( NSDictionary <- NSManagedObject )
+////            NSArray *keys = [[[mo entity] attributesByName] allKeys];
+////            NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
+//            NSDictionary *info = _contacts[_currentIdx];
+//            NSLog(@"찾는 셀 정보: %@", info);
+//            
+//            cell.memType = MemberTypeStudent;
+//            [(DetailViewCell *)cell setCellInfo:info];
+//            
+////            UIImage *image = [cell.profileImage image];
+//            NSLog(@"상세정보 셀 : (%d), %@", index, info[@"name_en"]);
+////            NSLog(@"상세정보 이미지 : %@", image);
+//        }
+//        
+//    }
+//#if (0)
+//    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 300)];
+//    Faculty *faculty = _contacts[index];
+//
+//    nameLabel.text = faculty.name;
+//    [cell addSubview:nameLabel];
+//#endif
+//    return cell;
+//}
 
-    nameLabel.text = faculty.name;
-    [cell addSubview:nameLabel];
-#endif
-    return cell;
-}
-
-#pragma mark - MMHorizontalListViewDelegate methods
-
-- (void)MMHorizontalListView:(MMHorizontalListView*)horizontalListView didSelectCellAtIndex:(NSInteger)index
-{
-    //do something when a cell is selected
-    NSLog(@"selected cell %d", index);
-//    _currentIdx = index;
-
-}
-
-- (void)MMHorizontalListView:(MMHorizontalListView *)horizontalListView didDeselectCellAtIndex:(NSInteger)index
-{
-    // do something when a cell is deselected
-    NSLog(@"deselected cell %d", index);
-//    _currentIdx = index;
-
-}
+//#pragma mark - MMHorizontalListViewDelegate methods
+//
+//- (void)MMHorizontalListView:(MMHorizontalListView*)horizontalListView didSelectCellAtIndex:(NSInteger)index
+//{
+//    //do something when a cell is selected
+//    NSLog(@"selected cell %d", index);
+////    _currentIdx = index;
+//
+//}
+//
+//- (void)MMHorizontalListView:(MMHorizontalListView *)horizontalListView didDeselectCellAtIndex:(NSInteger)index
+//{
+//    // do something when a cell is deselected
+//    NSLog(@"deselected cell %d", index);
+////    _currentIdx = index;
+//
+//}
 
 
 
