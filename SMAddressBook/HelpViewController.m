@@ -29,16 +29,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.navigationItem.title = LocalizedString(@"help", "도움말");
+    self.navigationItem.title = LocalizedString(@"Help", "도움말");
     
 //    self.view.backgroundColor = [UIColor yellowColor];
-    CGRect viewRect = self.view.bounds;
+    CGRect viewRect = self.view.frame;
     
     if (IS_LESS_THEN_IOS7) {
         viewRect.size.height -= 44.0f;
+    } else {
+        viewRect.size.height -= 64.0f;
     }
 
-    _helpWebView = [[UIWebView alloc] initWithFrame:viewRect];
+    _helpWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, viewRect.size.width, viewRect.size.height)];
 //    _webView2.scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0, 0, 0);
     _helpWebView.backgroundColor = [UIColor clearColor];
     

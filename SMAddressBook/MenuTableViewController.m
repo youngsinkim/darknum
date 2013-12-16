@@ -172,7 +172,7 @@
     HelpViewController *helpVC = [[HelpViewController alloc] init];
 
     _settMenuList = @[@{@"type":[NSNumber numberWithInt:MenuViewTypeSettMyInfo], @"title":LocalizedString(@"My Page", @"내 정보설정"), @"icon":@"ic_mf_mypage", @"viewController":myInfoVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"Favorite settings", @"즐겨찾기 설정"), @"icon":@"ic_mf_bm", @"viewController":fvSettingVC},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"Favorite Settings", @"즐겨찾기 설정"), @"icon":@"ic_mf_bm", @"viewController":fvSettingVC},
                       @{@"type":[NSNumber numberWithInt:MenuViewTypeSettTerms], @"title":LocalizedString(@"terms_text", @"약관 및 정책"), @"icon":@"ic_mf_terms", @"viewController":termsVC},
                       @{@"type":[NSNumber numberWithInt:MenuViewTypeSettHelp], @"title":LocalizedString(@"Help", @"도움말"), @"icon":@"ic_mf_help", @"viewController":helpVC}];
     
