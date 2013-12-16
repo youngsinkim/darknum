@@ -382,6 +382,9 @@
     if (info[@"email"])
     {
         NSString *phoneNumber = [@"mailto://" stringByAppendingString:info[@"email"]];
+        if ([phoneNumber rangeOfString:@" "].location != NSNotFound) {
+            phoneNumber = [phoneNumber stringByReplacingOccurrencesOfString:@" " withString:@""];
+        }
         NSLog(@"이메일 전송 : %@", phoneNumber);
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
     }
@@ -936,17 +939,6 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 //    NSDictionary *info = [mo dictionaryWithValuesForKeys:keys];
     NSDictionary *info = _contacts[indexPath.row];
     NSLog(@"상세 정보 : %@", info);
-
-    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-        if (info[@"name"]) {
-            self.navigationItem.title = info[@"name"];
-        }
-    } else {
-        if (info[@"name_en"]) {
-            self.navigationItem.title = info[@"name_en"];
-        }
-    }
-
     
     if (_memType == MemberTypeFaculty) {
         [(DetailViewCell *)cell setMemType:MemberTypeFaculty];
@@ -1020,6 +1012,16 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     }
     [(DetailViewCell *)cell setCellInfo:info];
     
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if (info[@"name"]) {
+            self.navigationItem.title = info[@"name"];
+        }
+    } else {
+        if (info[@"name_en"]) {
+            self.navigationItem.title = info[@"name_en"];
+        }
+    }
+
 
 //	UILabel *label	= (UILabel *)view;
 //	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
@@ -1054,6 +1056,20 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
             _currentIdx = index;
             NSLog(@"셀 index : %d", _currentIdx);
             NSLog(@"셀 정보 : %@", _contacts[_currentIdx]);
+
+            NSDictionary *info = _contacts[_currentIdx];
+            NSLog(@"상세 정보 : %@", info);
+
+            if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+                if (info[@"name"]) {
+                    self.navigationItem.title = info[@"name"];
+                }
+            } else {
+                if (info[@"name_en"]) {
+                    self.navigationItem.title = info[@"name_en"];
+                }
+            }
+
         }
     }
 }

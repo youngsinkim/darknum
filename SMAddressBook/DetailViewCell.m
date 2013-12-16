@@ -686,7 +686,7 @@
         if (!_emailValueLabel.hidden) {
             _emailbgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
             _emilIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
-            _emailValueLabel.frame = CGRectMake(xOffset + 8.0f + _emilIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);
+            _emailValueLabel.frame = CGRectMake(xOffset + 8.0f + _emilIconView.frame.size.width + 12.0f, yOffset, width - (8.0f + _emilIconView.frame.size.width + 12.0f), 30.0f);
 //            yOffset += (18.0f + 10.0f);
         }
         //        _majorLabel.frame = CGRectMake(10.0f, yOffset, 80.0f, 20.0f);

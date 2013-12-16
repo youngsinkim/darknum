@@ -267,7 +267,24 @@
                                                       if ([updateMode isEqualToString:@"add"]) {
                                                           [self requestAPIStudents:param];
 //                                                          [self performSelector:@selector(requestAPIStudents:) withObject:param];
+                                                      } else {
+                                                          //TODO: del된 db 삭제.
                                                       }
+                                                      
+                                                      
+                                                      // 즐겨찾기 목록 구성
+                                                      NSLog(@".......... GET DB Favorite Courses ..........");
+//                                                      [_favorites setArray:[self loadDBFavoriteCourses]];
+                                                      NSArray *favorites = [DBMethod loadDBFavoriteCourses];
+                                                      NSLog(@"(최초) 기존 즐겨찾기 DB 목록이 존재하나? %d", [favorites count]);
+                                                      
+                                                      if ([favorites count] > 0)
+                                                      {
+//                                                          [self.favoriteTableView reloadData];
+                                                          MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+                                                          [menu setAddrMenuList:favorites];
+                                                      }
+
                                                       
                                                       // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
 //                                                      [self performSelector:@selector(updateFavoriteData) withObject:nil];
