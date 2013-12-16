@@ -16,6 +16,8 @@
 #import "TermsViewController.h"
 
 #import <AFNetworkActivityIndicatorManager.h>
+#import <AFHTTPRequestOperation.h>
+
 #import <MFSideMenuContainerViewController.h>
 #import <QuartzCore/QuartzCore.h>
 #import "MBProgressHUD.h"
@@ -58,6 +60,7 @@
     
     //------------------- 상태바 Indicator 설정 ------------------
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    [self addNetworkObserver];
     
         
     // UserInfo의 auto login 정보에 따라 로그인 창 띄우기
@@ -684,6 +687,32 @@
                 //                                                    [self.splashViewController.parentViewController dismissViewControllerAnimated:NO completion:nil];
             }
         }
+    }
+}
+
+#pragma mark - Network
+- (void)addNetworkObserver
+{
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(HTTPOperationDidFinish:)
+//                                                 name:AFNetworkingOperationDidFinishNotification
+//                                               object:nil];
+}
+
+- (void)HTTPOperationDidFinish:(NSNotification *)notification
+{
+    AFHTTPRequestOperation *operation = (AFHTTPRequestOperation *)[notification object];
+    if (![operation isKindOfClass:[AFHTTPRequestOperation class]]) {
+        return;
+    }
+    if (operation.error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error"
+                                                        message:@"Missing connection to the internet"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        
+        [alert show];
     }
 }
 

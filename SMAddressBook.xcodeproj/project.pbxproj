@@ -279,6 +279,9 @@
 		BF8BE0B01855E1B1004BF3DF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */; };
 		BF8E5837183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
 		BF9CC1B117EE2396000862F0 /* ToolViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9CC1B017EE2396000862F0 /* ToolViewCell.m */; };
+		BFA4E2EB185F392600CA2495 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA4E2EA185F392600CA2495 /* SystemConfiguration.framework */; };
+		BFA4E2EC185F393300CA2495 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA4E2EA185F392600CA2495 /* SystemConfiguration.framework */; };
+		BFA4E2ED185F393B00CA2495 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA4E2EA185F392600CA2495 /* SystemConfiguration.framework */; };
 		BFA79CA31819556B005E37FA /* AllFacultyAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */; };
 		BFA89612180329C500869FB8 /* FindWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFA89611180329C500869FB8 /* FindWebViewController.m */; };
 		BFABB01C17F75AE50018D236 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = BFABB01B17F75AE50018D236 /* Course.m */; };
@@ -446,6 +449,7 @@
 		BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SMAddressBook_Adhoc-Info.plist"; sourceTree = "<group>"; };
 		BF9CC1AF17EE2396000862F0 /* ToolViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewCell.h; sourceTree = "<group>"; };
 		BF9CC1B017EE2396000862F0 /* ToolViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewCell.m; sourceTree = "<group>"; };
+		BFA4E2EA185F392600CA2495 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BFA79CA11819556B005E37FA /* AllFacultyAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllFacultyAddressViewController.h; sourceTree = "<group>"; };
 		BFA79CA21819556B005E37FA /* AllFacultyAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllFacultyAddressViewController.m; sourceTree = "<group>"; };
 		BFA89610180329C500869FB8 /* FindWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWebViewController.h; sourceTree = "<group>"; };
@@ -481,6 +485,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA4E2ED185F393B00CA2495 /* SystemConfiguration.framework in Frameworks */,
 				50D134D517F9967A00F27231 /* MessageUI.framework in Frameworks */,
 				BF3E747E17E2223F006AAF8D /* AddressBook.framework in Frameworks */,
 				BF3E747C17E21F0D006AAF8D /* AddressBookUI.framework in Frameworks */,
@@ -497,6 +502,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA4E2EB185F392600CA2495 /* SystemConfiguration.framework in Frameworks */,
 				BF83D4FE18596B50002C1AB3 /* MessageUI.framework in Frameworks */,
 				BF83D4FF18596B50002C1AB3 /* AddressBook.framework in Frameworks */,
 				BF83D50018596B50002C1AB3 /* AddressBookUI.framework in Frameworks */,
@@ -513,6 +519,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA4E2EC185F393300CA2495 /* SystemConfiguration.framework in Frameworks */,
 				BF83D56918596C9A002C1AB3 /* MessageUI.framework in Frameworks */,
 				BF83D56A18596C9A002C1AB3 /* AddressBook.framework in Frameworks */,
 				BF83D56B18596C9A002C1AB3 /* AddressBookUI.framework in Frameworks */,
@@ -578,6 +585,7 @@
 		5062B61717C4C10400A2495D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFA4E2EA185F392600CA2495 /* SystemConfiguration.framework */,
 				50D134D417F9967A00F27231 /* MessageUI.framework */,
 				BF3E747D17E2223F006AAF8D /* AddressBook.framework */,
 				BF3E747B17E21F0D006AAF8D /* AddressBookUI.framework */,

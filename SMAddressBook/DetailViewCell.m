@@ -352,12 +352,12 @@
     }
 
     // 이메일 표시
-    if (_cellInfo[@"email"]) {
+    if (_cellInfo[@"email"] && [_cellInfo[@"email"] length] > 0) {
         _emailValueLabel.text = _cellInfo[@"email"];
     }
 
     // 모바일 표시
-    if (_cellInfo[@"mobile"]) {
+    if (_cellInfo[@"mobile"] && [_cellInfo[@"mobile"] length] > 0) {
         _mobileValueLabel.text = _cellInfo[@"mobile"];
     }
 
@@ -368,7 +368,7 @@
         _currentLabel.text = [NSString stringWithString:LocalizedString(@"not currented", nil)];
     }
     
-    if (_cellInfo[@"tel"]) {
+    if (_cellInfo[@"tel"] && [_cellInfo[@"tel"] length] > 0) {
         _telValueLabel.text = _cellInfo[@"tel"];
         _telbgView.hidden = NO;
         _telIconView.hidden = NO;
@@ -726,14 +726,14 @@
             yOffset += (_telbgView.frame.size.height + 5.0f);
         }
         
-        if (!_emailValueLabel.hidden) {
+        if (!_emailValueLabel.hidden && [_emailValueLabel.text length] > 0) {
             _emailbgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
             _emilIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
             _emailValueLabel.frame = CGRectMake(xOffset + 8.0f + _emilIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);
             yOffset += (_emailbgView.frame.size.height + 5.0f);
         }
 
-        if (!_mobileValueLabel.hidden) {
+        if (!_mobileValueLabel.hidden && [_mobileValueLabel.text length] > 0) {
             _mobilebgView.frame = CGRectMake(xOffset, yOffset, width, 30.0f);
             _mobileIconView.frame = CGRectMake(xOffset + 8.0f, yOffset + 8.0f, 14.0f, 14.0f);
             _mobileValueLabel.frame = CGRectMake(xOffset + 8.0f + _mobileIconView.frame.size.width + 12.0f, yOffset, width, 30.0f);

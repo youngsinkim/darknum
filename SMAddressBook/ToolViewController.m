@@ -326,7 +326,7 @@
                     i++;
                 }
                 
-                if ([_members count] > 20) {
+                if ([_selectArray count] >= 20) {
                     UIAlertView *countAlertView = [[UIAlertView alloc] initWithTitle:nil
                                                                              message:LocalizedString(@"Limit Error Msg", @"한번에 발송할 수 있는 문자개수는 20건으로 제한됩니다.")
                                                                             delegate:nil
@@ -338,7 +338,44 @@
             }
             else
             {
-                [_selectArray setArray:_members];
+                int count = 0;
+                int i = 0;
+
+//                [_selectArray setArray:_members];
+                [_selectArray removeAllObjects];
+                
+                for (NSDictionary *dict in _members)
+                {
+                    CourseType cellClassType = CourseTypeUnknown;
+                    NSString *courseStr = @"";
+                    
+                    if ([dict[@"course.course"] isKindOfClass:[NSString class]]) {
+                        courseStr = dict[@"course.course"];
+                    } else if ([dict[@"course"] isKindOfClass:[NSString class]]) {
+                        courseStr = dict[@"course"];
+                    }
+                    
+                    if (courseStr.length > 0) {
+                        if (_memType == MemberTypeStudent)
+                        {
+                            if ([courseStr isEqualToString:@"EMBA"]) {
+                                cellClassType = CourseTypeEMBA;
+                            } else if ([courseStr isEqualToString:@"GMBA"]) {
+                                cellClassType = CourseTypeGMBA;
+                            } else if ([courseStr isEqualToString:@"SMBA"]) {
+                                cellClassType = CourseTypeSMBA;
+                            }
+                        }
+                    }
+                    
+                    if (!(myType == MemberTypeStudent && ([dict[@"share_email"] isEqualToString:@"n"] ||
+                                                          ([dict[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                                          ([dict[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown)))) {
+                        _selectArray[count] = _members[i];
+                        count++;
+                    }
+                    i++;
+                }
             }
             NSLog(@"선택 항목 : %@", _selectArray);
             

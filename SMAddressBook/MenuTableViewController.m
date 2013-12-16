@@ -230,19 +230,42 @@
         }
     }
     
+    
 //    if ([myInfo[@"courseclass"] length] > 0) {
 //        _classLabel.text = myInfo[@"courseclass"];
 //    }
     NSString *class = [UserContext shared].myClass;
-    if ([class length] > 0) {
+    if ([class length] > 0)
+    {
         NSArray *findClasses = [DBMethod findCourseClass:class];
-        if ([findClasses count] > 0) {
+        if ([findClasses count] > 0)
+        {
             NSDictionary *info = findClasses[0];
             NSLog(@"내 정보 : %@", info);
+            
             if ([[UserContext shared].language isEqualToString:kLMKorean]) {
                 _classLabel.text = info[@"title"];
             } else {
                 _classLabel.text = info[@"title_en"];
+            }
+            
+            // 로그인 유저 타입
+            MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+            
+            if (myType == MemberTypeFaculty) {
+                [_classLabel setTextColor:UIColorFromRGB(0x3b5996)];
+            } else if (myType == MemberTypeStaff) {
+                [_classLabel setTextColor:UIColorFromRGB(0xaa66cc)];
+            } else {
+                // 로그인 교육 과정
+                NSString *myCourseStr = [[UserContext shared] myCourse];
+                if ([myCourseStr isEqualToString:@"EMBA"]) {
+                    [_classLabel setTextColor:UIColorFromRGB(0x603913)];
+                } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+                    [_classLabel setTextColor:UIColorFromRGB(0x669900)];
+                } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+                    [_classLabel setTextColor:UIColorFromRGB(0x0099cc)];
+                }
             }
         }
     }

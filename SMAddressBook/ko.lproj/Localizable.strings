@@ -332,3 +332,6 @@
 
 /* E-Mail */
 "E-Mail" = "E-Mail";
+
+/* Server Connection Fail */
+"Server Connection Fail" = "서버 연결에 실패하였습니다. 관리자에게 문의하세요.";

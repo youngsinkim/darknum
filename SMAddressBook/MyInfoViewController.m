@@ -20,6 +20,7 @@
 #import "Course.h"
 #import "Major.h"
 #import "NSDate+Helper.h"
+#import <AFNetworkActivityIndicatorManager.h>
 
 
 #define kScreenY    64.0f
@@ -1333,14 +1334,20 @@
 
 - (void)onNotCurrentBtnClicked:(UIButton *)sender
 {
-    [sender setSelected:![sender isSelected]];
+    if (sender.isSelected == NO) {
+        [_currentBtn setSelected:NO];
+        [_noCurrentBtn setSelected:YES];
+    }
 }
 
 - (void)onCurrentedBtnClicked:(UIButton *)sender
 {
-    [sender setSelected:![sender isSelected]];
+    if (sender.isSelected == NO) {
+        [_currentBtn setSelected:YES];
+        [_noCurrentBtn setSelected:NO];
+    }
+//    [sender setSelected:![sender isSelected]];
 }
-
 
 - (void)onIdSavedBtnClicked:(UIButton *)sender
 {
@@ -1419,6 +1426,12 @@
             _myInfo[@"share_company"] = @"y";
         } else {
             _myInfo[@"share_company"] = @"n";
+        }
+        
+        if ([_currentBtn isSelected]) {
+            _myInfo[@"iscurrent"] = @"y";
+        } else {
+            _myInfo[@"iscurrent"] = @"n";
         }
     }
     else
@@ -1618,6 +1631,7 @@
             _photoFilename = filename;
             _photoData = imageData;
             
+//            _myInfo[@"photourl"] = @"";
             NSLog(@"이미지 저장 경로 : %@", _photoFilename);
         }
 //        _imageView.image = resizedImage;
@@ -1724,10 +1738,22 @@
     
     MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
     [menu updateHeaderInfo];
+    
+    // db에서 자신의 정보를 찾아 업데이트
+    
 }
 
 
 #pragma mark - Network API
+- (void)timeout:(NSDictionary*)dict {
+    NSLog(@"timeout");
+    AFHTTPRequestOperation *operation = [dict objectForKey:@"operation"];
+    if (operation) {
+        [operation cancel];
+    }
+    [[AFNetworkActivityIndicatorManager sharedManager] decrementActivityCount];
+//    [self perform:[[dict objectForKey:@"selector"] pointerValue] on:[dict objectForKey:@"object"] with:nil];
+}
 
 // 내 정보 조회
 - (void)requestAPIMyInfo
@@ -1735,14 +1761,15 @@
     NSString *mobileNo = [Util phoneNumber];
     NSString *userId = [UserContext shared].userId;
     NSString *certNo = [UserContext shared].certNo;
-    
+    NSString *lang = [UserContext shared].language;
+
     if (!mobileNo || !userId | !certNo) {
         return;
     }
     
 //    path    /fb/myinfo
 //    param   scode=5684825a51beb9d2fa05e4675d91253c&userid=ztest01&certno=m9kebjkakte1tvrqfg90i9fh84
-    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo};
+    NSDictionary *param = @{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang};
     NSLog(@"MyInfo Request Parameter : %@", param);
     
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
@@ -1848,10 +1875,16 @@
                                                 
                                                 // DB에도 내 정보 업데이트
                                                 [self updateDBMyInfo];
+                                                
+                                                // 내 정보 조회 호출
+                                                [self performSelector:@selector(requestAPIMyInfo) withObject:nil];
                                             }
                                      }
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSLog(@"error: %@",  operation.responseString);
+                                         NSLog(@"error: %@",  [error localizedDescription]);
+                                         [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                         
+                                         [[SMNetworkClient sharedClient] showNetworkError:error];
                                      }
     ];
     

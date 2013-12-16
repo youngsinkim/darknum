@@ -69,6 +69,27 @@
     NSDictionary *info = [NSDictionary dictionaryWithDictionary:[error userInfo]];
     NSLog(@"error UserInfo : %@", info);
     
+    [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
+        NSLog(@"%d", status);
+    }];
+    
+    if (super.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN ||
+        super.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi ) {
+        
+        NSLog(@"connection");
+    }
+    else {
+        NSLog(@"fail");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:LocalizedString(@"Server Connection Fail", @"서버 연결 오류")
+                                                           delegate:nil
+                                                  cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+
+    
     if ([info isKindOfClass:[NSDictionary class]])
     {
         NSDictionary *decodeInfo = [info dictionaryByUTF8Decode];

@@ -95,25 +95,66 @@
             _nameLabel.text = _cellInfo[@"name"];
         }
         
-        if ([_cellInfo[@"company"] length] > 0 && [_cellInfo[@"department"] length] > 0) {
-            NSString *description = [NSString stringWithFormat:@"%@ | %@ %@", _cellInfo[@"company"], _cellInfo[@"department"], _cellInfo[@"title"]];
-            _memberLabel.text = description;// cellInfo[@"desc"];
+        if ([_cellInfo[@"company"] length] > 0)
+            _memberLabel.text = _cellInfo[@"company"];  // 회사
+        else
+            _memberLabel.text = @"";
+        
+        if ([_cellInfo[@"department"] length] > 0)
+        {
+            if ([_memberLabel.text length] > 0) {
+                _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@" | "];
+            }
+            _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@"%@", _cellInfo[@"department"]];
         }
-        else {
-            _memberLabel.text = @"";    // 스크롤 시, 텍스트 겹침 현상 발생되어 수정
+        
+        if ([_cellInfo[@"title"] length] > 0)
+        {
+            if ([_memberLabel.text length] > 0) {
+                _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@" "];
+            }
+            _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@"%@", _cellInfo[@"title"]];
         }
+        
+//        if ([_cellInfo[@"company"] length] > 0 && [_cellInfo[@"department"] length] > 0) {
+//            NSString *description = [NSString stringWithFormat:@"%@ | %@ %@", _cellInfo[@"company"], _cellInfo[@"department"], _cellInfo[@"title"]];
+//            _memberLabel.text = description;// cellInfo[@"desc"];
+//        }
+//        else {
+//            _memberLabel.text = @"";    // 스크롤 시, 텍스트 겹침 현상 발생되어 수정
+//        }
     }
     else {
         if (_cellInfo[@"name_en"]) {
             _nameLabel.text = _cellInfo[@"name_en"];
         }
         
-        if ([_cellInfo[@"company_en"] length] > 0 && [_cellInfo[@"department_en"] length] > 0) {
-            NSString *description = [NSString stringWithFormat:@" %@ | %@ %@", _cellInfo[@"company_en"], _cellInfo[@"department_en"], _cellInfo[@"title_en"]];
-            _memberLabel.text = description;// cellInfo[@"desc"];
+//        if ([_cellInfo[@"company_en"] length] > 0 && [_cellInfo[@"department_en"] length] > 0) {
+//            NSString *description = [NSString stringWithFormat:@" %@ | %@ %@", _cellInfo[@"company_en"], _cellInfo[@"department_en"], _cellInfo[@"title_en"]];
+//            _memberLabel.text = description;// cellInfo[@"desc"];
+//        }
+//        else {
+//            _memberLabel.text = @"";    // 스크롤 시, 텍스트 겹침 현상 발생되어 수정
+//        }
+        if ([_cellInfo[@"company_en"] length] > 0)
+            _memberLabel.text = _cellInfo[@"company_en"];  // 회사
+        else
+            _memberLabel.text = @"";
+        
+        if ([_cellInfo[@"department_en"] length] > 0)
+        {
+            if ([_memberLabel.text length] > 0) {
+                _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@" | "];
+            }
+            _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@"%@", _cellInfo[@"department_en"]];
         }
-        else {
-            _memberLabel.text = @"";    // 스크롤 시, 텍스트 겹침 현상 발생되어 수정
+        
+        if ([_cellInfo[@"title_en"] length] > 0)
+        {
+            if ([_memberLabel.text length] > 0) {
+                _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@" "];
+            }
+            _memberLabel.text = [_memberLabel.text stringByAppendingFormat:@"%@", _cellInfo[@"title_en"]];
         }
     }
     

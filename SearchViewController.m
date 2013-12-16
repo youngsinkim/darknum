@@ -493,17 +493,18 @@
 // 검색 버튼
 - (void)onSearchBtnClicked:(id)sender
 {
-    if ([_nameTextField.text length] == 0)
-    {
-        if ([_courseTextField.text length] == 0)
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"No Search Text", @"검색어가 없습니다.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil];
-            
-            [alertView show];
-            return;
-        }
-    }
-    else
+// sochae 2013.12.16 - 검색어 2자 이상 입력
+//    if ([_nameTextField.text length] == 0)
+//    {
+//        if ([_courseTextField.text length] == 0)
+//        {
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"No Search Text", @"검색어가 없습니다.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil];
+//            
+//            [alertView show];
+//            return;
+//        }
+//    }
+//    else
     {
 //        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
             if ([_nameTextField.text length] < 2)
@@ -525,16 +526,6 @@
 //        }
     }
     
-//    if ([_nameTextField.text length] == 0) {
-//        if ([_courseTextField.text length] == 0 || [_classTextField.text length] == 0 )
-//        {
-//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"(과정+기수) 또는 (이름)을 검색조건에\n    설정하여 주세요.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
-//            
-//            [alertView show];
-//            
-//            return;
-//        }
-//    }
     
     // 검색 조건 구성
 //    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];

@@ -332,3 +332,6 @@
 
 /* E-Mail */
 "E-Mail" = "E-Mail";
+
+/* Server Connection Fail */
+"Server Connection Fail" = "Server connection failed. Please contact the administrator.";

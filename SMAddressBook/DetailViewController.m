@@ -457,6 +457,43 @@
     // Display message if person not found in the address book
     if ((people != nil) && (people.count == 0))
     {
+        // 로그인 유저 타입
+        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+        
+        // 로그인 교육 과정
+        CourseType myClassType = CourseTypeUnknown;
+        NSString *myCourseStr = [[UserContext shared] myCourse];
+        if ([myCourseStr isEqualToString:@"EMBA"]) {
+            myClassType = CourseTypeEMBA;
+        } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+            myClassType = CourseTypeGMBA;
+        } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+            myClassType = CourseTypeSMBA;
+        }
+        
+        CourseType cellClassType = CourseTypeUnknown;
+        NSString *courseStr = @"";
+        
+        if ([info[@"course.course"] isKindOfClass:[NSString class]]) {
+            courseStr = info[@"course.course"];
+        } else if ([info[@"course"] isKindOfClass:[NSString class]]) {
+            courseStr = info[@"course"];
+        }
+        
+        if (courseStr.length > 0) {
+            if (_memType == MemberTypeStudent)
+            {
+                if ([courseStr isEqualToString:@"EMBA"]) {
+                    cellClassType = CourseTypeEMBA;
+                } else if ([courseStr isEqualToString:@"GMBA"]) {
+                    cellClassType = CourseTypeGMBA;
+                } else if ([courseStr isEqualToString:@"SMBA"]) {
+                    cellClassType = CourseTypeSMBA;
+                }
+            }
+        }
+        
+        
         // Creating new entry
         ABRecordRef newPerson = ABPersonCreate();
         CFErrorRef error = NULL;
@@ -477,8 +514,14 @@
         // Setting basic properties
         ABRecordSetValue(newPerson, kABPersonFirstNameProperty,  (__bridge CFStringRef)info[@"name"], &error);
 //        ABRecordSetValue(newPerson, kABPersonLastNameProperty, CFSTR("Smith"), &error);
-        ABRecordSetValue(newPerson, kABPersonOrganizationProperty, (__bridge CFStringRef)info[@"company"], &error);
-        ABRecordSetValue(newPerson, kABPersonJobTitleProperty, (__bridge CFStringRef)info[@"department"], &error);
+        
+        if (!(myType == MemberTypeStudent &&
+              ([info[@"share_company"] isEqualToString:@"n"] ||
+               ([info[@"share_company"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+               ([info[@"share_company"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown)))) {
+                  ABRecordSetValue(newPerson, kABPersonOrganizationProperty, (__bridge CFStringRef)info[@"company"], &error);
+                  ABRecordSetValue(newPerson, kABPersonJobTitleProperty, (__bridge CFStringRef)info[@"department"], &error);
+              }
         NSAssert( !error, @"Something bad happened here." );
         
         // Adding phone numbers
@@ -486,17 +529,21 @@
         
         NSLog(@"나의 타입 (%@), 대상자 타입(%d)", [[UserContext shared] memberType], _memType);
         BOOL isPossibleSave = YES;
-        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
         
         // 로그인 사용자가 학생인 경우, 교수의 휴대전화를 저장 불가능.
         if (myType == MemberTypeStudent) {
-            if (_memType == MemberTypeFaculty) {
+            if (_memType == MemberTypeFaculty || _memType == MemberTypeStaff) {
                 isPossibleSave = NO;
             }
         }
         
         if (isPossibleSave) {
-            ABMultiValueAddValueAndLabel(multiPhone, (__bridge CFStringRef)info[@"mobile"], kABPersonPhoneMobileLabel, NULL);
+            if (!(myType == MemberTypeStudent &&
+                  ([info[@"share_mobile"] isEqualToString:@"n"] ||
+                   ([info[@"share_mobile"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                   ([info[@"share_mobile"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown)))) {
+                      ABMultiValueAddValueAndLabel(multiPhone, (__bridge CFStringRef)info[@"mobile"], kABPersonPhoneMobileLabel, NULL);
+                  }
         }
         
         if (info[@"tel"]) {
@@ -507,10 +554,14 @@
         
         
         // Adding emails
-        ABMutableMultiValueRef multiEmail = ABMultiValueCreateMutable(kABMultiStringPropertyType);
-        ABMultiValueAddValueAndLabel(multiEmail,  (__bridge CFStringRef)info[@"email"], (CFStringRef)@"Email", NULL);
-        ABRecordSetValue(newPerson, kABPersonEmailProperty, multiEmail, &error);
-
+        if (!(myType == MemberTypeStudent &&
+              ([info[@"share_email"] isEqualToString:@"n"] ||
+               ([info[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+               ([info[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown)))) {
+            ABMutableMultiValueRef multiEmail = ABMultiValueCreateMutable(kABMultiStringPropertyType);
+            ABMultiValueAddValueAndLabel(multiEmail,  (__bridge CFStringRef)info[@"email"], (CFStringRef)@"Email", NULL);
+            ABRecordSetValue(newPerson, kABPersonEmailProperty, multiEmail, &error);
+              }
         // Adding person to the address book
 //        ABAddressBookAddRecord(addressBook, person, nil);
         

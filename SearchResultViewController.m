@@ -178,6 +178,14 @@
         } else {
             predicate = [NSPredicate predicateWithFormat:@"classtitle_en contains[cd] %@", _info[@"courseclass"]];
         }
+    } if ([_info[@"name"] length] > 0 && [_info[@"course"] length] > 0) {
+        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+            predicate = [NSPredicate predicateWithFormat:@"course.course contains[cd] %@ AND name contains[cd] %@", _info[@"course"], _info[@"name"]];
+        } else {
+            predicate = [NSPredicate predicateWithFormat:@"course.course contains[c] %@ AND name_en contains[c] %@", _info[@"course"], _info[@"name"]];
+        }
+    } else if ([_info[@"course"] length] > 0) {
+            predicate = [NSPredicate predicateWithFormat:@"course.course contains[cd] %@", _info[@"course"]];
     } else if ([_info[@"name"] length] > 0) {
         if ([[UserContext shared].language isEqualToString:kLMKorean]) {
             predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", _info[@"name"]];
@@ -193,12 +201,14 @@
     NSError *error = nil;
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
+
+    _loadingStatus = LoadingStatusLoaded;
     
     if (fetchedObjects && [fetchedObjects count] > 0)
     {
-        for (NSDictionary *info in fetchedObjects) {
-            NSLog(@"DB에서 읽은 학생 정보 : %@", info);
-        }
+//        for (NSDictionary *info in fetchedObjects) {
+//            NSLog(@"DB에서 읽은 학생 정보 : %@", info);
+//        }
 
         // 검색된 학생 목록 저장
         return fetchedObjects;

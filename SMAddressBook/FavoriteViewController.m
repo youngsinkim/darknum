@@ -206,7 +206,7 @@
     [super viewDidAppear:animated];
     
     // 서버로 내 정보 요청
-    [self requestAPIMyInfo];
+//    [self requestAPIMyInfo];
 
     MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
     [menu updateHeaderInfo];

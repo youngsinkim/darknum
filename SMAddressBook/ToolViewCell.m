@@ -175,22 +175,56 @@
 
         if ([[UserContext shared].language isEqualToString:kLMKorean])
         {
-            if ([_info[@"company"] length] > 0 && [_info[@"department"] length] > 0) {
-                NSString *description = [NSString stringWithFormat:@"%@ | %@ %@", _info[@"company"], _info[@"department"], _info[@"title"]];
-                _descLabel.text = description;
-            }
-            else {
+            if ([_info[@"company"] length] > 0)
+                _descLabel.text = _info[@"company"];  // 회사
+            else
                 _descLabel.text = @"";
+            
+            if ([_info[@"department"] length] > 0)
+            {
+                if ([_descLabel.text length] > 0) {
+                    _descLabel.text = [_descLabel.text stringByAppendingFormat:@" | "];
+                }
+                _descLabel.text = [_descLabel.text stringByAppendingFormat:@"%@", _info[@"department"]];
+            }
+            
+            if ([_info[@"title"] length] > 0)
+            {
+                if ([_descLabel.text length] > 0) {
+                    _descLabel.text = [_descLabel.text stringByAppendingFormat:@" "];
+                }
+                _descLabel.text = [_descLabel.text stringByAppendingFormat:@"%@", _info[@"title"]];
             }
         }
         else {
-            if ([_info[@"company_en"] length] > 0 && [_info[@"department_en"] length] > 0) {
-                NSString *description = [NSString stringWithFormat:@" %@ | %@ %@", _info[@"company_en"], _info[@"department_en"], _info[@"title_en"]];
-                _descLabel.text = description;
-            }
-            else {
+            if ([_info[@"company_en"] length] > 0)
+                _descLabel.text = _info[@"company_en"];  // 회사
+            else
                 _descLabel.text = @"";
+            
+            if ([_info[@"department_en"] length] > 0)
+            {
+                if ([_descLabel.text length] > 0) {
+                    _descLabel.text = [_descLabel.text stringByAppendingFormat:@" | "];
+                }
+                _descLabel.text = [_descLabel.text stringByAppendingFormat:@"%@", _info[@"department_en"]];
             }
+            
+            if ([_info[@"title_en"] length] > 0)
+            {
+                if ([_descLabel.text length] > 0) {
+                    _descLabel.text = [_descLabel.text stringByAppendingFormat:@" "];
+                }
+                _descLabel.text = [_descLabel.text stringByAppendingFormat:@"%@", _info[@"title_en"]];
+            }
+        }
+        
+        if (myType == MemberTypeStudent && ([info[@"share_email"] isEqualToString:@"n"] ||
+                                            ([info[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
+                                            ([info[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
+            _descLabel.hidden = YES;
+        } else {
+            _descLabel.hidden = NO;
         }
     }
     else if (_memType == MemberTypeFaculty)
