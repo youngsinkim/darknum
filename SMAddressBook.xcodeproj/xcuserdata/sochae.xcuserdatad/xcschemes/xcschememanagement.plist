@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
+		<key>SMAddressBook_AppStore.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -23,6 +28,16 @@
 			<true/>
 		</dict>
 		<key>BF241C75180931AE001A7AA0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BF83D4B118596B50002C1AB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BF83D51C18596C9A002C1AB3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

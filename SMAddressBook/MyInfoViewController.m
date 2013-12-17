@@ -1800,11 +1800,13 @@
                                                  NSLog(@"저장 후 프로필 : %@", [[NSUserDefaults standardUserDefaults] objectForKey:kProfileInfo]);
                                                  
                                                  // 로컬 저장 후, 메모리로 업데이트.
+                                                 [self updateDBMyInfo];
 //                                                 [_myInfo setDictionary:[dict mutableCopy]];
                                                  
 //                                                  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                                   dispatch_async(dispatch_get_main_queue(), ^{
                                                       [self updateMyInfo];
+                                                      
 //                                                      [self onDBUpdate:(NSDictionary *)result];
                                                   });
                                               }
@@ -1874,7 +1876,7 @@
                                                 [menu updateHeaderImage:image];
                                                 
                                                 // DB에도 내 정보 업데이트
-                                                [self updateDBMyInfo];
+//                                                [self updateDBMyInfo];
                                                 
                                                 // 내 정보 조회 호출
                                                 [self performSelector:@selector(requestAPIMyInfo) withObject:nil];

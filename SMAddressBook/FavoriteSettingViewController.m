@@ -268,22 +268,23 @@
                                                           [self requestAPIStudents:param];
 //                                                          [self performSelector:@selector(requestAPIStudents:) withObject:param];
                                                       } else {
-                                                          //TODO: del된 db 삭제.
                                                       }
                                                       
+                                                      NSLog(@"설정 변경했으니 이제 로컬 DB 변경하자.");
+                                                      [self performSelector:@selector(saveDBCourseClasses:) withObject:[param mutableCopy]];
                                                       
                                                       // 즐겨찾기 목록 구성
-                                                      NSLog(@".......... GET DB Favorite Courses ..........");
-//                                                      [_favorites setArray:[self loadDBFavoriteCourses]];
-                                                      NSArray *favorites = [DBMethod loadDBFavoriteCourses];
-                                                      NSLog(@"(최초) 기존 즐겨찾기 DB 목록이 존재하나? %d", [favorites count]);
-                                                      
-                                                      if ([favorites count] > 0)
-                                                      {
-//                                                          [self.favoriteTableView reloadData];
-                                                          MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-                                                          [menu setAddrMenuList:favorites];
-                                                      }
+//                                                      NSLog(@".......... GET DB Favorite Courses ..........");
+////                                                      [_favorites setArray:[self loadDBFavoriteCourses]];
+//                                                      NSArray *favorites = [DBMethod loadDBFavoriteCourses];
+//                                                      NSLog(@"(최초) 기존 즐겨찾기 DB 목록이 존재하나? %d", [favorites count]);
+//                                                      
+//                                                      if ([favorites count] > 0)
+//                                                      {
+////                                                          [self.favoriteTableView reloadData];
+//                                                          MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+//                                                          [menu setAddrMenuList:favorites];
+//                                                      }
 
                                                       
                                                       // DB에서 저장된 즐겨찾기(CourseClass) 목록 불러오기
@@ -853,6 +854,128 @@
     
     
     NSLog(@"----- 학생목록 저장 종료 -----");
+}
+
+/// course classes DB 추가 및 업데이트
+- (void)saveDBCourseClasses:(NSDictionary *)info
+{
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    NSManagedObjectContext *parentContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [parentContext setPersistentStoreCoordinator:appDelegate.persistentStoreCoordinator];
+    //    [mainMoc setParentContext:writeMoc];
+    
+    NSManagedObjectContext *childContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [childContext setParentContext:parentContext];
+    
+    NSManagedObjectContext *findContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [findContext setParentContext:parentContext];
+    
+    __block BOOL done = NO;
+    
+    [childContext performBlock:^{
+        
+//        for (NSDictionary *info in courseClasses)
+        {
+            Course *course = nil;
+            __block NSMutableArray *fetchedObjects = nil;
+            NSLog(@"설정 변경할 기수 정보 : %@", info);
+            
+            [childContext performBlockAndWait:^{
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                
+                NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:parentContext];
+                [fetchRequest setEntity:entity];
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"courseclass == %@", info[@"courseclass"]];
+                [fetchRequest setPredicate:predicate];
+                
+                NSArray *objects = [childContext executeFetchRequest:fetchRequest error:nil];
+                fetchedObjects = [objects mutableCopy];
+                NSLog(@"기수 찾았나? %d", [fetchedObjects count]);
+            }];
+            
+            if ([fetchedObjects count] > 0)
+            {
+                // 기존에 존재하던 기수 과정이면 내용 업데이트
+                course = fetchedObjects[0];
+                
+                // ( NSManagedObject <- NSDictionary )
+                NSLog(@"업데이트 (기수)과정 : course(%@), courseclass(%@), title(%@), favyn(%@), count (%@)", course.course, course.courseclass, course.title, course.favyn, course.count);
+//                course.count = info[@"count"];
+//                course.course = info[@"course"];
+//                course.courseclass = info[@"courseclass"];
+//                course.favyn = info[@"favyn"];
+//                course.title = info[@"title"];
+//                course.title_en = info[@"title_en"];
+                if ([info[@"mode"] isEqualToString:@"add"]) {
+                    course.favyn = @"y";
+                } else {
+                    course.favyn = @"n";
+                }
+                
+                NSLog(@"(%@)과정 목록 DB 저장 성공!", course.courseclass);
+                [childContext save:nil];
+            }
+        } // for
+        
+        done = YES;
+        NSLog(@"..... 설정 변경 완료 done .....");
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            NSLog(@"Saving parent");
+            [parentContext save:nil];
+            
+            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
+            NSArray *objects = [parentContext executeFetchRequest:request error:nil];
+            NSLog(@"Done(Course): %d objects written", [objects count]);
+
+            // 즐겨찾기 목록 구성
+            [self updateFavoriteData];
+//            NSLog(@".......... GET DB Favorite Courses ..........");
+//            NSArray *favorites = [DBMethod loadDBFavoriteCourses];
+//            NSLog(@"(최초) 기존 즐겨찾기 DB 목록이 존재하나? %d", [favorites count]);
+//            
+//            if ([favorites count] > 0)
+//            {
+//                MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+//                [menu setAddrMenuList:[favorites mutableCopy]];
+//            }
+
+            // 업데이트된 (기수)과정 목록 즐겨찾기 화면에 반영
+//            [_favorites setArray:[self loadDBFavoriteCourses]];
+//
+////            for (Course *tmp in objects) {
+////                NSLog(@"old Objects : %@, %@", tmp.courseclass, tmp.title);
+////            }
+//
+//            if ([_favorites count] > 0) {
+//                NSLog(@".......... updateTable ..........");
+//                [self refreshFavoriteTable];
+////                [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+//            }
+//            
+//            if (_isSavingFavorites == NO) {
+//                [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
+//            }
+            
+        });
+        
+    }]; // childContext
+    
+    // execute a read request after 0.5 second
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+        
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
+        [parentContext performBlockAndWait:^{
+            
+            NSArray *objects = [parentContext executeFetchRequest:request error:nil];
+            NSLog(@"In between read: read %d objects", [objects count]);
+        }];
+    });
+    NSLog(@"---------- END ----------");
 }
 
 

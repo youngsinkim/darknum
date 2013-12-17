@@ -150,6 +150,9 @@
             
             MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
             [menu setAddrMenuList:self.favorites];
+        } else {
+//            NSLog(@"최초 실행이면, 내 정보 서버에서 요청");
+//            [self requestAPIMyInfo];
         }
         
 
@@ -207,9 +210,6 @@
     
     // 서버로 내 정보 요청
 //    [self requestAPIMyInfo];
-
-    MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-    [menu updateHeaderInfo];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -646,7 +646,7 @@
                                                      [menu updateHeaderInfo];
 
 //                                                     [self updateMyInfo];
-                                                     //                                                      [self onDBUpdate:(NSDictionary *)result];
+//                                                      [self onDBUpdate:(NSDictionary *)result];
                                                  });
                                              }
                                          }];
@@ -1320,7 +1320,10 @@
 //                [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
             }
 
-            
+            // 메뉴의 내 정보 업데이트 (기수 정보 받아온 이후에 처리해야 내 과정 정보가 누락되지 않음)
+            MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+            [menu updateHeaderInfo];
+
             if (_isSavingFavorites == NO) {
                 [self performSelector:@selector(saveDBFavoriteUpdates) withObject:nil];
             }
