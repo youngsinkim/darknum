@@ -15,5 +15,6 @@
 @property (strong, nonatomic) UILabel *menuLabel;
 //@property (strong, nonatomic) NSDictionary *cellInfo;
 @property (strong, nonatomic) NSString *iconName;
+@property (strong, nonatomic) UIColor *rgbColor;
 
 @end

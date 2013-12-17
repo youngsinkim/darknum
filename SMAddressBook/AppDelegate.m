@@ -45,6 +45,11 @@
 
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    if (!IS_LESS_THEN_IOS7) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+    }
 
     
     //-------------------- App 사용 메모리 설정 --------------------
@@ -165,11 +170,6 @@
 //
 //        [self.navigationController presentViewController:termsViewController animated:NO completion:nil];
 //        }
-
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    }
 
     return YES;
 }
@@ -714,6 +714,10 @@
         
         [alert show];
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 @end

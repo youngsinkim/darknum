@@ -57,6 +57,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    [self setNeedsStatusBarAppearanceUpdate];
+    
 //    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, 320, 44)];
 //    _titleLabel.textAlignment = UITextAlignmentLeft;
 ////    titleLabel.text = LocalizedString(@"favorite_title", @"즐겨찾기");
@@ -359,4 +361,7 @@
     self.menuContainerViewController.centerViewController = [leftMenu navigationController:searchViewController];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 @end

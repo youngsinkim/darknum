@@ -89,6 +89,13 @@
     }
 }
 
+- (void)setRgbColor:(UIColor *)rgbColor
+{
+    _rgbColor = rgbColor;
+    _menuLabel.textColor = _rgbColor;
+    [_menuLabel setNeedsDisplay];
+}
+
 //- (void)setCellInfo:(NSDictionary *)cellInfo
 //{
 //    _cellInfo = cellInfo;

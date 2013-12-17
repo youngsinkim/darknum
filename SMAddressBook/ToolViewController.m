@@ -78,7 +78,17 @@
     } else {
         [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
         self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}]; // 네비게이션바 타이틀 색
         [self.navigationController.navigationBar setTranslucent:NO];
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+//        [[UINavigationBar appearance] setTitleTextAttributes:
+//         [NSDictionary dictionaryWithObjectsAndKeys:
+//          [UIColor whiteColor], NSForegroundColorAttributeName,
+//          [UIColor whiteColor], NSForegroundColorAttributeName,
+//          [NSValue valueWithUIOffset:UIOffsetMake(0, -1)], NSForegroundColorAttributeName,
+//          [UIFont fontWithName:@"Arial-Bold" size:0.0], NSFontAttributeName,
+//          nil]];
     }
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onClose)];
     
@@ -1185,6 +1195,10 @@
 	}
 	
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 @end

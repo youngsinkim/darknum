@@ -96,6 +96,8 @@
 {
     [super viewDidLoad];
 
+//    [self setNeedsStatusBarAppearanceUpdate];
+
     _titleView.title = LocalizedString(@"Favorites", @"즐겨찾기");
 
     NSLog(@"---------- START ----------");
@@ -111,6 +113,10 @@
     // 프로그래스바 구성
     [self initUpdateProgress];
     
+    // 이전 프로필이 있으면 메뉴의 사용자 정보 업데이트
+    MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+    [menu updateHeaderInfo];
+
 //    [_favoriteTableView reloadData];
     NSLog(@"---------- END ----------");
 }
@@ -2998,6 +3004,10 @@
     // TODO: 업데이트 카운트 한 번만 쓰고 0으로 초기화. (다음 로그인 시에 다시 세팅)
     [UserContext shared].updateCount = 0;
 
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 @end
 

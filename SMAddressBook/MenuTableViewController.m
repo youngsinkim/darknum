@@ -171,10 +171,10 @@
     TermsViewController *termsVC = [[TermsViewController alloc] init];
     HelpViewController *helpVC = [[HelpViewController alloc] init];
 
-    _settMenuList = @[@{@"type":[NSNumber numberWithInt:MenuViewTypeSettMyInfo], @"title":LocalizedString(@"My Page", @"내 정보설정"), @"icon":@"ic_mf_mypage", @"viewController":myInfoVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"Favorite Settings", @"즐겨찾기 설정"), @"icon":@"ic_mf_bm", @"viewController":fvSettingVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettTerms], @"title":LocalizedString(@"terms_text", @"약관 및 정책"), @"icon":@"ic_mf_terms", @"viewController":termsVC},
-                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettHelp], @"title":LocalizedString(@"Help", @"도움말"), @"icon":@"ic_mf_help", @"viewController":helpVC}];
+    _settMenuList = @[@{@"type":[NSNumber numberWithInt:MenuViewTypeSettMyInfo], @"title":LocalizedString(@"My Page", @"내 정보설정"), @"icon":@"ic_mf_mypage", @"viewController":myInfoVC, @"color":@"0xffffff"},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettFavorite], @"title":LocalizedString(@"Favorite Settings", @"즐겨찾기 설정"), @"icon":@"ic_mf_bm", @"viewController":fvSettingVC, @"color":@"0xffffff"},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettTerms], @"title":LocalizedString(@"terms_text", @"약관 및 정책"), @"icon":@"ic_mf_terms", @"viewController":termsVC, @"color":@"0xffffff"},
+                      @{@"type":[NSNumber numberWithInt:MenuViewTypeSettHelp], @"title":LocalizedString(@"Help", @"도움말"), @"icon":@"ic_mf_help", @"viewController":helpVC, @"color":@"0xffffff"}];
     
 
 }
@@ -204,7 +204,7 @@
 {
     CourseTotalViewController *courseTotalVC = [[CourseTotalViewController alloc] init];
     
-    NSDictionary *courseDict = @{@"type":[NSNumber numberWithInt:MenuViewTypeAddrTotalStudent], @"title":LocalizedString(@"Member List", @"전체보기"), @"icon":@"ic_mf_all", @"viewController":courseTotalVC};
+    NSDictionary *courseDict = @{@"type":[NSNumber numberWithInt:MenuViewTypeAddrTotalStudent], @"title":LocalizedString(@"Member List", @"전체보기"), @"icon":@"ic_mf_all", @"viewController":courseTotalVC, @"color":@"0xffffff"};
     
     return courseDict;
 }
@@ -345,6 +345,7 @@
             if (![dict isEqual:[NSNull null]]) {
                 cell.menuLabel.text = dict[@"title"];
                 cell.iconName = dict[@"icon"];
+                cell.rgbColor = UIColorFromRGB(0xcd5734);
             }
         } else {
             Course *course = _addrMenuList[indexPath.row];
@@ -370,6 +371,8 @@
                 }
 
             }
+            cell.rgbColor = UIColorFromRGB(0xaaaaaa);
+
         }
     
     } else {
@@ -378,6 +381,7 @@
         if (![dict isEqual:[NSNull null]]) {
             cell.menuLabel.text = dict[@"title"];
             cell.iconName = dict[@"icon"];
+            cell.rgbColor = UIColorFromRGB(0xaaaaaa);
         }
     }
     return cell;
