@@ -42,6 +42,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 
+    if (!IS_LESS_THEN_IOS7) {
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];// UIColorFromRGB(0x142c6d);
+        [self.navigationController.navigationBar setTranslucent:NO];
+        
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}]; // 네비게이션바 타이틀 색
+    }
+
     // 보내기 버튼
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(0.0f, 0.0f, 49.0f, 30.0f);

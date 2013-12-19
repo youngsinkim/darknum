@@ -67,11 +67,12 @@
     CGFloat xOffset = 24.0f;
     
     // 본인인증 안내 문구
-    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOffset, yOffset, rect.size.width - (xOffset * 2), 30.0f)];
+    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, yOffset, rect.size.width - (10.0f * 2), 30.0f)];
     [_infoLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [_infoLabel setNumberOfLines:0];
     [_infoLabel setFont:[UIFont systemFontOfSize:13.0f]];
     _infoLabel.textColor = UIColorFromRGB(0x333333);
+    _infoLabel.textAlignment = NSTextAlignmentCenter;
     _infoLabel.backgroundColor = [UIColor clearColor];
     _infoLabel.text = LocalizedString(@"Athentication Description", @"본인인증 안내");
     

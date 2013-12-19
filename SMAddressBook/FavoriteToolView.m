@@ -59,7 +59,7 @@
     UIImage *btnImage = [UIImage imageNamed:@"btn_darkgray"];
     _favoriteSettBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _favoriteSettBtn.frame = CGRectMake(xOffset, yOffset, btnImage.size.width, btnImage.size.height);
-    [_favoriteSettBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Favorite Settings", @"즐겨찾기 설정")] forState:UIControlStateNormal];
+    [_favoriteSettBtn setTitle:[NSString stringWithFormat:@"%@", LocalizedString(@"Favy Settings", @"즐겨찾기 설정")] forState:UIControlStateNormal];
     [_favoriteSettBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateNormal];
     [_favoriteSettBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateHighlighted];
 //    [_favoriteSettBtn setBackgroundColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];

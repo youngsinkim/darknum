@@ -38,7 +38,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.navigationItem.title = LocalizedString(@"Favorite Settings", @"즐겨찾기 설정");
+        self.navigationItem.title = LocalizedString(@"Favy Settings", @"즐겨찾기 설정");
         
         _courses = [[NSMutableArray alloc] initWithCapacity:4];
         _courseClasses = [[NSMutableArray alloc] initWithCapacity:4];

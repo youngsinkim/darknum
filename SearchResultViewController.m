@@ -206,9 +206,9 @@
     
     if (fetchedObjects && [fetchedObjects count] > 0)
     {
-//        for (NSDictionary *info in fetchedObjects) {
-//            NSLog(@"DB에서 읽은 학생 정보 : %@", info);
-//        }
+        for (NSDictionary *info in fetchedObjects) {
+            NSLog(@"DB에서 읽은 학생 정보 : %@", info);
+        }
 
         // 검색된 학생 목록 저장
         return fetchedObjects;

@@ -65,8 +65,10 @@
     CGSize viewSize = self.frame.size;
 //    NSLog(@"size (%f, %f)", viewSize.width, viewSize.height);
     
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+    
     NSInteger btnCount = 4;
-    if (_memType != MemberTypeStudent) {
+    if (myType == MemberTypeStudent && _memType != MemberTypeStudent) {
         btnCount = 3;
     }
 
@@ -127,8 +129,10 @@
     _telBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
     
     [_telBtn setTitle:LocalizedString(@"Phone Call", @"전화") forState:UIControlStateNormal];
-    [_telBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [_telBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_telBtn setTitleColor:UIColorFromRGB(0xeeeeee) forState:UIControlStateNormal];
+    [_telBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateHighlighted];
+    [_telBtn setTitleColor:UIColorFromRGB(0xaaaaaa) forState:UIControlStateDisabled];
+    [_telBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
     [_telBtn setImage:[UIImage imageNamed:@"ic_fn_phone"] forState:UIControlStateNormal];
     [_telBtn setImage:[UIImage imageNamed:@"ic_fn_phone_press"] forState:UIControlStateHighlighted];
     [_telBtn setImage:[UIImage imageNamed:@"ic_fn_phone_disable"] forState:UIControlStateDisabled];
@@ -142,14 +146,18 @@
     
     
     // 문자 버튼
-    if (_memType == MemberTypeStudent) {
+//    if (_memType == MemberTypeStudent)
+    if (!(myType == MemberTypeStudent && _memType != MemberTypeStudent))
+    {
         _smsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _smsBtn.tag = tag++;
         _smsBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
         
         [_smsBtn setTitle:LocalizedString(@"sms", @"문자") forState:UIControlStateNormal];
-        [_smsBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        [_smsBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        [_smsBtn setTitleColor:UIColorFromRGB(0xeeeeee) forState:UIControlStateNormal];
+        [_smsBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateHighlighted];
+        [_smsBtn setTitleColor:UIColorFromRGB(0xaaaaaa) forState:UIControlStateDisabled];
+        [_smsBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
         [_smsBtn setImage:[UIImage imageNamed:@"ic_fn_sms"] forState:UIControlStateNormal];
         [_smsBtn setImage:[UIImage imageNamed:@"ic_fn_sms_press"] forState:UIControlStateHighlighted];
         [_smsBtn setImage:[UIImage imageNamed:@"ic_fn_sms_disable"] forState:UIControlStateDisabled];
@@ -168,8 +176,10 @@
     _emailBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
     
     [_emailBtn setTitle:LocalizedString(@"email", @"이메일") forState:UIControlStateNormal];
-    [_emailBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [_emailBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_emailBtn setTitleColor:UIColorFromRGB(0xeeeeee) forState:UIControlStateNormal];
+    [_emailBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateHighlighted];
+    [_emailBtn setTitleColor:UIColorFromRGB(0xaaaaaa) forState:UIControlStateDisabled];
+    [_emailBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
     [_emailBtn setImage:[UIImage imageNamed:@"ic_fn_mail"] forState:UIControlStateNormal];
     [_emailBtn setImage:[UIImage imageNamed:@"ic_fn_mail_press"] forState:UIControlStateHighlighted];
     [_emailBtn setImage:[UIImage imageNamed:@"ic_fn_mail_disable"] forState:UIControlStateDisabled];
@@ -188,8 +198,10 @@
     _saveBtn.frame = CGRectMake(xOffset, yOffset, btnWidth, kDetailViewH);
     
     [_saveBtn setTitle:LocalizedString(@"save", @"저장") forState:UIControlStateNormal];
-    [_saveBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    [_saveBtn.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
+    [_saveBtn setTitleColor:UIColorFromRGB(0xeeeeee) forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:UIColorFromRGB(0xffffff) forState:UIControlStateHighlighted];
+    [_saveBtn setTitleColor:UIColorFromRGB(0xaaaaaa) forState:UIControlStateDisabled];
+    [_saveBtn.titleLabel setFont:[UIFont boldSystemFontOfSize:11.0f]];
     [_saveBtn setImage:[UIImage imageNamed:@"ic_fn_save"] forState:UIControlStateNormal];
     [_saveBtn setImage:[UIImage imageNamed:@"ic_fn_save_press"] forState:UIControlStateHighlighted];
     [_saveBtn setImage:[UIImage imageNamed:@"ic_fn_save_disable"] forState:UIControlStateDisabled];

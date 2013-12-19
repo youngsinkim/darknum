@@ -43,7 +43,7 @@
     if (self) {
         // Custom initialization
 //        self.navigationItem.title = LocalizedString(@"Login", @"로그인");
-        self.navigationItem.title = LocalizedString(@"SNU Biz members", @"SNU Biz members");
+        self.navigationItem.title = LocalizedString(@"SNU Biz Members", @"SNU Biz Members");
     }
     return self;
 }

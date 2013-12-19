@@ -96,8 +96,6 @@
 {
     [super viewDidLoad];
 
-//    [self setNeedsStatusBarAppearanceUpdate];
-
     _titleView.title = LocalizedString(@"Favorites", @"즐겨찾기");
 
     NSLog(@"---------- START ----------");

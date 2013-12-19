@@ -126,8 +126,8 @@
 /* agree personal */
 "agree personal" = "I read terms and personal privacy policy.";
 
-/* Favorite Settings */
-"Favorite Settings" = "Favorite Settings";
+/* Favy Settings */
+"Favy Settings" = "Favorite Settings";
 
 /* send */
 "send" = "Send";
@@ -199,19 +199,19 @@
 "Search Name Text" = "Name or Phone number";
 
 /* Athentication Description */
-"Athentication Description" = "Athentication: Please enter your cell phone no. and verification code";
+"Athentication Description" = "Athentication: Please enter your cell phone no.";
 
 /* Verification code */
-"Verification code" = "Verification code";
+"Verification code" = "Verification Code";
 
 /* Send Verification Code */
-"Send Verification Code" = "Send Verification Code";
+"Send Verification Code" = "Send";
 
 /* Submit */
 "Submit" = "Submit";
 
 /* Cell Phone No. */
-"cell phone no." = "cell phone no.";
+"cell phone no." = "Cell Phone No.";
 
 /* Favorite Static Course */
 "Favorite Static Course" = "Faculty / Staff";
@@ -268,7 +268,7 @@
 "No Search Text" = "There are no search terms.";
 
 /* No Search Text Length */
-"No Search Text %d Length" = "You must enter at least %d letters as a search term.";
+"No Search Text Length" = "You must enter at least two letters as a search term.";
 
 /* Auto Login */
 "Auto Login" = "Auto Log-in";

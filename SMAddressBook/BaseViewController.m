@@ -57,8 +57,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [self setNeedsStatusBarAppearanceUpdate];
-    
 //    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, 320, 44)];
 //    _titleLabel.textAlignment = UITextAlignmentLeft;
 ////    titleLabel.text = LocalizedString(@"favorite_title", @"즐겨찾기");
@@ -76,19 +74,21 @@
 //    [[UINavigationBar appearance] setBackgroundColor:UIColorFromRGB(0x104E8B)];
     if (IS_LESS_THEN_IOS7) {
         [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1]];
-    } else {
+    }
+    else
+    {
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+        
 //        [self.navigationController.navigationBar setTintColor:[UIColor blueColor]];
 //        [self.navigationController.navigationBar setBackgroundColor:[UIColor grayColor]];
 //        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0x0080FF)];
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];// UIColorFromRGB(0x142c6d);
         [self.navigationController.navigationBar setTranslucent:NO];
 
-        
-        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];// UIColorFromRGB(0x142c6d);
-        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-        
         //sets navBar TITLE color and font
-        NSDictionary *textAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-        self.navigationController.navigationBar.titleTextAttributes = textAttributes;
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
     }
     
     // 타이틀 뷰

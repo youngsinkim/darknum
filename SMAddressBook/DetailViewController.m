@@ -68,8 +68,20 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-//    self.navigationController.navigationBar.opaque = NO;
+    
+    if (IS_LESS_THEN_IOS7) {
+        [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1]];
+    }
+    else
+    {
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];// UIColorFromRGB(0x142c6d);
+        [self.navigationController.navigationBar setTranslucent:NO];
+        
+        //sets navBar TITLE color and font
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    }
+    
     
     CGRect rect = self.view.frame;
     rect.size.height -= kDetailViewH;
@@ -242,12 +254,23 @@
     // 해당 셀로 이동.
 //    [self.horListView scrollToIndex:3 animated:YES];
 
+    NSDictionary *info = _contacts[_currentIdx];
+    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+        if (info[@"name"]) {
+            self.navigationItem.title = info[@"name"];
+        }
+    } else {
+        if (info[@"name_en"]) {
+            self.navigationItem.title = info[@"name_en"];
+        }
+    }
+
 }
 
 - (void)setCurrentIdx:(NSInteger)currentIdx
 {
     _currentIdx = currentIdx;
-    
+
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_currentIdx inSection:0];
     [_horListView selectCellAtIndexPath:indexPath animated:NO];
 }
@@ -579,7 +602,20 @@
         picker.displayedPerson = newPerson;
         picker.navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onNewPersonCancelClick)];
 
-        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:picker];
+        PortraitNavigationController *navigation = [[PortraitNavigationController alloc] initWithRootViewController:picker];
+        if (IS_LESS_THEN_IOS7) {
+            [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1]];
+        }
+        else
+        {
+            [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+            self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:22.0/255.0 green:44.0/255.0 blue:109.0/255.0 alpha:1];// UIColorFromRGB(0x142c6d);
+            [self.navigationController.navigationBar setTranslucent:NO];
+            
+            //sets navBar TITLE color and font
+            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        }
+
         [self presentViewController:navigation animated:YES completion:nil];
         
     }
@@ -880,7 +916,9 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     if (!IS_LESS_THEN_IOS7) {
         yOffset = 20.0f;
     }
+    
     DetailViewCell *cellView = [[DetailViewCell alloc] initWithFrame:CGRectMake(0, yOffset, rect.size.width, rect.size.height-yOffset)];
+    
 #ifdef USE_SCROLL
     if (IS_LESS_THEN_IOS7 && ([[UIScreen mainScreen] bounds].size.height < 568)) {
         cellView.contentSize = CGSizeMake(320.0f, cellView.frame.size.height + 50.0f);  // iPhone5가 아닌 경우, 화면 내용이 잘릴 수 있어 스크롤 뷰로 변경하고 컨텐츠 사이즈 임의로 조정
@@ -922,7 +960,22 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         return;
     }
     
+    // 로그인 유저 타입
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+    
+    // 로그인 교육 과정
+    CourseType myClassType = CourseTypeUnknown;
+    NSString *myCourseStr = [[UserContext shared] myCourse];
+    if ([myCourseStr isEqualToString:@"EMBA"]) {
+        myClassType = CourseTypeEMBA;
+    } else if ([myCourseStr isEqualToString:@"GMBA"]) {
+        myClassType = CourseTypeGMBA;
+    } else if ([myCourseStr isEqualToString:@"SMBA"]) {
+        myClassType = CourseTypeSMBA;
+    }
+
     DetailViewCell *cell = (DetailViewCell *)view;
+
 #ifdef USE_SCROLL
     cell.contentOffset = CGPointZero;   // 해당 셀이 ScrollView일 경우에 해당
 #endif
@@ -940,28 +993,38 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     NSDictionary *info = _contacts[indexPath.row];
     NSLog(@"상세 정보 : %@", info);
     
+    
     if (_memType == MemberTypeFaculty) {
         [(DetailViewCell *)cell setMemType:MemberTypeFaculty];
+
+        if ([info[@"tel"] length] > 0 || (myType != MemberTypeStudent && [info[@"mobile"] length] > 0)) {
+            _toolbar.telBtn.enabled = YES;
+        } else {
+            _toolbar.telBtn.enabled = NO;
+        }
+        
+        if ([info[@"email"] length] == 0) {
+            _toolbar.emailBtn.enabled = NO;
+        }
+
     } else if (_memType == MemberTypeStaff) {
         [(DetailViewCell *)cell setMemType:MemberTypeStaff];
+        
+        if ([info[@"tel"] length] > 0 || (myType != MemberTypeStudent && [info[@"mobile"] length] > 0)) {
+            _toolbar.telBtn.enabled = YES;
+        } else {
+            _toolbar.telBtn.enabled = NO;
+        }
+        
+        if ([info[@"email"] length] == 0) {
+            _toolbar.emailBtn.enabled = NO;
+        }
+
     }
     else if (_memType == MemberTypeStudent)
     {
         [(DetailViewCell *)cell setMemType:MemberTypeStudent];
         
-        // 로그인 유저 타입
-        MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
-        
-        // 로그인 교육 과정
-        CourseType myClassType = CourseTypeUnknown;
-        NSString *myCourseStr = [[UserContext shared] myCourse];
-        if ([myCourseStr isEqualToString:@"EMBA"]) {
-            myClassType = CourseTypeEMBA;
-        } else if ([myCourseStr isEqualToString:@"GMBA"]) {
-            myClassType = CourseTypeGMBA;
-        } else if ([myCourseStr isEqualToString:@"SMBA"]) {
-            myClassType = CourseTypeSMBA;
-        }
         
         CourseType cellClassType = CourseTypeUnknown;
         NSString *courseStr = @"";
@@ -993,8 +1056,14 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
                                             ([info[@"share_email"] isEqualToString:@"q"] && myClassType != cellClassType) ||
                                             ([info[@"share_email"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
             _toolbar.emailBtn.enabled = NO;
-        } else {
-            _toolbar.emailBtn.enabled = YES;
+        }
+        else
+        {
+            if ([info[@"email"] length] > 0) {
+                _toolbar.emailBtn.enabled = YES;
+            } else {
+                _toolbar.emailBtn.enabled = NO;
+            }
         }
         
         if (myType == MemberTypeStudent && ([info[@"share_mobile"] isEqualToString:@"n"] ||
@@ -1002,26 +1071,38 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
                                             ([info[@"share_mobile"] isEqualToString:@"q"] && myClassType == cellClassType && cellClassType == CourseTypeUnknown))) {
             _toolbar.telBtn.enabled = NO;
             _toolbar.smsBtn.enabled = NO;
-        } else {
-            _toolbar.telBtn.enabled = YES;
-            _toolbar.smsBtn.enabled = YES;
+        }
+        else
+        {
+            if ([info[@"mobile"] length] > 0) {
+                _toolbar.telBtn.enabled = YES;
+                _toolbar.smsBtn.enabled = YES;
+            } else {
+                _toolbar.telBtn.enabled = NO;
+                _toolbar.smsBtn.enabled = NO;
+            }
+
         }
 
     } else {
         return;
     }
+    
     [(DetailViewCell *)cell setCellInfo:info];
     
-    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-        if (info[@"name"]) {
-            self.navigationItem.title = info[@"name"];
-        }
-    } else {
-        if (info[@"name_en"]) {
-            self.navigationItem.title = info[@"name_en"];
-        }
-    }
-
+//    NSLog(@"셀 인덱스 정보 (%d == %d), name (%@)", indexPath.row, _pageControl.currentPage, info[@"name"]);
+//    if (indexPath.row == _pageControl.currentPage)
+//    {
+//        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+//            if (info[@"name"]) {
+//                self.navigationItem.title = info[@"name"];
+//            }
+//        } else {
+//            if (info[@"name_en"]) {
+//                self.navigationItem.title = info[@"name_en"];
+//            }
+//        }
+//    }
 
 //	UILabel *label	= (UILabel *)view;
 //	label.text		= [NSString stringWithFormat:@"%i", indexPath.row];
@@ -1051,14 +1132,19 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     NSLog(@"셀(스크롤) 정보 : (%f, %f)", contentOffset.x, contentOffset.y);
     if ([_contacts count] > 0)
     {
-        NSInteger index = (NSInteger)contentOffset.x / 320;
-        if (index < [_contacts count]) {
+        CGFloat f = contentOffset.x / 320.0f;
+        NSNumber *idxNumber = [NSNumber numberWithFloat:(f + 0.5f)];
+//        NSInteger index = (NSInteger)(contentOffset.x / 320.0f);
+        NSInteger index = [idxNumber integerValue];
+        if (index < [_contacts count])
+        {
             _currentIdx = index;
-            NSLog(@"셀 index : %d", _currentIdx);
-            NSLog(@"셀 정보 : %@", _contacts[_currentIdx]);
+
+            NSLog(@"셀 index (%d == %d)", index, _currentIdx);
 
             NSDictionary *info = _contacts[_currentIdx];
-            NSLog(@"상세 정보 : %@", info);
+            NSLog(@"셀 정보 (이름) : %@", _contacts[_currentIdx][@"name"]);
+//            NSLog(@"상세 정보 : %@", info);
 
             if ([[UserContext shared].language isEqualToString:kLMKorean]) {
                 if (info[@"name"]) {
@@ -1101,5 +1187,19 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
     _pageControl.currentPage = floor((scrollView.contentOffset.x - pageWidth / 3) / pageWidth) + 1;
 }
 
+#pragma mark - DetailViewCellDelegate methods
+- (void)updatedCellInfo:(NSDictionary *)info
+{
+    NSLog(@"변경되어요. 상세정보가.... %@", info[@"name"]);
+//    if ([[UserContext shared].language isEqualToString:kLMKorean]) {
+//        if (info[@"name"]) {
+//            self.navigationItem.title = info[@"name"];
+//        }
+//    } else {
+//        if (info[@"name_en"]) {
+//            self.navigationItem.title = info[@"name_en"];
+//        }
+//    }
 
+}
 @end

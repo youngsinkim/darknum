@@ -28,10 +28,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    if (!IS_LESS_THEN_IOS7) {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        //        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
-    }
+//    if (!IS_LESS_THEN_IOS7) {
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//        [self.navigationBar setBarStyle:UIBarStyleBlack];
+//        //        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+//    }
 
     //FIXME: 네비게이션바 커스텀 이미지(색상) 설정 변경
 //    [[self navigationBar] setBackgroundImage:[UIImage imageNamed:@"nav_title_bg"] forBarMetrics:UIBarMetricsDefault];

@@ -360,7 +360,7 @@
     if (_cellInfo[@"mobile"] && [_cellInfo[@"mobile"] length] > 0) {
         _mobileValueLabel.text = _cellInfo[@"mobile"];
     }
-
+    
     // 전직/현직 표시
     if ([_cellInfo[@"iscurrent"] isEqualToString:@"y"]) {
         _currentLabel.text = [NSString stringWithString:LocalizedString(@"currented", nil)];
@@ -512,6 +512,12 @@
             _mobilebgView.hidden = NO;
             _mobileIconView.hidden = NO;
             _mobileValueLabel.hidden = NO;
+
+            if ([_cellInfo[@"mobile"] length] == 0) {
+                _mobilebgView.hidden = YES;
+                _mobileIconView.hidden = YES;
+                _mobileValueLabel.hidden = YES;
+            }
         }
 //        if ([_cellInfo[@"share_mobile"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
 //            _mobilebgView.hidden = NO;
@@ -535,6 +541,12 @@
             _emailbgView.hidden = NO;
             _emilIconView.hidden = NO;
             _emailValueLabel.hidden = NO;
+            
+            if ([_cellInfo[@"email"] length] == 0) {
+                _emailbgView.hidden = YES;
+                _emilIconView.hidden = YES;
+                _emailValueLabel.hidden = YES;
+            }
         }
 //        if ([_cellInfo[@"share_email"] isEqualToString:@"y"] || myType != MemberTypeStudent) {
 //            _emailbgView.hidden = NO;
@@ -582,7 +594,7 @@
             }
         }
         
-        if (myType == MemberTypeStudent) {
+        if (myType == MemberTypeStudent || [_mobileValueLabel.text length] == 0) {
             _mobilebgView.hidden = YES;
             _mobileIconView.hidden = YES;
             _mobileValueLabel.hidden = YES;
@@ -592,6 +604,17 @@
             _mobileValueLabel.hidden = NO;
         }
 
+        if ([_cellInfo[@"email"] length] == 0) {
+            _emailbgView.hidden = YES;
+            _emilIconView.hidden = YES;
+            _emailValueLabel.hidden = YES;
+        } else {
+            _emailbgView.hidden = NO;
+            _emilIconView.hidden = NO;
+            _emailValueLabel.hidden = NO;
+        }
+
+        
 //        _emailValueLabel.text = _cellInfo[@"email"];
         if ([[UserContext shared].language isEqualToString:kLMKorean]) {
             _officeValueLabel.text = _cellInfo[@"office"];

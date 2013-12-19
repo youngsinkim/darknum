@@ -20,6 +20,7 @@
 //@property (retain, nonatomic) NSString *selectedText;
 //@property (assign, nonatomic) NSInteger selectedTextTag;
 @property (assign, nonatomic) NSInteger selectedCourseIdx;      // 선택된 과정 index
+@property (assign, nonatomic) NSInteger selectedClassIdx;      // 선택된 기수 index
 
 @property (strong, nonatomic) UILabel *courseLabel;
 @property (strong, nonatomic) UILabel *classLabel;
@@ -50,6 +51,7 @@
 //        _classes = [[NSMutableArray alloc] init];
         _courseArray = [[NSMutableArray alloc] init];
         _selectedCourseIdx = -1;
+        _selectedClassIdx = -1;
 //        _selectedTextTag = 0;
 
     }
@@ -79,22 +81,26 @@
         NSMutableDictionary *subInfo = [[NSMutableDictionary alloc] init];
         NSMutableArray *classArray = [[NSMutableArray alloc] init];
 
+        NSMutableDictionary *cCodeDict = [[NSMutableDictionary alloc] init];
+        NSMutableArray *cCodeArr = [[NSMutableArray alloc] init];
+
         [subInfo setValuesForKeysWithDictionary:courseInfo];
         NSLog(@"과정 : %@", courseInfo);
         
         NSArray *tmpClass = [self loadDBCourseClasses:courseInfo[@"course"]];
         for (NSDictionary *classInfo in tmpClass)
         {
-            NSLog(@"기수 : %@ (%@)", classInfo[@"title"], classInfo[@"title_en"]);
+            NSLog(@"기수 : %@ (%@), 코드 : %@", classInfo[@"title"], classInfo[@"title_en"], classInfo[@"courseclass"]);
             if ([[UserContext shared].language isEqualToString:kLMKorean]) {
                 [classArray addObject:classInfo[@"title"]];
             } else {
                 [classArray addObject:classInfo[@"title_en"]];
             }
+            [cCodeArr addObject:classInfo[@"courseclass"]];
         }
-        
         [subInfo setValue:classArray forKey:@"sub"];
-        
+        [subInfo setValue:cCodeArr forKey:@"code"];
+
         [_courseArray addObject:subInfo];
         NSLog(@"과정 추가 : %@", subInfo);
     }
@@ -374,9 +380,10 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"title"];
-    NSAttributeDescription *type2 = [entity.attributesByName objectForKey:@"title_en"];
-    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, type2, nil]];
+    NSAttributeDescription *title = [entity.attributesByName objectForKey:@"title"];
+    NSAttributeDescription *title_en = [entity.attributesByName objectForKey:@"title_en"];
+    NSAttributeDescription *type = [entity.attributesByName objectForKey:@"courseclass"];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:type, title, title_en, nil]];
 //    [fetchRequest setPropertiesToGroupBy:[NSArray arrayWithObject:type]];
     [fetchRequest setResultType:NSDictionaryResultType];
     
@@ -436,6 +443,7 @@
             [sender performSelector:@selector(setText:) withObject:selectedValue];
         }
         NSLog(@"text field : %@ == %@", selectedValue, _courseTextField.text);
+        _selectedClassIdx = selectedIndex;
         [_classDelBtn setHidden:NO];
     };
     
@@ -509,7 +517,7 @@
 //        if ([[UserContext shared].language isEqualToString:kLMKorean]) {
             if ([_nameTextField.text length] < 2)
             {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"No Search Text 2 Length", @"검색어는 2자 이상 입력하셔야 합니다.") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"No Search Text Length", @"검색어는 2자 이상 입력 알림") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:nil];
                 
                 [alertView show];
                 return;
@@ -529,7 +537,14 @@
     
     // 검색 조건 구성
 //    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    NSDictionary *info = @{@"course":_courseTextField.text, @"courseclass":_classTextField.text, @"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]};
+    NSDictionary *itemInfo = _courseArray[_selectedCourseIdx];
+    NSLog(@"기수 리스트 구성 정보 : %@", itemInfo);
+    NSArray *cTitleArr = itemInfo[@"sub"];
+    NSArray *cCodeArr = itemInfo[@"code"];
+    
+    NSLog(@"검색 과정 : %@, 기수 : %@", cTitleArr[_selectedClassIdx], cCodeArr[_selectedClassIdx]);
+
+    NSDictionary *info = @{@"course":itemInfo[@"course"], @"courseclass":cCodeArr[_selectedClassIdx], @"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]};
     NSLog(@"검색 조건 : %@", info);
     
     SearchResultViewController *viewController = [[SearchResultViewController alloc] initWithInfo:info];
