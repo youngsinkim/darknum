@@ -80,8 +80,6 @@
     {
         NSMutableDictionary *subInfo = [[NSMutableDictionary alloc] init];
         NSMutableArray *classArray = [[NSMutableArray alloc] init];
-
-        NSMutableDictionary *cCodeDict = [[NSMutableDictionary alloc] init];
         NSMutableArray *cCodeArr = [[NSMutableArray alloc] init];
 
         [subInfo setValuesForKeysWithDictionary:courseInfo];

@@ -82,6 +82,7 @@
 		BF57B3B817DCD0A100B39C03 /* DetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57B3B717DCD09F00B39C03 /* DetailViewCell.m */; };
 		BF5900A31821363A00DD6980 /* DetailGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A21821363A00DD6980 /* DetailGuideViewController.m */; };
 		BF5900A71822BB8000DD6980 /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5900A61822BB8000DD6980 /* TitleView.m */; };
+		BF6F88DB186355CA007F640B /* SMAddressBook_AppStore-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF6F88DA186355CA007F640B /* SMAddressBook_AppStore-Info.plist */; };
 		BF83D4B418596B50002C1AB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62617C4C10400A2495D /* main.m */; };
 		BF83D4B518596B50002C1AB3 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBF58E1184CE51A0057A4C5 /* Student.m */; };
 		BF83D4B618596B50002C1AB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062B62A17C4C10400A2495D /* AppDelegate.m */; };
@@ -440,9 +441,9 @@
 		BF5900A21821363A00DD6980 /* DetailGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailGuideViewController.m; sourceTree = "<group>"; };
 		BF5900A51822BB8000DD6980 /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
 		BF5900A61822BB8000DD6980 /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
-		BF83D4B0185965C2002C1AB3 /* SMAddressBook_AppStore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SMAddressBook_AppStore-Info.plist"; path = "/Users/sochae78/Desktop/project/snumba_1202/SMAddressBook_AppStore-Info.plist"; sourceTree = "<absolute>"; };
-		BF83D51A18596B50002C1AB3 /* SNU BIZ Adhoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SNU BIZ Adhoc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF83D58518596C9A002C1AB3 /* SNU BIZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SNU BIZ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF6F88DA186355CA007F640B /* SMAddressBook_AppStore-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SMAddressBook_AppStore-Info.plist"; sourceTree = "<group>"; };
+		BF83D51A18596B50002C1AB3 /* SNU Biz Members.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SNU Biz Members.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF83D58518596C9A002C1AB3 /* SNU Biz Members.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SNU Biz Members.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BF8BE0AA1855E1B1004BF3DF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		BF8BE0AB1855E1B1004BF3DF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -576,8 +577,8 @@
 			isa = PBXGroup;
 			children = (
 				5062B61517C4C10400A2495D /* SMAddressBook.app */,
-				BF83D51A18596B50002C1AB3 /* SNU BIZ Adhoc.app */,
-				BF83D58518596C9A002C1AB3 /* SNU BIZ.app */,
+				BF83D51A18596B50002C1AB3 /* SNU Biz Members.app */,
+				BF83D58518596C9A002C1AB3 /* SNU Biz Members.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -639,7 +640,7 @@
 				BF3B466C17C6691E0069AA9A /* Localizable.strings */,
 				5062B62217C4C10400A2495D /* SMAddressBook-Info.plist */,
 				BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */,
-				BF83D4B0185965C2002C1AB3 /* SMAddressBook_AppStore-Info.plist */,
+				BF6F88DA186355CA007F640B /* SMAddressBook_AppStore-Info.plist */,
 				5062B62317C4C10400A2495D /* InfoPlist.strings */,
 				5062B62617C4C10400A2495D /* main.m */,
 				5062B62817C4C10400A2495D /* SMAddressBook-Prefix.pch */,
@@ -988,7 +989,7 @@
 			);
 			name = SMAddressBook_Adhoc;
 			productName = SMAddressBook;
-			productReference = BF83D51A18596B50002C1AB3 /* SNU BIZ Adhoc.app */;
+			productReference = BF83D51A18596B50002C1AB3 /* SNU Biz Members.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BF83D51C18596C9A002C1AB3 /* SMAddressBook_AppStore */ = {
@@ -1007,7 +1008,7 @@
 			);
 			name = SMAddressBook_AppStore;
 			productName = SMAddressBook;
-			productReference = BF83D58518596C9A002C1AB3 /* SNU BIZ.app */;
+			productReference = BF83D58518596C9A002C1AB3 /* SNU Biz Members.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1055,6 +1056,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF6F88DB186355CA007F640B /* SMAddressBook_AppStore-Info.plist in Resources */,
 				5062B62517C4C10400A2495D /* InfoPlist.strings in Resources */,
 				5062B63B17C4C12800A2495D /* Podfile in Resources */,
 				BF8E5837183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist in Resources */,
@@ -1543,7 +1545,7 @@
 				INFOPLIST_FILE = "SMAddressBook/SMAddressBook-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754FBB56-021F-4E31-827F-54005357977F";
+				PROVISIONING_PROFILE = "BA81A8B7-B95D-491F-8158-2670A14EA033";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1561,7 +1563,7 @@
 				INFOPLIST_FILE = "SMAddressBook/SMAddressBook-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "754FBB56-021F-4E31-827F-54005357977F";
+				PROVISIONING_PROFILE = "BA81A8B7-B95D-491F-8158-2670A14EA033";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1572,14 +1574,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
-				INFOPLIST_FILE = "SMAddressBook_Adhoc-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SMAddressBook/SMAddressBook_Adhoc-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "SNU BIZ Adhoc";
-				PROVISIONING_PROFILE = "0C82AF15-FBDE-4559-827D-B99B4416D2AA";
+				PRODUCT_NAME = "SNU Biz Members";
+				PROVISIONING_PROFILE = "58E86A97-958B-46C8-AFB8-88369EE012BC";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1590,14 +1592,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
-				INFOPLIST_FILE = "SMAddressBook_Adhoc-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SMAddressBook/SMAddressBook_Adhoc-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "SNU BIZ Adhoc";
-				PROVISIONING_PROFILE = "0C82AF15-FBDE-4559-827D-B99B4416D2AA";
+				PRODUCT_NAME = "SNU Biz Members";
+				PROVISIONING_PROFILE = "58E86A97-958B-46C8-AFB8-88369EE012BC";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1612,9 +1614,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
-				INFOPLIST_FILE = "SMAddressBook_AppStore-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SMAddressBook/SMAddressBook_AppStore-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "SNU BIZ";
+				PRODUCT_NAME = "SNU Biz Members";
 				PROVISIONING_PROFILE = "51A0AC5C-413D-4398-AD96-121726EB9CD8";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1630,9 +1632,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: College of Business Administration Seoul National University (KGA775A3LM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SMAddressBook/SMAddressBook-Prefix.pch";
-				INFOPLIST_FILE = "SMAddressBook_AppStore-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SMAddressBook/SMAddressBook_AppStore-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				PRODUCT_NAME = "SNU BIZ";
+				PRODUCT_NAME = "SNU Biz Members";
 				PROVISIONING_PROFILE = "51A0AC5C-413D-4398-AD96-121726EB9CD8";
 				WRAPPER_EXTENSION = app;
 			};

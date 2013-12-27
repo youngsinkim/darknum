@@ -279,7 +279,10 @@
 #pragma mark 툴바 버튼 이벤트 처리
 - (void)didSelectedToolTag:(NSNumber *)type
 {
-    if (_memType == MemberTypeStudent)
+    // 로그인 유저 타입
+    MemberType myType = (MemberType)[[[UserContext shared] memberType] integerValue];
+
+    if (!(myType == MemberTypeStudent && _memType != MemberTypeStudent))
     {
         NSDictionary *info = _contacts[_currentIdx];
         NSLog(@"선택된 셀 정보 (%d) : %@", _currentIdx, info);
@@ -302,11 +305,12 @@
                 [self onSavedToAddress:info];
                 break;
                 
-            case 4: // kakao talk
-                [self sendKakao:info];
-                break;
+//            case 4: // kakao talk
+//                [self sendKakao:info];
+//                break;
                 
             default:
+                NSLog(@"툴바 버튼 없음....!")
                 break;
         }
     }
@@ -1129,7 +1133,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToOffset:(CGPoint)contentOffset
 {
-    NSLog(@"셀(스크롤) 정보 : (%f, %f)", contentOffset.x, contentOffset.y);
+//    NSLog(@"셀(스크롤) 정보 : (%f, %f)", contentOffset.x, contentOffset.y);
     if ([_contacts count] > 0)
     {
         CGFloat f = contentOffset.x / 320.0f;
@@ -1140,10 +1144,10 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
         {
             _currentIdx = index;
 
-            NSLog(@"셀 index (%d == %d)", index, _currentIdx);
+//            NSLog(@"셀 index (%d == %d)", index, _currentIdx);
 
             NSDictionary *info = _contacts[_currentIdx];
-            NSLog(@"셀 정보 (이름) : %@", _contacts[_currentIdx][@"name"]);
+//            NSLog(@"셀 정보 (이름) : %@", _contacts[_currentIdx][@"name"]);
 //            NSLog(@"상세 정보 : %@", info);
 
             if ([[UserContext shared].language isEqualToString:kLMKorean]) {
@@ -1162,7 +1166,7 @@ shouldPerformDefaultActionForPerson:(ABRecordRef)person
 
 - (void)easyTableView:(EasyTableView *)easyTableView scrolledToFraction:(CGFloat)fraction
 {
-    NSLog(@"셀(scroll) 정보 : (%f)", fraction);
+//    NSLog(@"셀(scroll) 정보 : (%f)", fraction);
 }
 
 #pragma mark - EasyTableView delegate methods

@@ -70,13 +70,23 @@
     NSLog(@"error UserInfo : %@", info);
     
     [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
-        NSLog(@"%d", status);
+        NSLog(@"Reachability : %d", status);
     }];
     
     if (super.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN ||
         super.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi ) {
         
         NSLog(@"connection");
+        
+        if (![[error domain] isEqualToString:@"snubiz_local"]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                message:LocalizedString(@"Server Connection Fail", @"서버 연결 오류")
+                                                               delegate:nil
+                                                      cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+                                                      otherButtonTitles:nil];
+            [alertView show];
+            return;
+        }
     }
     else {
         NSLog(@"fail");
@@ -94,15 +104,18 @@
     {
         NSDictionary *decodeInfo = [info dictionaryByUTF8Decode];
         NSString *message = decodeInfo[kErrorMsg];
-        if (message.length == 0) {
-            message = NSLocalizedString(decodeInfo[@"NSLocalizedDescription"], nil);
+//        if (message.length == 0) {
+//            message = NSLocalizedString(decodeInfo[@"NSLocalizedDescription"], nil);
+//        }
+        if (message.length > 0)
+        {
+            [[[UIAlertView alloc] initWithTitle:nil//NSLocalizedString(@"Error", nil)
+                                        message:message
+                                       delegate:nil
+                              cancelButtonTitle:nil
+                              otherButtonTitles:NSLocalizedString(@"OK", nil), nil]
+             show];
         }
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
-                                    message:message
-                                   delegate:nil
-                          cancelButtonTitle:nil
-                          otherButtonTitles:NSLocalizedString(@"OK", nil), nil]
-         show];
     }
 }
 
@@ -129,6 +142,26 @@
          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+//    if (super.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN ||
+//        super.networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi ) {
+//        
+//        NSLog(@"connection");
+//    }
+//    else {
+//        NSLog(@"fail");
+////        failure(nil, nil);
+////        NSError *error = [NSError errorWithDomain:@"world" code:200 userInfo:details];
+//        failure(nil, [NSError errorWithDomain:@"snumba" code:10101 userInfo:nil]);
+//
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+//                                                            message:LocalizedString(@"Server Connection Fail", @"서버 연결 오류")
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+//                                                  otherButtonTitles:nil];
+//        [alertView show];
+//        return;
+//    }
+
     [super postPath:(NSString *)path
          parameters:(NSDictionary *)parameters
             success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -147,7 +180,8 @@
                     }
                     else
                     {
-                        failure(operation, [NSError errorWithDomain:path code:[response[@"errcode"] intValue] userInfo:response]);
+                        NSLog(@"Network Success, Server Error : %@", response);
+                        failure(operation, [NSError errorWithDomain:@"snubiz_local"/*path*/ code:[response[@"errcode"] intValue] userInfo:response]);
                     
 //                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
 //                                                                            message:response[kErrorMsg]
@@ -160,7 +194,7 @@
                 }
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error : %@", [error localizedDescription]);
+                NSLog(@"Network Failure Error : %@", [error localizedDescription]);
                 failure(operation, error);
             }
      ];

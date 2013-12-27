@@ -237,8 +237,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "368"
             endingLineNumber = "368"
-            landmarkName = "-onFavoriteSettBtnTouched:"
-            landmarkType = "5">
+            landmarkName = "@implementation FavoriteViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -326,13 +326,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "408904446.500121"
+            timestampString = "409170912.169937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1082"
-            endingLineNumber = "1082"
-            landmarkName = "@implementation DetailViewController"
-            landmarkType = "3">
+            startingLineNumber = "1086"
+            endingLineNumber = "1086"
+            landmarkName = "-easyTableView:setDataForView:forIndexPath:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -342,13 +342,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "408904446.500121"
+            timestampString = "409170912.169937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1090"
-            endingLineNumber = "1090"
-            landmarkName = "@implementation DetailViewController"
-            landmarkType = "3">
+            startingLineNumber = "1094"
+            endingLineNumber = "1094"
+            landmarkName = "-easyTableView:setDataForView:forIndexPath:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -473,8 +473,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "263"
             endingLineNumber = "263"
-            landmarkName = "-initUpdateProgress"
-            landmarkType = "5">
+            landmarkName = "@implementation FavoriteViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -729,8 +729,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1578"
             endingLineNumber = "1578"
-            landmarkName = "-setFavoriteStudent:"
-            landmarkType = "5">
+            landmarkName = "@implementation FavoriteViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -804,12 +804,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMAddressBook/DetailViewController.m"
-            timestampString = "408904446.500121"
+            timestampString = "409170912.169937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "418"
-            endingLineNumber = "418"
-            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
+            landmarkName = "-onSavedToAddress:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1066,22 +1066,6 @@
             startingLineNumber = "720"
             endingLineNumber = "720"
             landmarkName = "-preferredStatusBarStyle"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/MenuTableViewController.m"
-            timestampString = "408993964.103137"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "-updateHeaderInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

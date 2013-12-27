@@ -511,7 +511,7 @@
 //    self.HUD.color = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
 //    self.HUD.margin = 10.0f;
 
-    NSLog(@"LOGIN Request Parameter : %@", param);
+//    NSLog(@"LOGIN Request Parameter : %@", param);
     
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
 
@@ -524,9 +524,9 @@
 
                                             if (error)
                                             {
-                                                NSLog(@"error ---- %@", [error localizedDescription]);
+//                                                NSLog(@"error ---- %@", [error localizedDescription]);
                                                 NSDictionary *info = [NSDictionary dictionaryWithDictionary:[error userInfo]];
-                                                NSLog(@"error UserInfo : %@", info);
+//                                                NSLog(@"error UserInfo : %@", info);
                                                 BOOL isErrorAlert = YES;
                                                 
                                                 if ([info isKindOfClass:[NSDictionary class]]) {

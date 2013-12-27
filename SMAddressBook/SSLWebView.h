@@ -19,7 +19,7 @@
 
 @interface SSLWebView : UIWebView
 
-@property (nonatomic, assign) id<SSLWebViewDelegate> delegate;
+@property (nonatomic, assign) id<SSLWebViewDelegate> _delegate;
 @property (nonatomic, assign) BOOL isAuthed;
 
 @end
