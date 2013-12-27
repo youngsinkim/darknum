@@ -563,7 +563,7 @@
 
                                                         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                                                         [appDelegate goLoginViewControllerWithDataReset:YES];
-                                                        isErrorAlert = NO;
+//                                                        isErrorAlert = NO;
                                                     }
                                                 }
 

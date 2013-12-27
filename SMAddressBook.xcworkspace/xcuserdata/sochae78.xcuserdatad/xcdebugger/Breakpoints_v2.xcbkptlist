@@ -151,22 +151,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/StudentAddressViewController.m"
-            timestampString = "408202985.604752"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
-            landmarkName = "-didSelectedToolTag:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SearchViewController.m"
             timestampString = "408219040.510335"
             startingColumnNumber = "9223372036854775807"
@@ -1027,22 +1011,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMAddressBook/MyInfoViewController.m"
-            timestampString = "408900619.031008"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1593"
-            endingLineNumber = "1593"
-            landmarkName = "-removePhoto"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMAddressBook/ToolViewController.m"
             timestampString = "408992362.211706"
             startingColumnNumber = "9223372036854775807"
@@ -1066,6 +1034,38 @@
             startingLineNumber = "720"
             endingLineNumber = "720"
             landmarkName = "-preferredStatusBarStyle"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMAddressBook/MyInfoViewController.m"
+            timestampString = "409851532.612329"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1591"
+            endingLineNumber = "1591"
+            landmarkName = "-removePhoto"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMAddressBook/MyInfoViewController.m"
+            timestampString = "409853046.425998"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1912"
+            endingLineNumber = "1912"
+            landmarkName = "-requestAPIMyInfoUpdate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

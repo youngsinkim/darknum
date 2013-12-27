@@ -534,15 +534,23 @@
     
     
     // 검색 조건 구성
-//    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    NSDictionary *itemInfo = _courseArray[_selectedCourseIdx];
-    NSLog(@"기수 리스트 구성 정보 : %@", itemInfo);
-    NSArray *cTitleArr = itemInfo[@"sub"];
-    NSArray *cCodeArr = itemInfo[@"code"];
-    
-    NSLog(@"검색 과정 : %@, 기수 : %@", cTitleArr[_selectedClassIdx], cCodeArr[_selectedClassIdx]);
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    if (_selectedCourseIdx > 0 && _selectedClassIdx)
+    {
+        NSDictionary *itemInfo = _courseArray[_selectedCourseIdx];
+        NSLog(@"기수 리스트 구성 정보 : %@", itemInfo);
+        NSArray *cTitleArr = itemInfo[@"sub"];
+        NSArray *cCodeArr = itemInfo[@"code"];
+        
+        NSLog(@"검색 과정 : %@, 기수 : %@", cTitleArr[_selectedClassIdx], cCodeArr[_selectedClassIdx]);
 
-    NSDictionary *info = @{@"course":itemInfo[@"course"], @"courseclass":cCodeArr[_selectedClassIdx], @"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]};
+    //    NSDictionary *info = @{@"course":itemInfo[@"course"], @"courseclass":cCodeArr[_selectedClassIdx], @"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]};
+        info = [@{@"course":itemInfo[@"course"], @"courseclass":cCodeArr[_selectedClassIdx], @"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]} mutableCopy];
+    }
+    else
+    {
+        info = [@{@"name":_nameTextField.text, @"islocal":[NSNumber numberWithInteger:_optionBtn.selected]} mutableCopy];
+    }
     NSLog(@"검색 조건 : %@", info);
     
     SearchResultViewController *viewController = [[SearchResultViewController alloc] initWithInfo:info];
@@ -602,6 +610,9 @@
 // clearButtonMode 속성값이 UITextFieldViewModeNever가 아닌 경우에만 실행
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
+    if (textField.tag == 300) {
+        _classTextField.text = @"";
+    }
     return YES;    // NO를 리턴할 경우 변경내용이 반영되지 않는다.
 }
 

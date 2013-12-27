@@ -1832,6 +1832,7 @@
 
     if (_memType == MemberTypeStudent) {
         param = [@{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang,
+//                   @"photourl":_myInfo[@"photourl"], @"viewphotourl":_myInfo[@"viewphotourl"],
                    @"email":_myInfo[@"email"],
                   @"company":_myInfo[@"company"], @"department":_myInfo[@"department"], @"title":_myInfo[@"title"],
                   @"company_en":_myInfo[@"company_en"], @"department_en":_myInfo[@"department_en"], @"title_en":_myInfo[@"title_en"],
@@ -1840,58 +1841,91 @@
                    @"iscurrent":_myInfo[@"iscurrent"]} mutableCopy];
     } else {
         param = [@{@"scode":[mobileNo MD5], @"userid":userId, @"certno":certNo, @"lang":lang,
+//                   @"photourl":_myInfo[@"photourl"], @"viewphotourl":_myInfo[@"viewphotourl"],
                    @"tel":_myInfo[@"tel"], @"email":_myInfo[@"email"]} mutableCopy];
     }
-//    NSLog(@"MyInfo Request Parameter : %@", param);
+    NSLog(@"MyInfo Request Parameter : %@", param);
     [self performSelectorOnMainThread:@selector(startLoading) withObject:nil waitUntilDone:NO];
     
     static NSString * const kAPIUpdateMyInfo = (SERVER_URL@"/fb/updatemyinfo");
     NSLog(@"API Path(%@) param :\n%@", kAPIUpdateMyInfo, param);
     
-    NSMutableURLRequest *request =
-    [[SMNetworkClient sharedClient] multipartFormRequestWithMethod:@"POST"
-                                                              path:kAPIUpdateMyInfo
-                                                        parameters:param
-                                         constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-                                             if (_photoFilename.length > 0 && _photoData) {
-                                                 [formData appendPartWithFileData:_photoData name:@"photo" fileName:_photoFilename mimeType:@"image/jpeg"];
-                                             }
-                                         }];
+    NSLog(@"내 정보 업데이트--- start");
     
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    if (_photoFilename.length > 0 && _photoData)
+    {
+        NSLog(@"사진이 변경되어 사진과 함께 업데이트");
+
+        NSMutableURLRequest *request =
+        [[SMNetworkClient sharedClient] multipartFormRequestWithMethod:@"POST"
+                                                                  path:kAPIUpdateMyInfo
+                                                            parameters:param
+                                             constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+                                                 NSLog(@"내 정보 업데이트--- 1");
+                                                 if (_photoFilename.length > 0 && _photoData) {
+                                                     NSLog(@"내 정보 업데이트--- 사진 변경되어 photo 추가");
+                                                     [formData appendPartWithFileData:_photoData name:@"photo" fileName:_photoFilename mimeType:@"image/jpeg"];
+                                                 }
+                                             }];
         
-        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
-    }];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                            NSLog(@"프로필 변경 완료");
-                                            [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
-                                        
-                                            if (_photoData)
-                                            {
-                                                // 왼쪽 메뉴 사진 정보 업데이트
-                                                MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
-                                                UIImage *image = [[UIImage alloc] initWithData:_photoData];
-                                                [menu updateHeaderImage:image];
-                                                
-                                                // DB에도 내 정보 업데이트
-//                                                [self updateDBMyInfo];
-                                                
-                                                // 내 정보 조회 호출
-                                                [self performSelector:@selector(requestAPIMyInfo) withObject:nil];
-                                            }
-                                     }
-                                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                         NSLog(@"error: %@",  [error localizedDescription]);
-                                         [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
-                                         
-                                         [[SMNetworkClient sharedClient] showNetworkError:error];
-                                     }
-    ];
-    
-    [operation start];
-    
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+            
+            NSLog(@"(사진 업로드) Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+        }];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                NSLog(@"프로필 변경 완료");
+                                                [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                            
+                                                if (_photoData)
+                                                {
+                                                    NSLog(@"사진 변경 정보 왼쪽 메뉴에 업데이트");
+                                                    // 왼쪽 메뉴 사진 정보 업데이트
+                                                    MenuTableViewController *menu = (MenuTableViewController *)self.menuContainerViewController.leftMenuViewController;
+                                                    UIImage *image = [[UIImage alloc] initWithData:_photoData];
+                                                    [menu updateHeaderImage:image];
+                                                    
+                                                    // DB에도 내 정보 업데이트
+    //                                                [self updateDBMyInfo];
+                                                    
+                                                    NSLog(@"내 정보 다시 불러오기.");
+                                                    _photoData = nil;
+                                                    
+                                                    // 내 정보 조회 호출
+                                                    [self performSelector:@selector(requestAPIMyInfo) withObject:nil];
+                                                }
+                                         }
+                                         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                             NSLog(@"내 정보 업데이트 실패 : %@",  [error localizedDescription]);
+                                             [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                             
+                                             [[SMNetworkClient sharedClient] showNetworkError:error];
+                                         }
+        ];
+        
+        [operation start];
+    }
+    else
+    {
+        NSLog(@"사진 변경이 없어 나머지만 업데이트");
+        [[SMNetworkClient sharedClient] updateMyInfo:param
+                                               block:^(NSDictionary *result, NSError *error) {
+                                                   
+                                                   [self performSelectorOnMainThread:@selector(stopLoading) withObject:nil waitUntilDone:NO];
+                                                 
+                                                   if (error) {
+                                                       NSLog(@"내 정보 업데이트 Fail : %@",  [error localizedDescription]);
+                                                       [[SMNetworkClient sharedClient] showNetworkError:error];
+                                                   }
+                                                   else
+                                                   {
+                                                       NSLog(@"내 정보 업데이트 Success !");
+                                                       // 내 정보 조회 호출
+                                                       [self performSelector:@selector(requestAPIMyInfo) withObject:nil];
+                                                   }
+                                               }];
+    }
 }
 
 - (void)updateDBMyInfo

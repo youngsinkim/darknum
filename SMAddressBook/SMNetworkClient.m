@@ -441,16 +441,6 @@
     static NSString * const kAPIUpdateMyInfo = (SERVER_URL@"/fb/updatemyinfo");
     NSLog(@"API Path(%@) param :\n%@", kAPIUpdateMyInfo, param);
     
-//    NSMutableURLRequest *request = [self multipartFormRequestWithMethod:@"POST"
-//                                                                   path:kAPIUpdateMyInfo
-//                                                             parameters:param
-//                                              constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-//                                                                 [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
-//                                                             }];
-
-    return;
-    
-    
     [self postPath:kAPIUpdateMyInfo
         parameters:param
            success:^(AFHTTPRequestOperation *operation, id JSON) {
