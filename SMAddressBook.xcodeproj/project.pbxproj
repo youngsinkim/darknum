@@ -167,7 +167,6 @@
 		BF83D50618596B50002C1AB3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B3EE368BB1647438F672678 /* libPods.a */; };
 		BF83D50818596B50002C1AB3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5062B62317C4C10400A2495D /* InfoPlist.strings */; };
 		BF83D50918596B50002C1AB3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 5062B63A17C4C12800A2495D /* Podfile */; };
-		BF83D50A18596B50002C1AB3 /* SMAddressBook_Adhoc-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF8E5836183A5ECF007AF13D /* SMAddressBook_Adhoc-Info.plist */; };
 		BF83D50B18596B50002C1AB3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF4D51081849919200648119 /* Images.xcassets */; };
 		BF83D50C18596B50002C1AB3 /* btn_kakaotalk_logo_iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFDEBEDB180168BC00F7409F /* btn_kakaotalk_logo_iphone@2x.png */; };
 		BF83D50D18596B50002C1AB3 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8BE0A91855E1B1004BF3DF /* Default-568h@2x.png */; };
@@ -1017,7 +1016,7 @@
 		5062B60D17C4C10400A2495D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = sochae;
 				TargetAttributes = {
 					5062B61417C4C10400A2495D = {
@@ -1080,7 +1079,6 @@
 			files = (
 				BF83D50818596B50002C1AB3 /* InfoPlist.strings in Resources */,
 				BF83D50918596B50002C1AB3 /* Podfile in Resources */,
-				BF83D50A18596B50002C1AB3 /* SMAddressBook_Adhoc-Info.plist in Resources */,
 				BF83D50B18596B50002C1AB3 /* Images.xcassets in Resources */,
 				BF83D50C18596B50002C1AB3 /* btn_kakaotalk_logo_iphone@2x.png in Resources */,
 				BF83D50D18596B50002C1AB3 /* Default-568h@2x.png in Resources */,

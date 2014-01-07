@@ -6,6 +6,7 @@
 //  Copyright (c) 2013년 sochae. All rights reserved.
 //
 
+//#import "AFNetworking.h"
 #import "AFHTTPClient.h"
 
 #define SERVER_URL          @"https://biz.snu.ac.kr"
