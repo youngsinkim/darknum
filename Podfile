@@ -1,9 +1,9 @@
-platform :ios, '7.0'
+platform :ios, '5.0'
 inhibit_all_warnings!
 
-pod 'AFNetworking'
+pod 'AFNetworking', '~>1.2'
 pod 'MFSideMenu'
-#pod 'JSONKit'
+pod 'JSONKit', '~>1.3'
 pod 'MBProgressHUD'
 pod 'PPiFlatSegmentedControl', '~> 1.3.3'
 pod 'EasyTableView'

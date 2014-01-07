@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0C21ADC03F5E41FEB1EF587A"
+               BlueprintIdentifier = "3A4CC20D4F294C2A912298F2"
                BuildableName = "libPods-EasyTableView.a"
                BlueprintName = "Pods-EasyTableView"
                ReferencedContainer = "container:Pods.xcodeproj">

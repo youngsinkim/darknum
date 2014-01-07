@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E7CA73187396407B999CAABA"
+               BlueprintIdentifier = "F2653C13B52B43B0AE23317B"
                BuildableName = "libPods-ActionSheetPicker2.a"
                BlueprintName = "Pods-ActionSheetPicker2"
                ReferencedContainer = "container:Pods.xcodeproj">
