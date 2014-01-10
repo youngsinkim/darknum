@@ -299,7 +299,7 @@
                NSLog(@"HTTP POST API: %@", operation.request.URL);
                
                if (block) {
-//                   NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
+                   NSLog(@"RESPONSE JSON: %@", [JSON valueForKeyPath:@"data"]);
 //                   block([NSMutableDictionary dictionaryWithDictionary:JSON], nil);
                    NSMutableArray *array = [[NSMutableArray alloc] init];
                    if ([NSJSONSerialization isValidJSONObject:[JSON valueForKeyPath:@"data"]]) {

@@ -175,19 +175,20 @@
 //        }
     
 
-    self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
-    self.navigationItem.rightBarButtonItem = [self rightMenuBarButtonItem];
 //    [self rightMenuBarButtonItem];
     
     if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
     {
-        [_prevButton setHidden:NO];
+        self.navigationItem.leftBarButtonItem = [self backBarButtonItem];
+//        [_prevButton setHidden:NO];
 //        [_homeButton setHidden:YES];
     } else {
+        self.navigationItem.leftBarButtonItem = [self leftMenuBarButtonItem];
         // 최상위 화면이면 이전 버튼 노출 안함
-        [_prevButton setHidden:YES];
+//        [_prevButton setHidden:YES];
 //        [_homeButton setHidden:NO];
     }
+    self.navigationItem.rightBarButtonItem = [self rightMenuBarButtonItem];
 
 }
 
@@ -213,9 +214,9 @@
 - (UIBarButtonItem *)backBarButtonItem {
     //FIXME: 이전 버튼 이미지 변경
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0.0f, 0.0f, 22.0f, 18.0f);
+    backButton.frame = CGRectMake(0.0f, 0.0f, 13.0f, 24.0f);
     
-    [backButton setImage:[UIImage imageNamed:@"back-arrow"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"nvicon_back"] forState:UIControlStateNormal];
     //    [backButton setImage:[UIImage imageNamed:@"back-arrow"] forState:UIControlStateHighlighted];
     [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -230,32 +231,33 @@
 /// 네비게이션 오른쪽 버튼
 - (UIBarButtonItem *)rightMenuBarButtonItem
 {
-    UIImage *backImage = [UIImage imageNamed:@"nvicon_back"];
+    // dkkim, 상단바 오른쪽 화면에서 'back' 제거
+//    UIImage *backImage = [UIImage imageNamed:@"nvicon_back"];
     UIImage *homeImage = [UIImage imageNamed:@"nvicon_home"];
     UIImage *searchImage = [UIImage imageNamed:@"nvicon_search"];
 
-    UIView *toolbar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, (backImage.size.width * 3 + 40.0f), homeImage.size.height)];
+    UIView *toolbar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, (homeImage.size.width + searchImage.size.width + 10.0f), homeImage.size.height)];
     UIBarButtonItem *barButtonItem = nil;
     
     // create an array for the buttons
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:3];
 
     /* back 버튼 */
-    _prevButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _prevButton.frame = CGRectMake(0.0f, 0.0f, backImage.size.width, backImage.size.height);
-    [_prevButton setImage:backImage forState:UIControlStateNormal];
-    [_prevButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_prevButton];
-
-    [toolbar addSubview:_prevButton];
-    [buttons addObject:barButtonItem];
+//    _prevButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _prevButton.frame = CGRectMake(0.0f, 0.0f, backImage.size.width, backImage.size.height);
+//    [_prevButton setImage:backImage forState:UIControlStateNormal];
+//    [_prevButton addTarget:self action:@selector(onBackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_prevButton];
+//
+//    [toolbar addSubview:_prevButton];
+//    [buttons addObject:barButtonItem];
 //    [_prevButton setHidden:YES];
     
     
     /* 홈 버튼 */
     _homeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _homeButton.frame = CGRectMake(backImage.size.width + 10.0f, 0.0f, homeImage.size.width, homeImage.size.height);
+    _homeButton.frame = CGRectMake(0.0f, 0.0f, homeImage.size.width, homeImage.size.height);
     [_homeButton setImage:homeImage forState:UIControlStateNormal];
     [_homeButton addTarget:self action:@selector(onHomeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -267,7 +269,7 @@
     
     /* 검색 버튼 */
     _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _searchButton.frame = CGRectMake(backImage.size.width + homeImage.size.width + 20.0f, 0.0f, searchImage.size.width, searchImage.size.height);
+    _searchButton.frame = CGRectMake(homeImage.size.width + 20.0f, 0.0f, searchImage.size.width, searchImage.size.height);
     [_searchButton setImage:searchImage forState:UIControlStateNormal];
     [_searchButton addTarget:self action:@selector(onSearchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
