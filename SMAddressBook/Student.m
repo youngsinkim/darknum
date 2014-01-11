@@ -37,5 +37,6 @@
 @dynamic iscurrent;
 @dynamic birth;
 @dynamic course;
+@dynamic index, index_en;
 
 @end

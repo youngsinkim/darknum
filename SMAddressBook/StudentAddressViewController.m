@@ -30,6 +30,7 @@
 @property (strong, nonatomic) UITableView *studentTableView;    //< 학생 테이블
 @property (strong, nonatomic) NSMutableArray *students;         //< 기수 학생 목록
 @property (strong, nonatomic) NSDictionary *info;               //< db 조회를 위해 넘겨받은 해당 기수 정보
+@property (strong, nonatomic) NSMutableArray *indexes, *studentSections;         // tableview index를 위한 배열 정보, 섹션으로 구분된 학생 배열 정보
 
 @end
 
@@ -60,7 +61,10 @@
         }
 
         _students = [[NSMutableArray alloc] init];
-    
+
+        _indexes = [[NSMutableArray alloc] init];
+        _studentSections = [[NSMutableArray alloc] init];
+
     }
     return self;
 }
@@ -90,6 +94,8 @@
         [self requestAPIStudents];
     }
     else {
+        _students = [self sorted:_students];
+        [self updateStudentIndexes];
         [_studentTableView reloadData];
     }
 
@@ -143,6 +149,41 @@
     [self.view addSubview:_footerToolView];
 }
 
+// 학생 정보 배열을 인덱스별로 구분된 2차원 배열로 구성
+- (void)updateStudentIndexes
+{
+    if (0 == _students.count) return;
+
+    [_indexes removeAllObjects];
+    [_studentSections removeAllObjects];
+
+    NSString* keyName = nil;
+    if ([[UserContext shared].language isEqualToString:kLMKorean])
+        keyName = @"index";
+    else
+        keyName = @"index_en";
+
+    for (NSDictionary* studentDict in _students)
+    {
+        NSString *index = studentDict[keyName];
+        if (NULL == index) continue;
+
+        NSMutableArray* section = nil;
+        if (NSNotFound == [_indexes indexOfObject:index])
+        {
+            section = [[NSMutableArray alloc] init];
+            [_studentSections addObject:section];
+            [_indexes addObject:studentDict[keyName]];
+        }
+        else
+        {
+            section = [_studentSections objectAtIndex:[_indexes indexOfObject:index]];
+        }
+
+        [section addObject:studentDict];
+    }
+}
+
 #pragma mark - DB methods
 
 /// 동일 기수의 학생 목록 DB에서 가져오기.
@@ -173,7 +214,7 @@
 
 //    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
 //    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-    
+
     NSError *error = nil;
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     NSLog(@"DB data count : %d", [fetchedObjects count]);
@@ -220,7 +261,10 @@
     return nil;
 }
 
-- (NSArray *)sorted:(NSArray *)array {
+- (NSMutableArray *)sorted:(NSMutableArray *)array
+{
+    if (nil == array) return nil;
+
     NSSortDescriptor *sortDescriptor;
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {
         sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -228,8 +272,10 @@
         sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name_en" ascending:YES];
     }
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    
-    return [array sortedArrayUsingDescriptors:sortDescriptors];
+
+    array = [[array sortedArrayUsingDescriptors:sortDescriptors] copy];
+
+    return array;
 }
 
 #pragma mark - Network API
@@ -267,6 +313,8 @@
                                                
                                                    dispatch_async(dispatch_get_main_queue(), ^{
 //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
+                                                       _students = [self sorted:_students];
+                                                       [self updateStudentIndexes];
                                                        [_studentTableView reloadData];
                                                    });
                                                  
@@ -280,12 +328,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return ([_students count] > 0)? [_students count] : 1;
+//    return ([_students count] > 0)? [_students count] : 1;
+    if (0 == [_students count]) return 1;
+
+    NSArray *sectionItem = [_studentSections objectAtIndex:section];
+    return [sectionItem count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return ([_students count] > 0)? kStudAddressCellH : self.view.frame.size.height;
+//    return ([_students count] > 0)? kStudAddressCellH : self.view.frame.size.height;
+    return ([_studentSections count] > 0)? kStudAddressCellH : self.view.frame.size.height;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -306,7 +359,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([_students count] == 0)
+//    if ([_students count] == 0)
+    if ([_studentSections count] == 0)
     {
         static NSString *identifier = @"NoStudentCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -326,31 +380,50 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         tableView.separatorColor = UIColorFromRGB(0xcccccc);
     }
-    
-    if ([_students count] > 0)
+
+//    if ([_students count] > 0)
+    if ([_studentSections count] > 0)
     {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    
-        if ([_students[indexPath.row] isKindOfClass:[NSDictionary class]])
+
+        NSArray *section = [_studentSections objectAtIndex:[indexPath section]];
+
+        if ([section[indexPath.row] isKindOfClass:[NSDictionary class]])
         {
             // 서버에서 받아온 데이터는 NSDictionary.
-            [dict setDictionary:_students[indexPath.row]];
+            [dict setDictionary:section[indexPath.row]];
         }
         else
         {
             // DB에서 읽으면 NSManagedObject
-            Student *student = _students[indexPath.row];
-        
+            Student *student = section[indexPath.row];
+
             // ( NSDictionary <- NSManagedObject )
             NSArray *keys = [[[student entity] attributesByName] allKeys];
             [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
         }
-        NSLog(@"학생 목록 셀 정보 : %@, %@ | %@ %@ (%@)", dict[@"name"], dict[@"company"], dict[@"department"], dict[@"title"], dict[@"share_company"]);
-    
-        [cell setCellInfo:dict];
 
+//        if ([_students[indexPath.row] isKindOfClass:[NSDictionary class]])
+//        {
+//            // 서버에서 받아온 데이터는 NSDictionary.
+//            [dict setDictionary:_students[indexPath.row]];
+//        }
+//        else
+//        {
+//            // DB에서 읽으면 NSManagedObject
+//            Student *student = _students[indexPath.row];
+//
+//            // ( NSDictionary <- NSManagedObject )
+//            NSArray *keys = [[[student entity] attributesByName] allKeys];
+//            [dict setDictionary:[student dictionaryWithValuesForKeys:keys]];
+//        }
+
+        NSLog(@"학생 목록 셀 정보 : %@, %@ | %@ %@ (%@)", dict[@"name"], dict[@"company"], dict[@"department"], dict[@"title"], dict[@"share_company"]);
+
+        [cell setCellInfo:dict];
+        
     }
-    
+
 //    // accessoryView
 //    UIImage *accessoryImage = [UIImage imageNamed:@"ic_list_arrow"];
 //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -375,7 +448,17 @@
 //    StudentDetailViewController *viewController = [[StudentDetailViewController alloc] initWithInfo:[_students mutableCopy]];
     DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
 //    DetailInfoViewController *viewController = [[DetailInfoViewController alloc] initWithType:MemberTypeStudent];
-    viewController.currentIdx = indexPath.row;
+
+    NSUInteger selIdx = 0;
+    for (NSInteger idx = 0; idx < [indexPath section]; idx++)
+    {
+        NSArray *section = [_studentSections objectAtIndex:idx];
+        selIdx += [section count];
+    }
+    selIdx += [indexPath row];
+
+//    viewController.currentIdx = indexPath.row;
+    viewController.currentIdx = selIdx;
     viewController.contacts = [_students mutableCopy];
     
     [self.navigationController pushViewController:viewController animated:YES];
@@ -392,6 +475,20 @@
 //        [self.navigationController pushViewController:addressVC animated:YES];
 //    }
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (0 == [_students count]) return 1;
+
+    return [_studentSections count];
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    return _indexes;
+}
+
+
 
 #pragma mark - Callback methods
 // 학생 주소록 하단 툴 버튼

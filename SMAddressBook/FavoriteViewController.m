@@ -1553,6 +1553,8 @@
                                    student.iscurrent = dict[@"iscurrent"];
                                    student.hasapp = dict[@"hasapp"];
                                    student.birth = dict[@"birth"];
+                                   student.index = dict[@"index"];
+                                   student.index_en = dict[@"index_en"];
                                    
                                    [course addStudentsObject:student];
                                }
@@ -1699,6 +1701,8 @@
                         student.iscurrent = info[@"iscurrent"];
                         student.hasapp = info[@"hasapp"];
                         student.birth = info[@"birth"];
+                        student.index = info[@"index"];
+                        student.index_en = info[@"index_en"];
 //                        student.course;
                     }
                 }
@@ -1761,6 +1765,8 @@
                     newStudent.iscurrent = info[@"iscurrent"];
                     newStudent.hasapp = info[@"hasapp"];
                     newStudent.birth = info[@"birth"];
+                    newStudent.index = info[@"index"];
+                    newStudent.index_en = info[@"index_en"];
                     
                     newStudent.course = course;
 //                        [newStudent setCourse:course];
@@ -1900,6 +1906,8 @@
         student.iscurrent = dict[@"iscurrent"];
         student.hasapp = dict[@"hasapp"];
         student.birth = dict[@"birth"];
+        student.index = dict[@"index"];
+        student.index_en = dict[@"index_en"];
         
         [course addStudentsObject:student];
     }
@@ -2413,6 +2421,8 @@
             student.iscurrent = dict[@"iscurrent"];
             student.hasapp = dict[@"hasapp"];
             student.birth = dict[@"birth"];
+            student.index = dict[@"index"];
+            student.index_en = dict[@"index_en"];
 
             [course addStudentsObject:student];
             

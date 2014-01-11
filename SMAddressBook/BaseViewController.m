@@ -179,7 +179,7 @@
     
     if(self.menuContainerViewController.menuState == MFSideMenuStateClosed && ![[self.navigationController.viewControllers objectAtIndex:0] isEqual:self])
     {
-        self.navigationItem.leftBarButtonItem = [self backBarButtonItem];
+//        self.navigationItem.leftBarButtonItem = [self backBarButtonItem];
 //        [_prevButton setHidden:NO];
 //        [_homeButton setHidden:YES];
     } else {

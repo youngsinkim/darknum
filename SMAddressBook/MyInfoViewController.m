@@ -2293,6 +2293,8 @@
                         student.title_en = info[@"title_en"];
                         student.viewphotourl = info[@"viewphotourl"];
                         student.iscurrent = info[@"iscurrent"];
+                        student.index = info[@"index"];
+                        student.index_en = info[@"index_en"];
                         //                        student.course;
                     }
                 }
@@ -2354,6 +2356,8 @@
                     newStudent.viewphotourl = info[@"viewphotourl"];
                     newStudent.iscurrent = info[@"iscurrent"];
                     newStudent.course = course;
+                    newStudent.index = info[@"index"];
+                    newStudent.index_en = info[@"index_en"];
 //                    [newStudent setCourse:course];
                     
                     NSLog(@"과정의 컨텍스트로 (%@)학생 저장 (%@ === %@)", newStudent.name, context, childContext);

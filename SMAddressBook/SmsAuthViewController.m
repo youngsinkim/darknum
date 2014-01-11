@@ -174,7 +174,10 @@
     
     [self.view addSubview:_confirmBtn];
 
-}   
+    // 2014-1-11, 인증번호 확인 버튼은 인증번호 받기가 정상동작하면 활성화한다.
+    [_confirmBtn setEnabled:NO];
+
+}
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -183,7 +186,7 @@
     NSLog(@"Touched!");
 //    [textField resignFirstResponder];
     [self.view endEditing:YES];// this will do the trick
-    
+
 }
 
 #pragma mark - UITextField delegate
@@ -320,6 +323,8 @@
                                                 // 휴대폰 번호 기억
                                                 phoneNumberStr = _phoneNumberField.text;
                                                 NSLog(@"사용자 휴대폰번호: %@", phoneNumberStr);
+
+                                                [_confirmBtn setEnabled:YES];
                                             }
                                             
                                         }];

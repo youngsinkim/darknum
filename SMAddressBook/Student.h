@@ -37,6 +37,8 @@
 @property (nonatomic, retain) NSString * hasapp;
 @property (nonatomic, retain) NSString * iscurrent;
 @property (nonatomic, retain) NSString * birth;
+@property (nonatomic, retain) NSString * index;
+@property (nonatomic, retain) NSString * index_en;
 @property (nonatomic, retain) Course *course;
 
 @end

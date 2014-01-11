@@ -736,6 +736,8 @@
                         student.title_en = info[@"title_en"];
                         student.viewphotourl = info[@"viewphotourl"];
                         student.iscurrent = info[@"iscurrent"];
+                        student.index = info[@"index"];
+                        student.index_en = info[@"index_en"];
                         //                        student.course;
                     }
                 }
@@ -795,7 +797,9 @@
                     newStudent.title = info[@"title"];
                     newStudent.title_en = info[@"title_en"];
                     newStudent.viewphotourl = info[@"viewphotourl"];
-                    
+                    newStudent.index = info[@"index"];
+                    newStudent.index_en = info[@"index_en"];
+
                     newStudent.course = course;
                     //                        [newStudent setCourse:course];
                     
