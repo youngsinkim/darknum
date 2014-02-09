@@ -554,8 +554,11 @@
                                                 NSLog(@"error UserInfo : %@", info);
                                                 BOOL isErrorAlert = YES;
                                                 
-                                                if ([info isKindOfClass:[NSDictionary class]]) {
-                                                    if ([info[@"errcode"] isEqualToString:@"2"]) {
+                                                if ([info isKindOfClass:[NSDictionary class]])
+                                                {
+                                                    if ([info[@"errcode"] isEqualToString:@"1"] ||
+                                                        [info[@"errcode"] isEqualToString:@"2"])
+                                                    {
                                                         isErrorAlert = NO;
                                                         NSLog(@"..... 모든 정보 리셋하고 로그인 화면으로 이동");
                                                         
@@ -563,10 +566,9 @@
 
                                                         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                                                         [appDelegate goLoginViewControllerWithDataReset:YES];
-//                                                        isErrorAlert = NO;
                                                     }
                                                 }
-
+                                                
                                                 if (isErrorAlert) {
                                                     [[SMNetworkClient sharedClient] showNetworkError:error];
                                                 }

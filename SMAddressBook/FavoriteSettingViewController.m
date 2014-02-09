@@ -1118,8 +1118,10 @@
         NSLog(@"체크 정보 : %@, %@, %@ (my %@ == %@)", courseCheck.title, courseCheck.type, courseCheck.favyn, myClass, courseCheck.courseclass);
         if ([courseCheck.type integerValue] > 1 || [myClass isEqualToString:courseCheck.courseclass])
         {
-            cell.favyn = YES;
-            cell.favEnabled = NO;
+//            cell.favyn = YES;
+//            cell.favEnabled = NO;
+            [cell setFavyn:YES];
+            [cell setFavEnabled:NO];
         }
         else
         {

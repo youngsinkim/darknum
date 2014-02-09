@@ -343,11 +343,20 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 2) {
-        [cell setBackgroundColor:UIColorFromRGB(0xe6e6e6)];
-    } else {
-        [cell setBackgroundColor:UIColorFromRGB(0xffffff)];
+    NSUInteger curIdx = 0;
+    for (NSInteger idx = 0; idx < [indexPath section]; idx++)
+    {
+        NSArray *section = [_studentSections objectAtIndex:idx];
+        curIdx += [section count];
     }
+    curIdx += [indexPath row];
+    
+//    if (indexPath.row % 2)
+    if (curIdx % 2)
+        [cell setBackgroundColor:UIColorFromRGB(0xe6e6e6)];
+    else
+        [cell setBackgroundColor:UIColorFromRGB(0xffffff)];
+
     
     // selected cell background color
     UIView *bgColorView = [[UIView alloc] init];
@@ -449,6 +458,7 @@
     DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
 //    DetailInfoViewController *viewController = [[DetailInfoViewController alloc] initWithType:MemberTypeStudent];
 
+    // 섹션별로 구분되어 있는 정보에서 현재 선택 학생의 전체에서의 인덱스를 구한다.
     NSUInteger selIdx = 0;
     for (NSInteger idx = 0; idx < [indexPath section]; idx++)
     {
