@@ -555,8 +555,7 @@
                                                 
                                                 if ([info isKindOfClass:[NSDictionary class]])
                                                 {
-                                                    if ([info[@"errcode"] isEqualToString:@"1"] ||
-                                                        [info[@"errcode"] isEqualToString:@"2"])
+                                                    if ([info[@"errcode"] isEqualToString:@"2"])
                                                     {
                                                         isErrorAlert = NO;
                                                         NSLog(@"..... 모든 정보 리셋하고 로그인 화면으로 이동");
@@ -566,9 +565,23 @@
                                                         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                                                         [appDelegate goLoginViewControllerWithDataReset:YES];
                                                     }
+                                                    else if ([info[@"errcode"] isEqualToString:@"1"])      // 비밀번호 변경 등으로 로그인 실패
+                                                    {
+                                                        // 기본 네트워크 Alert는 표시하지 않고 별도의 Alert로 처리
+                                                        isErrorAlert = NO;
+                                                        
+                                                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                                                                            message:info[@"errmsg"]
+                                                                                                           delegate:self
+                                                                                                  cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+                                                                                                  otherButtonTitles:nil];
+                                                        alertView.tag = 950;
+                                                        [alertView show];
+                                                    }
                                                 }
                                                 
-                                                if (isErrorAlert) {
+                                                if (isErrorAlert)
+                                                {
                                                     [[SMNetworkClient sharedClient] showNetworkError:error];
                                                 }
                                             }
@@ -688,6 +701,13 @@
                 //                                                    [self.splashViewController.parentViewController dismissViewControllerAnimated:NO completion:nil];
             }
         }
+    }
+    else if (950 == alertView.tag)
+    {
+        [self.splashViewController dismissViewControllerAnimated:NO completion:nil];
+        
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [appDelegate goLoginViewControllerWithDataReset:NO];
     }
 }
 

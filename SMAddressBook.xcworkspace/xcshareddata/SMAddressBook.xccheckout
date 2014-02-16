@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CFB63974-1747-4F34-8BB2-E2EF266EC53D</string>
+	<string>FEEE947F-BDA4-436C-B53F-31A05F91ACAE</string>
 	<key>IDESourceControlProjectName</key>
 	<string>SMAddressBook</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>523F0457-6458-4313-B4D2-D2AD1C7D27FB</key>
-		<string>https://bitbucket.org/sochae78/smaddressbook.git</string>
+		<key>08E3B5C0-D324-4433-87C0-A43793A8ED31</key>
+		<string>ssh://github.com/darkpuca/darknum.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>SMAddressBook.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>523F0457-6458-4313-B4D2-D2AD1C7D27FB</key>
+		<key>08E3B5C0-D324-4433-87C0-A43793A8ED31</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://bitbucket.org/sochae78/smaddressbook.git</string>
+	<string>ssh://github.com/darkpuca/darknum.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>523F0457-6458-4313-B4D2-D2AD1C7D27FB</string>
+	<string>08E3B5C0-D324-4433-87C0-A43793A8ED31</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>523F0457-6458-4313-B4D2-D2AD1C7D27FB</string>
+			<string>08E3B5C0-D324-4433-87C0-A43793A8ED31</string>
 			<key>IDESourceControlWCCName</key>
-			<string>snumba_0914</string>
+			<string>snumba</string>
 		</dict>
 	</array>
 </dict>

@@ -458,7 +458,7 @@
     DetailViewController *viewController = [[DetailViewController alloc] initWithType:MemberTypeStudent];
 //    DetailInfoViewController *viewController = [[DetailInfoViewController alloc] initWithType:MemberTypeStudent];
 
-    // 섹션별로 구분되어 있는 정보에서 현재 선택 학생의 전체에서의 인덱스를 구한다.
+    // dkkim, 섹션별로 구분되어 있는 정보에서 현재 선택 학생의 전체에서의 인덱스를 구한다.
     NSUInteger selIdx = 0;
     for (NSInteger idx = 0; idx < [indexPath section]; idx++)
     {
@@ -466,6 +466,50 @@
         selIdx += [section count];
     }
     selIdx += [indexPath row];
+    
+    NSArray *section = [_studentSections objectAtIndex:[indexPath section]];
+    NSMutableDictionary *selDict = [NSMutableDictionary dictionary];
+    
+    if ([section[indexPath.row] isKindOfClass:[NSDictionary class]])
+    {
+        // 서버에서 받아온 데이터는 NSDictionary.
+        [selDict setDictionary:section[indexPath.row]];
+        
+        
+        // 2014-2-16, 전체 리스트에서 동일한 이름 또는 id를 찾는다.
+        for (NSDictionary *item in _students)
+        {
+            if (selDict[@"studcode"] == item[@"studcode"])
+            {
+                selIdx = [_students indexOfObject:item];
+                break;
+            }
+        }
+    }
+    else
+    {
+        // DB에서 읽으면 NSManagedObject
+        Student *student = section[indexPath.row];
+
+        NSArray *keys = [[[student entity] attributesByName] allKeys];
+        [selDict setDictionary:[student dictionaryWithValuesForKeys:keys]];
+        
+        // 2014-2-16, 전체 리스트에서 동일한 이름 또는 id를 찾는다.
+        for (Student *item in _students)
+        {
+            NSArray *keys = [[[student entity] attributesByName] allKeys];
+
+            NSMutableDictionary *srcDict = [NSMutableDictionary dictionary];
+            [srcDict setDictionary:[student dictionaryWithValuesForKeys:keys]];
+
+            if (selDict[@"studcode"] == srcDict[@"studcode"])
+            {
+                selIdx = [_students indexOfObject:item];
+                break;
+            }
+        }
+    }
+    
 
 //    viewController.currentIdx = indexPath.row;
     viewController.currentIdx = selIdx;

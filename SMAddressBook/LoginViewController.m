@@ -116,6 +116,8 @@
     [_idTextField setFont:[UIFont systemFontOfSize:13.0f]];
     [_idTextField setPlaceholder:LocalizedString(@"user_id_placeholder", @"아이디 빈문자열")];
     [_idTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_idTextField setAutocorrectionType:UITextAutocorrectionTypeNo];
+    
     {
         UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, inputBgImage.size.height)];
         [_idTextField setLeftView:paddingView];
@@ -529,8 +531,10 @@
 //                                                NSLog(@"error UserInfo : %@", info);
                                                 BOOL isErrorAlert = YES;
                                                 
-                                                if ([info isKindOfClass:[NSDictionary class]]) {
-                                                    if ([info[@"errcode"] isEqualToString:@"2"]) {
+                                                if ([info isKindOfClass:[NSDictionary class]])
+                                                {
+                                                    if ([info[@"errcode"] isEqualToString:@"2"])
+                                                    {
                                                         isErrorAlert = NO;
                                                         NSLog(@"..... 모든 정보 리셋하고 로그인 화면으로 이동");
                                                         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -538,7 +542,8 @@
                                                     }
                                                 }
 
-                                                if (isErrorAlert) {
+                                                if (isErrorAlert)
+                                                {
                                                     [[SMNetworkClient sharedClient] showNetworkError:error];
                                                 }
                                             }
@@ -563,6 +568,8 @@
                                                             [DBMethod resetDatabase];
                                                         }
                                                     }
+                                                    
+                                                    // 왜 로그인하면 정보를 다 지우지?
 
                                                     [UserContext shared].certNo     = dict[kCertNo];
                                                     [UserContext shared].memberType = dict[kMemType];
@@ -601,26 +608,28 @@
                                                     [[NSUserDefaults standardUserDefaults] synchronize];
                                                     [UserContext shared].isLogined = YES;
 
+                                                    /*
+                                                     * 2014-2-16, dkkim, 업데이트처리는 AppDelegate에서 완료하였으므로 로그인에서는 처리 필요 없음
+                                                     */
                                                     // 업데이트가 존재하면 팝업으로 공지함.
-                                                    if ([dict[@"forceupdate"] isEqualToString:@"y"])
-                                                    {
-                                                        // update url
-                                                        NSString *appUpdateUrl = [NSString stringWithFormat:@"%@", dict[@"updateurl"]];
-                                                        if (appUpdateUrl.length > 0)
-                                                        {
-                                                            [UserContext shared].appUpdateUrl = appUpdateUrl;
-
-                                                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                                                                                message:LocalizedString(@"update alert msg", @"업데이트 알림 메시지")
-                                                                                                               delegate:self
-                                                                                                      cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
-                                                                                                      otherButtonTitles:LocalizedString(@"Cancel", @"Cancel"),
-                                                                                       nil];
-                                                            alertView.tag = 900;
-                                                            [alertView show];
-                                                            return;
-                                                        }
-                                                    }
+//                                                    if ([dict[@"forceupdate"] isEqualToString:@"y"])
+//                                                    {
+//                                                        // update url
+//                                                        NSString *appUpdateUrl = [NSString stringWithFormat:@"%@", dict[@"updateurl"]];
+//                                                        if (appUpdateUrl.length > 0)
+//                                                        {
+//                                                            [UserContext shared].appUpdateUrl = appUpdateUrl;
+//
+//                                                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+//                                                                                                                message:LocalizedString(@"update alert msg", @"업데이트 알림 메시지")
+//                                                                                                               delegate:self
+//                                                                                                      cancelButtonTitle:LocalizedString(@"Ok", @"Ok")
+//                                                                                                      otherButtonTitles:LocalizedString(@"Cancel", @"Cancel"),
+//                                                                                       nil];
+//                                                            alertView.tag = 900;
+//                                                            [alertView show];
+//                                                        }
+//                                                    }
                                                 }
                                                 
 
