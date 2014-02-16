@@ -44,7 +44,7 @@
         _favoriteBtn.frame = CGRectMake(rect.size.width - 10.0f - 30.0f, 0.0f, 30.0f, 28.0f);
         [_favoriteBtn setImage:[UIImage imageNamed:@"check_off"] forState:UIControlStateNormal];
         [_favoriteBtn setImage:[UIImage imageNamed:@"check_on"] forState:UIControlStateSelected];
-        [_favoriteBtn setImage:[UIImage imageNamed:@"check_disable"] forState:UIControlStateSelected|UIControlStateDisabled];
+        [_favoriteBtn setImage:[UIImage imageNamed:@"check_on_disable"] forState:UIControlStateSelected|UIControlStateDisabled];
         
         [_favoriteBtn addTarget:self action:@selector(onBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         

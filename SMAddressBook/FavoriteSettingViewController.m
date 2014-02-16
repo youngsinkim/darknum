@@ -431,7 +431,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(courseclass == '')"];
     [fetchRequest setPredicate:predicate];
     
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"courseclass" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title_en" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
     NSError *error = nil;

@@ -125,7 +125,6 @@
 
         [self.container.centerViewController presentViewController:self.splashViewController animated:NO completion:nil];
 
-        
         // 자동 로그인 요청
         [self requestAPILogin];
         
@@ -591,7 +590,7 @@
                                                     [UserContext shared].isLogined = YES;
                                                     
                                                 }
-                                                
+
                                                 // 업데이트가 존재하면 팝업으로 공지함.
                                                 if ([dict[@"forceupdate"] isEqualToString:@"y"])
                                                 {
@@ -609,11 +608,10 @@
                                                                                   nil];
                                                         alertView.tag = 900;
                                                         [alertView show];
-                                                        return;
+                                                        //return;
                                                     }
                                                 }
 
-                                                
                                                 [self.splashViewController dismissViewControllerAnimated:NO completion:nil];
                                                 
                                                 // 로그인 성공 후, 약관 동의를 하지 않았으면 약관동의 화면으로 이동
