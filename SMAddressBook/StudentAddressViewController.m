@@ -87,7 +87,7 @@
     
     // 학생 목록 DB에서 가져오기
     [_students setArray:[self sorted:[self loadDBFilteredStudents]]];
-    
+
     
     if ([_students count] == 0) {
         // 전체보기에서 들어올 경우는 즐겨찾기로 저장된 기수가 아니면 db에 목록이 존재하지 않으므로 서버로 요청한다...
@@ -267,13 +267,13 @@
 
     NSSortDescriptor *sortDescriptor;
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     } else {
         sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name_en" ascending:YES];
     }
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 
-    array = [[array sortedArrayUsingDescriptors:sortDescriptors] copy];
+    array = [[array sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
 
     return array;
 }
@@ -308,12 +308,12 @@
                                                else
                                                {
                                                    // 기수 학생 목록
-                                                   [_students setArray:[result mutableCopy]];
+                                                   _students = [self sorted:[result mutableCopy]];
                                                    NSLog(@"(%@)기수 학생 수 : %d", _info[@"courseclass"], [_students count]);
                                                
                                                    dispatch_async(dispatch_get_main_queue(), ^{
 //                                                      [self performSelectorOnMainThread:@selector(updateTable) withObject:nil waitUntilDone:NO];
-                                                       _students = [self sorted:_students];
+//                                                       _students = [self sorted:_students];
                                                        [self updateStudentIndexes];
                                                        [_studentTableView reloadData];
                                                    });

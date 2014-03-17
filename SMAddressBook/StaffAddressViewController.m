@@ -175,7 +175,7 @@
 
     NSSortDescriptor *sortDescriptor;
     if ([[UserContext shared].language isEqualToString:kLMKorean]) {
-        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+        sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     } else {
         sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name_en" ascending:YES];
     }
